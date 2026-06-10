@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General Français — Vocabulaire & Grammaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --fr:#1a4fa3;--fr-dark:#0d2d6b;--fr-light:#e8eef8;
+  --indigo:#4f46e5;--indigo-light:#eef2ff;
+  --green:#16a34a;--green-light:#dcfce7;--green-dark:#14532d;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,var(--indigo) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+.mode-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:4px;}
+.mode-tab{flex:1;padding:10px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;}
+.mode-tab.act{background:var(--indigo);color:#fff;}
+.mode-tab:hover:not(.act){color:var(--indigo);}
+
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--indigo);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:#4338ca;}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.score-bar{display:flex;align-items:center;gap:12px;background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none;}
+.sb-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--indigo);}
+.sb-bar{flex:1;height:6px;background:var(--bg);border-radius:6px;overflow:hidden;}
+.sb-fill{height:100%;background:linear-gradient(90deg,#1e1b4b,var(--indigo));border-radius:6px;transition:width 0.3s;}
+
+/* 플래시카드 */
+.fc-wrap{perspective:1000px;margin-bottom:14px;}
+.flashcard{width:100%;min-height:220px;position:relative;transform-style:preserve-3d;transition:transform 0.5s;cursor:pointer;border-radius:14px;}
+.flashcard.flipped{transform:rotateY(180deg);}
+.fc-front,.fc-back{position:absolute;inset:0;border-radius:14px;padding:28px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.fc-front{background:linear-gradient(135deg,#1e1b4b,var(--indigo));color:#fff;}
+.fc-back{background:var(--white);border:0.5px solid var(--border);transform:rotateY(180deg);}
+.fc-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.6;margin-bottom:10px;}
+.fc-word{font-family:'DM Serif Display',serif;font-size:40px;margin-bottom:4px;line-height:1.2;}
+.fc-pos{font-size:12px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.2);display:inline-block;margin-bottom:12px;}
+.fc-hint{font-size:12px;opacity:.55;margin-top:auto;}
+.fc-def{font-size:15px;color:var(--text);margin-bottom:6px;line-height:1.5;font-weight:600;}
+.fc-ko{font-size:15px;color:var(--indigo);font-weight:600;margin-bottom:8px;}
+.fc-example{font-size:12px;color:var(--text-muted);line-height:1.65;background:var(--bg);padding:8px 12px;border-radius:8px;width:100%;text-align:left;font-style:italic;}
+.nav-btns{display:flex;gap:10px;margin-top:8px;}
+.nav-btn{flex:1;padding:12px;border-radius:10px;border:0.5px solid var(--border-md);background:var(--white);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.nav-btn:disabled{opacity:.4;cursor:default;}
+.nav-btn.primary{background:var(--indigo);color:#fff;border-color:var(--indigo);}
+.nav-btn.primary:hover{background:#4338ca;}
+
+/* 퀴즈 */
+.quiz-word{background:linear-gradient(135deg,#1e1b4b,var(--indigo));border-radius:14px;padding:28px;text-align:center;margin-bottom:14px;color:#fff;}
+.qw-word{font-family:'DM Serif Display',serif;font-size:40px;margin-bottom:4px;line-height:1.2;}
+.qw-pos{font-size:12px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.2);display:inline-block;margin-bottom:8px;}
+.qw-label{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.options{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.opt-btn{padding:12px 16px;border-radius:10px;border:1.5px solid var(--border-md);background:var(--white);font-size:13px;color:var(--text);cursor:pointer;font-family:inherit;transition:all 0.2s;text-align:left;line-height:1.5;}
+.opt-btn:hover:not(:disabled){border-color:var(--indigo);background:var(--indigo-light);}
+.opt-btn.correct{border-color:var(--green);background:var(--green-light);color:var(--green-dark);font-weight:500;}
+.opt-btn.wrong{border-color:var(--red);background:var(--red-light);color:#991b1b;}
+
+/* 단어 목록 */
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;}
+.word-item{background:var(--bg);border-radius:10px;padding:14px;cursor:pointer;transition:all 0.2s;border:0.5px solid var(--border);}
+.word-item:hover{border-color:var(--indigo);background:var(--indigo-light);}
+.wi-word{font-size:18px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.wi-pos{font-size:11px;color:var(--text-light);font-style:italic;margin-bottom:3px;}
+.wi-ko{font-size:12px;color:var(--indigo);font-weight:600;margin-top:4px;}
+
+/* 문법 카드 */
+.grammar-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.gc-header{background:linear-gradient(135deg,#1e1b4b,var(--indigo));padding:20px 22px;color:#fff;}
+.gc-pattern{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:4px;}
+.gc-name{font-size:13px;opacity:.75;}
+.gc-body{padding:18px;}
+.gc-meaning{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px;padding:10px 14px;background:var(--indigo-light);border-radius:8px;border-left:3px solid var(--indigo);}
+.gc-meaning-ko{font-size:12px;color:var(--text-muted);margin-top:4px;}
+.gc-examples-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-light);margin-bottom:8px;}
+.gc-example{display:flex;flex-direction:column;gap:3px;padding:8px 12px;background:var(--bg);border-radius:8px;margin-bottom:6px;}
+.gc-ex-fr{font-size:14px;color:var(--text);line-height:1.65;font-style:italic;}
+.gc-ex-ko{font-size:12px;color:var(--text-muted);}
+
+/* 문법 퀴즈 */
+.gq-sentence{background:linear-gradient(135deg,#1e1b4b,var(--indigo));border-radius:14px;padding:24px;text-align:center;margin-bottom:14px;color:#fff;}
+.gq-label{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.gq-text{font-size:18px;line-height:1.9;margin-bottom:8px;}
+.gq-ko{font-size:13px;opacity:.65;}
+.blank{display:inline-block;width:72px;border-bottom:2px solid rgba(255,255,255,0.6);text-align:center;vertical-align:middle;}
+
+.result-box{background:linear-gradient(135deg,#1e1b4b,var(--indigo));border-radius:14px;padding:32px;text-align:center;display:none;color:#fff;margin-top:16px;}
+.rb-icon{font-size:48px;margin-bottom:12px;}
+.rb-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.rb-score{font-size:18px;opacity:.8;margin-bottom:16px;}
+.rb-btn{padding:12px 28px;border-radius:10px;background:rgba(255,255,255,0.15);color:#fff;border:0.5px solid rgba(255,255,255,0.3);cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;}
+
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);}
+.card-body{padding:18px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" data-ko="General 프랑스어 · 어휘·문법" data-fr="Français Général · Vocabulaire & Grammaire">General 프랑스어 · 어휘·문법</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← General 홈" data-fr="← Accueil">← General 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('fr')" id="btn-fr">Français</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="hero fade-in">
+    <div class="hero-tag" data-ko="GENERAL 프랑스어 · 어휘·문법" data-fr="FRANÇAIS GÉNÉRAL · VOCABULAIRE & GRAMMAIRE">GENERAL 프랑스어 · 어휘·문법</div>
+    <div class="hero-title" data-ko="📚 어휘·문법 학습" data-fr="📚 Vocabulaire & Grammaire">📚 어휘·문법 학습</div>
+    <div class="hero-desc" data-ko="주제별 프랑스어 어휘를 플래시카드로 외우고, 핵심 문법 패턴을 학습하세요." data-fr="Mémorisez le vocabulaire français par thème avec des flashcards et apprenez les structures grammaticales clés.">주제별 프랑스어 어휘를 플래시카드로 외우고, 핵심 문법 패턴을 학습하세요.</div>
+    <div class="hero-badges">
+      <span class="hero-badge">A1 ~ C2</span>
+      <span class="hero-badge" data-ko="🃏 플래시카드" data-fr="🃏 Flashcards">🃏 플래시카드</span>
+      <span class="hero-badge" data-ko="📝 퀴즈" data-fr="📝 Quiz">📝 퀴즈</span>
+      <span class="hero-badge" data-ko="문법 패턴" data-fr="Structures grammaticales">문법 패턴</span>
+    </div>
+  </div>
+
+  <div class="mode-tabs fade-in">
+    <button class="mode-tab act" onclick="setSection('vocab',this)" data-ko="📚 어휘" data-fr="📚 Vocabulaire">📚 어휘</button>
+    <button class="mode-tab" onclick="setSection('grammar',this)" data-ko="📐 문법·구문" data-fr="📐 Grammaire">📐 문법·구문</button>
+  </div>
+
+  <!-- 어휘 설정 -->
+  <div id="vocab-settings">
+    <div class="settings-row fade-in">
+      <div class="setting-item">
+        <div class="si-label" data-ko="레벨" data-fr="Niveau">레벨</div>
+        <select class="si-select" id="v-level">
+          <option value="A1">A1 (Débutant)</option>
+          <option value="A2" selected>A2 (Élémentaire)</option>
+          <option value="B1">B1 (Intermédiaire)</option>
+          <option value="B2">B2 (Avancé)</option>
+          <option value="C1">C1 (Maîtrise)</option>
+          <option value="C2">C2 (Maîtrise complète)</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="주제" data-fr="Thème">주제</div>
+        <select class="si-select" id="v-topic">
+          <option value="vie quotidienne">일상생활 / Vie quotidienne</option>
+          <option value="voyages et transports">여행·교통 / Voyages</option>
+          <option value="travail et carrière">직장·경력 / Travail</option>
+          <option value="alimentation et cuisine">음식·요리 / Alimentation</option>
+          <option value="santé et corps">건강·신체 / Santé</option>
+          <option value="culture et loisirs">문화·여가 / Culture</option>
+          <option value="famille et relations">가족·관계 / Famille</option>
+          <option value="nature et environnement">자연·환경 / Nature</option>
+          <option value="technologie et société">기술·사회 / Technologie</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="단어 수" data-fr="Nombre">단어 수</div>
+        <select class="si-select" id="v-count">
+          <option value="5">5</option>
+          <option value="8" selected>8</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="학습 모드" data-fr="Mode">학습 모드</div>
+        <select class="si-select" id="v-mode">
+          <option value="flashcard" data-ko="🃏 플래시카드" data-fr="🃏 Flashcards">🃏 플래시카드</option>
+          <option value="quiz" data-ko="📝 퀴즈" data-fr="📝 Quiz">📝 퀴즈</option>
+          <option value="list" data-ko="📋 단어 목록" data-fr="📋 Liste">📋 목록</option>
+        </select>
+      </div>
+    </div>
+    <button class="gen-btn fade-in" id="v-gen-btn" onclick="generateVocab()">
+      🤖 <span data-ko="어휘 생성" data-fr="Générer le vocabulaire">어휘 생성</span>
+    </button>
+  </div>
+
+  <!-- 문법 설정 -->
+  <div id="grammar-settings" style="display:none;">
+    <div class="settings-row fade-in">
+      <div class="setting-item">
+        <div class="si-label" data-ko="레벨" data-fr="Niveau">레벨</div>
+        <select class="si-select" id="g-level">
+          <option value="A1">A1</option>
+          <option value="A2" selected>A2</option>
+          <option value="B1">B1</option>
+          <option value="B2">B2</option>
+          <option value="C1">C1</option>
+          <option value="C2">C2</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="카테고리" data-fr="Catégorie">카테고리</div>
+        <select class="si-select" id="g-cat">
+          <option value="temps et conjugaison">시제·동사 활용 / Temps</option>
+          <option value="genre et accord">성·수 일치 / Genre</option>
+          <option value="négation et interrogation">부정·의문 / Négation</option>
+          <option value="pronoms">대명사 / Pronoms</option>
+          <option value="subjonctif et conditionnel">접속법·조건법 / Subjonctif</option>
+          <option value="prépositions et locutions">전치사·연어 / Prépositions</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="학습 모드" data-fr="Mode">학습 모드</div>
+        <select class="si-select" id="g-mode">
+          <option value="learn" data-ko="📖 학습" data-fr="📖 Apprendre">📖 학습</option>
+          <option value="quiz" data-ko="📝 빈칸 퀴즈" data-fr="📝 Texte à trous">📝 빈칸 퀴즈</option>
+        </select>
+      </div>
+    </div>
+    <button class="gen-btn fade-in" id="g-gen-btn" onclick="generateGrammar()">
+      🤖 <span data-ko="문법 생성" data-fr="Générer la grammaire">문법 생성</span>
+    </button>
+  </div>
+
+  <div class="score-bar" id="score-bar">
+    <div><div class="sb-num" id="sb-num">0 / 0</div><div style="font-size:12px;color:var(--text-muted);">진행</div></div>
+    <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
+    <div id="card-counter" style="font-size:12px;color:var(--text-light);white-space:nowrap;"></div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="result-box" id="result-box">
+    <div class="rb-icon" id="rb-icon">🎉</div>
+    <div class="rb-title" id="rb-title"></div>
+    <div class="rb-score" id="rb-score"></div>
+    <button class="rb-btn" onclick="reGenerate()">🔄 <span id="rb-btn-label"></span></button>
+  </div>
+</div>
+
+<script>
+let lang='ko', section='vocab';
+let words=[], grammars=[];
+let currentIdx=0, score=0, answered=0;
+let lastGenFn=null;
+
+
+function safeParseJSON(raw){
+  var s = raw.replace(/```json|```/g, '').trim();
+  var first = s.indexOf('[');
+  var last = s.lastIndexOf(']');
+  if(first !== -1 && last !== -1) s = s.slice(first, last + 1);
+  try { return JSON.parse(s); } catch(e1) {}
+  var clean = '';
+  for(var i = 0; i < s.length; i++){
+    var c = s.charCodeAt(i);
+    if(c === 10 || c === 13 || c === 9) clean += ' ';
+    else if(c >= 32) clean += s[i];
+  }
+  try { return JSON.parse(clean); } catch(e2) {}
+  throw new Error('JSON parse failed');
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-fr]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-fr');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-fr').classList.toggle('act',l==='fr');
+}
+
+function setSection(s,btn){
+  section=s;
+  document.querySelectorAll('.mode-tab').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById('vocab-settings').style.display=s==='vocab'?'block':'none';
+  document.getElementById('grammar-settings').style.display=s==='grammar'?'block':'none';
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  words=[]; grammars=[]; currentIdx=0; score=0; answered=0;
+}
+
+function reGenerate(){ if(lastGenFn) lastGenFn(); }
+
+// ── 어휘 생성 ────────────────────────────────────────────────────────
+async function generateVocab(){
+  lastGenFn=generateVocab;
+  const level=document.getElementById('v-level').value;
+  const topic=document.getElementById('v-topic').value;
+  const count=document.getElementById('v-count').value;
+  const mode=document.getElementById('v-mode').value;
+  const btn=document.getElementById('v-gen-btn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ <span>'+(lang==='ko'?'생성 중...':'Génération...')+'</span>';
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  words=[]; currentIdx=0; score=0; answered=0;
+
+  const delf={A1:'DELF A1',A2:'DELF A2',B1:'DELF B1',B2:'DELF B2',C1:'DALF C1',C2:'DALF C2'}[level]||level;
+  const prompt=`Generate ${count} French vocabulary words for level ${delf}. Topic: ${topic}.
+CRITICAL: Return ONLY a valid JSON array. No markdown. No backticks. No extra text.
+Use ONLY straight double quotes for JSON. Replace ALL apostrophes in French text with [apostrophe] placeholder — NO, instead avoid apostrophes by rewriting: use "ne ... pas" not "n'...", "il y a" not contractions.
+[{"word":"bonjour","pos":"interj.","definition_fr":"Formule de salutation","meaning_ko":"안녕하세요","example_fr":"Il dit bonjour a ses amis.","example_ko":"그는 친구들에게 인사한다.","synonyms":["salut","bonsoir"]}]
+Rules: avoid apostrophes in all strings. All French text in French. meaning_ko and example_ko in Korean. Single-line strings only. Return ONLY the JSON array.`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,
+        messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.[0]?.text||'';
+    words=safeParseJSON(raw);
+    if(mode==='flashcard') renderFlashcards();
+    else if(mode==='quiz') renderVocabQuiz();
+    else renderWordList();
+  }catch(e){
+    document.getElementById('content-area').innerHTML=`<div style="text-align:center;padding:24px;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패':'Échec'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  btn.disabled=false;
+  btn.innerHTML='🔄 <span>'+(lang==='ko'?'새로 생성':'Regénérer')+'</span>';
+}
+
+// 플래시카드
+function renderFlashcards(){
+  document.getElementById('score-bar').style.display='flex';
+  showFlashcard(0);
+}
+function showFlashcard(idx){
+  currentIdx=idx;
+  const w=words[idx];
+  const area=document.getElementById('content-area');
+  const fc=document.createElement('div'); fc.className='fc-wrap fade-in';
+  fc.innerHTML=`
+    <div class="flashcard" id="fc" onclick="this.classList.toggle('flipped')">
+      <div class="fc-front">
+        <div class="fc-label">${lang==='ko'?'단어':'Mot'} ${idx+1} / ${words.length}</div>
+        <div class="fc-word">${w.word}</div>
+        <div class="fc-pos">${w.pos}</div>
+        <div class="fc-hint">${lang==='ko'?'클릭해서 뒤집기 👆':'Cliquez pour retourner 👆'}</div>
+      </div>
+      <div class="fc-back">
+        <div class="fc-label">${lang==='ko'?'뜻·예문':'Sens & Exemple'}</div>
+        <div class="fc-def">${w.definition_fr}</div>
+        <div class="fc-ko">${w.meaning_ko}</div>
+        <div class="fc-example">${w.example_fr}<br><span style="color:var(--text-light);font-size:11px;">${w.example_ko}</span></div>
+        ${w.synonyms?.length?`<div style="margin-top:8px;font-size:11px;color:var(--text-light);">≈ ${w.synonyms.join(', ')}</div>`:''}
+      </div>
+    </div>`;
+  const btns=document.createElement('div'); btns.className='nav-btns';
+  const prev=document.createElement('button'); prev.className='nav-btn';
+  prev.textContent='← '+(lang==='ko'?'이전':'Précédent');
+  if(idx===0) prev.disabled=true;
+  prev.addEventListener('click',()=>showFlashcard(idx-1));
+  const next=document.createElement('button'); next.className='nav-btn primary';
+  next.textContent=idx===words.length-1?(lang==='ko'?'완료 ✓':'Terminé ✓'):(lang==='ko'?'다음 →':'Suivant →');
+  next.addEventListener('click',()=>{ if(idx<words.length-1) showFlashcard(idx+1); else showResult(words.length,words.length,'vocab'); });
+  btns.append(prev,next);
+  area.innerHTML=''; area.append(fc,btns);
+  updateProgress(idx+1,words.length,idx+1,words.length);
+}
+
+// 퀴즈
+function renderVocabQuiz(){
+  document.getElementById('score-bar').style.display='flex';
+  showVQuiz(0);
+}
+function showVQuiz(idx){
+  currentIdx=idx;
+  const w=words[idx];
+  const others=words.filter((_,i)=>i!==idx).sort(()=>Math.random()-.5).slice(0,3).map(o=>o.meaning_ko);
+  const opts=[w.meaning_ko,...others].sort(()=>Math.random()-.5);
+  const area=document.getElementById('content-area');
+  const qDiv=document.createElement('div'); qDiv.className='quiz-word fade-in';
+  qDiv.innerHTML=`
+    <div class="qw-label">${lang==='ko'?'뜻을 고르세요':'Choisissez la bonne traduction'} (${idx+1}/${words.length})</div>
+    <div class="qw-word">${w.word}</div>
+    <div class="qw-pos">${w.pos}</div>`;
+  const optsDiv=document.createElement('div'); optsDiv.className='options';
+  opts.forEach((o,i)=>{
+    const btn=document.createElement('button'); btn.className='opt-btn';
+    btn.textContent=String.fromCharCode(65+i)+'. '+o;
+    btn.addEventListener('click',()=>{
+      optsDiv.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+      if(o===w.meaning_ko){ btn.classList.add('correct'); score++; }
+      else{ btn.classList.add('wrong'); optsDiv.querySelectorAll('.opt-btn').forEach(b=>{ if(b.textContent.includes(w.meaning_ko)) b.classList.add('correct'); }); }
+      answered++;
+      updateProgress(answered,words.length,score,words.length);
+      setTimeout(()=>{ if(idx<words.length-1) showVQuiz(idx+1); else showResult(score,words.length,'vocab'); },1200);
+    });
+    optsDiv.appendChild(btn);
+  });
+  area.innerHTML=''; area.append(qDiv,optsDiv);
+  updateProgress(answered,words.length,score,words.length);
+}
+
+// 단어 목록
+function renderWordList(){
+  const area=document.getElementById('content-area');
+  const card=document.createElement('div'); card.className='card fade-in';
+  const head=document.createElement('div'); head.className='card-head';
+  head.innerHTML=`<div class="card-title">${lang==='ko'?'단어 목록':'Liste de vocabulaire'} (${words.length}${lang==='ko'?'개':' mots'})</div>`;
+  const body=document.createElement('div'); body.className='card-body';
+  const grid=document.createElement('div'); grid.className='word-grid';
+  words.forEach(w=>{
+    const item=document.createElement('div'); item.className='word-item';
+    item.innerHTML=`<div class="wi-word">${w.word}</div><div class="wi-pos">${w.pos}</div><div class="wi-ko">${w.meaning_ko}</div>`;
+    item.addEventListener('click',()=>showWordPopup(w));
+    grid.appendChild(item);
+  });
+  body.appendChild(grid);
+  card.append(head,body);
+  area.innerHTML=''; area.appendChild(card);
+}
+
+function showWordPopup(w){
+  const existing=document.getElementById('word-popup');
+  if(existing) existing.remove();
+  const popup=document.createElement('div');
+  popup.id='word-popup';
+  popup.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;';
+  popup.innerHTML=`
+    <div style="background:var(--white);border-radius:14px;padding:28px;max-width:400px;width:100%;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div>
+          <div style="font-size:32px;font-weight:700;color:var(--text);line-height:1.2;">${w.word}</div>
+          <div style="font-size:13px;color:var(--text-light);font-style:italic;">${w.pos}</div>
+        </div>
+        <button onclick="document.getElementById('word-popup').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-light);">✕</button>
+      </div>
+      <div style="background:var(--indigo-light);border-radius:8px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:14px;color:var(--indigo);font-weight:600;margin-bottom:4px;">${w.definition_fr}</div>
+        <div style="font-size:13px;color:var(--text-muted);">${w.meaning_ko}</div>
+      </div>
+      <div style="font-size:13px;color:var(--text);line-height:1.7;background:var(--bg);padding:10px 12px;border-radius:8px;font-style:italic;">
+        ${w.example_fr}
+        <div style="font-size:11px;color:var(--text-light);margin-top:3px;font-style:normal;">${w.example_ko}</div>
+      </div>
+      ${w.synonyms?.length?`<div style="margin-top:10px;font-size:12px;color:var(--text-muted);">Synonymes: ${w.synonyms.join(', ')}</div>`:''}
+    </div>`;
+  popup.addEventListener('click',e=>{ if(e.target===popup) popup.remove(); });
+  document.body.appendChild(popup);
+}
+
+// ── 문법 생성 ────────────────────────────────────────────────────────
+async function generateGrammar(){
+  lastGenFn=generateGrammar;
+  const level=document.getElementById('g-level').value;
+  const cat=document.getElementById('g-cat').value;
+  const mode=document.getElementById('g-mode').value;
+  const btn=document.getElementById('g-gen-btn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ <span>'+(lang==='ko'?'생성 중...':'Génération...')+'</span>';
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  grammars=[]; currentIdx=0; score=0; answered=0;
+
+  const delf={A1:'DELF A1',A2:'DELF A2',B1:'DELF B1',B2:'DELF B2',C1:'DALF C1',C2:'DALF C2'}[level]||level;
+  const prompt=`Generate 3 French grammar structures for level ${delf}. Category: ${cat}.
+CRITICAL: Return ONLY a valid JSON array. No markdown. No backticks. No extra text.
+Avoid ALL apostrophes in strings — rewrite French to avoid contractions (use full forms: "de le" not "du" if needed, avoid "l\'" "j\'" "n\'" etc.).
+[{"pattern":"ne ... pas","name":"Negation simple","meaning_fr":"Forme negative en francais","meaning_ko":"한국어 설명","examples":[{"fr":"Il ne mange pas.","ko":"그는 먹지 않는다."},{"fr":"Elle ne parle pas.","ko":"그녀는 말하지 않는다."},{"fr":"Nous ne sortons pas.","ko":"우리는 나가지 않는다."}],"quiz_sentence":"Il ___ mange pas.","quiz_answer":"ne","quiz_options":["ne","pas","non","ni"]}]
+Rules: avoid apostrophes in ALL strings. French content in French. meaning_ko and examples.ko in Korean. Single-line strings. Return ONLY JSON array.`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,
+        messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.[0]?.text||'';
+    grammars=safeParseJSON(raw);
+    if(mode==='learn') renderGrammarLearn();
+    else renderGrammarQuiz(0);
+  }catch(e){
+    document.getElementById('content-area').innerHTML=`<div style="text-align:center;padding:24px;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패':'Échec'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  btn.disabled=false;
+  btn.innerHTML='🔄 <span>'+(lang==='ko'?'새로 생성':'Regénérer')+'</span>';
+}
+
+function renderGrammarLearn(){
+  const area=document.getElementById('content-area');
+  area.innerHTML='';
+  grammars.forEach(g=>{
+    const card=document.createElement('div'); card.className='grammar-card fade-in';
+    card.innerHTML=`
+      <div class="gc-header">
+        <div class="gc-pattern">${g.pattern}</div>
+        <div class="gc-name">${g.name}</div>
+      </div>
+      <div class="gc-body">
+        <div class="gc-meaning">${g.meaning_fr}<div class="gc-meaning-ko">${g.meaning_ko}</div></div>
+        <div class="gc-examples-title">${lang==='ko'?'예문':'Exemples'}</div>
+        ${(g.examples||[]).map(ex=>`
+          <div class="gc-example">
+            <div class="gc-ex-fr">${ex.fr}</div>
+            <div class="gc-ex-ko">${ex.ko}</div>
+          </div>`).join('')}
+      </div>`;
+    area.appendChild(card);
+  });
+}
+
+function renderGrammarQuiz(idx){
+  if(idx>=grammars.length){ showResult(score,grammars.length,'grammar'); return; }
+  currentIdx=idx;
+  const g=grammars[idx];
+  document.getElementById('score-bar').style.display='flex';
+  updateProgress(idx,grammars.length,score,grammars.length);
+  const area=document.getElementById('content-area');
+  const qDiv=document.createElement('div'); qDiv.className='gq-sentence fade-in';
+  qDiv.innerHTML=`
+    <div class="gq-label">${lang==='ko'?'빈칸에 알맞은 것을 고르세요':'Complétez la phrase'} (${idx+1}/${grammars.length})</div>
+    <div class="gq-text">${g.quiz_sentence.replace('___','<span class="blank"></span>')}</div>
+    <div class="gq-ko">${g.meaning_ko}</div>`;
+  const optsDiv=document.createElement('div'); optsDiv.className='options';
+  const opts=(g.quiz_options||[]).sort(()=>Math.random()-.5);
+  opts.forEach((o,i)=>{
+    const btn=document.createElement('button'); btn.className='opt-btn';
+    btn.textContent=String.fromCharCode(65+i)+'. '+o;
+    btn.addEventListener('click',()=>{
+      optsDiv.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+      if(o===g.quiz_answer){ btn.classList.add('correct'); score++; }
+      else{ btn.classList.add('wrong'); optsDiv.querySelectorAll('.opt-btn').forEach(b=>{ if(b.textContent.includes(g.quiz_answer)) b.classList.add('correct'); }); }
+      answered++;
+      updateProgress(answered,grammars.length,score,grammars.length);
+      setTimeout(()=>renderGrammarQuiz(idx+1),1200);
+    });
+    optsDiv.appendChild(btn);
+  });
+  area.innerHTML=''; area.append(qDiv,optsDiv);
+}
+
+function updateProgress(curr,total,sc,tot){
+  const fill=document.getElementById('sb-fill');
+  const num=document.getElementById('sb-num');
+  const ctr=document.getElementById('card-counter');
+  if(fill) fill.style.width=`${total>0?(curr/total)*100:0}%`;
+  if(num) num.textContent=`${sc} / ${tot}`;
+  if(ctr) ctr.textContent=`${curr} / ${total}`;
+}
+
+function showResult(sc,total,type){
+  const pct=Math.round(sc/total*100);
+  const box=document.getElementById('result-box'); box.style.display='block';
+  document.getElementById('rb-icon').textContent=pct>=80?'🎉':pct>=60?'👍':'💪';
+  document.getElementById('rb-title').textContent=pct>=80?(lang==='ko'?'훌륭합니다!':'Excellent !'):pct>=60?(lang==='ko'?'잘 하셨습니다!':'Bien joué !'):(lang==='ko'?'계속 연습!':'Continuez !');
+  document.getElementById('rb-score').textContent=`${sc} / ${total} (${pct}%)`;
+  document.getElementById('rb-btn-label').textContent=type==='vocab'?(lang==='ko'?'새 단어 세트':'Nouveau vocabulaire'):(lang==='ko'?'새 문법 세트':'Nouvelle grammaire');
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+(function(){ setLang('ko'); })();
+</script>
+</body>
+</html>

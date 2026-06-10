@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — HSK 听力</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --zh:#c0392b;--zh-dark:#7f1a12;--zh-light:#fdf0ef;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+
+.hero{background:linear-gradient(135deg,var(--zh-dark) 0%,var(--zh) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.h-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+/* 부분 탭 */
+.part-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:3px;}
+.ptab{flex:1;padding:9px 8px;border-radius:9px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;white-space:nowrap;}
+.ptab:hover{color:var(--zh);}
+.ptab.act{background:var(--zh);color:#fff;}
+
+.part-info{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:14px;}
+.pi-title{font-size:13px;font-weight:600;color:var(--zh);margin-bottom:6px;}
+.pi-desc{font-size:12px;color:var(--text-muted);line-height:1.65;}
+.pi-tip{margin-top:8px;padding:8px 12px;background:var(--zh-light);border-radius:8px;font-size:12px;color:var(--zh);}
+
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--zh);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--zh-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.loading{padding:40px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:16px;display:none;}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--zh);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.audio-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.ac-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--zh);margin-bottom:10px;}
+.ac-badge{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--zh-light);color:var(--zh);font-weight:600;}
+.player-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border-radius:10px;border:0.5px solid var(--border);}
+.play-btn{width:40px;height:40px;border-radius:50%;background:var(--zh);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.play-btn:hover{background:var(--zh-dark);}
+.play-btn svg{width:16px;height:16px;fill:#fff;}
+.player-info{flex:1;}
+.player-label{font-size:11px;color:var(--text-muted);margin-bottom:4px;}
+.player-bar{height:5px;background:var(--border);border-radius:5px;overflow:hidden;}
+.player-fill{height:100%;background:linear-gradient(90deg,var(--zh-dark),var(--zh));border-radius:5px;width:0%;transition:width 0.1s;}
+.speed-btn{padding:3px 9px;border-radius:7px;border:0.5px solid var(--border-md);background:transparent;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;font-family:inherit;flex-shrink:0;}
+.speed-btn:hover{background:var(--zh-light);color:var(--zh);border-color:var(--zh);}
+
+/* 스크립트 */
+.script-wrap{margin-top:10px;border-top:0.5px solid var(--border);padding-top:10px;display:none;}
+.script-wrap.open{display:block;}
+.script-toggle{font-size:11px;color:var(--zh);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 0;margin-bottom:8px;}
+.script-line{display:flex;flex-direction:column;gap:2px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+.script-line:hover{background:var(--zh-light);}
+.script-line.act{background:var(--zh-light);}
+.sl-row{display:flex;gap:8px;}
+.sl-spk{font-size:10px;font-weight:700;color:var(--zh);min-width:46px;padding-top:2px;text-transform:uppercase;}
+.sl-txt{font-size:13px;color:var(--text);line-height:1.65;flex:1;}
+.sl-pinyin{font-size:11px;color:var(--text-muted);font-style:italic;padding-left:54px;}
+
+/* 문제 */
+.q-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.q-item{margin-bottom:12px;padding:12px 14px;background:var(--bg);border-radius:10px;}
+.q-item:last-child{margin-bottom:0;}
+.q-num{font-size:10px;font-weight:700;color:var(--zh);letter-spacing:.5px;margin-bottom:6px;}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px;line-height:1.6;}
+.q-pinyin{font-size:11px;color:var(--text-muted);font-style:italic;margin-bottom:8px;}
+.q-opts{display:flex;flex-direction:column;gap:6px;}
+.q-opt{padding:9px 14px;border-radius:8px;border:1.5px solid var(--border-md);background:var(--white);cursor:pointer;font-size:13px;color:var(--text);transition:all 0.2s;text-align:left;font-family:inherit;display:flex;align-items:center;gap:10px;line-height:1.5;}
+.q-opt:hover:not(:disabled){border-color:var(--zh);background:var(--zh-light);}
+.q-opt.correct{border-color:var(--green);background:var(--green-light);color:#166534;font-weight:500;}
+.q-opt.wrong{border-color:var(--red);background:var(--red-light);color:#991b1b;}
+.q-opt-ltr{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-muted);flex-shrink:0;}
+.q-opt.correct .q-opt-ltr{background:var(--green);color:#fff;}
+.q-opt.wrong .q-opt-ltr{background:var(--red);color:#fff;}
+.q-feedback{margin-top:8px;font-size:12px;padding:8px 12px;border-radius:7px;display:none;line-height:1.5;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-light);color:#166534;}
+.q-feedback.wrong{background:var(--red-light);color:#991b1b;}
+
+/* 점수 */
+.score-bar{display:flex;align-items:center;gap:12px;background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none;}
+.sb-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--zh);}
+.sb-bar{flex:1;height:6px;background:var(--bg);border-radius:6px;overflow:hidden;}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--zh-dark),var(--zh));border-radius:6px;transition:width 0.3s;}
+
+.score-card{background:linear-gradient(135deg,var(--zh-dark),var(--zh));border-radius:14px;padding:24px;text-align:center;margin-bottom:20px;display:none;color:#fff;}
+.sc-score{font-family:'DM Serif Display',serif;font-size:52px;line-height:1;margin-bottom:6px;}
+.sc-pct{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:10px;}
+.sc-msg{font-size:13px;color:#fcd34d;font-weight:500;}
+
+.action-btns{display:flex;gap:10px;display:none;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;}
+.act-btn.primary{background:var(--zh);color:#fff;border-color:var(--zh);}
+.act-btn.primary:hover{background:var(--zh-dark);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📝 HSK 听力</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back" data-ko="← HSK" data-zh="← HSK">← HSK</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('zh')" id="btn-zh">中文</button>
+  </div>
+</nav>
+
+<div class="main fade-in">
+  <div class="hero">
+    <div class="hero-tag" data-ko="HSK · 听力 연습" data-zh="HSK · 听力练习">HSK · 听力 연습</div>
+    <div class="hero-title" data-ko="🎧 HSK 听力" data-zh="🎧 HSK 听力">🎧 HSK 听力</div>
+    <div class="hero-desc" data-ko="第1~3부分 전체 유형 연습. 이미지 없이 순수 청해력만으로 도전하세요. 拼音 스크립트 제공." data-zh="第1~3部分全题型练习。纯粹考验听力能力。提供拼音脚本。">第1~3부分 전체 유형 연습. 拼音 스크립트 제공.</div>
+    <div class="hero-badges">
+      <span class="h-badge">HSK 1~6</span>
+      <span class="h-badge" data-ko="第1部分 — 대화 이해" data-zh="第1部分 — 对话理解">第1部分 — 对话</span>
+      <span class="h-badge" data-ko="第2部分 — 판단" data-zh="第2部分 — 判断">第2部分 — 判断</span>
+      <span class="h-badge" data-ko="第3部分 — 독백" data-zh="第3部分 — 独白">第3部分 — 独白</span>
+      <span class="h-badge">拼音</span>
+    </div>
+  </div>
+
+  <div class="part-tabs">
+    <button class="ptab act" onclick="selectPart('p1',this)" data-ko="第1部分 对话" data-zh="第1部分 对话">第1部分 对话</button>
+    <button class="ptab" onclick="selectPart('p2',this)" data-ko="第2部分 判断" data-zh="第2部分 判断">第2部分 判断</button>
+    <button class="ptab" onclick="selectPart('p3',this)" data-ko="第3部分 独白" data-zh="第3部分 独白">第3部分 独白</button>
+  </div>
+
+  <div class="part-info" id="part-info"></div>
+
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" data-ko="HSK 급수" data-zh="HSK级别">HSK 급수</div>
+      <select class="si-select" id="sel-level">
+        <option value="1">HSK 1급 (A1)</option>
+        <option value="2">HSK 2급 (A2)</option>
+        <option value="3">HSK 3급 (B1)</option>
+        <option value="4" selected>HSK 4급 (B2)</option>
+        <option value="5">HSK 5급 (C1)</option>
+        <option value="6">HSK 6급 (C2)</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="음성 속도" data-zh="语速">음성 속도</div>
+      <select class="si-select" id="sel-speed">
+        <option value="0.7" data-ko="느리게 (0.7x)" data-zh="慢速 (0.7x)">느리게 (0.7x)</option>
+        <option value="0.9" selected data-ko="보통 (0.9x)" data-zh="正常 (0.9x)">보통 (0.9x)</option>
+        <option value="1.1" data-ko="빠르게 (1.1x)" data-zh="快速 (1.1x)">빠르게 (1.1x)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn" id="gen-btn" onclick="generate()">
+    🤖 <span data-ko="HSK 听力 문제 생성" data-zh="生成HSK听力题">HSK 听力 문제 생성</span>
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div id="loading-text" style="font-size:14px;color:var(--text-muted);">생성 중...</div>
+  </div>
+
+  <div class="score-bar" id="score-bar">
+    <div><div class="sb-num" id="sb-num">0 / 0</div><div style="font-size:11px;color:var(--text-muted);" data-ko="정답" data-zh="正确">정답</div></div>
+    <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="score-card" id="score-card">
+    <div class="sc-score" id="sc-score"></div>
+    <div class="sc-pct" id="sc-pct"></div>
+    <div class="sc-msg" id="sc-msg"></div>
+  </div>
+
+  <div class="action-btns" id="action-btns">
+    <button class="act-btn primary" onclick="generate()" data-ko="🔄 새 문제" data-zh="🔄 新题目">🔄 새 문제</button>
+    <a href="index.html" class="act-btn" data-ko="← HSK 홈" data-zh="← HSK首页">← HSK 홈</a>
+  </div>
+</div>
+
+<script>
+let lang='ko', currentPart='p1';
+let isLoading=false, ttsActive=false;
+let correct=0, answered=0, total=0;
+const SPEEDS=[0.7,0.8,0.9,1.0,1.1,1.2];
+const LETTERS=['A','B','C','D'];
+
+const PART_INFO={
+  p1:{
+    ko:'第1部分 — 对话理解: 짧은 대화를 듣고 질문에 알맞은 답을 고릅니다. HSK 1~2급은 그림 선택, 3급 이상은 4지선다.',
+    zh:'第1部分 — 对话理解: 听短对话，选择问题的正确答案。HSK 1-2级选图片，3级以上四选一。',
+    tipKo:'💡 대화의 핵심 정보(장소·시간·인물·행동)에 집중하세요.',
+    tipZh:'💡 专注对话中的关键信息（地点・时间・人物・行动）。'
+  },
+  p2:{
+    ko:'第2部分 — 句子判断: 문장을 듣고 내용이 맞으면 ✓, 틀리면 ✗를 선택합니다. (HSK 1~2급)',
+    zh:'第2部分 — 句子判断: 听句子，内容正确选✓，错误选✗。（HSK 1-2级）',
+    tipKo:'💡 핵심 단어와 수량·시간 표현에 특히 주의하세요.',
+    tipZh:'💡 特别注意关键词和数量・时间表达。'
+  },
+  p3:{
+    ko:'第3部分 — 独白理解: 긴 담화나 독백을 듣고 복수 문제에 답합니다. (HSK 3급 이상)',
+    zh:'第3部分 — 独白理解: 听较长的独白，回答多道问题。（HSK 3级以上）',
+    tipKo:'💡 질문을 먼저 읽어 무엇을 들어야 할지 파악하세요. 주제·결론·화자의 의견에 집중.',
+    tipZh:'💡 先读问题，明确要听什么。专注主题・结论・说话者的观点。'
+  }
+};
+
+function selectPart(id,btn){
+  stopTTS(); currentPart=id;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  renderPartInfo();
+  resetContent();
+}
+
+function renderPartInfo(){
+  const info=PART_INFO[currentPart];
+  document.getElementById('part-info').innerHTML=`
+    <div class="pi-title">${lang==='ko'?info.ko.split(':')[0]:info.zh.split(':')[0]}</div>
+    <div class="pi-desc">${lang==='ko'?info.ko.split(':').slice(1).join(':'):info.zh.split(':').slice(1).join(':')}</div>
+    <div class="pi-tip">${lang==='ko'?info.tipKo:info.tipZh}</div>`;
+}
+
+function resetContent(){
+  stopTTS();
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('score-card').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  correct=0; answered=0; total=0;
+}
+
+async function callClaude(prompt,maxTok){
+  const r=await fetch('/api/claude',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTok||1200,
+      messages:[{role:'user',content:prompt}]})});
+  const d=await r.json();
+  const raw=d.content?.[0]?.text||'';
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+async function generate(){
+  if(isLoading) return;
+  isLoading=true; resetContent();
+  document.getElementById('gen-btn').disabled=true;
+  document.getElementById('loading').style.display='block';
+  document.getElementById('loading-text').textContent=lang==='ko'?'🤖 문제 생성 중…':'🤖 生成题目中…';
+  const level=document.getElementById('sel-level').value;
+  const speed=parseFloat(document.getElementById('sel-speed').value);
+
+  try{
+    let data;
+    if(currentPart==='p1'){
+      data=await callClaude(promptP1(level),1200);
+      total=data.questions.length;
+      document.getElementById('loading').style.display='none';
+      document.getElementById('content-area').appendChild(makeDialogueCard(data,speed));
+    } else if(currentPart==='p2'){
+      data=await callClaude(promptP2(level),1000);
+      total=data.items.length;
+      document.getElementById('loading').style.display='none';
+      document.getElementById('content-area').appendChild(makeJudgeBlock(data.items,speed));
+    } else {
+      data=await callClaude(promptP3(level),1500);
+      total=data.questions.length;
+      document.getElementById('loading').style.display='none';
+      document.getElementById('content-area').appendChild(makeMonologueCard(data,speed));
+    }
+    document.getElementById('score-bar').style.display='flex';
+    document.getElementById('action-btns').style.display='flex';
+    updateScore();
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('content-area').innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패':'生成失败'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  isLoading=false;
+  document.getElementById('gen-btn').disabled=false;
+}
+
+// ── 프롬프트 ─────────────────────────────────────────────────────────
+function promptP1(level){
+  return `请生成1套HSK ${level}级听力第1部分（对话理解）题目。
+ONLY return valid JSON (no markdown, single-line strings):
+{"context":"场景说明 (中文)","dialogue":[{"speaker":"甲","line":"中文台词","pinyin":"拼音"},{"speaker":"乙","line":"中文台词","pinyin":"拼音"},{"speaker":"甲","line":"中文台词","pinyin":"拼音"}],"questions":[{"id":1,"text":"问题 (中文)","pinyin":"问题拼音","choices":["A. 选项","B. 选项","C. 选项","D. 选项"],"answer":0,"explanation_ko":"한국어 해설"},{"id":2,"text":"问题","pinyin":"拼音","choices":["A. 选项","B. 选项","C. 选项","D. 选项"],"answer":1,"explanation_ko":"해설"},{"id":3,"text":"问题","pinyin":"拼音","choices":["A. 选项","B. 选项","C. 选项","D. 选项"],"answer":2,"explanation_ko":"해설"}]}
+HSK ${level}级水平的自然中文。3道问题，答案0-based，位置不同。单行字符串。`;
+}
+
+function promptP2(level){
+  const lvl=Math.min(parseInt(level),2);
+  return `请生成4道HSK ${lvl}级听力第2部分（句子判断 ✓/✗）题目。
+ONLY return valid JSON (no markdown, single-line strings):
+{"items":[{"id":1,"sentence":"中文句子","pinyin":"拼音","is_correct":true,"explanation_ko":"왜 맞는지/틀리는지 한국어 해설"},{"id":2,"sentence":"中文句子","pinyin":"拼音","is_correct":false,"explanation_ko":"해설"},{"id":3,"sentence":"中文句子","pinyin":"拼音","is_correct":true,"explanation_ko":"해설"},{"id":4,"sentence":"中文句子","pinyin":"拼音","is_correct":false,"explanation_ko":"해설"}]}
+HSK ${lvl}级水平。is_correct mix true/false. 单行字符串。`;
+}
+
+function promptP3(level){
+  return `请生成1套HSK ${level}级听力第3部分（独白理解）题目。
+ONLY return valid JSON (no markdown, single-line strings):
+{"talkType":"讲述类型","script":"中文独白文本 (3-4句)","script_pinyin":"独白拼音","questions":[{"id":1,"text":"问题","pinyin":"拼音","choices":["A. 选项","B. 选项","C. 选项","D. 选项"],"answer":0,"explanation_ko":"해설"},{"id":2,"text":"问题","pinyin":"拼音","choices":["A. 选项","B. 选项","C. 选项","D. 选项"],"answer":1,"explanation_ko":"해설"},{"id":3,"text":"问题","pinyin":"拼音","choices":["A. 选项","B. 选项","C. 选项","D. 选项"],"answer":2,"explanation_ko":"해설"}]}
+HSK ${level}级自然中文。3道问题，答案0-based，位置不同。单行字符串。`;
+}
+
+// ── 대화 카드 (第1部分) ───────────────────────────────────────────────
+function makeDialogueCard(data,speed){
+  const wrap=document.createElement('div');
+  const ac=document.createElement('div'); ac.className='audio-card fade-in';
+  const acLabel=document.createElement('div'); acLabel.className='ac-label';
+  acLabel.textContent=lang==='ko'?'🎧 대화를 들으세요':'🎧 请听对话';
+  const pr=makePlayerRow('dlg',data.context,speed,()=>playDialogue(data.dialogue,speed));
+  // 스크립트 (拼音 포함)
+  const togBtn=document.createElement('button'); togBtn.className='script-toggle';
+  togBtn.textContent=lang==='ko'?'📄 스크립트 보기':'📄 查看脚本';
+  const scriptWrap=document.createElement('div'); scriptWrap.className='script-wrap';
+  data.dialogue.forEach((l,i)=>{
+    const row=document.createElement('div'); row.className='script-line'; row.id='sl-'+i;
+    row.innerHTML=`<div class="sl-row"><span class="sl-spk">${l.speaker}</span><span class="sl-txt">${l.line}</span></div>${l.pinyin?`<div class="sl-pinyin">${l.pinyin}</div>`:''}`;
+    row.addEventListener('click',()=>{ stopTTS(); playDialogue(data.dialogue.slice(i),speed); });
+    scriptWrap.appendChild(row);
+  });
+  togBtn.addEventListener('click',function(){
+    const open=scriptWrap.classList.toggle('open');
+    togBtn.textContent=open?(lang==='ko'?'🙈 숨기기':'🙈 隐藏'):(lang==='ko'?'📄 스크립트 보기':'📄 查看脚本');
+  });
+  ac.append(acLabel,pr,togBtn,scriptWrap);
+  // 문제
+  const qSec=document.createElement('div'); qSec.className='q-section fade-in';
+  data.questions.forEach(q=>{
+    const qDiv=makeQItem(q);
+    qSec.appendChild(qDiv);
+  });
+  wrap.append(ac,qSec);
+  return wrap;
+}
+
+// ── 판단 블록 (第2部分) ───────────────────────────────────────────────
+function makeJudgeBlock(items,speed){
+  const wrap=document.createElement('div'); wrap.className='audio-card fade-in';
+  const lbl=document.createElement('div'); lbl.className='ac-label';
+  lbl.textContent=lang==='ko'?'🎧 문장을 듣고 맞으면 ✓, 틀리면 ✗':'🎧 听句子，正确选✓，错误选✗';
+  wrap.appendChild(lbl);
+  items.forEach(item=>{
+    const d=document.createElement('div'); d.style.cssText='margin-bottom:16px;padding-bottom:16px;border-bottom:0.5px solid var(--border);';
+    const pr=makePlayerRow('j'+item.id,'Q'+item.id,speed,()=>playSentence(item,speed));
+    const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='第'+item.id+'题';
+    if(item.pinyin){
+      const py=document.createElement('div'); py.className='q-pinyin'; py.textContent=item.pinyin;
+      d.appendChild(py);
+    }
+    const opts=document.createElement('div'); opts.className='q-opts'; opts.id='jopts-'+item.id;
+    ['✓ 正确','✗ 错误'].forEach((lbl,i)=>{
+      const isCorrect=i===0;
+      const btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML=`<span class="q-opt-ltr">${i===0?'✓':'✗'}</span><span>${lbl}</span>`;
+      btn.addEventListener('click',()=>{
+        if(opts.querySelectorAll('.q-opt')[0]?.disabled) return;
+        opts.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+        const correct=isCorrect===item.is_correct;
+        btn.classList.add(correct?'correct':'wrong');
+        const correctBtn=opts.querySelectorAll('.q-opt')[item.is_correct?0:1];
+        if(correctBtn) correctBtn.classList.add('correct');
+        const fb=document.getElementById('jfb-'+item.id);
+        if(fb){ fb.textContent=item.explanation_ko||''; fb.className='q-feedback show '+(correct?'correct':'wrong'); }
+        answered++; if(correct) correct_count++;
+        updateScore();
+        if(answered>=total) setTimeout(showResult,600);
+      });
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='jfb-'+item.id;
+    d.append(pr,qNum,opts,fb);
+    wrap.appendChild(d);
+  });
+  return wrap;
+}
+
+// 변수명 충돌 방지
+let correct_count=0;
+function fixedAnswerQ(isRight){
+  answered++; if(isRight) correct_count++;
+  correct=correct_count;
+  updateScore();
+  if(answered>=total) setTimeout(showResult,600);
+}
+
+// ── 독백 카드 (第3部分) ───────────────────────────────────────────────
+function makeMonologueCard(data,speed){
+  const wrap=document.createElement('div');
+  const ac=document.createElement('div'); ac.className='audio-card fade-in';
+  const acLabel=document.createElement('div'); acLabel.className='ac-label';
+  acLabel.textContent=lang==='ko'?'🎧 독백을 들으세요':'🎧 请听独白';
+  const pr=makePlayerRow('mono',data.talkType||'독백',speed,()=>playMonologue(data.script,speed));
+  const togBtn=document.createElement('button'); togBtn.className='script-toggle';
+  togBtn.textContent=lang==='ko'?'📄 스크립트 보기':'📄 查看脚本';
+  const scriptWrap=document.createElement('div'); scriptWrap.className='script-wrap';
+  scriptWrap.innerHTML=`<div class="script-line"><div class="sl-row"><span class="sl-spk">旁白</span><span class="sl-txt">${data.script}</span></div>${data.script_pinyin?`<div class="sl-pinyin">${data.script_pinyin}</div>`:''}</div>`;
+  togBtn.addEventListener('click',function(){
+    const open=scriptWrap.classList.toggle('open');
+    togBtn.textContent=open?(lang==='ko'?'🙈 숨기기':'🙈 隐藏'):(lang==='ko'?'📄 스크립트 보기':'📄 查看脚本');
+  });
+  ac.append(acLabel,pr,togBtn,scriptWrap);
+  const qSec=document.createElement('div'); qSec.className='q-section fade-in';
+  data.questions.forEach(q=>qSec.appendChild(makeQItem(q)));
+  wrap.append(ac,qSec);
+  return wrap;
+}
+
+// ── 공통 헬퍼 ─────────────────────────────────────────────────────────
+function makePlayerRow(id,label,speed,onPlay){
+  const pr=document.createElement('div'); pr.className='player-row'; pr.style.marginBottom='10px';
+  const pbtn=document.createElement('button'); pbtn.className='play-btn'; pbtn.style.cssText='width:36px;height:36px;';
+  pbtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  pbtn.addEventListener('click',onPlay);
+  const pInfo=document.createElement('div'); pInfo.className='player-info';
+  pInfo.innerHTML=`<div class="player-label">${label}</div><div class="player-bar"><div class="player-fill" id="fill-${id}"></div></div>`;
+  const spdBtn=document.createElement('button'); spdBtn.className='speed-btn'; spdBtn.id='spd-'+id; spdBtn.textContent=speed+'x';
+  spdBtn.addEventListener('click',()=>cycleSpeed('spd-'+id));
+  pr.append(pbtn,pInfo,spdBtn);
+  return pr;
+}
+
+function makeQItem(q){
+  const qDiv=document.createElement('div'); qDiv.className='q-item';
+  const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='第'+q.id+'题';
+  const qTxt=document.createElement('div'); qTxt.className='q-text'; qTxt.textContent=q.text;
+  const qPy=q.pinyin?document.createElement('div'):null;
+  if(qPy){ qPy.className='q-pinyin'; qPy.textContent=q.pinyin; }
+  const opts=document.createElement('div'); opts.className='q-opts';
+  q.choices.forEach((c,i)=>{
+    const btn=document.createElement('button'); btn.className='q-opt';
+    btn.innerHTML=`<span class="q-opt-ltr">${LETTERS[i]}</span><span>${c}</span>`;
+    btn.addEventListener('click',()=>answerQ(q.id,i,btn,q.answer,q.explanation_ko,opts));
+    opts.appendChild(btn);
+  });
+  const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='fb-'+q.id;
+  if(qPy) qDiv.append(qNum,qTxt,qPy,opts,fb);
+  else qDiv.append(qNum,qTxt,opts,fb);
+  return qDiv;
+}
+
+function answerQ(qId,idx,btn,answer,expl,optsEl){
+  const opts=optsEl?.querySelectorAll('.q-opt'); if(!opts||opts[0]?.disabled) return;
+  opts.forEach(b=>b.disabled=true);
+  opts[answer].classList.add('correct');
+  if(idx!==answer) btn.classList.add('wrong');
+  const qItem=btn.closest('.q-item');
+  const fb=qItem?.querySelector('.q-feedback');
+  if(fb){ fb.textContent=expl||''; fb.className='q-feedback show '+(idx===answer?'correct':'wrong'); }
+  answered++; if(idx===answer) correct++;
+  updateScore();
+  if(answered>=total) setTimeout(showResult,600);
+}
+
+// ── TTS ──────────────────────────────────────────────────────────────
+function playDialogue(lines,speed){
+  stopTTS(); playDlgLine(lines,0,speed);
+}
+function playDlgLine(lines,idx,spd){
+  if(idx>=lines.length){ ttsActive=false; hlLine(-1); return; }
+  hlLine(idx);
+  const fill=document.getElementById('fill-dlg');
+  if(fill) fill.style.width=(idx/lines.length*100)+'%';
+  const vs=speechSynthesis.getVoices();
+  const zvs=vs.filter(v=>v.lang.startsWith('zh'));
+  const u=new SpeechSynthesisUtterance(lines[idx].line); u.lang='zh-CN'; u.rate=spd;
+  if(zvs.length>1) u.voice=zvs[idx%zvs.length]; else if(zvs.length) u.voice=zvs[0];
+  u.onend=()=>{ if(ttsActive) playDlgLine(lines,idx+1,spd); };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function hlLine(idx){
+  document.querySelectorAll('[id^="sl-"]').forEach(e=>e.classList.remove('act'));
+  if(idx>=0){ const e=document.getElementById('sl-'+idx); if(e) e.classList.add('act'); }
+}
+function playSentence(item,speed){
+  stopTTS();
+  const spd=parseFloat(document.getElementById('spd-j'+item.id)?.textContent)||speed;
+  const fill=document.getElementById('fill-j'+item.id);
+  const u=new SpeechSynthesisUtterance(item.sentence); u.lang='zh-CN'; u.rate=spd;
+  const vs=speechSynthesis.getVoices(); const zv=vs.find(v=>v.lang.startsWith('zh'));
+  if(zv) u.voice=zv;
+  u.onboundary=e=>{ if(e.name==='word'&&fill) fill.style.width=Math.min(100,e.charIndex/item.sentence.length*100)+'%'; };
+  u.onend=()=>{ ttsActive=false; if(fill) fill.style.width='100%'; };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function playMonologue(script,speed){
+  stopTTS();
+  const spd=parseFloat(document.getElementById('spd-mono')?.textContent)||speed;
+  const fill=document.getElementById('fill-mono');
+  const u=new SpeechSynthesisUtterance(script); u.lang='zh-CN'; u.rate=spd;
+  const vs=speechSynthesis.getVoices(); const zv=vs.find(v=>v.lang.startsWith('zh'));
+  if(zv) u.voice=zv;
+  u.onboundary=e=>{ if(e.name==='word'&&fill) fill.style.width=Math.min(100,e.charIndex/script.length*100)+'%'; };
+  u.onend=()=>{ ttsActive=false; if(fill) fill.style.width='100%'; };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function stopTTS(){ speechSynthesis.cancel(); ttsActive=false; }
+function cycleSpeed(btnId){
+  const btn=document.getElementById(btnId); if(!btn) return;
+  const cur=parseFloat(btn.textContent);
+  const i=SPEEDS.indexOf(cur);
+  btn.textContent=SPEEDS[(i+1)%SPEEDS.length]+'x';
+}
+
+function updateScore(){
+  const fill=document.getElementById('sb-fill');
+  const num=document.getElementById('sb-num');
+  if(fill) fill.style.width=`${total>0?(answered/total)*100:0}%`;
+  if(num) num.textContent=`${correct} / ${total}`;
+}
+function showResult(){
+  const pct=Math.round(correct/total*100);
+  const sc=document.getElementById('score-card'); sc.style.display='block';
+  document.getElementById('sc-score').textContent=`${correct}/${total}`;
+  document.getElementById('sc-pct').textContent=`${pct}%`;
+  document.getElementById('sc-msg').textContent=
+    pct>=80?(lang==='ko'?'🎉 훌륭합니다!':'🎉 太棒了！'):
+    pct>=60?(lang==='ko'?'👍 잘 하셨습니다!':'👍 做得不错！'):
+    (lang==='ko'?'💪 계속 연습!':'💪 继续加油！');
+  sc.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-zh]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-zh');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-zh').classList.toggle('act',l==='zh');
+  renderPartInfo();
+}
+
+(function(){
+  setLang('ko');
+  renderPartInfo();
+  const lv=new URLSearchParams(location.search).get('level');
+  if(lv) document.getElementById('sel-level').value=lv;
+})();
+</script>
+</body>
+</html>

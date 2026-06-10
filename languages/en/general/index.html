@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#1C2B45;--teal:#2A7F6F;--teal-light:#E1F5EE;--teal-mid:#1D9E75;
+    --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+    --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+    --accent:#2A7F6F;--accent-light:#E1F5EE;
+    --gold:#c9952a;--gold-light:#fdf3dc;
+  }
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 6%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+  .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+  .nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+  .nav-lt{font-size:16px;font-weight:600;color:#fff;}
+  .nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+  .nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+  .nav-space{flex:1;}
+  .nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:7px;}
+  .nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+  .lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+  .lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+  .lbtn.act{background:var(--teal);color:#fff;}
+
+  .hero{background:linear-gradient(135deg,#1a4a3f 0%,#2A7F6F 100%);padding:48px 6% 44px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+  .hero-inner{max-width:860px;margin:0 auto;position:relative;}
+  .hero-tag{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;}
+  .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:10px;}
+  .hero-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.7;max-width:500px;margin-bottom:20px;}
+  .hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+  .h-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,0.14);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+  .h-badge.gold{background:rgba(201,149,42,0.25);color:#fcd34d;border-color:rgba(201,149,42,0.3);}
+
+  .wrap{max-width:860px;margin:0 auto;padding:36px 6% 80px;}
+
+  /* LEVEL SELECTOR */
+  .level-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:28px;}
+  .ls-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .ls-desc{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+  .level-tabs{display:flex;gap:0;background:var(--bg);border-radius:10px;padding:3px;gap:3px;flex-wrap:wrap;}
+  .lv-tab{flex:1;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;min-width:60px;position:relative;}
+  .lv-tab:hover{color:var(--accent);}
+  .lv-tab.act{background:var(--accent);color:#fff;}
+  .lv-tab.locked{cursor:default;opacity:0.5;}
+  .lv-tab.locked:hover{color:var(--text-muted);}
+  .lv-lock{font-size:9px;position:absolute;top:3px;right:5px;}
+  .level-info{margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;}
+  .level-info.pro{background:var(--gold-light);color:#854f0b;}
+
+  /* SKILLS GRID */
+  .sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .sh-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);}
+  .sh-line{flex:1;height:0.5px;background:var(--border);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:32px;}
+  .skill-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:all 0.25s;position:relative;}
+  .skill-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.09);}
+  .skill-card.locked-card{opacity:0.7;cursor:default;}
+  .skill-card.locked-card:hover{transform:none;box-shadow:none;}
+  .sc-top{padding:20px 20px 14px;flex:1;}
+  .sc-icon{font-size:32px;margin-bottom:10px;}
+  .sc-name{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .sc-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;}
+  .sc-tags{display:flex;gap:5px;flex-wrap:wrap;}
+  .sc-tag{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:500;}
+  .sc-bottom{padding:12px 20px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .sc-cta{font-size:13px;font-weight:600;}
+  .sc-lock{font-size:12px;color:var(--gold);font-weight:500;}
+  .lock-overlay{position:absolute;top:10px;right:10px;width:28px;height:28px;background:var(--gold-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .fade{opacity:0;animation:fadeUp 0.45s ease forwards;}
+  .fade:nth-child(1){animation-delay:.05s}.fade:nth-child(2){animation-delay:.10s}
+  .fade:nth-child(3){animation-delay:.15s}.fade:nth-child(4){animation-delay:.20s}
+  .fade:nth-child(5){animation-delay:.25s}.fade:nth-child(6){animation-delay:.30s}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📚 <span data-en="General English" data-ko="일반 영어">General English</span></span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-en="← English Home" data-ko="← 영어 홈">← English Home</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag" data-en="GENERAL ENGLISH · ALL LEVELS" data-ko="일반 영어 · 전체 레벨">GENERAL ENGLISH · ALL LEVELS</div>
+    <h1 class="hero-title" data-en="Learn English from A1 to C2" data-ko="A1부터 C2까지 영어 학습">Learn English from A1 to C2</h1>
+    <p class="hero-desc" data-en="Vocabulary, Grammar, Listening, Reading, Speaking, and Writing — all 6 skills powered by AI. Start free at A1 and advance to fluency." data-ko="어휘, 문법, 듣기, 읽기, 말하기, 쓰기 — AI 기반의 6개 영역. A1 무료로 시작해서 유창함까지.">6 skills · A1–A2 Free · B1–C2 Pro</p>
+    <div class="hero-badges">
+      <span class="h-badge" data-en="A1 & A2 — Free" data-ko="A1 & A2 — 무료">A1 & A2 — Free</span>
+      <span class="h-badge gold" data-en="B1–C2 — Pro" data-ko="B1~C2 — 유료">B1–C2 — Pro</span>
+      <span class="h-badge" data-en="6 Skills" data-ko="6개 영역">6 Skills</span>
+      <span class="h-badge" data-en="🤖 AI Tutor" data-ko="🤖 AI 튜터">🤖 AI Tutor</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Level Selector -->
+  <div class="level-section fade">
+    <div class="ls-title" data-en="Select Your Level" data-ko="레벨 선택">Select Your Level</div>
+    <div class="ls-desc" data-en="Not sure? Take the free Level Test first." data-ko="모르겠다면? 먼저 무료 레벨 테스트를 받으세요.">
+      <span data-en="Not sure? " data-ko="모르겠다면? ">Not sure? </span>
+      <a href="../test.html" style="color:var(--teal);font-weight:500;" data-en="Take the free Level Test →" data-ko="무료 레벨 테스트 받기 →">Take the free Level Test →</a>
+    </div>
+    <div class="level-tabs">
+      <button class="lv-tab act" onclick="selectLevel('A1',this)">A1</button>
+      <button class="lv-tab" onclick="selectLevel('A2',this)">A2</button>
+      <button class="lv-tab locked" onclick="showProMsg('B1')" title="Pro required">B1<span class="lv-lock">🔒</span></button>
+      <button class="lv-tab locked" onclick="showProMsg('B2')" title="Pro required">B2<span class="lv-lock">🔒</span></button>
+      <button class="lv-tab locked" onclick="showProMsg('C1')" title="Pro required">C1<span class="lv-lock">🔒</span></button>
+      <button class="lv-tab locked" onclick="showProMsg('C2')" title="Pro required">C2<span class="lv-lock">🔒</span></button>
+    </div>
+    <div class="level-info" id="level-info">
+      🟢 <span data-en="A1 — Beginner. You are learning the most basic vocabulary and grammar. Free access to all 6 skills." data-ko="A1 — 초급. 가장 기초적인 어휘와 문법을 배웁니다. 6개 영역 모두 무료 이용 가능.">A1 — Beginner. Free access to all 6 skills.</span>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="sh fade"><span class="sh-label" data-en="CHOOSE A SKILL" data-ko="영역 선택">CHOOSE A SKILL</span><div class="sh-line"></div></div>
+  <div class="skills-grid" id="skills-grid">
+
+    <!-- Vocabulary -->
+    <a href="vocabulary.html" class="skill-card fade" id="card-vocab">
+      <div class="sc-top">
+        <div class="sc-icon">📖</div>
+        <div class="sc-name" data-en="Vocabulary" data-ko="어휘">Vocabulary</div>
+        <div class="sc-desc" data-en="18 topic categories from daily life to business. Learn words in context with AI-generated examples and quizzes." data-ko="일상생활부터 비즈니스까지 18개 주제. AI가 생성한 예문과 퀴즈로 문맥 속에서 단어를 배웁니다.">18 topics · Context learning · AI quiz</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal);" data-en="Daily Life" data-ko="일상생활">Daily Life</span>
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal);" data-en="Business" data-ko="비즈니스">Business</span>
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal);" data-en="Idioms" data-ko="관용어">Idioms</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:var(--teal);" data-en="Start Vocabulary →" data-ko="어휘 시작 →">Start Vocabulary →</span>
+        <span style="font-size:11px;color:var(--text-light);">18 topics</span>
+      </div>
+    </a>
+
+    <!-- Grammar -->
+    <a href="grammar.html" class="skill-card fade" id="card-grammar">
+      <div class="sc-top">
+        <div class="sc-icon">✏️</div>
+        <div class="sc-name" data-en="Grammar" data-ko="문법">Grammar</div>
+        <div class="sc-desc" data-en="14 grammar topics from tenses to conditionals. Clear explanations, examples, and AI-generated practice exercises." data-ko="시제부터 조건문까지 14개 문법 주제. 명확한 설명, 예문, AI 생성 연습 문제.">14 topics · Explanations · Practice</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#e6f1fb;color:#185fa5;" data-en="Tenses" data-ko="시제">Tenses</span>
+          <span class="sc-tag" style="background:#e6f1fb;color:#185fa5;" data-en="Conditionals" data-ko="조건문">Conditionals</span>
+          <span class="sc-tag" style="background:#e6f1fb;color:#185fa5;" data-en="Passive" data-ko="수동태">Passive</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#185fa5;" data-en="Start Grammar →" data-ko="문법 시작 →">Start Grammar →</span>
+        <span style="font-size:11px;color:var(--text-light);">14 topics</span>
+      </div>
+    </a>
+
+    <!-- Listening -->
+    <a href="listening.html" class="skill-card fade" id="card-listening">
+      <div class="sc-top">
+        <div class="sc-icon">🎧</div>
+        <div class="sc-name" data-en="Listening" data-ko="듣기">Listening</div>
+        <div class="sc-desc" data-en="AI-generated listening content with TTS audio. Short conversations to podcasts and lectures. Multi-voice dialogues." data-ko="AI 생성 듣기 콘텐츠와 TTS 오디오. 짧은 대화부터 팟캐스트, 강의까지. 다중 음성 대화.">TTS audio · Multi-voice · AI tutor</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-en="Conversations" data-ko="대화">Conversations</span>
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-en="Podcasts" data-ko="팟캐스트">Podcasts</span>
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-en="Lectures" data-ko="강의">Lectures</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#ba7517;" data-en="Start Listening →" data-ko="듣기 시작 →">Start Listening →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- Reading -->
+    <a href="reading.html" class="skill-card fade" id="card-reading">
+      <div class="sc-top">
+        <div class="sc-icon">📰</div>
+        <div class="sc-name" data-en="Reading" data-ko="읽기">Reading</div>
+        <div class="sc-desc" data-en="News articles, essays, academic texts, and business documents. Click any word for instant AI explanation." data-ko="뉴스 기사, 에세이, 학술 지문, 비즈니스 문서. 단어 클릭으로 즉시 AI 설명.">Articles · Essays · Word lookup</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:var(--accent-light);color:var(--accent);" data-en="News" data-ko="뉴스">News</span>
+          <span class="sc-tag" style="background:var(--accent-light);color:var(--accent);" data-en="Academic" data-ko="학술">Academic</span>
+          <span class="sc-tag" style="background:var(--accent-light);color:var(--accent);" data-en="Business" data-ko="비즈니스">Business</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:var(--accent);" data-en="Start Reading →" data-ko="읽기 시작 →">Start Reading →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- Speaking -->
+    <a href="speaking.html" class="skill-card fade" id="card-speaking">
+      <div class="sc-top">
+        <div class="sc-icon">🗣️</div>
+        <div class="sc-name" data-en="Speaking" data-ko="말하기">Speaking</div>
+        <div class="sc-desc" data-en="Role-plays, interviews, presentations, and debates. Record your answer and receive AI feedback on content, fluency, and grammar." data-ko="역할극, 인터뷰, 발표, 토론. 답변을 녹음하면 내용, 유창성, 문법 AI 피드백을 받습니다.">Record · AI feedback · Score</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-en="Role-play" data-ko="역할극">Role-play</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-en="Interview" data-ko="인터뷰">Interview</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-en="Opinion" data-ko="의견">Opinion</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#993556;" data-en="Start Speaking →" data-ko="말하기 시작 →">Start Speaking →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- Writing -->
+    <a href="writing.html" class="skill-card fade" id="card-writing">
+      <div class="sc-top">
+        <div class="sc-icon">✍️</div>
+        <div class="sc-name" data-en="Writing" data-ko="쓰기">Writing</div>
+        <div class="sc-desc" data-en="Emails, essays, reports, and narratives. Write your response and get AI scores on task completion, grammar, vocabulary, and coherence." data-ko="이메일, 에세이, 보고서, 서술문. AI가 과제 완성도, 문법, 어휘, 논리성을 채점합니다.">Essays · Emails · AI scoring</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-en="Emails" data-ko="이메일">Emails</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-en="Essays" data-ko="에세이">Essays</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-en="Reports" data-ko="보고서">Reports</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#534ab7;" data-en="Start Writing →" data-ko="쓰기 시작 →">Start Writing →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<script>
+let lang='en', currentLevel='A1';
+
+const LEVEL_INFO={
+  A1:{free:true,en:'🟢 A1 — Beginner. Learning the most basic vocabulary and grammar. Free access to all 6 skills.',ko:'🟢 A1 — 초급. 가장 기초적인 어휘와 문법을 배웁니다. 6개 영역 모두 무료 이용 가능.'},
+  A2:{free:true,en:'🟢 A2 — Elementary. Can understand and use familiar everyday expressions. Free access to all 6 skills.',ko:'🟢 A2 — 초등. 일상적인 표현을 이해하고 사용할 수 있습니다. 6개 영역 모두 무료 이용 가능.'},
+  B1:{free:false,en:'🔒 B1 — Intermediate. Can handle most situations while traveling. Pro plan required.',ko:'🔒 B1 — 중급. 여행 중 대부분의 상황을 처리할 수 있습니다. 유료 플랜 필요.'},
+  B2:{free:false,en:'🔒 B2 — Upper Intermediate. Can interact with native speakers naturally. Pro plan required.',ko:'🔒 B2 — 중상급. 원어민과 자연스럽게 대화할 수 있습니다. 유료 플랜 필요.'},
+  C1:{free:false,en:'🔒 C1 — Advanced. Can express ideas fluently and spontaneously. Pro plan required.',ko:'🔒 C1 — 고급. 아이디어를 유창하고 즉흥적으로 표현할 수 있습니다. 유료 플랜 필요.'},
+  C2:{free:false,en:'🔒 C2 — Mastery. Can understand virtually everything. Pro plan required.',ko:'🔒 C2 — 숙달. 거의 모든 것을 이해할 수 있습니다. 유료 플랜 필요.'},
+};
+
+function selectLevel(lv,el){
+  currentLevel=lv;
+  document.querySelectorAll('.lv-tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+  const info=LEVEL_INFO[lv];
+  const infoEl=document.getElementById('level-info');
+  infoEl.textContent=lang==='ko'?info.ko:info.en;
+  infoEl.className='level-info'+(info.free?'':' pro');
+  // Store level for skill pages
+  try{localStorage.setItem('lw-level',lv);}catch(e){}
+}
+
+function showProMsg(lv){
+  alert(lang==='ko'?`${lv} 레벨은 Pro 플랜에서 이용 가능합니다. 곧 오픈 예정입니다!`:`${lv} level is available with the Pro plan. Coming soon!`);
+}
+
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l==='ko'?'ko':'en';
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  // Update level info text
+  const info=LEVEL_INFO[currentLevel];
+  if(info){
+    const infoEl=document.getElementById('level-info');
+    infoEl.textContent=l==='ko'?info.ko:info.en;
+  }
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+
+(function(){
+  let saved; try{saved=localStorage.getItem('lw-lang');}catch(e){}
+  setLang(saved||((navigator.language||'').startsWith('ko')?'ko':'en'));
+  let savedLv; try{savedLv=localStorage.getItem('lw-level');}catch(e){}
+  if(savedLv&&LEVEL_INFO[savedLv]&&LEVEL_INFO[savedLv].free){
+    const tabs=document.querySelectorAll('.lv-tab');
+    tabs.forEach(t=>{
+      if(t.textContent.trim().startsWith(savedLv)){t.classList.add('act');t.classList.remove('act');}
+    });
+  }
+})();
+</script>
+</body>
+</html>

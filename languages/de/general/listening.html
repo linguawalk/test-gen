@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General Deutsch — Hören</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --de-blue:#003b8e;--de-blue-light:#e8edf8;
+  --de-gold:#f5c400;--de-red:#d4242b;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+
+.hero{background:linear-gradient(135deg,#1a1a1a 0%,#3d3d3d 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.06);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+.part-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:4px;}
+.ptab{flex:1;padding:9px 10px;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;}
+.ptab:hover{color:var(--de-blue);}
+.ptab.act{background:var(--de-blue);color:#fff;}
+
+.part-info{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:14px;}
+.pi-title{font-size:13px;font-weight:600;color:var(--de-blue);margin-bottom:6px;}
+.pi-desc{font-size:12px;color:var(--text-muted);line-height:1.65;}
+.pi-tip{margin-top:8px;padding:8px 12px;background:var(--de-blue-light);border-radius:8px;font-size:12px;color:var(--de-blue);}
+
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--de-blue);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:#002a6e;}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.loading{padding:40px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:16px;display:none;}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--de-blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* 사진 (Teil 1) */
+.photo-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.photo-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#dde3ee;overflow:hidden;}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.4s;}
+.photo-loading{position:absolute;inset:0;background:rgba(28,43,69,0.55);display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-size:12px;}
+.photo-loading.hidden{display:none;}
+.ph-spin{width:28px;height:28px;border:2.5px solid rgba(255,255,255,0.25);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+.photo-cap{padding:9px 16px;background:var(--de-blue-light);font-size:12px;color:var(--de-blue);}
+
+/* 오디오 카드 */
+.audio-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.ac-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:6px;}
+.ac-title{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;}
+.ac-badge{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--de-blue-light);color:var(--de-blue);font-weight:600;}
+.player-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border-radius:10px;border:0.5px solid var(--border);}
+.play-btn{width:40px;height:40px;border-radius:50%;background:var(--de-blue);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.play-btn:hover{background:#002a6e;}
+.play-btn svg{width:16px;height:16px;fill:#fff;}
+.player-info{flex:1;}
+.player-label{font-size:11px;color:var(--text-muted);margin-bottom:4px;}
+.player-bar{height:5px;background:var(--border);border-radius:5px;overflow:hidden;}
+.player-fill{height:100%;background:linear-gradient(90deg,#002a6e,var(--de-blue));border-radius:5px;width:0%;transition:width 0.1s;}
+.speed-btn{padding:3px 9px;border-radius:7px;border:0.5px solid var(--border-md);background:transparent;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;font-family:inherit;flex-shrink:0;}
+.speed-btn:hover{background:var(--de-blue-light);color:var(--de-blue);border-color:var(--de-blue);}
+
+.script-toggle{font-size:11px;color:var(--de-blue);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:6px 0;display:block;}
+.script-wrap{display:none;margin-top:8px;}
+.script-wrap.open{display:block;}
+.script-line{display:flex;gap:8px;padding:5px 8px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+.script-line:hover{background:var(--de-blue-light);}
+.script-line.act{background:var(--de-blue-light);}
+.sl-spk{font-size:10px;font-weight:700;color:var(--de-blue);min-width:46px;padding-top:2px;text-transform:uppercase;}
+.sl-txt{font-size:13px;color:var(--text);line-height:1.65;flex:1;}
+
+/* 선택지 */
+.choices-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:16px;}
+.choices-locked{opacity:0.25;pointer-events:none;filter:blur(2px);transition:all 0.4s;}
+.p1-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.p1-btn{height:60px;border-radius:12px;border:2px solid var(--border-md);background:var(--white);cursor:pointer;font-family:'DM Serif Display',serif;font-size:24px;font-weight:700;color:var(--text-muted);transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.p1-btn:hover:not(:disabled){border-color:var(--de-blue);background:var(--de-blue-light);color:var(--de-blue);}
+.p1-btn.playing{border-color:var(--de-blue);background:var(--de-blue-light);color:var(--de-blue);animation:pulse-btn 0.6s infinite alternate;}
+@keyframes pulse-btn{from{transform:scale(1)}to{transform:scale(1.06)}}
+.p1-btn.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.p1-btn.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+
+/* 문제 */
+.q-item{background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;}
+.q-item:last-child{margin-bottom:0;}
+.q-num{font-size:10px;font-weight:700;color:var(--de-blue);letter-spacing:.5px;margin-bottom:6px;}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px;line-height:1.6;}
+.q-opts{display:flex;flex-direction:column;gap:6px;}
+.q-opt{padding:9px 14px;border-radius:8px;border:1.5px solid var(--border-md);background:var(--white);cursor:pointer;font-size:13px;color:var(--text);transition:all 0.2s;text-align:left;font-family:inherit;display:flex;align-items:center;gap:10px;line-height:1.5;}
+.q-opt:hover:not(:disabled){border-color:var(--de-blue);background:var(--de-blue-light);}
+.q-opt.correct{border-color:var(--green);background:var(--green-light);color:#166534;font-weight:500;}
+.q-opt.wrong{border-color:var(--red);background:var(--red-light);color:#991b1b;}
+.q-opt-ltr{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-muted);flex-shrink:0;}
+.q-opt.correct .q-opt-ltr{background:var(--green);color:#fff;}
+.q-opt.wrong .q-opt-ltr{background:var(--red);color:#fff;}
+.q-feedback{margin-top:8px;font-size:12px;padding:8px 12px;border-radius:7px;display:none;line-height:1.5;}
+.q-feedback.show.correct{display:block;background:var(--green-light);color:#166534;}
+.q-feedback.show.wrong{display:block;background:var(--red-light);color:#991b1b;}
+
+.score-card{background:linear-gradient(135deg,#1a1a1a,#3d3d3d);border-radius:14px;padding:24px;text-align:center;margin-bottom:20px;display:none;color:#fff;}
+.sc-score{font-family:'DM Serif Display',serif;font-size:52px;line-height:1;margin-bottom:6px;}
+.sc-pct{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:10px;}
+.sc-msg{font-size:13px;color:var(--de-gold);font-weight:500;}
+.action-btns{display:flex;gap:10px;display:none;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;}
+.act-btn.primary{background:var(--de-blue);color:#fff;border-color:var(--de-blue);}
+.act-btn.primary:hover{background:#002a6e;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../../index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" data-ko="General 독일어 · 듣기" data-de="Allgemeines Deutsch · Hören">General 독일어 · 듣기</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← General 홈" data-de="← Startseite">← General 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('de')" id="btn-de">Deutsch</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="hero fade-in">
+    <div class="hero-tag" data-ko="GENERAL 독일어 · 듣기" data-de="ALLGEMEINES DEUTSCH · HÖREN">GENERAL 독일어 · 듣기</div>
+    <div class="hero-title" data-ko="🎧 독일어 듣기 연습" data-de="🎧 Deutsches Hörverständnis">🎧 독일어 듣기 연습</div>
+    <div class="hero-desc" data-ko="사진 묘사, 대화, 독백 — AI가 생성한 독일어 듣기 문제로 실력을 키우세요." data-de="Bildbeschreibung, Dialog, Monolog — Trainieren Sie mit KI-generierten deutschen Höraufgaben.">사진 묘사, 대화, 독백 — de-DE TTS로 학습.</div>
+    <div class="hero-badges">
+      <span class="hero-badge" data-ko="Teil 1 — 사진 묘사" data-de="Teil 1 — Bildbeschreibung">Teil 1 — 사진</span>
+      <span class="hero-badge" data-ko="Teil 2 — 대화 응답" data-de="Teil 2 — Dialog">Teil 2 — 대화</span>
+      <span class="hero-badge" data-ko="Teil 3 — 독백" data-de="Teil 3 — Monolog">Teil 3 — 독백</span>
+      <span class="hero-badge">🤖 KI</span>
+    </div>
+  </div>
+
+  <div class="part-tabs fade-in">
+    <button class="ptab act" onclick="selectPart('p1',this)" data-ko="📸 Teil 1" data-de="📸 Teil 1">📸 Teil 1</button>
+    <button class="ptab" onclick="selectPart('p2',this)" data-ko="💬 Teil 2" data-de="💬 Teil 2">💬 Teil 2</button>
+    <button class="ptab" onclick="selectPart('p3',this)" data-ko="🗣️ Teil 3" data-de="🗣️ Teil 3">🗣️ Teil 3</button>
+  </div>
+
+  <div class="part-info fade-in" id="part-info"></div>
+
+  <div class="settings-row fade-in">
+    <div class="setting-item">
+      <div class="si-label" data-ko="레벨" data-de="Niveau">레벨</div>
+      <select class="si-select" id="sel-level">
+        <option value="A1">A1 (Anfänger)</option>
+        <option value="A2" selected>A2 (Grundkenntnisse)</option>
+        <option value="B1">B1 (Mittelstufe)</option>
+        <option value="B2">B2 (Gute Mittelstufe)</option>
+        <option value="C1">C1 (Fortgeschritten)</option>
+        <option value="C2">C2 (Meisterschaft)</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="주제" data-de="Thema">주제</div>
+      <select class="si-select" id="sel-topic">
+        <option value="Alltag und Familie">일상·가족 / Alltag</option>
+        <option value="Arbeit und Beruf">직장·직업 / Beruf</option>
+        <option value="Reisen und Transport">여행·교통 / Reisen</option>
+        <option value="Essen und Gesundheit">음식·건강 / Gesundheit</option>
+        <option value="Kultur und Freizeit">문화·여가 / Freizeit</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="음성 속도" data-de="Sprechgeschwindigkeit">음성 속도</div>
+      <select class="si-select" id="sel-speed">
+        <option value="0.7" data-ko="느리게 (0.7x)" data-de="Langsam (0.7x)">느리게 (0.7x)</option>
+        <option value="0.9" selected data-ko="보통 (0.9x)" data-de="Normal (0.9x)">보통 (0.9x)</option>
+        <option value="1.1" data-ko="빠르게 (1.1x)" data-de="Schnell (1.1x)">빠르게 (1.1x)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn fade-in" id="gen-btn" onclick="generate()">
+    🤖 <span data-ko="독일어 듣기 생성" data-de="Deutsche Höraufgabe generieren">독일어 듣기 생성</span>
+  </button>
+
+  <div class="loading" id="loading"><div class="spinner"></div><div id="loading-text" style="font-size:14px;color:var(--text-muted);">생성 중...</div></div>
+
+  <div id="content-area"></div>
+
+  <div class="score-card" id="score-card">
+    <div class="sc-score" id="sc-score"></div>
+    <div class="sc-pct" id="sc-pct"></div>
+    <div class="sc-msg" id="sc-msg"></div>
+  </div>
+
+  <div class="action-btns" id="action-btns">
+    <button class="act-btn primary" onclick="generate()" data-ko="🔄 새 문제" data-de="🔄 Neue Aufgabe">🔄 새 문제</button>
+    <a href="../../index.html" class="act-btn" data-ko="← General 홈" data-de="← Startseite">← General 홈</a>
+  </div>
+</div>
+
+<script>
+var lang='ko', currentPart='p1', currentData=null;
+var ttsActive=false;
+var correct=0, answered=0, total=0;
+var SPEEDS=[0.7,0.8,0.9,1.0,1.1,1.2];
+var LETTERS=['A','B','C','D'];
+
+var PART_INFO={
+  p1:{
+    ko:'Teil 1 — Bildbeschreibung: 사진을 보고 네 개의 독일어 문장을 들은 뒤 올바른 묘사를 고릅니다.',
+    de:'Teil 1 — Bildbeschreibung: Sehen Sie sich ein Bild an und hören Sie vier deutsche Sätze. Wählen Sie die richtige Beschreibung.',
+    tipKo:'💡 사진을 먼저 잘 살펴보세요. 각 선택지를 들을 때 사진과 비교하세요.',
+    tipDe:'💡 Schauen Sie sich das Bild zuerst genau an. Vergleichen Sie jede Option mit dem Bild.'
+  },
+  p2:{
+    ko:'Teil 2 — Kurze Dialoge: 짧은 대화를 듣고 질문에 알맞은 답을 고릅니다.',
+    de:'Teil 2 — Kurze Dialoge: Hören Sie kurze Dialoge und wählen Sie die richtige Antwort auf die Fragen.',
+    tipKo:'💡 대화의 핵심 정보(장소·시간·인물·행동)에 집중하세요. 두 번 들을 수 있습니다.',
+    tipDe:'💡 Konzentrieren Sie sich auf die Schlüsselinformationen: Ort, Zeit, Personen, Handlung.'
+  },
+  p3:{
+    ko:'Teil 3 — Monolog/Bericht: 독백이나 방송을 듣고 주제·세부내용·화자의 의견을 파악합니다.',
+    de:'Teil 3 — Monolog/Bericht: Hören Sie einen Monolog oder eine Sendung. Erfassen Sie Thema, Details und die Meinung des Sprechers.',
+    tipKo:'💡 질문을 먼저 읽어 무엇을 들어야 할지 파악하세요. 핵심 논점과 결론에 집중하세요.',
+    tipDe:'💡 Lesen Sie zuerst die Fragen, um zu wissen, worauf Sie achten müssen. Konzentrieren Sie sich auf die Hauptargumente.'
+  }
+};
+
+function selectPart(id,btn){
+  stopTTS(); currentPart=id;
+  document.querySelectorAll('.ptab').forEach(function(t){t.classList.remove('act');});
+  btn.classList.add('act');
+  renderPartInfo();
+  resetContent();
+}
+
+function renderPartInfo(){
+  var info=PART_INFO[currentPart];
+  document.getElementById('part-info').innerHTML=
+    '<div class="pi-title">'+(lang==='ko'?info.ko.split(':')[0]:info.de.split(':')[0])+'</div>'
+    +'<div class="pi-desc">'+(lang==='ko'?info.ko.split(':').slice(1).join(':'):info.de.split(':').slice(1).join(':'))+'</div>'
+    +'<div class="pi-tip">'+(lang==='ko'?info.tipKo:info.tipDe)+'</div>';
+}
+
+function resetContent(){
+  stopTTS();
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('score-card').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  correct=0; answered=0; total=0;
+}
+
+async function callClaude(prompt,maxTok){
+  var r=await fetch('/api/claude',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTok||1200,
+      messages:[{role:'user',content:prompt}]})});
+  var d=await r.json();
+  var raw=d.content?.[0]?.text||'';
+  var s=raw.replace(/```json|```/g,'').trim();
+  var fi=s.indexOf('{'); var li=s.lastIndexOf('}');
+  if(fi!==-1&&li!==-1) s=s.slice(fi,li+1);
+  return JSON.parse(s);
+}
+
+async function loadImage(id,prompt){
+  var img=document.getElementById('img-'+id);
+  var ld=document.getElementById('imgl-'+id);
+  if(!img) return;
+  function show(url){
+    img.onload=function(){img.style.opacity=1;if(ld)ld.classList.add('hidden');};
+    img.onerror=function(){img.onerror=null;img.src='https://picsum.photos/1200/675?random='+id;img.onload=function(){img.style.opacity=1;if(ld)ld.classList.add('hidden');};};
+    img.src=url;
+  }
+  try{
+    var ctrl=new AbortController();
+    var timer=setTimeout(function(){ctrl.abort();},20000);
+    var r=await fetch('/api/generate-image',{method:'POST',signal:ctrl.signal,
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt:prompt,aspectRatio:'16:9'})});
+    clearTimeout(timer);
+    var d=await r.json();
+    if(d.imageUrl){show(d.imageUrl);return;}
+  }catch(e){}
+  show('https://picsum.photos/1200/675?random='+id);
+}
+
+async function generate(){
+  var isLoading=document.getElementById('gen-btn').disabled;
+  if(isLoading) return;
+  resetContent();
+  document.getElementById('gen-btn').disabled=true;
+  document.getElementById('loading').style.display='block';
+  var level=document.getElementById('sel-level').value;
+  var topic=document.getElementById('sel-topic').value;
+  var speed=parseFloat(document.getElementById('sel-speed').value);
+  document.getElementById('loading-text').textContent=lang==='ko'?'🤖 문제 생성 중…':'🤖 Aufgabe wird generiert…';
+
+  var prompt='';
+  if(currentPart==='p1'){
+    var ans=Math.floor(Math.random()*4);
+    prompt='Generate 1 German listening exercise (Bildbeschreibung - image description). Level: '+level+'. Topic: '+topic+'.\n'
+      +'Return ONLY valid JSON object (no markdown, no backticks, single-line strings):\n'
+      +'{"imagePrompt":"realistic everyday German scene 5 words","choices":["(A) Satz auf Deutsch","(B) Satz auf Deutsch","(C) Satz auf Deutsch","(D) Satz auf Deutsch"],"answer":'+ans+',"explanation_ko":"정답 해설 한국어"}\n'
+      +'choices['+ans+'] correctly describes the image. All choices in German. Avoid umlauts in imagePrompt. Single-line strings.';
+  } else if(currentPart==='p2'){
+    prompt='Generate 3 short German listening dialogue exercises. Level: '+level+'. Topic: '+topic+'.\n'
+      +'Return ONLY valid JSON object (no markdown, no backticks, single-line strings):\n'
+      +'{"items":[{"id":1,"question":"Frage auf Deutsch","choices":["(A) Antwort","(B) Antwort","(C) Antwort"],"answer":0,"explanation_ko":"해설"},{"id":2,"question":"Frage","choices":["(A) Antwort","(B) Antwort","(C) Antwort"],"answer":1,"explanation_ko":"해설"},{"id":3,"question":"Frage","choices":["(A) Antwort","(B) Antwort","(C) Antwort"],"answer":2,"explanation_ko":"해설"}]}\n'
+      +'3 choices each, answers 0-based varying positions. All German content in German. Avoid special characters in JSON strings where possible. Single-line strings.';
+  } else {
+    var isDialog=Math.random()>0.4;
+    if(isDialog){
+      prompt='Generate 1 German listening dialogue set. Level: '+level+'. Topic: '+topic+'.\n'
+        +'Return ONLY valid JSON object (no markdown, no backticks, single-line strings):\n'
+        +'{"type":"dialog","context":"Situationsbeschreibung auf Deutsch","script":[{"speaker":"A","line":"Satz auf Deutsch"},{"speaker":"B","line":"Antwort auf Deutsch"},{"speaker":"A","line":"Satz"},{"speaker":"B","line":"Antwort"}],"questions":[{"id":1,"text":"Frage auf Deutsch?","choices":["(A) Option","(B) Option","(C) Option","(D) Option"],"answer":0,"explanation_ko":"해설"},{"id":2,"text":"Frage?","choices":["(A)","(B)","(C)","(D)"],"answer":1,"explanation_ko":"해설"},{"id":3,"text":"Frage?","choices":["(A)","(B)","(C)","(D)"],"answer":2,"explanation_ko":"해설"}]}\n'
+        +'3 questions, answers 0-based varying. All German content in German. Single-line strings.';
+    } else {
+      prompt='Generate 1 German listening monologue. Level: '+level+'. Topic: '+topic+'.\n'
+        +'Return ONLY valid JSON object (no markdown, no backticks, single-line strings):\n'
+        +'{"type":"monologue","talkType":"Bericht","script":[{"speaker":"Sprecher","line":"Deutschen Monolog Text 2-3 Saetze"}],"questions":[{"id":1,"text":"Frage auf Deutsch?","choices":["(A) Option","(B) Option","(C) Option","(D) Option"],"answer":0,"explanation_ko":"해설"},{"id":2,"text":"Frage?","choices":["(A)","(B)","(C)","(D)"],"answer":1,"explanation_ko":"해설"},{"id":3,"text":"Frage?","choices":["(A)","(B)","(C)","(D)"],"answer":2,"explanation_ko":"해설"}]}\n'
+        +'3 questions, answers 0-based varying. All German content in German. Single-line strings.';
+    }
+  }
+
+  try{
+    var data=await callClaude(prompt,1200);
+    document.getElementById('loading').style.display='none';
+    if(currentPart==='p1'){
+      total=1;
+      document.getElementById('content-area').appendChild(makeP1Card(data,speed));
+      loadImage(1,data.imagePrompt);
+    } else if(currentPart==='p2'){
+      total=data.items.length;
+      document.getElementById('content-area').appendChild(makeP2Block(data.items,speed));
+    } else {
+      total=data.questions.length;
+      document.getElementById('content-area').appendChild(makeP3Card(data,speed));
+    }
+    document.getElementById('action-btns').style.display='flex';
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('content-area').innerHTML='<div style="padding:24px;text-align:center;color:var(--red)">⚠️ '+(lang==='ko'?'생성 실패':'Fehler')+'<br><small>'+e.message+'</small></div>';
+    console.error(e);
+  }
+  document.getElementById('gen-btn').disabled=false;
+}
+
+/* ── Teil 1 ──────────────────────────────────────────────────────── */
+function makeP1Card(item,speed){
+  var div=document.createElement('div');
+  var photoCard=document.createElement('div'); photoCard.className='photo-card fade-in';
+  var photoWrap=document.createElement('div'); photoWrap.className='photo-wrap';
+  var img=document.createElement('img'); img.id='img-1'; img.alt=''; img.style.opacity=0;
+  var ld=document.createElement('div'); ld.className='photo-loading'; ld.id='imgl-1';
+  ld.innerHTML='<div class="ph-spin"></div><span style="font-size:11px">'+(lang==='ko'?'이미지 로딩…':'Bild lädt…')+'</span>';
+  photoWrap.append(img,ld);
+  var cap=document.createElement('div'); cap.className='photo-cap';
+  cap.textContent=lang==='ko'?'📸 사진을 보고 올바른 묘사를 고르세요':'📸 Wählen Sie die richtige Beschreibung zum Bild';
+  photoCard.append(photoWrap,cap);
+
+  var ac=document.createElement('div'); ac.className='audio-card fade-in';
+  var acHead=document.createElement('div'); acHead.className='ac-header';
+  acHead.innerHTML='<div class="ac-title">🎧 <span>'+(lang==='ko'?'문제 1':'Aufgabe 1')+'</span> <span class="ac-badge">Teil 1</span></div>'
+    +'<div style="font-size:11px;color:var(--text-muted);">'+(lang==='ko'?'▶ 재생 후 선택 가능':'▶ Nach dem Anhören auswählen')+'</div>';
+  var pr=makePlayerRow('p1main',speed,function(){playP1(item,speed);});
+  ac.append(acHead,pr);
+
+  var cs=document.createElement('div'); cs.className='choices-section fade-in';
+  var hint=document.createElement('div');
+  hint.style.cssText='font-size:12px;color:var(--de-blue);background:var(--de-blue-light);padding:8px 12px;border-radius:8px;margin-bottom:10px;';
+  hint.textContent=lang==='ko'?'🔊 음성을 먼저 들은 후 선택하세요':'🔊 Erst anhören, dann auswählen';
+  hint.id='hint-1';
+  var grid=document.createElement('div'); grid.className='p1-grid choices-locked'; grid.id='p1choices-1';
+  LETTERS.forEach(function(ltr,i){
+    var btn=document.createElement('button'); btn.className='p1-btn'; btn.textContent=ltr;
+    btn.dataset.text=item.choices[i]||'';
+    btn.addEventListener('click',function(){ansP1(i,btn,item);});
+    grid.appendChild(btn);
+  });
+  var fb=document.createElement('div'); fb.className='q-feedback'; fb.id='p1fb-1';
+  cs.append(hint,grid,fb);
+  div.append(photoCard,ac,cs);
+  return div;
+}
+
+function playP1(item,speed){
+  var spd=parseFloat(document.getElementById('pspd-p1main')?.textContent)||speed;
+  stopTTS();
+  var choicesEl=document.getElementById('p1choices-1');
+  var hintEl=document.getElementById('hint-1');
+  if(choicesEl) choicesEl.classList.remove('choices-locked');
+  if(hintEl) hintEl.style.display='none';
+  var queue=item.choices.map(function(c,i){return LETTERS[i]+'. '+c;});
+  var vs=speechSynthesis.getVoices();
+  var dv=vs.find(function(v){return v.lang.startsWith('de');});
+  var qi=0; ttsActive=true;
+  function playNext(){
+    if(!ttsActive||qi>=queue.length){
+      ttsActive=false;
+      if(choicesEl) choicesEl.querySelectorAll('.p1-btn').forEach(function(b){b.classList.remove('playing');});
+      return;
+    }
+    var fill=document.getElementById('pfill-p1main');
+    if(fill) fill.style.width=(qi/queue.length*100)+'%';
+    if(choicesEl) choicesEl.querySelectorAll('.p1-btn').forEach(function(b,i){b.classList.toggle('playing',i===qi);});
+    var u=new SpeechSynthesisUtterance(queue[qi]); u.lang='de-DE'; u.rate=spd;
+    if(dv) u.voice=dv;
+    qi++;
+    var done=false;
+    function next(){if(done)return;done=true;playNext();}
+    u.onend=next;
+    setTimeout(next,Math.ceil(queue[qi-1].length*500/spd)+1500);
+    speechSynthesis.speak(u);
+  }
+  playNext();
+}
+
+function ansP1(idx,btn,item){
+  var opts=document.getElementById('p1choices-1')?.querySelectorAll('.p1-btn'); if(!opts) return;
+  opts.forEach(function(b){b.disabled=true;b.classList.remove('playing');});
+  opts[item.answer].classList.add('correct');
+  if(idx!==item.answer) btn.classList.add('wrong');
+  var fb=document.getElementById('p1fb-1');
+  if(fb){
+    fb.innerHTML=(idx===item.answer?'✅ '+(lang==='ko'?'정답':'Richtig')+'! ':'❌ '+(lang==='ko'?'오답. 정답:':'Falsch. Richtige Antwort:')+' ')
+      +'<strong>'+LETTERS[item.answer]+'. '+item.choices[item.answer]+'</strong><br><small>'+item.explanation_ko+'</small>';
+    fb.className='q-feedback show '+(idx===item.answer?'correct':'wrong');
+  }
+  answered++; if(idx===item.answer) correct++;
+  checkDone();
+}
+
+/* ── Teil 2 ──────────────────────────────────────────────────────── */
+function makeP2Block(items,speed){
+  var wrap=document.createElement('div'); wrap.className='audio-card fade-in';
+  var hdr=document.createElement('div'); hdr.className='ac-header';
+  hdr.innerHTML='<div class="ac-title">💬 '+(lang==='ko'?'대화 응답':'Dialog-Antwort')+' <span class="ac-badge">'+items.length+(lang==='ko'?'문제':'Aufgaben')+'</span></div>';
+  wrap.appendChild(hdr);
+  items.forEach(function(item){
+    var d=document.createElement('div'); d.style.cssText='margin-bottom:16px;padding-bottom:16px;border-bottom:0.5px solid var(--border);';
+    var pr=makePlayerRow('p2-'+item.id,speed,function(){playText(item.question,speed,'p2-'+item.id);});
+    var qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='Aufgabe '+item.id;
+    var opts=document.createElement('div'); opts.className='q-opts'; opts.id='p2opts-'+item.id;
+    item.choices.forEach(function(c,i){
+      var btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML='<span class="q-opt-ltr">'+'ABC'[i]+'</span><span>'+c+'</span>';
+      btn.addEventListener('click',function(){answerQ(item.id,i,btn,item.answer,item.explanation_ko,opts);});
+      opts.appendChild(btn);
+    });
+    var fb=document.createElement('div'); fb.className='q-feedback'; fb.id='fb-p2-'+item.id;
+    d.append(pr,qNum,opts,fb);
+    wrap.appendChild(d);
+  });
+  return wrap;
+}
+
+/* ── Teil 3 ──────────────────────────────────────────────────────── */
+function makeP3Card(data,speed){
+  var isDialog=data.type==='dialog';
+  var lines=data.script||[];
+  var wrap=document.createElement('div'); wrap.className='audio-card fade-in';
+  var hdr=document.createElement('div'); hdr.className='ac-header';
+  var ttl=document.createElement('div'); ttl.className='ac-title';
+  ttl.innerHTML=(isDialog?'💬 ':'📢 ')+(lang==='ko'?(isDialog?'대화':'독백'):(isDialog?'Dialog':'Monolog'))+'&nbsp;<span class="ac-badge">'+(data.talkType||'Teil 3')+'</span>';
+  var togBtn=document.createElement('button'); togBtn.className='script-toggle';
+  togBtn.textContent=lang==='ko'?'📄 스크립트 보기':'📄 Skript anzeigen';
+  togBtn.addEventListener('click',function(){
+    var sc=document.getElementById('script-p3');
+    var open=sc.classList.toggle('open');
+    togBtn.textContent=open?(lang==='ko'?'🙈 숨기기':'🙈 Ausblenden'):(lang==='ko'?'📄 스크립트 보기':'📄 Skript anzeigen');
+  });
+  hdr.append(ttl,togBtn);
+  var pr=makePlayerRow('p3main',speed,function(){playScript(lines,speed);});
+  var scriptWrap=document.createElement('div'); scriptWrap.className='script-wrap'; scriptWrap.id='script-p3';
+  lines.forEach(function(l,i){
+    var row=document.createElement('div'); row.className='script-line'; row.id='sl-p3-'+i;
+    row.innerHTML='<span class="sl-spk">'+l.speaker+'</span><span class="sl-txt">'+l.line+'</span>';
+    row.addEventListener('click',function(){stopTTS();playScript(lines.slice(i),speed);});
+    scriptWrap.appendChild(row);
+  });
+  var qSec=document.createElement('div'); qSec.style.marginTop='14px';
+  (data.questions||[]).forEach(function(q){
+    var qDiv=document.createElement('div'); qDiv.className='q-item';
+    var qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='Frage '+q.id;
+    var qTxt=document.createElement('div'); qTxt.className='q-text'; qTxt.textContent=q.text;
+    var opts=document.createElement('div'); opts.className='q-opts'; opts.id='p3opts-'+q.id;
+    (q.choices||[]).forEach(function(c,i){
+      var btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML='<span class="q-opt-ltr">'+LETTERS[i]+'</span><span>'+c+'</span>';
+      btn.addEventListener('click',function(){answerQ(q.id,i,btn,q.answer,q.explanation_ko,opts);});
+      opts.appendChild(btn);
+    });
+    var fb=document.createElement('div'); fb.className='q-feedback'; fb.id='fb-p3-'+q.id;
+    qDiv.append(qNum,qTxt,opts,fb); qSec.appendChild(qDiv);
+  });
+  wrap.append(hdr,pr,scriptWrap,qSec);
+  return wrap;
+}
+
+/* ── 공통 헬퍼 ────────────────────────────────────────────────────── */
+function makePlayerRow(id,speed,onPlay){
+  var pr=document.createElement('div'); pr.className='player-row'; pr.style.marginBottom='10px';
+  var pbtn=document.createElement('button'); pbtn.className='play-btn'; pbtn.style.cssText='width:36px;height:36px;';
+  pbtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  pbtn.addEventListener('click',onPlay);
+  var pInfo=document.createElement('div'); pInfo.className='player-info';
+  pInfo.innerHTML='<div class="player-label">'+(lang==='ko'?'▶ 버튼을 눌러 음성을 들으세요':'▶ Zum Anhören klicken')+'</div>'
+    +'<div class="player-bar"><div class="player-fill" id="pfill-'+id+'"></div></div>';
+  var spdBtn=document.createElement('button'); spdBtn.className='speed-btn'; spdBtn.id='pspd-'+id; spdBtn.textContent=speed+'x';
+  spdBtn.addEventListener('click',function(){cycleSpeed('pspd-'+id);});
+  pr.append(pbtn,pInfo,spdBtn);
+  return pr;
+}
+
+function playScript(lines,speed){
+  stopTTS();
+  var spd=parseFloat(document.getElementById('pspd-p3main')?.textContent)||speed;
+  playLine(lines,0,spd);
+}
+function playLine(lines,idx,spd){
+  if(idx>=lines.length){ttsActive=false;hlLine(-1);return;}
+  hlLine(idx);
+  var fill=document.getElementById('pfill-p3main');
+  if(fill) fill.style.width=(idx/lines.length*100)+'%';
+  var vs=speechSynthesis.getVoices();
+  var dvs=vs.filter(function(v){return v.lang.startsWith('de');});
+  var u=new SpeechSynthesisUtterance(lines[idx].line); u.lang='de-DE'; u.rate=spd;
+  if(dvs.length>1) u.voice=dvs[idx%dvs.length]; else if(dvs.length) u.voice=dvs[0];
+  u.onend=function(){if(ttsActive) playLine(lines,idx+1,spd);};
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function playText(text,speed,id){
+  stopTTS();
+  var spd=parseFloat(document.getElementById('pspd-'+id)?.textContent)||speed;
+  var fill=document.getElementById('pfill-'+id);
+  var u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; u.rate=spd;
+  var vs=speechSynthesis.getVoices(); var dv=vs.find(function(v){return v.lang.startsWith('de');});
+  if(dv) u.voice=dv;
+  u.onboundary=function(e){if(e.name==='word'&&fill) fill.style.width=Math.min(100,e.charIndex/text.length*100)+'%';};
+  u.onend=function(){ttsActive=false;if(fill)fill.style.width='100%';};
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function hlLine(idx){
+  document.querySelectorAll('[id^="sl-p3-"]').forEach(function(e){e.classList.remove('act');});
+  if(idx>=0){var e=document.getElementById('sl-p3-'+idx);if(e)e.classList.add('act');}
+}
+function answerQ(qId,idx,btn,answer,expl,optsEl){
+  var opts=optsEl?.querySelectorAll('.q-opt'); if(!opts||opts[0]?.disabled) return;
+  opts.forEach(function(b){b.disabled=true;});
+  opts[answer].classList.add('correct');
+  if(idx!==answer) btn.classList.add('wrong');
+  var qItem=btn.closest('.q-item');
+  var fb=qItem?.querySelector('.q-feedback');
+  if(fb){fb.textContent=expl||'';fb.className='q-feedback show '+(idx===answer?'correct':'wrong');}
+  answered++; if(idx===answer) correct++;
+  checkDone();
+}
+function stopTTS(){speechSynthesis.cancel();ttsActive=false;}
+function cycleSpeed(btnId){
+  var btn=document.getElementById(btnId); if(!btn) return;
+  var cur=parseFloat(btn.textContent);
+  var i=SPEEDS.indexOf(cur);
+  btn.textContent=SPEEDS[(i+1)%SPEEDS.length]+'x';
+}
+function checkDone(){
+  if(answered<total) return;
+  var pct=Math.round(correct/total*100);
+  var sc=document.getElementById('score-card'); sc.style.display='block';
+  document.getElementById('sc-score').textContent=correct+'/'+total;
+  document.getElementById('sc-pct').textContent=pct+'%';
+  document.getElementById('sc-msg').textContent=
+    pct>=80?(lang==='ko'?'🎉 Ausgezeichnet!':'🎉 Ausgezeichnet!'):
+    pct>=60?(lang==='ko'?'👍 Gut gemacht!':'👍 Gut gemacht!'):
+    (lang==='ko'?'💪 Weiter üben!':'💪 Weiter üben!');
+  sc.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-de]').forEach(function(el){
+    var t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-de');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-de').classList.toggle('act',l==='de');
+  renderPartInfo();
+}
+
+(function(){
+  setLang('ko');
+  renderPartInfo();
+})();
+</script>
+</body>
+</html>

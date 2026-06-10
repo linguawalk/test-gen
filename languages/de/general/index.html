@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General Deutsch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --de-blue:#003b8e;--de-blue-light:#e8edf8;
+  --de-gold:#f5c400;--de-red:#d4242b;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 6%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+.hero{background:linear-gradient(135deg,#1a1a1a 0%,#3d3d3d 100%);padding:48px 6% 44px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;}
+.hero-inner{max-width:860px;margin:0 auto;position:relative;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:10px;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:500px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.h-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+.h-badge.gold{background:rgba(245,196,0,0.2);color:var(--de-gold);border-color:rgba(245,196,0,0.3);}
+
+.wrap{max-width:860px;margin:0 auto;padding:36px 6% 80px;}
+
+.level-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:28px;}
+.ls-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.ls-desc{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+.level-tabs{display:flex;gap:3px;background:var(--bg);border-radius:10px;padding:3px;flex-wrap:wrap;}
+.lv-tab{flex:1;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;min-width:60px;}
+.lv-tab:hover{color:var(--de-blue);}
+.lv-tab.act{background:var(--de-blue);color:#fff;}
+.level-info{margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;}
+.goethe-badge{display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:8px;background:var(--de-blue-light);color:var(--de-blue);margin-top:8px;}
+
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.sh-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);}
+.sh-line{flex:1;height:0.5px;background:var(--border);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:32px;}
+.skill-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:all 0.25s;}
+.skill-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.09);}
+.sc-top{padding:20px 20px 14px;flex:1;}
+.sc-icon{font-size:32px;margin-bottom:10px;}
+.sc-name{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.sc-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;}
+.sc-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.sc-tag{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:500;}
+.sc-bottom{padding:12px 20px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.sc-cta{font-size:13px;font-weight:600;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade{opacity:0;animation:fadeUp 0.45s ease forwards;}
+.fade:nth-child(1){animation-delay:.05s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.15s}.fade:nth-child(4){animation-delay:.20s}
+.fade:nth-child(5){animation-delay:.25s}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📚 <span data-ko="General 독일어" data-de="Allgemeines Deutsch">General 독일어</span></span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← 독일어 홈" data-de="← Deutsch Startseite">← 독일어 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('de')" id="btn-de">Deutsch</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag" data-ko="GENERAL 독일어 · 전체 레벨 무료" data-de="ALLGEMEINES DEUTSCH · ALLE NIVEAUS KOSTENLOS">GENERAL 독일어 · 전체 레벨 무료</div>
+    <h1 class="hero-title" data-ko="A1부터 C2까지 독일어 학습" data-de="Deutsch lernen von A1 bis C2">A1부터 C2까지 독일어 학습</h1>
+    <p class="hero-desc" data-ko="Hören·Lesen·Sprechen·Schreiben·Wortschatz — AI 기반 5개 영역. 전 레벨 완전 무료." data-de="Hören · Lesen · Sprechen · Schreiben · Wortschatz — 5 KI-gestützte Bereiche. Alle Niveaus kostenlos.">Hören·Lesen·Sprechen·Schreiben·Wortschatz — 전 레벨 완전 무료.</p>
+    <div class="hero-badges">
+      <span class="h-badge gold" data-ko="✨ A1~C2 전 레벨 무료" data-de="✨ A1~C2 alle kostenlos">✨ A1~C2 전 레벨 무료</span>
+      <span class="h-badge" data-ko="5개 영역" data-de="5 Bereiche">5개 영역</span>
+      <span class="h-badge">🤖 KI-Tutor</span>
+      <span class="h-badge" data-ko="Goethe 대응" data-de="Goethe-konform">Goethe 대응</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="level-section fade">
+    <div class="ls-title" data-ko="레벨 선택" data-de="Niveau wählen">레벨 선택</div>
+    <div class="ls-desc" data-ko="CEFR 기준 · Goethe-Zertifikat 대응" data-de="CEFR-Referenzrahmen · Goethe-Zertifikat-konform">CEFR 기준 · Goethe-Zertifikat 대응</div>
+    <div class="level-tabs">
+      <button class="lv-tab act" onclick="selectLevel('A1',this)">A1</button>
+      <button class="lv-tab" onclick="selectLevel('A2',this)">A2</button>
+      <button class="lv-tab" onclick="selectLevel('B1',this)">B1</button>
+      <button class="lv-tab" onclick="selectLevel('B2',this)">B2</button>
+      <button class="lv-tab" onclick="selectLevel('C1',this)">C1</button>
+      <button class="lv-tab" onclick="selectLevel('C2',this)">C2</button>
+    </div>
+    <div class="level-info" id="level-info"></div>
+    <div id="goethe-badge-wrap"></div>
+  </div>
+
+  <div class="sh fade">
+    <span class="sh-label" data-ko="영역 선택" data-de="Bereich wählen">영역 선택</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <a href="listening.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">🎧</div>
+        <div class="sc-name" data-ko="듣기 · Hören" data-de="Hören">듣기 · Hören</div>
+        <div class="sc-desc" data-ko="사진 묘사·대화·독백. de-DE TTS. 1문제씩 생성." data-de="Bildbeschreibung, Dialog, Monolog. de-DE TTS. Aufgabe für Aufgabe.">사진 묘사·대화·독백 · de-DE TTS</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#fef9e7;color:#a07000;" data-ko="사진 묘사" data-de="Bildbeschreibung">사진 묘사</span>
+          <span class="sc-tag" style="background:#fef9e7;color:#a07000;" data-ko="대화" data-de="Dialog">대화</span>
+          <span class="sc-tag" style="background:#fef9e7;color:#a07000;" data-ko="독백" data-de="Monolog">독백</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#a07000;" data-ko="듣기 시작 →" data-de="Hören starten →">듣기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <a href="reading.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">📖</div>
+        <div class="sc-name" data-ko="읽기 · Lesen" data-de="Lesen">읽기 · Lesen</div>
+        <div class="sc-desc" data-ko="뉴스·이메일·에세이. AI 튜터 즉시 해설." data-de="Nachrichten, E-Mails, Essays. Sofortige Erklärung durch KI-Tutor.">뉴스·이메일·에세이 · AI 튜터</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal-mid);" data-ko="뉴스" data-de="Nachrichten">뉴스</span>
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal-mid);" data-ko="이메일" data-de="E-Mail">이메일</span>
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal-mid);" data-ko="에세이" data-de="Essay">에세이</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:var(--teal-mid);" data-ko="읽기 시작 →" data-de="Lesen starten →">읽기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <a href="speaking.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">🗣️</div>
+        <div class="sc-name" data-ko="말하기 · Sprechen" data-de="Sprechen">말하기 · Sprechen</div>
+        <div class="sc-desc" data-ko="롤플레이·발표·토론. AI 발음·유창성·문법 피드백." data-de="Rollenspiel, Vortrag, Diskussion. KI-Feedback zu Aussprache, Flüssigkeit und Grammatik.">롤플레이·발표·토론 · AI 채점</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ko="롤플레이" data-de="Rollenspiel">롤플레이</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ko="발표" data-de="Vortrag">발표</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ko="토론" data-de="Diskussion">토론</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#993556;" data-ko="말하기 시작 →" data-de="Sprechen starten →">말하기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <a href="writing.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">✍️</div>
+        <div class="sc-name" data-ko="쓰기 · Schreiben" data-de="Schreiben">쓰기 · Schreiben</div>
+        <div class="sc-desc" data-ko="이메일·에세이·편지. AI 5항목 채점." data-de="E-Mails, Essays, Briefe. KI-Bewertung nach 5 Kriterien.">이메일·에세이·편지 · AI 채점</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ko="이메일" data-de="E-Mail">이메일</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ko="에세이" data-de="Essay">에세이</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ko="편지" data-de="Brief">편지</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#534ab7;" data-ko="쓰기 시작 →" data-de="Schreiben starten →">쓰기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <a href="vocabulary.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">📚</div>
+        <div class="sc-name" data-ko="어휘·문법 · Wortschatz" data-de="Wortschatz & Grammatik">어휘·문법</div>
+        <div class="sc-desc" data-ko="주제별 어휘·격변화·동사변화. 플래시카드·퀴즈." data-de="Thematischer Wortschatz, Deklination, Konjugation. Karteikarten und Quiz.">어휘·격변화·동사변화 · 퀴즈</div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ko="어휘" data-de="Wortschatz">어휘</span>
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ko="격변화" data-de="Deklination">격변화</span>
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ko="동사변화" data-de="Konjugation">동사변화</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#5b2d8e;" data-ko="어휘·문법 시작 →" data-de="Wortschatz starten →">어휘·문법 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+var lang='ko', currentLevel='A1';
+
+var LEVEL_INFO={
+  A1:{ko:'🟢 A1 — 입문. 기본 인사·숫자·일상 표현. Goethe-Zertifikat A1 수준.',de:'🟢 A1 — Anfänger. Grundlegende Begrüßungen, Zahlen und alltägliche Ausdrücke. Goethe-Zertifikat A1.',goethe:'Goethe-Zertifikat A1'},
+  A2:{ko:'🟢 A2 — 초급. 간단한 일상 대화 이해·사용 가능. Goethe-Zertifikat A2 수준.',de:'🟢 A2 — Grundlegende Kenntnisse. Einfache Alltagsgespräche verstehen und führen. Goethe-Zertifikat A2.',goethe:'Goethe-Zertifikat A2'},
+  B1:{ko:'🟡 B1 — 중급. 친숙한 주제 이해·일상 소통 가능. Goethe-Zertifikat B1 수준.',de:'🟡 B1 — Mittelstufe. Verträgliche Themen verstehen und kommunizieren. Goethe-Zertifikat B1.',goethe:'Goethe-Zertifikat B1'},
+  B2:{ko:'🟠 B2 — 중상급. 복잡한 내용 이해·유창한 소통. Goethe-Zertifikat B2 수준.',de:'🟠 B2 — Gute Mittelstufe. Komplexe Inhalte verstehen und fließend kommunizieren. Goethe-Zertifikat B2.',goethe:'Goethe-Zertifikat B2'},
+  C1:{ko:'🔵 C1 — 고급. 다양한 장문 이해·자연스러운 표현. Goethe-Zertifikat C1 수준.',de:'🔵 C1 — Fortgeschritten. Verschiedene lange Texte verstehen und natürlich ausdrücken. Goethe-Zertifikat C1.',goethe:'Goethe-Zertifikat C1'},
+  C2:{ko:'🟣 C2 — 최고급. 모든 것을 쉽게 이해·정확히 표현. Goethe-Zertifikat C2 수준.',de:'🟣 C2 — Meisterschaft. Alles mühelos verstehen und präzise ausdrücken. Goethe-Zertifikat C2.',goethe:'Goethe-Zertifikat C2'},
+};
+
+function selectLevel(lv, el){
+  currentLevel=lv;
+  document.querySelectorAll('.lv-tab').forEach(function(t){t.classList.remove('act');});
+  el.classList.add('act');
+  updateLevelInfo();
+}
+
+function updateLevelInfo(){
+  var info=LEVEL_INFO[currentLevel];
+  document.getElementById('level-info').textContent=lang==='ko'?info.ko:info.de;
+  document.getElementById('goethe-badge-wrap').innerHTML='<span class="goethe-badge">'+info.goethe+'</span>';
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-de]').forEach(function(el){
+    var t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-de');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-de').classList.toggle('act',l==='de');
+  updateLevelInfo();
+}
+
+(function(){
+  setLang('ko');
+  var lv=new URLSearchParams(location.search).get('level');
+  if(lv&&LEVEL_INFO[lv]){
+    document.querySelectorAll('.lv-tab').forEach(function(t){
+      if(t.textContent.trim()===lv){t.classList.add('act');selectLevel(lv,t);}
+      else t.classList.remove('act');
+    });
+  } else { updateLevelInfo(); }
+})();
+</script>
+</body>
+</html>

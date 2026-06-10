@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General 日本語 — 読解</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --ja:#c0392b;--ja-dark:#8b1a12;--ja-light:#fdf0ef;
+  --blue:#2563eb;--blue-light:#dbeafe;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:860px;margin:0 auto;padding:28px 5% 80px;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--ja-dark) 0%,var(--ja) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+/* SETTINGS */
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:130px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+/* GEN BTN */
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--ja);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--ja-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+/* LOADING */
+.loading{padding:40px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:16px;display:none;}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--ja);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* CARD */
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.card-title{font-size:14px;font-weight:600;color:var(--text);}
+.card-body{padding:20px;}
+
+/* PASSAGE */
+.passage-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.pm-badge{font-size:11px;padding:3px 10px;border-radius:8px;font-weight:600;}
+.pm-level{background:var(--ja-light);color:var(--ja);}
+.pm-type{background:var(--teal-light);color:var(--teal-mid);}
+.pm-chars{background:var(--bg);color:var(--text-muted);border:0.5px solid var(--border);}
+.passage-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);margin-bottom:14px;line-height:1.4;}
+.passage-body{font-size:15px;line-height:2.0;color:var(--text);white-space:pre-line;font-family:'DM Sans',sans-serif;}
+/* 일본어 지문 전용 — 세로쓰기 옵션 없이 가독성 향상 */
+.passage-body.ja-text{font-size:15px;line-height:2.2;letter-spacing:0.02em;}
+
+/* RUBY (후리가나) */
+ruby{ruby-align:center;}
+rt{font-size:0.55em;color:var(--text-muted);}
+
+/* SUMMARY */
+
+/* AI TUTOR */
+.tutor-box{background:var(--ja-light);border:0.5px solid rgba(192,57,43,0.2);border-radius:10px;padding:14px;margin-top:14px;}
+.tutor-label{font-size:12px;font-weight:700;color:var(--ja);margin-bottom:8px;}
+.tutor-input{display:flex;gap:8px;margin-bottom:8px;}
+.tutor-input input{flex:1;padding:8px 12px;border:0.5px solid var(--border-md);border-radius:8px;font-size:13px;font-family:inherit;outline:none;}
+.tutor-input input:focus{border-color:var(--ja);}
+.tutor-input button{padding:8px 16px;border-radius:8px;background:var(--ja);color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;white-space:nowrap;}
+.tutor-response{font-size:13px;color:var(--text);line-height:1.65;background:var(--white);padding:10px 12px;border-radius:8px;display:none;}
+
+/* QUICK ASKS */
+.quick-asks{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.qa-btn{padding:5px 12px;border-radius:16px;font-size:11px;border:0.5px solid rgba(192,57,43,0.25);background:transparent;color:var(--ja);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.qa-btn:hover{background:var(--ja);color:#fff;}
+
+/* QUESTIONS */
+.q-item{margin-bottom:14px;padding:14px;background:var(--bg);border-radius:10px;}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px;line-height:1.6;}
+.q-options{display:flex;flex-direction:column;gap:6px;}
+.opt-btn{padding:10px 14px;border-radius:8px;font-size:13px;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);cursor:pointer;font-family:inherit;transition:all 0.2s;text-align:left;line-height:1.5;}
+.opt-btn:hover:not(:disabled){border-color:var(--ja);color:var(--ja);}
+.opt-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.opt-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red);}
+.opt-btn:disabled{cursor:default;}
+.feedback{font-size:12px;padding:8px 10px;border-radius:6px;display:none;margin-top:6px;line-height:1.5;}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;}
+.vocab-item{background:var(--bg);border-radius:8px;padding:10px;}
+.vocab-word{font-weight:600;color:var(--text);margin-bottom:2px;font-size:15px;}
+.vocab-read{font-size:11px;color:var(--text-light);margin-bottom:3px;}
+.vocab-def{font-size:12px;color:var(--text-muted);margin-bottom:2px;}
+.vocab-ko{font-size:11px;color:var(--ja);}
+
+/* SCORE */
+.score-bar{display:flex;align-items:center;gap:12px;background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;}
+.score-num{font-family:'DM Serif Display',serif;font-size:24px;color:var(--ja);}
+.progress-bar{flex:1;height:8px;background:var(--bg);border-radius:10px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--ja-dark),var(--ja));border-radius:10px;transition:width 0.3s;}
+
+.result-box{text-align:center;padding:24px;background:var(--white);border:0.5px solid var(--border);border-radius:14px;display:none;margin-bottom:16px;}
+.action-btns{display:flex;gap:10px;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;}
+.act-btn.primary{background:var(--ja);color:#fff;border-color:var(--ja);}
+.act-btn.primary:hover{background:var(--ja-dark);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" data-ko="General 일본어 · 읽기" data-ja="General 日本語 · 読解">General 일본어 · 읽기</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← 일본어 General" data-ja="← General">← 일본어 General</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('ja')" id="btn-ja">日本語</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="hero fade-in">
+    <div class="hero-tag" data-ko="GENERAL 일본어 · 읽기" data-ja="GENERAL 日本語 · 読解">GENERAL 일본어 · 읽기</div>
+    <div class="hero-title" data-ko="📖 일본어 읽기 연습" data-ja="📖 日本語読解練習">📖 일본어 읽기 연습</div>
+    <div class="hero-desc" data-ko="AI가 생성한 일본어 지문을 읽고 이해도 문제에 답하세요. 모르는 단어는 AI 튜터에게 물어보세요." data-ja="AIが生成した日本語の文章を読んで理解度問題に答えましょう。わからない単語はAIチューターに聞いてください。">AI가 생성한 일본어 지문을 읽고 이해도 문제에 답하세요.</div>
+    <div class="hero-badges">
+      <span class="hero-badge" data-ko="N5 ~ N1" data-ja="N5 ~ N1">N5 ~ N1</span>
+      <span class="hero-badge" data-ko="후리가나 포함" data-ja="ふりがな付き">후리가나 포함</span>
+      <span class="hero-badge">🤖 AI 튜터</span>
+      <span class="hero-badge" data-ko="이해도 퀴즈" data-ja="理解度クイズ">이해도 퀴즈</span>
+    </div>
+  </div>
+
+  <div class="settings-row fade-in">
+    <div class="setting-item">
+      <div class="si-label" data-ko="레벨" data-ja="レベル">레벨</div>
+      <select class="si-select" id="sel-level">
+        <option value="A1">A1 — 입문 (N5 이하)</option>
+        <option value="A2" selected>A2 — 초급 (N5)</option>
+        <option value="B1">B1 — 중급 초반 (N4~N3)</option>
+        <option value="B2">B2 — 중급 (N3~N2)</option>
+        <option value="C1">C1 — 고급 (N2~N1)</option>
+        <option value="C2">C2 — 최고급 (N1 이상)</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="텍스트 유형" data-ja="テキスト種類">텍스트 유형</div>
+      <select class="si-select" id="sel-type">
+        <option value="설명문" data-ko="설명문" data-ja="説明文">설명문</option>
+        <option value="이메일・편지" data-ko="이메일・편지" data-ja="メール・手紙">이메일・편지</option>
+        <option value="뉴스 기사" data-ko="뉴스 기사" data-ja="ニュース記事">뉴스 기사</option>
+        <option value="일기・에세이" data-ko="일기・에세이" data-ja="日記・エッセイ">일기・에세이</option>
+        <option value="공지・안내문" data-ko="공지・안내문" data-ja="お知らせ・案内">공지・안내문</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="주제" data-ja="トピック">주제</div>
+      <select class="si-select" id="sel-topic">
+        <option value="일상생활" data-ko="일상생활" data-ja="日常生活">일상생활</option>
+        <option value="여행・관광" data-ko="여행・관광" data-ja="旅行・観光">여행・관광</option>
+        <option value="음식・요리" data-ko="음식・요리" data-ja="食べ物・料理">음식・요리</option>
+        <option value="직장・비즈니스" data-ko="직장・비즈니스" data-ja="仕事・ビジネス">직장・비즈니스</option>
+        <option value="자연・환경" data-ko="자연・환경" data-ja="自然・環境">자연・환경</option>
+        <option value="문화・전통" data-ko="문화・전통" data-ja="文化・伝統">문화・전통</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn fade-in" id="gen-btn" onclick="generate()">
+    🤖 <span id="gen-label" data-ko="일본어 읽기 지문 생성" data-ja="日本語読解文章を生成">일본어 읽기 지문 생성</span>
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div id="loading-text" style="font-size:14px;color:var(--text-muted);">생성 중...</div>
+  </div>
+
+  <div class="score-bar" id="score-bar" style="display:none;">
+    <div>
+      <div class="score-num" id="score-num">0 / 0</div>
+      <div style="font-size:12px;color:var(--text-muted);" data-ko="정답" data-ja="正解">정답</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="result-box fade-in" id="result-box">
+    <div style="font-size:48px;margin-bottom:12px;" id="rb-icon">🎉</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:24px;margin-bottom:6px;" id="rb-title"></div>
+    <div style="font-size:16px;color:var(--ja);font-weight:600;margin-bottom:16px;" id="rb-score"></div>
+  </div>
+
+  <div class="action-btns" id="action-btns" style="display:none;">
+    <button class="act-btn primary" onclick="generate()" data-ko="🔄 새 지문" data-ja="🔄 新しい文章">🔄 새 지문</button>
+    <a href="../../index.html" class="act-btn" data-ko="← General 홈" data-ja="← Generalホーム">← General 홈</a>
+  </div>
+</div>
+
+<script>
+let lang='ko', passageData=null;
+let score=0, answered=0, totalQ=0;
+let isLoading=false;
+
+// ── 언어 전환 ─────────────────────────────────────────────────────────
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-ja]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-ja');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-ja').classList.toggle('act',l==='ja');
+}
+
+// ── 생성 ─────────────────────────────────────────────────────────────
+async function generate(){
+  if(isLoading) return;
+  isLoading=true;
+  const btn=document.getElementById('gen-btn');
+  btn.disabled=true;
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  document.getElementById('loading').style.display='block';
+  score=0; answered=0;
+
+  const level=document.getElementById('sel-level').value;
+  const type=document.getElementById('sel-type').value;
+  const topic=document.getElementById('sel-topic').value;
+  const charCount={A1:'80-120',A2:'120-180',B1:'180-260',B2:'260-360',C1:'360-480',C2:'480-600'}[level]||'200-300';
+
+  const prompt=`일본어 읽기 지문을 생성해주세요.
+레벨: ${level} (${({A1:'N5以下',A2:'N5',B1:'N4-N3',B2:'N3-N2',C1:'N2-N1',C2:'N1以上'})[level]||level}) / 유형: ${type} / 주제: ${topic} / 글자 수: ${charCount}자
+
+ONLY return valid JSON (no markdown):
+{
+  "title": "지문 제목 (일본어)",
+  "type": "${type}",
+  "level": "${level}",
+  "char_count": 200,
+  "passage": "일본어 지문 텍스트. 한 줄로 작성. 줄바꿈 없음.",
+
+  "questions": [
+    {
+      "question": "질문 (일본어)",
+      "options": ["(A) 선택지","(B) 선택지","(C) 선택지","(D) 선택지"],
+      "answer": 0,
+      "explanation": "${lang==='ko'?'한국어 해설':'日本語の解説'}"
+    }
+  ],
+  "vocabulary": [
+    {"word": "단어","reading": "よみかた","definition": "의미 (일본어)","korean": "한국어 뜻"}
+  ]
+}
+Rules:
+- passage must be natural Japanese appropriate for ${level} level
+- A1/A2: use very simple kanji with furigana in brackets like 食べ物[たべもの], short sentences
+- B1/B2: moderate kanji, some furigana for difficult words
+- C1/C2: natural Japanese with minimal furigana
+- Include exactly 4 comprehension questions
+- answer is 0-based index (0=A,1=B,2=C,3=D), vary the correct answer position
+- Include 5 vocabulary items
+- ALL strings must be single-line (no newlines inside strings)`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2500,
+        messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.[0]?.text||'';
+    passageData=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    totalQ=passageData.questions.length;
+    document.getElementById('loading').style.display='none';
+    renderReading();
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('content-area').innerHTML=`<div style="text-align:center;padding:24px;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해주세요.':'生成に失敗しました。'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  isLoading=false;
+  btn.disabled=false;
+  btn.innerHTML=`🔄 <span data-ko="${lang==='ko'?'새로 생성':'새로 생성'}" data-ja="再生成">${lang==='ko'?'새로 생성':'再生成'}</span>`;
+}
+
+// ── 렌더링 ────────────────────────────────────────────────────────────
+function renderReading(){
+  const d=passageData;
+  document.getElementById('score-bar').style.display='flex';
+  updateScore();
+  const area=document.getElementById('content-area');
+
+  // 지문에서 후리가나 처리: 食べ物[たべもの] → <ruby>食べ物<rt>たべもの</rt></ruby>
+  const formattedPassage=d.passage.replace(/([^\[]+)\[([^\]]+)\]/g,'<ruby>$1<rt>$2</rt></ruby>');
+
+  // 지문 카드
+  const passageCard=document.createElement('div');
+  passageCard.className='card fade-in';
+  passageCard.innerHTML=`
+    <div class="card-head">
+      <span class="card-title">${lang==='ko'?'읽기 지문':'読解文章'}</span>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <span class="pm-badge pm-level">${d.level}</span>
+        <span class="pm-badge pm-type">${d.type}</span>
+        <span class="pm-badge pm-chars">~${d.char_count}字</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="passage-title">${d.title}</div>
+      <div class="passage-body ja-text">${formattedPassage}</div>
+      <div class="tutor-box">
+        <div class="tutor-label">🤖 AI ${lang==='ko'?'튜터 — 모르는 단어나 문법을 물어보세요':'チューター — わからない単語や文法を質問してください'}</div>
+        <div class="quick-asks">
+          <button class="qa-btn" onclick="quickAsk('${lang==='ko'?'이 지문 요약해줘':'この文章を要約して'}')">${lang==='ko'?'📝 요약':'📝 要約'}</button>
+          <button class="qa-btn" onclick="quickAsk('${lang==='ko'?'어려운 문법 설명해줘':'難しい文法を説明して'}')">${lang==='ko'?'📚 문법 설명':'📚 文法説明'}</button>
+          <button class="qa-btn" onclick="quickAsk('${lang==='ko'?'핵심 단어 알려줘':'キーワードを教えて'}')">${lang==='ko'?'🔤 핵심 단어':'🔤 キーワード'}</button>
+        </div>
+        <div class="tutor-input">
+          <input type="text" id="tutor-q" placeholder="${lang==='ko'?'예: 「おかげで」는 무슨 뜻인가요?':'例: 「おかげで」はどういう意味ですか？'}">
+          <button onclick="askTutor()">${lang==='ko'?'질문':'質問'}</button>
+        </div>
+        <div class="tutor-response" id="tutor-resp"></div>
+      </div>
+    </div>`;
+
+  // 문제 카드
+  const qCard=document.createElement('div');
+  qCard.className='card fade-in';
+  const qHead=document.createElement('div'); qHead.className='card-head';
+  qHead.innerHTML=`<span class="card-title">${lang==='ko'?'이해도 문제':'理解度問題'} (${d.questions.length})</span>`;
+  const qBody=document.createElement('div'); qBody.className='card-body';
+  d.questions.forEach((q,i)=>{
+    const qDiv=document.createElement('div'); qDiv.className='q-item'; qDiv.id='q-'+i;
+    const qTxt=document.createElement('div'); qTxt.className='q-text'; qTxt.textContent=(i+1)+'. '+q.question;
+    const opts=document.createElement('div'); opts.className='q-options';
+    q.options.forEach((o,oi)=>{
+      const btn=document.createElement('button'); btn.className='opt-btn';
+      btn.textContent=o;
+      btn.addEventListener('click',()=>checkAnswer(btn,oi,q.answer,q.explanation,i));
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='feedback'; fb.id='fb-'+i;
+    qDiv.append(qTxt,opts,fb);
+    qBody.appendChild(qDiv);
+  });
+  qCard.append(qHead,qBody);
+
+  // 어휘 카드
+  const vocabCard=document.createElement('div');
+  vocabCard.className='card fade-in';
+  vocabCard.innerHTML=`
+    <div class="card-head"><span class="card-title">${lang==='ko'?'핵심 어휘':'キーボキャブラリー'}</span></div>
+    <div class="card-body">
+      <div class="vocab-grid">
+        ${(d.vocabulary||[]).map(v=>`
+          <div class="vocab-item">
+            <div class="vocab-word">${v.word}</div>
+            ${v.reading?`<div class="vocab-read">${v.reading}</div>`:''}
+            <div class="vocab-def">${v.definition}</div>
+            ${v.korean?`<div class="vocab-ko">${v.korean}</div>`:''}
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  area.append(passageCard, qCard, vocabCard);
+  document.getElementById('action-btns').style.display='flex';
+}
+
+// ── 답변 체크 ─────────────────────────────────────────────────────────
+function checkAnswer(btn,chosenIdx,answerIdx,explanation,qIdx){
+  const container=document.getElementById('q-'+qIdx);
+  const allBtns=container.querySelectorAll('.opt-btn');
+  if(allBtns[0]?.disabled) return;
+  allBtns.forEach(b=>b.disabled=true);
+  allBtns[answerIdx].classList.add('correct');
+  const fb=document.getElementById('fb-'+qIdx);
+  if(chosenIdx===answerIdx){
+    btn.classList.add('correct');
+    fb.style.cssText='display:block;background:var(--green-light);color:var(--green);padding:8px 10px;border-radius:6px;font-size:12px;';
+    fb.textContent='✓ '+explanation;
+    score++;
+  } else {
+    btn.classList.add('wrong');
+    fb.style.cssText='display:block;background:var(--red-light);color:var(--red);padding:8px 10px;border-radius:6px;font-size:12px;';
+    fb.textContent='✗ '+explanation;
+  }
+  answered++;
+  updateScore();
+  if(answered===totalQ) setTimeout(showResult,800);
+}
+
+// ── AI 튜터 ───────────────────────────────────────────────────────────
+function quickAsk(q){ document.getElementById('tutor-q').value=q; askTutor(); }
+
+async function askTutor(){
+  const q=document.getElementById('tutor-q').value.trim();
+  if(!q||!passageData) return;
+  const resp=document.getElementById('tutor-resp');
+  resp.style.display='block';
+  resp.textContent=lang==='ko'?'답변 생성 중...':'回答を生成中...';
+  try{
+    const context=passageData.passage.substring(0,400);
+    const sysPrompt=lang==='ko'
+      ?`당신은 일본어 학습 AI 튜터입니다. 다음 일본어 지문에 대해 한국어로 친절하게 설명해주세요:\n\n"${context}"`
+      :`あなたは日本語学習AIチューターです。次の文章について日本語でわかりやすく説明してください:\n\n"${context}"`;
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:500,
+        messages:[{role:'user',content:sysPrompt+'\n\n질문: '+q}]})});
+    const data=await res.json();
+    resp.textContent=data.content?.[0]?.text||'';
+    document.getElementById('tutor-q').value='';
+  }catch(e){
+    resp.textContent=lang==='ko'?'답변 실패. 다시 시도해주세요.':'失敗しました。もう一度お試しください。';
+  }
+}
+
+// ── 점수 ─────────────────────────────────────────────────────────────
+function updateScore(){
+  const fill=document.getElementById('progress-fill');
+  const num=document.getElementById('score-num');
+  if(fill) fill.style.width=`${(answered/totalQ)*100}%`;
+  if(num) num.textContent=`${score} / ${totalQ}`;
+}
+
+function showResult(){
+  const pct=Math.round(score/totalQ*100);
+  const box=document.getElementById('result-box'); box.style.display='block';
+  document.getElementById('rb-icon').textContent=pct>=80?'🎉':pct>=60?'👍':'💪';
+  document.getElementById('rb-title').textContent=pct>=80?(lang==='ko'?'훌륭합니다!':'素晴らしい！'):pct>=60?(lang==='ko'?'잘 하셨습니다!':'よくできました！'):(lang==='ko'?'계속 연습!':'練習を続けましょう！');
+  document.getElementById('rb-score').textContent=`${score} / ${totalQ} (${pct}%)`;
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ── 초기화 ────────────────────────────────────────────────────────────
+(function(){ setLang('ko'); })();
+</script>
+</body>
+</html>

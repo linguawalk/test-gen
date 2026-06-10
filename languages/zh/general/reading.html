@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General 中文 — 阅读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --zh:#c0392b;--zh-dark:#7f1a12;--zh-light:#fdf0ef;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:860px;margin:0 auto;padding:28px 5% 80px;}
+
+.hero{background:linear-gradient(135deg,var(--zh-dark) 0%,var(--zh) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:130px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--zh);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--zh-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.loading{padding:40px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:16px;display:none;}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--zh);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);}
+.card-body{padding:20px;}
+
+.passage-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.pm-badge{font-size:11px;padding:3px 10px;border-radius:8px;font-weight:600;}
+.pm-level{background:var(--zh-light);color:var(--zh);}
+.pm-type{background:var(--teal-light);color:var(--teal-mid);}
+.pm-chars{background:var(--bg);color:var(--text-muted);border:0.5px solid var(--border);}
+
+.passage-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);margin-bottom:12px;line-height:1.4;}
+
+/* 拼音 토글 */
+.pinyin-toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.pinyin-toggle-label{font-size:12px;color:var(--text-muted);}
+.toggle-btn{padding:4px 14px;border-radius:16px;font-size:11px;font-weight:600;border:0.5px solid var(--border-md);background:transparent;cursor:pointer;font-family:inherit;transition:all 0.2s;color:var(--text-muted);}
+.toggle-btn.act{background:var(--zh);color:#fff;border-color:var(--zh);}
+
+/* 지문 — 拼音 위에 표시 */
+.passage-body{font-size:15px;line-height:2.4;color:var(--text);white-space:pre-line;}
+.char-ruby{display:inline-flex;flex-direction:column;align-items:center;margin:0 1px;}
+.char-pinyin{font-size:10px;color:var(--zh);line-height:1.2;font-style:italic;opacity:0;transition:opacity 0.2s;}
+.char-pinyin.show{opacity:1;}
+.char-hanzi{font-size:15px;line-height:1.4;}
+
+/* AI 튜터 */
+.tutor-box{background:var(--zh-light);border:0.5px solid rgba(192,57,43,0.2);border-radius:10px;padding:14px;margin-top:14px;}
+.tutor-label{font-size:12px;font-weight:700;color:var(--zh);margin-bottom:8px;}
+.quick-asks{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.qa-btn{padding:5px 12px;border-radius:16px;font-size:11px;border:0.5px solid rgba(192,57,43,0.25);background:transparent;color:var(--zh);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.qa-btn:hover{background:var(--zh);color:#fff;}
+.tutor-input{display:flex;gap:8px;margin-bottom:8px;}
+.tutor-input input{flex:1;padding:8px 12px;border:0.5px solid var(--border-md);border-radius:8px;font-size:13px;font-family:inherit;outline:none;}
+.tutor-input input:focus{border-color:var(--zh);}
+.tutor-input button{padding:8px 16px;border-radius:8px;background:var(--zh);color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;white-space:nowrap;}
+.tutor-response{font-size:13px;color:var(--text);line-height:1.65;background:var(--white);padding:10px 12px;border-radius:8px;display:none;}
+
+/* 문제 */
+.q-item{background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;}
+.q-item:last-child{margin-bottom:0;}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px;line-height:1.6;}
+.q-options{display:flex;flex-direction:column;gap:6px;}
+.opt-btn{padding:10px 14px;border-radius:8px;font-size:13px;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);cursor:pointer;font-family:inherit;transition:all 0.2s;text-align:left;line-height:1.5;}
+.opt-btn:hover:not(:disabled){border-color:var(--zh);color:var(--zh);}
+.opt-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.opt-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red);}
+.feedback{font-size:12px;padding:8px 10px;border-radius:6px;display:none;margin-top:6px;line-height:1.5;}
+.feedback.show.correct{display:block;background:var(--green-light);color:#166534;}
+.feedback.show.wrong{display:block;background:var(--red-light);color:#991b1b;}
+
+/* 어휘 */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;}
+.vocab-item{background:var(--bg);border-radius:8px;padding:10px;cursor:pointer;transition:all 0.2s;border:0.5px solid var(--border);}
+.vocab-item:hover{border-color:var(--zh);}
+.vocab-word{font-weight:600;color:var(--text);font-size:18px;margin-bottom:2px;}
+.vocab-pinyin{font-size:11px;color:var(--zh);font-style:italic;margin-bottom:3px;}
+.vocab-def{font-size:12px;color:var(--text-muted);margin-bottom:2px;}
+.vocab-ko{font-size:11px;color:var(--teal-mid);}
+
+.score-bar{display:flex;align-items:center;gap:12px;background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none;}
+.sb-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--zh);}
+.sb-bar{flex:1;height:6px;background:var(--bg);border-radius:6px;overflow:hidden;}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--zh-dark),var(--zh));border-radius:6px;transition:width 0.3s;}
+
+.result-box{text-align:center;padding:28px;background:var(--white);border:0.5px solid var(--border);border-radius:14px;display:none;margin-bottom:16px;}
+.action-btns{display:flex;gap:10px;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;}
+.act-btn.primary{background:var(--zh);color:#fff;border-color:var(--zh);}
+.act-btn.primary:hover{background:var(--zh-dark);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" data-ko="General 중국어 · 읽기" data-zh="通用中文 · 阅读">General 중국어 · 읽기</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← General 홈" data-zh="← 通用首页">← General 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('zh')" id="btn-zh">中文</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="hero fade-in">
+    <div class="hero-tag" data-ko="GENERAL 중국어 · 읽기" data-zh="通用中文 · 阅读">GENERAL 중국어 · 읽기</div>
+    <div class="hero-title" data-ko="📖 중국어 읽기 연습" data-zh="📖 中文阅读练习">📖 중국어 읽기 연습</div>
+    <div class="hero-desc" data-ko="AI가 생성한 중국어 지문을 읽고 이해도 문제에 답하세요. 拼音 표시 옵션 포함." data-zh="阅读AI生成的中文文章，回答理解题。含拼音显示选项。">AI가 생성한 중국어 지문을 읽고 이해도 문제에 답하세요.</div>
+    <div class="hero-badges">
+      <span class="hero-badge">A1 ~ C2 (HSK 1~6)</span>
+      <span class="hero-badge" data-ko="拼音 표시 옵션" data-zh="拼音显示选项">拼音 표시 옵션</span>
+      <span class="hero-badge">🤖 AI 튜터</span>
+      <span class="hero-badge" data-ko="이해도 퀴즈" data-zh="理解度测验">이해도 퀴즈</span>
+    </div>
+  </div>
+
+  <div class="settings-row fade-in">
+    <div class="setting-item">
+      <div class="si-label" data-ko="레벨" data-zh="级别">레벨</div>
+      <select class="si-select" id="sel-level">
+        <option value="A1">A1 — 입문 (HSK 1급)</option>
+        <option value="A2" selected>A2 — 초급 (HSK 1~2급)</option>
+        <option value="B1">B1 — 중급 (HSK 3급)</option>
+        <option value="B2">B2 — 중상급 (HSK 4급)</option>
+        <option value="C1">C1 — 고급 (HSK 5급)</option>
+        <option value="C2">C2 — 최고급 (HSK 6급)</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="텍스트 유형" data-zh="文章类型">텍스트 유형</div>
+      <select class="si-select" id="sel-type">
+        <option value="说明文" data-ko="설명문" data-zh="说明文">설명문 / 说明文</option>
+        <option value="邮件" data-ko="이메일" data-zh="邮件">이메일 / 邮件</option>
+        <option value="新闻" data-ko="뉴스 기사" data-zh="新闻">뉴스 / 新闻</option>
+        <option value="日记" data-ko="일기·에세이" data-zh="日记">일기 / 日记</option>
+        <option value="通知" data-ko="공지·안내문" data-zh="通知">공지 / 通知</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="주제" data-zh="话题">주제</div>
+      <select class="si-select" id="sel-topic">
+        <option value="日常生活" data-ko="일상생활" data-zh="日常生活">일상생활</option>
+        <option value="旅游" data-ko="여행" data-zh="旅游">여행</option>
+        <option value="饮食" data-ko="음식" data-zh="饮食">음식</option>
+        <option value="工作" data-ko="직장" data-zh="工作">직장</option>
+        <option value="文化" data-ko="문화" data-zh="文化">문화</option>
+        <option value="科技" data-ko="기술" data-zh="科技">기술</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn fade-in" id="gen-btn" onclick="generate()">
+    🤖 <span data-ko="중국어 읽기 지문 생성" data-zh="生成中文阅读文章">중국어 읽기 지문 생성</span>
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div id="loading-text" style="font-size:14px;color:var(--text-muted);">생성 중...</div>
+  </div>
+
+  <div class="score-bar" id="score-bar">
+    <div><div class="sb-num" id="sb-num">0 / 0</div><div style="font-size:12px;color:var(--text-muted);" data-ko="정답" data-zh="正确">정답</div></div>
+    <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="result-box fade-in" id="result-box">
+    <div style="font-size:48px;margin-bottom:12px;" id="rb-icon">🎉</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:24px;margin-bottom:6px;" id="rb-title"></div>
+    <div style="font-size:16px;color:var(--zh);font-weight:600;margin-bottom:16px;" id="rb-score"></div>
+  </div>
+
+  <div class="action-btns" id="action-btns" style="display:none;">
+    <button class="act-btn primary" onclick="generate()" data-ko="🔄 새 지문" data-zh="🔄 新文章">🔄 새 지문</button>
+    <a href="../../index.html" class="act-btn" data-ko="← General 홈" data-zh="← 通用首页">← General 홈</a>
+  </div>
+</div>
+
+<script>
+let lang='ko', passageData=null, showPinyin=false;
+let score=0, answered=0, totalQ=0;
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-zh]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-zh');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-zh').classList.toggle('act',l==='zh');
+}
+
+function togglePinyin(){
+  showPinyin=!showPinyin;
+  document.querySelectorAll('.char-pinyin').forEach(el=>{
+    el.classList.toggle('show', showPinyin);
+  });
+  const btn=document.getElementById('pinyin-toggle');
+  if(btn){
+    btn.classList.toggle('act', showPinyin);
+    btn.textContent=showPinyin?(lang==='ko'?'拼音 ON':'拼音 开'):(lang==='ko'?'拼音 OFF':'拼音 关');
+  }
+}
+
+async function generate(){
+  const level=document.getElementById('sel-level').value;
+  const type=document.getElementById('sel-type').value;
+  const topic=document.getElementById('sel-topic').value;
+  const btn=document.getElementById('gen-btn');
+  btn.disabled=true;
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  document.getElementById('loading').style.display='block';
+  score=0; answered=0; showPinyin=false;
+
+  const charCount={A1:'60-100',A2:'100-150',B1:'150-220',B2:'220-320',C1:'320-440',C2:'440-580'}[level]||'150-200';
+  const hskLevel={A1:'HSK1',A2:'HSK1-2',B1:'HSK3',B2:'HSK4',C1:'HSK5',C2:'HSK6'}[level]||level;
+
+  const prompt=`중국어 읽기 지문을 생성해주세요.
+레벨: ${level} (${hskLevel}) / 유형: ${type} / 주제: ${topic} / 글자 수: ${charCount}자
+
+ONLY return valid JSON (no markdown, single-line strings):
+{
+  "title": "文章标题",
+  "type": "${type}",
+  "level": "${level}",
+  "char_count": 150,
+  "passage": "중국어 지문 텍스트 (한 줄)",
+  "passage_pinyin": "전체 핀인 (한 줄, 단어별 공백 구분)",
+  "questions": [
+    {"question": "问题", "options": ["A. 选项","B. 选项","C. 选项","D. 选项"], "answer": 0, "explanation_ko": "한국어 해설"}
+  ],
+  "vocabulary": [
+    {"word": "词", "pinyin": "pīnyīn", "definition": "中文解释", "korean": "한국어 뜻"}
+  ]
+}
+Rules:
+- passage는 자연스러운 ${hskLevel} 수준의 중국어
+- A1/A2: 간단한 단어와 문장, B1/B2: 일상 표현, C1/C2: 복잡한 표현 포함
+- 이해도 문제 4개 포함
+- answer는 0-based index (vary positions)
+- 어휘 5개 포함
+- ALL strings single-line`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2500,
+        messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.[0]?.text||'';
+    passageData=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    totalQ=passageData.questions.length;
+    document.getElementById('loading').style.display='none';
+    renderReading();
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('content-area').innerHTML=`<div style="text-align:center;padding:24px;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패':'生成失败'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  btn.disabled=false;
+}
+
+function renderReading(){
+  const d=passageData;
+  document.getElementById('score-bar').style.display='flex';
+  updateScore();
+  const area=document.getElementById('content-area');
+
+  // ── 지문 카드 ──
+  const passageCard=document.createElement('div'); passageCard.className='card fade-in';
+  const pHead=document.createElement('div'); pHead.className='card-head';
+  pHead.innerHTML=`
+    <span class="card-title">${lang==='ko'?'읽기 지문':'阅读文章'}</span>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span class="pm-badge pm-level">${d.level} (${{'A1':'HSK1','A2':'HSK1-2','B1':'HSK3','B2':'HSK4','C1':'HSK5','C2':'HSK6'}[d.level]||d.level})</span>
+      <span class="pm-badge pm-type">${d.type}</span>
+      <span class="pm-badge pm-chars">~${d.char_count}字</span>
+    </div>`;
+  const pBody=document.createElement('div'); pBody.className='card-body';
+
+  // 제목
+  const titleEl=document.createElement('div'); titleEl.className='passage-title'; titleEl.textContent=d.title;
+
+  // 拼音 토글
+  const pinyinRow=document.createElement('div'); pinyinRow.className='pinyin-toggle-row';
+  const pinyinLabel=document.createElement('span'); pinyinLabel.className='pinyin-toggle-label';
+  pinyinLabel.setAttribute('data-ko','拼音 표시:'); pinyinLabel.setAttribute('data-zh','显示拼音:');
+  pinyinLabel.textContent=lang==='ko'?'拼音 표시:':'显示拼音:';
+  const pinyinBtn=document.createElement('button'); pinyinBtn.className='toggle-btn'; pinyinBtn.id='pinyin-toggle';
+  pinyinBtn.textContent=lang==='ko'?'拼音 OFF':'拼音 关';
+  pinyinBtn.addEventListener('click',togglePinyin);
+  pinyinRow.append(pinyinLabel,pinyinBtn);
+
+  // 지문 (문자별 핀인 위에 표시 구조)
+  const passageEl=document.createElement('div'); passageEl.className='passage-body';
+  const pinyins=(d.passage_pinyin||'').split(' ');
+  const chars=d.passage.split('');
+  let pIdx=0;
+  chars.forEach(ch=>{
+    if(ch===' '||ch==='\n'){
+      passageEl.appendChild(document.createTextNode(ch));
+    } else {
+      const wrap=document.createElement('span'); wrap.className='char-ruby';
+      const py=document.createElement('span'); py.className='char-pinyin';
+      py.textContent=pinyins[pIdx]||'';
+      const hz=document.createElement('span'); hz.className='char-hanzi';
+      hz.textContent=ch;
+      wrap.append(py,hz);
+      passageEl.appendChild(wrap);
+      pIdx++;
+    }
+  });
+
+  // AI 튜터
+  const tutorBox=document.createElement('div'); tutorBox.className='tutor-box';
+  tutorBox.innerHTML=`
+    <div class="tutor-label">🤖 AI ${lang==='ko'?'튜터 — 모르는 단어나 문법을 물어보세요':'导师 — 有不懂的词语或语法请提问'}</div>
+    <div class="quick-asks">
+      <button class="qa-btn" onclick="quickAsk('${lang==='ko'?'이 지문 요약해줘':'请总结这篇文章'}')">${lang==='ko'?'📝 요약':'📝 摘要'}</button>
+      <button class="qa-btn" onclick="quickAsk('${lang==='ko'?'어려운 문법 설명해줘':'请解释难点语法'}')">${lang==='ko'?'📚 문법':'📚 语法'}</button>
+      <button class="qa-btn" onclick="quickAsk('${lang==='ko'?'핵심 단어 알려줘':'告诉我关键词'}')">${lang==='ko'?'🔤 핵심 단어':'🔤 关键词'}</button>
+    </div>
+    <div class="tutor-input">
+      <input type="text" id="tutor-q" placeholder="${lang==='ko'?'예: 「一下」는 어떤 뜻인가요?':'例: 「一下」是什么意思？'}">
+      <button onclick="askTutor()">${lang==='ko'?'질문':'提问'}</button>
+    </div>
+    <div class="tutor-response" id="tutor-resp"></div>`;
+
+  pBody.append(titleEl,pinyinRow,passageEl,tutorBox);
+  passageCard.append(pHead,pBody);
+
+  // ── 문제 카드 ──
+  const qCard=document.createElement('div'); qCard.className='card fade-in';
+  const qHead=document.createElement('div'); qHead.className='card-head';
+  qHead.innerHTML=`<span class="card-title">${lang==='ko'?'이해도 문제':'理解度测验'} (${d.questions.length})</span>`;
+  const qBody=document.createElement('div'); qBody.className='card-body';
+  d.questions.forEach((q,i)=>{
+    const qDiv=document.createElement('div'); qDiv.className='q-item';
+    const qTxt=document.createElement('div'); qTxt.className='q-text'; qTxt.textContent=(i+1)+'. '+q.question;
+    const opts=document.createElement('div'); opts.className='q-options';
+    q.options.forEach((o,oi)=>{
+      const btn=document.createElement('button'); btn.className='opt-btn';
+      btn.textContent=o;
+      btn.addEventListener('click',()=>checkAnswer(btn,oi,q.answer,q.explanation_ko,i));
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='feedback'; fb.id='fb-'+i;
+    qDiv.append(qTxt,opts,fb);
+    qBody.appendChild(qDiv);
+  });
+  qCard.append(qHead,qBody);
+
+  // ── 어휘 카드 ──
+  const vocabCard=document.createElement('div'); vocabCard.className='card fade-in';
+  vocabCard.innerHTML=`<div class="card-head"><span class="card-title">${lang==='ko'?'핵심 어휘':'核心词汇'}</span></div>
+    <div class="card-body"><div class="vocab-grid">${(d.vocabulary||[]).map(v=>`
+      <div class="vocab-item">
+        <div class="vocab-word">${v.word}</div>
+        <div class="vocab-pinyin">${v.pinyin}</div>
+        <div class="vocab-def">${v.definition}</div>
+        <div class="vocab-ko">${v.korean}</div>
+      </div>`).join('')}</div></div>`;
+
+  area.append(passageCard,qCard,vocabCard);
+  document.getElementById('action-btns').style.display='flex';
+}
+
+function checkAnswer(btn,chosenIdx,answerIdx,explanation,qIdx){
+  const container=btn.closest('.q-item');
+  const allBtns=container.querySelectorAll('.opt-btn');
+  if(allBtns[0]?.disabled) return;
+  allBtns.forEach(b=>b.disabled=true);
+  allBtns[answerIdx].classList.add('correct');
+  const fb=document.getElementById('fb-'+qIdx);
+  if(chosenIdx===answerIdx){
+    btn.classList.add('correct');
+    if(fb){fb.className='feedback show correct';fb.textContent='✓ '+explanation;}
+    score++;
+  } else {
+    btn.classList.add('wrong');
+    if(fb){fb.className='feedback show wrong';fb.textContent='✗ '+explanation;}
+  }
+  answered++;
+  updateScore();
+  if(answered===totalQ) setTimeout(showResult,800);
+}
+
+function quickAsk(q){ document.getElementById('tutor-q').value=q; askTutor(); }
+
+async function askTutor(){
+  const q=document.getElementById('tutor-q').value.trim();
+  if(!q||!passageData) return;
+  const resp=document.getElementById('tutor-resp');
+  resp.style.display='block';
+  resp.textContent=lang==='ko'?'답변 생성 중...':'生成回答中...';
+  try{
+    const ctx=passageData.passage.substring(0,400);
+    const sys=lang==='ko'
+      ?`당신은 중국어 학습 AI 튜터입니다. 다음 중국어 지문에 대해 한국어로 친절하게 설명해주세요:\n\n"${ctx}"`
+      :`你是中文学习AI导师。请用中文友好地解释以下文章的相关内容:\n\n"${ctx}"`;
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:500,
+        messages:[{role:'user',content:sys+'\n\n질문: '+q}]})});
+    const data=await res.json();
+    resp.textContent=data.content?.[0]?.text||'';
+    document.getElementById('tutor-q').value='';
+  }catch(e){
+    resp.textContent=lang==='ko'?'답변 실패. 다시 시도해주세요.':'回答失败，请重试。';
+  }
+}
+
+function updateScore(){
+  const fill=document.getElementById('sb-fill');
+  const num=document.getElementById('sb-num');
+  if(fill) fill.style.width=`${totalQ>0?(answered/totalQ)*100:0}%`;
+  if(num) num.textContent=`${score} / ${totalQ}`;
+}
+
+function showResult(){
+  const pct=Math.round(score/totalQ*100);
+  const box=document.getElementById('result-box'); box.style.display='block';
+  document.getElementById('rb-icon').textContent=pct>=80?'🎉':pct>=60?'👍':'💪';
+  document.getElementById('rb-title').textContent=pct>=80?(lang==='ko'?'훌륭합니다!':'太棒了！'):pct>=60?(lang==='ko'?'잘 하셨습니다!':'做得不错！'):(lang==='ko'?'계속 연습!':'继续加油！');
+  document.getElementById('rb-score').textContent=`${score} / ${totalQ} (${pct}%)`;
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+(function(){ setLang('ko'); })();
+</script>
+</body>
+</html>

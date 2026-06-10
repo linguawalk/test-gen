@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — TOEIC — Reading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#1C2B45; --teal:#2A7F6F; --teal-light:#E1F5EE; --teal-mid:#1D9E75;
+    --bg:#F8F7F4; --white:#fff; --text:#1C2B45; --text-muted:#5a6a82; --text-light:#94a3b8;
+    --border:rgba(28,43,69,0.1); --border-md:rgba(28,43,69,0.18);
+    --toeic:#ba7517; --toeic-light:#faeeda;
+  }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+  nav { background:rgba(28,43,69,0.97); height:56px; display:flex; align-items:center; padding:0 5%; border-bottom:0.5px solid rgba(255,255,255,0.08); position:sticky; top:0; z-index:100; }
+  .nav-logo { display:flex; align-items:center; gap:8px; text-decoration:none; }
+  .nav-lm { width:28px; height:28px; background:var(--teal); border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; }
+  .nav-lt { font-size:16px; font-weight:600; color:#fff; }
+  .nav-sep { width:1px; height:18px; background:rgba(255,255,255,0.15); margin:0 12px; }
+  .nav-page { font-size:13px; color:rgba(255,255,255,0.6); }
+  .nav-space { flex:1; }
+  .lang-sw { display:flex; background:rgba(255,255,255,0.08); border-radius:7px; padding:2px; gap:2px; }
+  .lbtn { padding:4px 10px; border-radius:5px; font-size:11px; font-weight:500; border:none; background:transparent; color:rgba(255,255,255,0.5); cursor:pointer; font-family:inherit; transition:all 0.2s; }
+  .lbtn.act { background:var(--teal); color:#fff; }
+  .nav-back { font-size:13px; color:rgba(255,255,255,0.6); text-decoration:none; padding:6px 10px; border-radius:7px; margin-right:6px; transition:all 0.2s; }
+  .nav-back:hover { background:rgba(255,255,255,0.08); color:#fff; }
+
+  /* API SETUP */
+  .api-setup { max-width:520px; margin:60px auto; padding:32px; background:var(--white); border-radius:16px; border:0.5px solid var(--border-md); text-align:center; }
+  .api-icon { font-size:48px; margin-bottom:16px; }
+  .api-title { font-family:'DM Serif Display',serif; font-size:24px; color:var(--navy); margin-bottom:8px; }
+  .api-desc { font-size:14px; color:var(--text-muted); line-height:1.6; margin-bottom:24px; }
+  .api-input-wrap { display:flex; gap:8px; margin-bottom:12px; }
+  .api-input { flex:1; padding:10px 14px; border:0.5px solid var(--border-md); border-radius:8px; font-size:13px; font-family:monospace; color:var(--text); background:var(--bg); outline:none; }
+  .api-input:focus { border-color:var(--teal); }
+  .api-btn { padding:10px 18px; border-radius:8px; font-size:13px; font-weight:500; background:var(--teal); color:#fff; border:none; cursor:pointer; font-family:inherit; }
+  .api-note { font-size:11px; color:var(--text-light); }
+
+  .main { max-width:820px; margin:0 auto; padding:28px 5% 80px; display:none; }
+
+  /* HERO */
+  .hero { background:linear-gradient(135deg,#3d1f00 0%,#ba7517 100%); border-radius:14px; padding:24px 28px; margin-bottom:20px; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; right:-20px; top:-20px; width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,0.07); pointer-events:none; }
+  .hero-tag { font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#fcd34d; margin-bottom:6px; }
+  .hero-title { font-family:'DM Serif Display',serif; font-size:clamp(22px,4vw,32px); color:#fff; margin-bottom:6px; }
+  .hero-desc { font-size:13px; color:rgba(255,255,255,0.65); line-height:1.6; }
+  .hero-badges { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .hero-badge { font-size:11px; padding:3px 12px; border-radius:20px; background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85); border:0.5px solid rgba(255,255,255,0.2); }
+
+  /* PART TABS */
+  .part-tabs { display:flex; gap:0; background:var(--white); border:0.5px solid var(--border); border-radius:14px; padding:4px; margin-bottom:16px; overflow-x:auto; }
+  .part-tab { flex:1; padding:10px 14px; border-radius:10px; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:var(--text-muted); font-family:inherit; transition:all 0.2s; white-space:nowrap; text-align:center; }
+  .part-tab:hover { color:var(--toeic); }
+  .part-tab.act { background:var(--toeic); color:#fff; }
+
+  /* PART INFO */
+  .part-info { background:var(--white); border:0.5px solid var(--border); border-radius:14px; padding:16px 18px; margin-bottom:16px; }
+  .pi-row { display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+  .pi-stat { text-align:center; flex-shrink:0; }
+  .pi-num { font-family:'DM Serif Display',serif; font-size:22px; color:var(--toeic); line-height:1; }
+  .pi-key { font-size:10px; color:var(--text-light); text-transform:uppercase; letter-spacing:.4px; margin-top:2px; }
+  .pi-divider { width:1px; height:36px; background:var(--border); flex-shrink:0; }
+  .pi-desc { font-size:12px; color:var(--text-muted); line-height:1.65; flex:1; min-width:180px; }
+  .pi-tip { display:flex; align-items:flex-start; gap:8px; padding:10px 12px; background:var(--toeic-light); border-radius:8px; font-size:12px; color:var(--toeic); line-height:1.55; }
+
+  /* SETTINGS */
+  .settings-row { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+  .setting-item { background:var(--white); border:0.5px solid var(--border); border-radius:10px; padding:12px 16px; flex:1; min-width:130px; }
+  .si-label { font-size:10px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:var(--text-light); margin-bottom:6px; }
+  .si-select { width:100%; border:none; background:transparent; font-size:13px; font-weight:500; color:var(--text); font-family:inherit; cursor:pointer; outline:none; }
+
+  /* LOADING */
+  .loading-overlay { padding:48px; text-align:center; background:var(--white); border:0.5px solid var(--border); border-radius:14px; margin-bottom:20px; }
+  .loading-spinner { width:44px; height:44px; border:3px solid var(--border); border-top-color:var(--toeic); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .loading-text { font-size:14px; color:var(--text-muted); line-height:1.6; }
+
+  /* PASSAGE BOX */
+  .passage-box { background:var(--white); border:0.5px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:16px; }
+  .pb-header { padding:14px 18px; background:var(--toeic-light); border-bottom:0.5px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .pb-title { font-size:14px; font-weight:600; color:var(--toeic); }
+  .pb-badges { display:flex; gap:6px; }
+  .pb-badge { font-size:10px; padding:2px 8px; border-radius:10px; font-weight:500; }
+  .pbb-type { background:rgba(186,117,23,0.15); color:var(--toeic); }
+  .pbb-level { background:var(--bg); color:var(--text-muted); }
+  .pb-body { padding:18px; }
+  .passage-text { font-size:13px; color:var(--text); line-height:1.85; padding:14px 16px; background:var(--bg); border-radius:10px; margin-bottom:14px; }
+  .p6-blank-num { display:inline-flex; align-items:center; justify-content:center; width:22px; height:18px; background:var(--toeic); color:#fff; border-radius:4px; font-size:10px; font-weight:700; margin:0 2px; vertical-align:middle; }
+  .p5-blank { display:inline-block; min-width:70px; border-bottom:2px solid var(--toeic); text-align:center; font-weight:600; color:var(--toeic); padding:0 4px; }
+
+  /* PASSAGE LABEL (Part 7 double/triple) */
+  .passage-label { font-size:10px; font-weight:700; color:var(--text-light); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+  .passage-multi { display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .passage-single-box { background:var(--bg); border-radius:10px; padding:14px 16px; }
+
+  /* QUESTIONS */
+  .questions-section { background:var(--white); border:0.5px solid var(--border); border-radius:14px; padding:18px; margin-bottom:20px; }
+  .qs-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .qs-title { font-size:13px; font-weight:600; color:var(--text); }
+  .qs-note { font-size:11px; color:var(--text-muted); }
+  .q-item { margin-bottom:14px; padding:14px; background:var(--bg); border-radius:10px; }
+  .q-item:last-child { margin-bottom:0; }
+  .q-num { font-size:10px; font-weight:600; color:var(--toeic); letter-spacing:.5px; text-transform:uppercase; margin-bottom:6px; }
+  .q-text { font-size:14px; font-weight:500; color:var(--text); margin-bottom:10px; line-height:1.5; }
+  .q-opts { display:flex; flex-direction:column; gap:7px; }
+  .q-opt { padding:9px 14px; border-radius:8px; border:1.5px solid var(--border-md); background:var(--white); cursor:pointer; font-size:13px; color:var(--text); transition:all 0.2s; text-align:left; font-family:inherit; display:flex; align-items:center; gap:10px; }
+  .q-opt:hover { border-color:var(--toeic); background:var(--toeic-light); }
+  .q-opt.correct { border-color:var(--teal-mid); background:#eaf3de; color:#3b6d11; font-weight:500; }
+  .q-opt.wrong { border-color:#e24b4a; background:#fcebeb; color:#a32d2d; }
+  .q-opt-ltr { width:24px; height:24px; border-radius:50%; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:var(--text-muted); flex-shrink:0; }
+  .q-opt.correct .q-opt-ltr { background:var(--teal-mid); color:#fff; }
+  .q-opt.wrong .q-opt-ltr { background:#e24b4a; color:#fff; }
+  .q-feedback { margin-top:8px; font-size:12px; padding:8px 12px; border-radius:7px; display:none; line-height:1.5; }
+  .q-feedback.show { display:block; }
+  .q-feedback.correct { background:#eaf3de; color:#3b6d11; }
+  .q-feedback.wrong { background:#fcebeb; color:#a32d2d; }
+
+  /* SCORE */
+  .score-card { background:linear-gradient(135deg,#3d1f00 0%,#ba7517 100%); border-radius:14px; padding:24px; text-align:center; margin-bottom:20px; display:none; }
+  .sc-label { font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:6px; }
+  .sc-score { font-family:'DM Serif Display',serif; font-size:52px; color:#fff; line-height:1; margin-bottom:6px; }
+  .sc-pct { font-size:14px; color:rgba(255,255,255,0.7); margin-bottom:10px; }
+  .sc-msg { font-size:13px; color:#fcd34d; font-weight:500; }
+
+  /* AI TUTOR */
+  .tutor-section { background:var(--white); border:0.5px solid var(--border); border-radius:14px; margin-bottom:20px; overflow:hidden; }
+  .tutor-header { display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:0.5px solid var(--border); background:var(--toeic-light); }
+  .tutor-avatar { width:32px; height:32px; border-radius:50%; background:var(--toeic); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+  .tutor-name { font-size:13px; font-weight:600; color:var(--toeic); }
+  .tutor-status { font-size:11px; color:var(--text-muted); }
+  .tutor-messages { padding:16px 18px; min-height:80px; max-height:280px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; }
+  .msg { display:flex; gap:10px; align-items:flex-start; }
+  .msg.user { flex-direction:row-reverse; }
+  .msg-av { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; margin-top:2px; }
+  .msg-av.ai { background:var(--toeic); color:#fff; }
+  .msg-av.user { background:var(--navy); color:#fff; }
+  .msg-bub { max-width:78%; padding:10px 14px; border-radius:12px; font-size:13px; line-height:1.6; }
+  .msg.ai .msg-bub { background:var(--bg); color:var(--text); border-radius:4px 12px 12px 12px; }
+  .msg.user .msg-bub { background:var(--navy); color:#fff; border-radius:12px 4px 12px 12px; }
+  .typing { display:flex; gap:4px; align-items:center; padding:10px 14px; background:var(--bg); border-radius:4px 12px 12px 12px; width:fit-content; }
+  .typing span { width:6px; height:6px; border-radius:50%; background:var(--text-light); animation:bounce 1.2s infinite; }
+  .typing span:nth-child(2){animation-delay:0.2s} .typing span:nth-child(3){animation-delay:0.4s}
+  @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+  .quick-wrap { padding:0 18px 12px; display:flex; gap:6px; flex-wrap:wrap; }
+  .quick-btn { padding:5px 12px; border-radius:16px; font-size:12px; border:0.5px solid var(--border-md); background:transparent; color:var(--text-muted); cursor:pointer; font-family:inherit; transition:all 0.2s; }
+  .quick-btn:hover { border-color:var(--toeic); color:var(--toeic); background:var(--toeic-light); }
+  .tutor-input-wrap { display:flex; gap:8px; padding:12px 18px; border-top:0.5px solid var(--border); }
+  .tutor-input { flex:1; padding:9px 14px; border:0.5px solid var(--border-md); border-radius:8px; font-size:13px; font-family:inherit; color:var(--text); background:var(--bg); outline:none; }
+  .tutor-input:focus { border-color:var(--toeic); }
+  .send-btn { width:36px; height:36px; border-radius:8px; background:var(--toeic); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; flex-shrink:0; }
+  .send-btn:hover { background:#9a6010; }
+  .send-btn:disabled { background:var(--border-md); cursor:not-allowed; }
+
+  .action-btns { display:flex; gap:10px; }
+  .act-btn { flex:1; padding:12px; border-radius:10px; font-size:13px; font-weight:500; cursor:pointer; font-family:inherit; border:0.5px solid var(--border-md); background:var(--white); color:var(--text); transition:all 0.2s; text-decoration:none; text-align:center; display:block; }
+  .act-btn:hover { background:var(--bg); }
+  .act-btn.primary { background:var(--toeic); color:#fff; border-color:var(--toeic); }
+  .act-btn.primary:hover { background:#9a6010; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .fade-in { animation:fadeUp 0.4s ease forwards; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/languages/en/index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📖 TOEIC Reading</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back" data-en="← TOEIC" data-ko="← TOEIC">← TOEIC</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<!-- API SETUP -->
+<div class="api-setup fade-in" id="api-setup">
+  <div class="api-icon">📖</div>
+  <div class="api-title" data-en="TOEIC Reading" data-ko="TOEIC 읽기">TOEIC Reading</div>
+  <div class="api-desc" data-en="Enter your API key to activate AI-powered TOEIC reading content." data-ko="API 키를 입력하면 AI TOEIC 읽기 콘텐츠가 활성화됩니다.">Enter your API key to start.</div>
+  <div style="text-align:left;margin-bottom:16px;">
+    <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">🤖 Anthropic API Key</div>
+    <div class="api-input-wrap" style="margin-bottom:0;">
+      <input type="password" class="api-input" id="api-key-input" placeholder="sk-ant-api03-...">
+    </div>
+  </div>
+  <button class="api-btn" onclick="saveApiKey()" style="width:100%;padding:11px;" data-en="Connect" data-ko="연결">Connect</button>
+  <p class="api-note" style="margin-top:10px;" data-en="🔒 Key stored in your browser only." data-ko="🔒 키는 브라우저에만 저장됩니다.">🔒 Stored in browser only.</p>
+</div>
+
+<!-- MAIN -->
+<div class="main fade-in" id="main-content">
+
+  <div class="hero">
+    <div class="hero-tag">📖 TOEIC · READING COMPREHENSION (RC)</div>
+    <h1 class="hero-title" data-en="TOEIC Reading Practice" data-ko="TOEIC 읽기 연습">TOEIC Reading Practice</h1>
+    <p class="hero-desc" data-en="AI-generated Part 5–7 content. Grammar, vocabulary, and passages — with instant feedback and AI tutor." data-ko="AI가 생성한 Part 5~7 콘텐츠. 문법, 어휘, 독해 지문을 즉각 피드백과 함께 연습하세요.">AI-generated TOEIC Reading content across all three parts.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">Part 5 Incomplete Sentences</span>
+      <span class="hero-badge">Part 6 Text Completion</span>
+      <span class="hero-badge">Part 7 Reading Passages</span>
+      <span class="hero-badge">🤖 AI Tutor</span>
+    </div>
+  </div>
+
+  <!-- Part Tabs -->
+  <div class="part-tabs">
+    <button class="part-tab act" onclick="selectPart('p5',this)" data-en="📝 Part 5" data-ko="📝 Part 5">📝 Part 5</button>
+    <button class="part-tab" onclick="selectPart('p6',this)" data-en="📄 Part 6" data-ko="📄 Part 6">📄 Part 6</button>
+    <button class="part-tab" onclick="selectPart('p7s',this)" data-en="📚 Part 7 Single" data-ko="📚 Part 7 단일">📚 Part 7 Single</button>
+    <button class="part-tab" onclick="selectPart('p7d',this)" data-en="📰 Part 7 Double" data-ko="📰 Part 7 이중">📰 Part 7 Double</button>
+  </div>
+
+  <!-- Part Info -->
+  <div class="part-info" id="part-info-box"></div>
+
+  <!-- Settings -->
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" data-en="Difficulty" data-ko="난이도">Difficulty</div>
+      <select class="si-select" id="diff-select">
+        <option value="Easy" data-en="Easy" data-ko="쉬움">Easy</option>
+        <option value="Medium" selected data-en="Medium" data-ko="보통">Medium</option>
+        <option value="Hard" data-en="Hard" data-ko="어려움">Hard</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-en="Questions" data-ko="문제 수">Questions</div>
+      <select class="si-select" id="q-count">
+        <option value="3" selected>3</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="act-btn primary" id="gen-btn" onclick="generateContent()" style="width:100%;padding:14px;font-size:15px;margin-bottom:20px;">
+    🤖 <span data-en="Generate TOEIC Reading Content" data-ko="TOEIC 읽기 콘텐츠 생성">Generate TOEIC Reading Content</span>
+  </button>
+
+  <div class="loading-overlay" id="loading-overlay" style="display:none;">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text"></div>
+  </div>
+
+  <!-- Passage Box -->
+  <div class="passage-box" id="passage-box" style="display:none;">
+    <div class="pb-header">
+      <div class="pb-title" id="pb-title"></div>
+      <div class="pb-badges">
+        <span class="pb-badge pbb-type" id="pb-type"></span>
+        <span class="pb-badge pbb-level" id="pb-level"></span>
+      </div>
+    </div>
+    <div class="pb-body" id="pb-body"></div>
+  </div>
+
+  <!-- Questions -->
+  <div class="questions-section" id="questions-section" style="display:none;">
+    <div class="qs-header">
+      <div class="qs-title" id="qs-title">✏️ <span data-en="Questions" data-ko="문제">Questions</span></div>
+      <div class="qs-note" id="qs-note" data-en="Read then answer" data-ko="읽고 답하세요">Read then answer</div>
+    </div>
+    <div id="questions-wrap"></div>
+  </div>
+
+  <!-- Score -->
+  <div class="score-card" id="score-card">
+    <div class="sc-label" data-en="Your Score" data-ko="내 점수">Your Score</div>
+    <div class="sc-score" id="sc-score"></div>
+    <div class="sc-pct" id="sc-pct"></div>
+    <div class="sc-msg" id="sc-msg"></div>
+  </div>
+
+  <!-- AI Tutor -->
+  <div class="tutor-section" id="tutor-section" style="display:none;">
+    <div class="tutor-header">
+      <div class="tutor-avatar">🤖</div>
+      <div>
+        <div class="tutor-name">AI Tutor</div>
+        <div class="tutor-status" id="tutor-status" data-en="Ready to help" data-ko="도움 준비 완료">Ready to help</div>
+      </div>
+    </div>
+    <div class="tutor-messages" id="tutor-messages"></div>
+    <div class="quick-wrap" id="quick-questions"></div>
+    <div class="tutor-input-wrap">
+      <input type="text" class="tutor-input" id="user-input" placeholder="Ask about the question..." onkeydown="if(event.key==='Enter') sendMessage();">
+      <button class="send-btn" id="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <div class="action-btns" id="action-btns" style="display:none;">
+    <button class="act-btn primary" onclick="generateContent()" data-en="🔄 New Content" data-ko="🔄 새 콘텐츠">🔄 New Content</button>
+    <a href="index.html" class="act-btn" data-en="← TOEIC Home" data-ko="← TOEIC 홈">← TOEIC Home</a>
+  </div>
+
+</div>
+
+<script>
+// ── Language ──
+let lang='en';
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l==='ko'?'ko':'en';
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');
+    if(t) el.innerHTML=t;
+  });
+  const inp=document.getElementById('user-input');
+  if(inp) inp.placeholder=l==='ko'?'문제에 대해 질문하세요...':'Ask about the question...';
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  renderPartInfo();
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+
+// ── Part Definitions ──
+const PARTS={
+  p5:{
+    en:'Part 5 — Incomplete Sentences', ko:'Part 5 — 단문 빈칸채우기',
+    qRange:'Q101–130', total:30,
+    descEn:'Choose the word or phrase that best completes each sentence. Tests grammar and vocabulary.',
+    descKo:'문장을 완성하는 가장 알맞은 단어나 어구를 선택하세요. 문법과 어휘를 평가합니다.',
+    tipEn:'💡 Identify what grammatical role the blank plays (verb, noun, adj, adv) before looking at options.',
+    tipKo:'💡 빈칸의 역할(동사/명사/형용사/부사)을 먼저 파악한 후 선택지를 보세요.',
+  },
+  p6:{
+    en:'Part 6 — Text Completion', ko:'Part 6 — 장문 빈칸채우기',
+    qRange:'Q131–146', total:16,
+    descEn:'Read a passage with 4 blanks. Choose the best word, phrase, or sentence for each blank.',
+    descKo:'4개의 빈칸이 있는 지문을 읽고 각 빈칸에 가장 알맞은 단어, 어구, 또는 문장을 선택하세요.',
+    tipEn:'💡 Read the whole passage first for context — some blanks require understanding the full meaning.',
+    tipKo:'💡 지문 전체를 먼저 읽으세요. 일부 빈칸은 전체 의미 파악이 필요합니다.',
+  },
+  p7s:{
+    en:'Part 7 — Single Passage', ko:'Part 7 — 단일 지문',
+    qRange:'Q147–175', total:29,
+    descEn:'Read a single passage (email, article, notice, ad) and answer 2–4 comprehension questions.',
+    descKo:'단일 지문(이메일, 기사, 공지, 광고 등)을 읽고 2~4개의 이해력 문제를 풀어보세요.',
+    tipEn:'💡 Skim the questions first, then read the passage carefully to find the answers.',
+    tipKo:'💡 문제를 먼저 훑어본 후 지문을 읽으면 답을 더 빠르게 찾을 수 있습니다.',
+  },
+  p7d:{
+    en:'Part 7 — Double/Triple Passage', ko:'Part 7 — 이중/삼중 지문',
+    qRange:'Q176–200', total:25,
+    descEn:'Read two or three related passages and answer 5 questions, including cross-reference questions.',
+    descKo:'두 개 또는 세 개의 연관 지문을 읽고 5문제를 풀어보세요. 지문 간 연결 문제가 포함됩니다.',
+    tipEn:'💡 Note the relationship between documents — information in one often answers questions about the other.',
+    tipKo:'💡 두 지문의 연관성을 파악하세요. 한 지문의 정보가 다른 지문의 문제 정답이 되기도 합니다.',
+  }
+};
+
+let apiKey='';
+let currentPart='p5';
+let currentContent=null, messages=[], isLoading=false, currentPracticeData=[];
+let totalCorrect=0, answeredCount=0;
+
+function saveApiKey(){
+  const key=document.getElementById('api-key-input').value.trim();
+  if(!key.startsWith('sk-ant-')){alert('Anthropic API key must start with sk-ant-');return;}
+  try{sessionStorage.setItem('lw-api-key',key);}catch(e){}
+  apiKey=key;
+  document.getElementById('api-setup').style.display='none';
+  document.getElementById('main-content').style.display='block';
+  renderPartInfo();
+}
+
+// ── Part Selection ──
+function selectPart(id,btn){
+  currentPart=id;
+  document.querySelectorAll('.part-tab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  renderPartInfo();
+  resetContent();
+  // P5: questions fixed to standalone count
+  const qSel=document.getElementById('q-count');
+  if(id==='p5'){
+    qSel.innerHTML='<option value="3">3</option><option value="5">5</option><option value="8">8</option>';
+    qSel.value='5';
+  } else if(id==='p6'){
+    qSel.innerHTML='<option value="4" selected>4 (1 passage)</option>';
+    qSel.value='4'; qSel.disabled=true;
+  } else if(id==='p7s'){
+    qSel.innerHTML='<option value="3" selected>3</option><option value="4">4</option>';
+    qSel.value='3'; qSel.disabled=false;
+  } else { // p7d
+    qSel.innerHTML='<option value="5" selected>5 (1 set)</option>';
+    qSel.value='5'; qSel.disabled=true;
+  }
+}
+
+function renderPartInfo(){
+  const p=PARTS[currentPart];
+  if(!p) return;
+  document.getElementById('part-info-box').innerHTML=`
+    <div class="pi-row">
+      <div class="pi-stat"><div class="pi-num">${p.total}</div><div class="pi-key">${lang==='ko'?'총 문항':'Questions'}</div></div>
+      <div class="pi-divider"></div>
+      <div class="pi-stat"><div class="pi-num" style="font-size:16px;">${p.qRange}</div><div class="pi-key">${lang==='ko'?'출제 범위':'Range'}</div></div>
+      <div class="pi-divider"></div>
+      <p class="pi-desc">${lang==='ko'?p.descKo:p.descEn}</p>
+    </div>
+    <div class="pi-tip">${lang==='ko'?p.tipKo:p.tipEn}</div>`;
+}
+
+function resetContent(){
+  ['passage-box','questions-section','score-card','tutor-section','action-btns']
+    .forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('questions-wrap').innerHTML='';
+  totalCorrect=0; answeredCount=0; currentPracticeData=[];
+}
+
+// ── Generate ──
+async function generateContent(){
+  if(isLoading) return;
+  isLoading=true; resetContent();
+  const p=PARTS[currentPart];
+  const diff=document.getElementById('diff-select').value;
+  const qCount=document.getElementById('q-count').value;
+
+  document.getElementById('loading-overlay').style.display='block';
+  document.getElementById('loading-text').innerHTML=lang==='ko'
+    ?`🤖 <strong>TOEIC ${lang==='ko'?p.ko:p.en}</strong> 콘텐츠를 생성하고 있습니다...`
+    :`🤖 Generating <strong>TOEIC ${p.en}</strong> content...`;
+  document.getElementById('gen-btn').disabled=true;
+
+  if(currentPart==='p5') { await genPart5(diff,qCount); return; }
+  if(currentPart==='p6') { await genPart6(diff); return; }
+  if(currentPart==='p7s') { await genPart7Single(diff,qCount); return; }
+  if(currentPart==='p7d') { await genPart7Double(diff); return; }
+}
+
+function doneLoading(){ document.getElementById('loading-overlay').style.display='none'; isLoading=false; document.getElementById('gen-btn').disabled=false; }
+function errAlert(e){ doneLoading(); alert(lang==='ko'?'생성 오류: '+e.message:'Error: '+e.message); console.error(e); }
+
+async function callAPI(prompt,maxTokens){
+  const r=await fetch('/api/claude',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01',},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTokens||2000,messages:[{role:'user',content:prompt}]})
+  });
+  const d=await r.json();
+  if(d.error) throw new Error(d.error.message);
+  return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+}
+
+// ── Part 5 ──
+async function genPart5(diff,qCount){
+  const prompt=lang==='ko'
+    ?`TOEIC Part 5 단문 빈칸채우기 문제 ${qCount}개. 난이도: ${diff}.
+문법(동사 시제/태, 전치사, 관계사, 접속사)과 어휘를 골고루 포함.
+JSON 배열만 반환:
+[{"sentence":"The manager _____ the report yesterday.","options":["(A) submitting","(B) submitted","(C) will submit","(D) submission"],"answer":1,"explanation":"정답 해설 (한국어)"}]
+answer는 0부터 시작. 빈칸은 반드시 _____ 로 표시. JSON만.`
+    :`Generate ${qCount} TOEIC Part 5 Incomplete Sentences questions. Difficulty: ${diff}.
+Mix grammar (verb tense, passive, prepositions, conjunctions, pronouns) and vocabulary.
+Return JSON array only:
+[{"sentence":"The manager _____ the report yesterday.","options":["(A) submitting","(B) submitted","(C) will submit","(D) submission"],"answer":1,"explanation":"Past tense is required here because of 'yesterday'."}]
+answer is 0-indexed. Blank must be shown as _____. JSON only.`;
+  try{
+    const data=await callAPI(prompt,2500);
+    const qs=Array.isArray(data)?data:(data.questions||[]);
+    currentPracticeData=qs.map(q=>({ans:q.answer??0,fb:q.explanation||''}));
+    doneLoading();
+
+    // Build passage box as sentence display
+    document.getElementById('pb-title').textContent=lang==='ko'?'Part 5 — 단문 빈칸채우기':'Part 5 — Incomplete Sentences';
+    document.getElementById('pb-type').textContent='TOEIC · Part 5';
+    document.getElementById('pb-level').textContent=diff;
+    document.getElementById('pb-body').innerHTML=`
+      <div style="padding:10px 12px;background:var(--toeic-light);border-radius:8px;font-size:12px;color:var(--toeic);margin-bottom:4px;">
+        ${lang==='ko'?'📝 빈칸(_____)에 들어갈 가장 알맞은 것을 고르세요.':'📝 Choose the word or phrase that best completes each sentence.'}
+      </div>`;
+    document.getElementById('passage-box').style.display='block';
+
+    // Render questions with sentence inside
+    document.getElementById('qs-title').innerHTML=`📝 Part 5 — ${lang==='ko'?'단문 빈칸채우기':'Incomplete Sentences'}`;
+    document.getElementById('qs-note').textContent=lang==='ko'?`${qs.length}문항 · 각 문장 빈칸에 답하세요`:`${qs.length} questions`;
+    const letters=['A','B','C','D'];
+    document.getElementById('questions-wrap').innerHTML=qs.map((q,i)=>`
+      <div class="q-item" id="qi-${i}">
+        <div class="q-num">Q ${i+1} / ${qs.length}</div>
+        <div class="q-text" style="padding:10px 12px;background:var(--white);border-radius:8px;border-left:3px solid var(--toeic);font-size:13px;line-height:1.7;margin-bottom:10px;">
+          ${(q.sentence||'').replace('_____','<span class="p5-blank">_____</span>')}
+        </div>
+        <div class="q-opts">
+          ${(q.options||[]).map((o,j)=>`<button class="q-opt" onclick="checkAnswer(${i},${j})">
+            <span class="q-opt-ltr">${letters[j]}</span>${o}
+          </button>`).join('')}
+        </div>
+        <div class="q-feedback" id="qf-${i}"></div>
+      </div>`).join('');
+    document.getElementById('questions-section').style.display='block';
+    initTutor(lang==='ko'?'Part 5 — 단문 빈칸채우기':'Part 5 — Incomplete Sentences',
+      ['Grammar tips for this question','Explain the correct answer','Vocab in this sentence','More practice questions'],
+      ['이 문법 포인트 설명','정답 해설 알려줘','이 단어 의미','유사 문제 더 보기']);
+    totalCorrect=0; answeredCount=0;
+  }catch(e){errAlert(e);}
+}
+
+// ── Part 6 ──
+async function genPart6(diff){
+  const prompt=lang==='ko'
+    ?`TOEIC Part 6 장문 빈칸채우기 문제. 난이도: ${diff}.
+비즈니스 이메일/메모/공지문을 생성하고, 빈칸 4개를 [1] [2] [3] [4]로 표시.
+JSON만 반환:
+{
+  "title": "메모 — 빈칸채우기",
+  "docType": "메모",
+  "passage": "수신: 전 직원\n발신: 인사팀\n\n저희 회사는 [1] 6월 15일 토요일에 연례 야유회를 개최할 예정입니다...",
+  "questions": [
+    {"q":"[1]","opts":["(A) on","(B) in","(C) at","(D) by"],"ans":0,"fb":"해설(한국어)"},
+    {"q":"[2]","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"해설"},
+    {"q":"[3]","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"해설"},
+    {"q":"[4]","opts":["(A) 문장A","(B) 문장B","(C) 문장C","(D) 문장D"],"ans":0,"fb":"해설"}
+  ]
+}
+4번째 빈칸은 반드시 문장 삽입 형식. JSON만.`
+    :`Generate a TOEIC Part 6 Text Completion set. Difficulty: ${diff}.
+A business email/memo/letter/notice with exactly 4 blanks marked as [1] [2] [3] [4].
+Return JSON only:
+{
+  "title": "Memo — Text Completion",
+  "docType": "Memo",
+  "passage": "To: All Staff\nFrom: HR Department\n\nWe are pleased to announce that the annual picnic will be held [1] June 15...",
+  "questions": [
+    {"q":"[1]","opts":["(A) on","(B) in","(C) at","(D) by"],"ans":0,"fb":"'On' is used with specific dates."},
+    {"q":"[2]","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"explanation"},
+    {"q":"[3]","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"explanation"},
+    {"q":"[4]","opts":["(A) full sentence A","(B) full sentence B","(C) full sentence C","(D) full sentence D"],"ans":0,"fb":"explanation"}
+  ]
+}
+Blank [4] must be a sentence-insertion question. JSON only.`;
+  try{
+    const data=await callAPI(prompt,2500);
+    currentPracticeData=(data.questions||[]).map(q=>({ans:q.ans??0,fb:q.fb||''}));
+    doneLoading();
+
+    let passageHtml=(data.passage||'').replace(/\n/g,'<br>');
+    for(let b=1;b<=4;b++) passageHtml=passageHtml.replace(`[${b}]`,`<span class="p6-blank-num">${b}</span>`);
+
+    document.getElementById('pb-title').textContent=data.title||'Part 6 — Text Completion';
+    document.getElementById('pb-type').textContent=`TOEIC · Part 6 · ${data.docType||''}`;
+    document.getElementById('pb-level').textContent=diff;
+    document.getElementById('pb-body').innerHTML=`
+      <div style="padding:8px 12px;background:var(--toeic-light);border-radius:8px;font-size:12px;color:var(--toeic);margin-bottom:12px;">
+        ${lang==='ko'?'📄 지문을 읽고 각 빈칸에 알맞은 것을 고르세요.':'📄 Read the passage and choose the best option for each blank.'}
+      </div>
+      <div class="passage-text">${passageHtml}</div>`;
+    document.getElementById('passage-box').style.display='block';
+
+    document.getElementById('qs-title').innerHTML=`📄 Part 6 — ${lang==='ko'?'장문 빈칸채우기':'Text Completion'}`;
+    document.getElementById('qs-note').textContent=lang==='ko'?'4개 빈칸에 답하세요':'Answer 4 blanks';
+    renderQuestions(data.questions||[]);
+    document.getElementById('questions-section').style.display='block';
+    initTutor(lang==='ko'?'Part 6 — 장문 빈칸채우기':'Part 6 — Text Completion',
+      ['Why is [1] correct?','Explain the sentence insertion','Grammar point here','Vocab in the passage'],
+      ['[1]번 정답 이유','문장 삽입 문제 설명','문법 포인트','지문 어휘 설명']);
+    totalCorrect=0; answeredCount=0;
+  }catch(e){errAlert(e);}
+}
+
+// ── Part 7 Single ──
+async function genPart7Single(diff,qCount){
+  const prompt=lang==='ko'
+    ?`TOEIC Part 7 단일 지문 문제. 난이도: ${diff}.
+실제 비즈니스 지문(이메일/공지/기사/광고 등) + 이해력 문제 ${qCount}개.
+JSON만 반환:
+{
+  "title": "Part 7 — 단일 지문",
+  "passageType": "이메일",
+  "passage": "[지문 내용 100~150단어]",
+  "questions": [{"q":"문제(영어)","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"해설(한국어)"}]
+}
+JSON만.`
+    :`Generate a TOEIC Part 7 Single Passage set. Difficulty: ${diff}.
+A realistic business passage (email/notice/article/advertisement/form) + ${qCount} comprehension questions.
+Return JSON only:
+{
+  "title": "Part 7 — Single Passage",
+  "passageType": "Email",
+  "passage": "[100-150 word passage]",
+  "questions": [{"q":"What is the purpose of this email?","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"explanation"}]
+}
+JSON only.`;
+  try{
+    const data=await callAPI(prompt,2500);
+    currentPracticeData=(data.questions||[]).map(q=>({ans:q.ans??0,fb:q.fb||''}));
+    doneLoading();
+
+    document.getElementById('pb-title').textContent=data.title||'Part 7 — Single Passage';
+    document.getElementById('pb-type').textContent=`TOEIC · Part 7 · ${data.passageType||'Single'}`;
+    document.getElementById('pb-level').textContent=diff;
+    document.getElementById('pb-body').innerHTML=`
+      <div style="padding:8px 12px;background:var(--toeic-light);border-radius:8px;font-size:12px;color:var(--toeic);margin-bottom:12px;">
+        ${lang==='ko'?'📚 지문을 읽고 문제에 답하세요.':'📚 Read the passage carefully and answer the questions.'}
+      </div>
+      <div class="passage-text">${(data.passage||'').replace(/\n/g,'<br>')}</div>`;
+    document.getElementById('passage-box').style.display='block';
+
+    document.getElementById('qs-title').innerHTML=`📚 Part 7 — ${lang==='ko'?'단일 지문':'Single Passage'}`;
+    document.getElementById('qs-note').textContent=lang==='ko'?'지문을 바탕으로 답하세요':'Answer based on the passage';
+    renderQuestions(data.questions||[]);
+    document.getElementById('questions-section').style.display='block';
+    initTutor(lang==='ko'?'Part 7 — 단일 지문':'Part 7 — Single Passage',
+      ['Summarize the passage','Explain the main purpose','Difficult vocabulary','Why is Q1 correct?'],
+      ['지문 요약','지문의 주요 목적','어려운 어휘 설명','Q1 정답 이유']);
+    totalCorrect=0; answeredCount=0;
+  }catch(e){errAlert(e);}
+}
+
+// ── Part 7 Double ──
+async function genPart7Double(diff){
+  const prompt=lang==='ko'
+    ?`TOEIC Part 7 이중 지문 문제. 난이도: ${diff}.
+서로 연관된 두 개의 지문(이메일+답장, 공고+지원서 등) + 문제 5개 (지문 간 연결 문제 포함).
+JSON만 반환:
+{
+  "title": "Part 7 — 이중 지문",
+  "type": "double",
+  "passages": [
+    {"label": "이메일", "text": "[지문1 70~100단어]"},
+    {"label": "답장", "text": "[지문2 70~100단어]"}
+  ],
+  "questions": [{"q":"문제(영어)","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"해설(한국어)"}]
+}
+5문제 중 최소 2문제는 두 지문 모두 참조해야 하는 문제. JSON만.`
+    :`Generate a TOEIC Part 7 Double Passage set. Difficulty: ${diff}.
+Two related passages (email+reply, job posting+cover letter, article+advertisement, etc.) + 5 questions.
+At least 2 questions must require reading BOTH passages.
+Return JSON only:
+{
+  "title": "Part 7 — Double Passage",
+  "type": "double",
+  "passages": [
+    {"label": "Email", "text": "[70-100 word passage 1]"},
+    {"label": "Reply", "text": "[70-100 word passage 2]"}
+  ],
+  "questions": [{"q":"question","opts":["(A)","(B)","(C)","(D)"],"ans":0,"fb":"explanation"}]
+}
+5 questions total. JSON only.`;
+  try{
+    const data=await callAPI(prompt,3000);
+    currentPracticeData=(data.questions||[]).map(q=>({ans:q.ans??0,fb:q.fb||''}));
+    doneLoading();
+
+    const typeLabel=data.type==='triple'
+      ?(lang==='ko'?'삼중 지문':'Triple Passage')
+      :(lang==='ko'?'이중 지문':'Double Passage');
+    document.getElementById('pb-title').textContent=data.title||`Part 7 — ${typeLabel}`;
+    document.getElementById('pb-type').textContent=`TOEIC · Part 7 · ${typeLabel}`;
+    document.getElementById('pb-level').textContent=diff;
+    document.getElementById('pb-body').innerHTML=`
+      <div style="padding:8px 12px;background:var(--toeic-light);border-radius:8px;font-size:12px;color:var(--toeic);margin-bottom:12px;">
+        ${lang==='ko'?'📰 두 지문을 모두 읽고 문제에 답하세요. 일부 문제는 두 지문 모두 필요합니다.':'📰 Read both passages. Some questions require information from both.'}
+      </div>
+      <div class="passage-multi">
+        ${(data.passages||[]).map(p=>`<div class="passage-single-box">
+          <div class="passage-label">${p.label||''}</div>
+          <div style="font-size:13px;line-height:1.8;color:var(--text);">${(p.text||'').replace(/\n/g,'<br>')}</div>
+        </div>`).join('')}
+      </div>`;
+    document.getElementById('passage-box').style.display='block';
+
+    document.getElementById('qs-title').innerHTML=`📰 Part 7 — ${typeLabel}`;
+    document.getElementById('qs-note').textContent=lang==='ko'?'두 지문을 참고해서 답하세요':'Answer using both passages';
+    renderQuestions(data.questions||[]);
+    document.getElementById('questions-section').style.display='block';
+    initTutor(lang==='ko'?`Part 7 — ${typeLabel}`:`Part 7 — ${typeLabel}`,
+      ['How are the two passages related?','Cross-reference question strategy','Vocabulary in passage 1','Vocabulary in passage 2'],
+      ['두 지문의 연관성','지문 간 연결 문제 전략','첫 번째 지문 어휘','두 번째 지문 어휘']);
+    totalCorrect=0; answeredCount=0;
+  }catch(e){errAlert(e);}
+}
+
+// ── Questions ──
+function renderQuestions(qs){
+  const letters=['A','B','C','D'];
+  document.getElementById('questions-wrap').innerHTML=qs.map((q,i)=>`
+    <div class="q-item" id="qi-${i}">
+      <div class="q-num">Q ${i+1} / ${qs.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">
+        ${(q.opts||[]).map((o,j)=>`<button class="q-opt" onclick="checkAnswer(${i},${j})">
+          <span class="q-opt-ltr">${letters[j]}</span>${o}
+        </button>`).join('')}
+      </div>
+      <div class="q-feedback" id="qf-${i}"></div>
+    </div>`).join('');
+}
+
+function checkAnswer(qi,sel){
+  const c=document.getElementById(`qi-${qi}`);
+  if(c.querySelector('.correct')) return;
+  const q=currentPracticeData[qi];
+  const opts=c.querySelectorAll('.q-opt');
+  opts[sel].classList.add(sel===q.ans?'correct':'wrong');
+  if(sel!==q.ans) opts[q.ans].classList.add('correct');
+  opts.forEach(o=>o.disabled=true);
+  const fb=document.getElementById(`qf-${qi}`);
+  if(q.fb){fb.textContent=q.fb;fb.className=`q-feedback show ${sel===q.ans?'correct':'wrong'}`;}
+  if(sel===q.ans) totalCorrect++;
+  answeredCount++;
+  if(answeredCount>=currentPracticeData.length) setTimeout(showScore,800);
+}
+
+function showScore(){
+  const total=currentPracticeData.length;
+  const pct=Math.round(totalCorrect/total*100);
+  document.getElementById('sc-score').textContent=`${totalCorrect}/${total}`;
+  document.getElementById('sc-pct').textContent=lang==='ko'?`정답률 ${pct}%`:`${pct}% correct`;
+  document.getElementById('sc-msg').textContent=
+    pct>=80?(lang==='ko'?'🎉 훌륭합니다! 다음 파트에 도전하세요!':'🎉 Excellent! Try the next part!')
+    :pct>=60?(lang==='ko'?'👍 잘 하셨습니다! 해설을 확인해 보세요.':'👍 Good job! Review the explanations.')
+    :(lang==='ko'?'💪 해설을 보고 다시 도전해 보세요.':'💪 Study the explanations and try again.');
+  document.getElementById('score-card').style.display='block';
+  document.getElementById('action-btns').style.display='flex';
+  document.getElementById('score-card').scrollIntoView({behavior:'smooth'});
+}
+
+// ── AI Tutor ──
+function initTutor(label, quickEn, quickKo){
+  messages=[];
+  document.getElementById('tutor-messages').innerHTML='';
+  const p=PARTS[currentPart];
+  addMsg('ai', lang==='ko'
+    ?`안녕하세요! 👋 **${lang==='ko'?p.ko:p.en}** 준비 완료!\n\n${lang==='ko'?p.tipKo:p.tipEn}\n\n문제를 풀고 모르는 내용은 언제든 질문하세요!`
+    :`Hi! 👋 **${p.en}** is ready!\n\n${p.tipEn}\n\nSolve the questions and ask me anything!`);
+  const qs=lang==='ko'?quickKo:quickEn;
+  document.getElementById('quick-questions').innerHTML=qs.map(q=>`<button class="quick-btn" onclick="askQ(this)">${q}</button>`).join('');
+  document.getElementById('tutor-section').style.display='block';
+}
+
+function askQ(btn){document.getElementById('user-input').value=btn.textContent;sendMessage();}
+
+async function sendMessage(){
+  if(isLoading) return;
+  const inp=document.getElementById('user-input');
+  const text=inp.value.trim(); if(!text) return;
+  inp.value=''; addMsg('user',text); messages.push({role:'user',content:text});
+  isLoading=true; document.getElementById('send-btn').disabled=true;
+  document.getElementById('tutor-status').textContent=lang==='ko'?'답변 작성 중...':'Typing...';
+  const tid=showTyping();
+  const p=PARTS[currentPart];
+  const sys=lang==='ko'
+    ?`당신은 TOEIC 읽기 전문 튜터입니다. 현재: ${p.ko}. 한국어로 간결하게 답하세요.`
+    :`You are a TOEIC Reading expert tutor. Current part: ${p.en}. Be concise and helpful.`;
+  try{
+    const r=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01',},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:500,system:sys,messages:messages.slice(-6)})});
+    const d=await r.json(); removeTyping(tid);
+    if(d.content?.[0]){const rep=d.content[0].text;messages.push({role:'assistant',content:rep});addMsg('ai',rep);}
+  }catch(e){removeTyping(tid);addMsg('ai','⚠️ Error');}
+  isLoading=false; document.getElementById('send-btn').disabled=false;
+  document.getElementById('tutor-status').textContent=lang==='ko'?'도움 준비 완료':'Ready to help';
+}
+function addMsg(role,text){
+  const wrap=document.getElementById('tutor-messages');
+  const d=document.createElement('div'); d.className=`msg ${role}`;
+  d.innerHTML=`<div class="msg-av ${role}">${role==='ai'?'🤖':'👤'}</div><div class="msg-bub">${text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
+  wrap.appendChild(d); wrap.scrollTop=wrap.scrollHeight;
+}
+function showTyping(){
+  const wrap=document.getElementById('tutor-messages');
+  const id='t'+Date.now(); const d=document.createElement('div'); d.className='msg ai'; d.id=id;
+  d.innerHTML=`<div class="msg-av ai">🤖</div><div class="typing"><span></span><span></span><span></span></div>`;
+  wrap.appendChild(d); wrap.scrollTop=wrap.scrollHeight; return id;
+}
+function removeTyping(id){const e=document.getElementById(id);if(e)e.remove();}
+
+// ── Init ──
+(function(){
+  let saved; try{saved=localStorage.getItem('lw-lang');}catch(e){}
+  setLang(saved||((navigator.language||'').startsWith('ko')?'ko':'en'));
+  try{apiKey='vercel-proxy'||'';}catch(e){}
+  if(apiKey){
+    document.getElementById('api-setup').style.display='none';
+    document.getElementById('main-content').style.display='block';
+    renderPartInfo();
+    // Part 5 defaults
+    document.getElementById('q-count').innerHTML='<option value="3">3</option><option value="5" selected>5</option><option value="8">8</option>';
+  }
+})();
+</script>
+</body>
+</html>

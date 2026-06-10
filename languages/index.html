@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TestGen — 외국어</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B45;--navy2:#0e1f38;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;--bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;--border:rgba(28,43,69,0.12);--shadow:0 4px 20px rgba(0,0,0,0.08);}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-icon{width:28px;height:28px;background:var(--teal-mid);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-name{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-crumb{font-size:13px;color:rgba(255,255,255,0.5);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.nav-signin{padding:6px 14px;border-radius:16px;background:var(--teal-mid);color:#fff;font-size:12px;font-weight:600;text-decoration:none;margin-left:8px;}
+
+.hero{background:linear-gradient(135deg,var(--navy2) 0%,var(--navy) 100%);padding:52px 5% 48px;text-align:center;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,5vw,42px);color:#fff;margin-bottom:10px;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:480px;margin:0 auto;}
+
+.main{max-width:860px;margin:0 auto;padding:44px 5% 80px;}
+.lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.lang-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;padding:24px;text-decoration:none;transition:all 0.25s;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;text-align:center;}
+.lang-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.12);border-color:var(--teal-mid);}
+.lc-flag{font-size:42px;margin-bottom:10px;}
+.lc-code{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;}
+.lc-name{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.lc-native{font-size:13px;color:var(--text-muted);margin-bottom:14px;}
+.lc-exams{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.lc-exam{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--teal-light);color:var(--teal);font-weight:600;}
+.lc-btn{width:100%;padding:10px;border-radius:10px;background:var(--teal-mid);color:#fff;font-size:13px;font-weight:700;margin-top:auto;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade{opacity:0;animation:fadeUp 0.4s ease forwards;}
+.fade:nth-child(1){animation-delay:.05s}.fade:nth-child(2){animation-delay:.1s}.fade:nth-child(3){animation-delay:.15s}
+.fade:nth-child(4){animation-delay:.2s}.fade:nth-child(5){animation-delay:.25s}.fade:nth-child(6){animation-delay:.3s}
+@media(max-width:600px){.lang-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand"><div class="nav-icon">TG</div><span class="nav-name">TestGen</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-crumb">🌍 외국어</span>
+  <div class="nav-space"></div>
+  <a href="/" class="nav-back">← 홈</a>
+  <a href="/login.html" class="nav-signin" id="nav-signin">로그인</a>
+</nav>
+
+<div class="hero">
+  <h1 class="hero-title">🌍 외국어 학습</h1>
+  <p class="hero-desc">6개 언어 · General 전 레벨 무료 · TOEIC·JLPT·HSK 등 시험 대비</p>
+</div>
+
+<div class="main">
+  <div class="lang-grid">
+    <a href="/languages/en/index.html" class="lang-card fade">
+      <div class="lc-flag">🇺🇸</div>
+      <div class="lc-code">EN</div>
+      <div class="lc-name">English</div>
+      <div class="lc-native">영어</div>
+      <div class="lc-exams"><span class="lc-exam">TOEIC</span><span class="lc-exam">TOEFL</span><span class="lc-exam">IELTS</span><span class="lc-exam">OPIc</span></div>
+      <div class="lc-btn">학습 시작 →</div>
+    </a>
+    <a href="/languages/ja/index.html" class="lang-card fade">
+      <div class="lc-flag">🇯🇵</div>
+      <div class="lc-code">JA</div>
+      <div class="lc-name">日本語</div>
+      <div class="lc-native">일본어</div>
+      <div class="lc-exams"><span class="lc-exam">JLPT</span><span class="lc-exam">J-TEST</span><span class="lc-exam">漢検</span></div>
+      <div class="lc-btn">학습 시작 →</div>
+    </a>
+    <a href="/languages/zh/index.html" class="lang-card fade">
+      <div class="lc-flag">🇨🇳</div>
+      <div class="lc-code">ZH</div>
+      <div class="lc-name">中文</div>
+      <div class="lc-native">중국어</div>
+      <div class="lc-exams"><span class="lc-exam">HSK</span><span class="lc-exam">HSKK</span></div>
+      <div class="lc-btn">학습 시작 →</div>
+    </a>
+    <a href="/languages/fr/index.html" class="lang-card fade">
+      <div class="lc-flag">🇫🇷</div>
+      <div class="lc-code">FR</div>
+      <div class="lc-name">Français</div>
+      <div class="lc-native">프랑스어</div>
+      <div class="lc-exams"><span class="lc-exam">DELF</span><span class="lc-exam">DALF</span></div>
+      <div class="lc-btn">학습 시작 →</div>
+    </a>
+    <a href="/languages/de/index.html" class="lang-card fade">
+      <div class="lc-flag">🇩🇪</div>
+      <div class="lc-code">DE</div>
+      <div class="lc-name">Deutsch</div>
+      <div class="lc-native">독일어</div>
+      <div class="lc-exams"><span class="lc-exam">Goethe</span></div>
+      <div class="lc-btn">학습 시작 →</div>
+    </a>
+    <a href="/languages/es/index.html" class="lang-card fade">
+      <div class="lc-flag">🇪🇸</div>
+      <div class="lc-code">ES</div>
+      <div class="lc-name">Español</div>
+      <div class="lc-native">스페인어</div>
+      <div class="lc-exams"><span class="lc-exam">DELE</span></div>
+      <div class="lc-btn">학습 시작 →</div>
+    </a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var user; try{ user=JSON.parse(localStorage.getItem('lw-user')); }catch(e){}
+  if(user&&user.uid){ var s=document.getElementById('nav-signin'); if(s){ s.textContent=(user.name||'').substring(0,6)||'내정보'; s.href='/mypage.html'; } }
+})();
+</script>
+</body>
+</html>

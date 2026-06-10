@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — My Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--navy2:#0e1f38;
+  --teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --bg:#F5F4F0;--white:#fff;
+  --text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.15);
+  --toeic:#b07010;--toeic-light:#faeeda;
+  --toefl:#2952a3;--toefl-light:#e5edf8;
+  --ielts:#7a1535;--ielts-light:#f7eef1;
+  --opic:#5b2d8e;--opic-light:#f0eaf8;
+  --red:#e24b4a;--red-light:#fcebeb;
+  --shadow-sm:0 1px 4px rgba(0,0,0,0.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.1);
+  --r:10px;--r-lg:14px;--r-xl:18px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── NAV ── */
+nav{background:var(--navy2);height:56px;display:flex;align-items:center;padding:0 5%;position:sticky;top:0;z-index:100;border-bottom:0.5px solid rgba(255,255,255,0.06);}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;margin-right:auto;}
+.nav-lm{width:32px;height:32px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;}
+.nav-brand-text{font-size:15px;font-weight:600;color:#fff;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-badge{font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(29,158,117,0.2);color:#4cd4a0;font-weight:600;border:0.5px solid rgba(29,158,117,0.3);}
+.nav-signout{font-size:13px;color:rgba(255,255,255,0.5);background:none;border:none;cursor:pointer;font-family:inherit;padding:5px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-signout:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.1);border-radius:20px;padding:2px;gap:1px;}
+.lbtn{padding:4px 11px;border-radius:16px;font-size:11px;font-weight:600;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+/* ── LAYOUT ── */
+.layout{
+  display:grid;
+  grid-template-columns:210px 1fr;
+  column-gap:24px;
+  max-width:1100px;
+  margin:0 auto;
+  padding:32px 24px 80px;
+  align-items:start;
+}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  grid-column:1;
+  width:210px;
+}
+.profile-card{
+  background:var(--white);
+  border:0.5px solid var(--border-md);
+  border-radius:var(--r-xl);
+  padding:20px 16px;
+  margin-bottom:14px;
+  text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.avatar{
+  width:68px;height:68px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal),var(--navy));
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;margin:0 auto 10px;color:#fff;font-weight:700;
+}
+.profile-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.profile-email{font-size:11px;color:var(--text-light);margin-bottom:10px;word-break:break-all;}
+
+.plan-badge-free{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
+.plan-badge-pro{background:#fef9e7;color:#b45309;border:1px solid #f59e0b;}
+.plan-badge-admin{background:#fce7f3;color:#9d174d;border:1px solid #f9a8d4;}
+
+.profile-plan{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;
+}
+.sidebar-nav{
+  background:var(--white);
+  border:0.5px solid var(--border);
+  border-radius:var(--r-xl);
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  width:210px;
+}
+.snav-item{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  align-items:center;
+  gap:8px;
+  padding:12px 14px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--text-muted);
+  cursor:pointer;
+  border-left:3px solid transparent;
+  transition:all 0.2s;
+  border-bottom:0.5px solid var(--border);
+  text-decoration:none;
+  width:100%;
+  box-sizing:border-box;
+}
+.snav-item:last-child{border-bottom:none;}
+.snav-item:hover{background:var(--bg);color:var(--text);}
+.snav-item.act{
+  background:var(--teal-light) !important;
+  border-top-color:var(--teal-mid) !important;
+}
+.snav-item.act span:last-child{
+  color:var(--teal-mid) !important;
+  font-weight:600 !important;
+}
+.snav-icon{
+  font-size:15px;
+  text-align:center;
+  display:block;
+}
+.snav-label{
+  display:block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* ── MAIN CONTENT ── */
+.content{flex:1;min-width:0;}
+.page-section{display:none;}
+.page-section.act{display:block;}
+
+/* ── SECTION TITLE ── */
+.sec-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);margin-bottom:4px;font-weight:400;}
+.sec-sub{font-size:13px;color:var(--text-muted);margin-bottom:24px;}
+
+/* ── STAT CARDS ── */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.stat-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--shadow-sm);}
+.sc-num{font-family:'DM Serif Display',serif;font-size:28px;line-height:1;margin-bottom:4px;}
+.sc-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;}
+
+/* ── STREAK ── */
+.streak-card{background:linear-gradient(135deg,var(--navy2),var(--navy));border-radius:var(--r-xl);padding:22px 24px;margin-bottom:20px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow-md);}
+.streak-fire{font-size:44px;}
+.streak-info{flex:1;}
+.streak-num{font-family:'DM Serif Display',serif;font-size:40px;color:#fff;line-height:1;}
+.streak-label{font-size:13px;color:rgba(255,255,255,0.6);margin-top:3px;}
+.streak-cal{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto;}
+.cal-day{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;}
+.cal-done{background:var(--teal-mid);color:#fff;}
+.cal-today{background:rgba(255,255,255,0.2);color:#fff;border:1.5px solid var(--teal-mid);}
+.cal-miss{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.3);}
+
+/* ── CARD ── */
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--r-xl);overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow-sm);}
+.card-head{padding:14px 20px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);}
+.card-action{font-size:12px;color:var(--teal-mid);cursor:pointer;font-weight:500;}
+.card-body{padding:18px 20px;}
+
+/* ── RECENT ACTIVITY ── */
+.activity-list{display:flex;flex-direction:column;gap:10px;}
+.activity-item{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border-radius:var(--r-lg);}
+.ai-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ai-info{flex:1;}
+.ai-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.ai-meta{font-size:11px;color:var(--text-light);}
+.ai-score{text-align:right;flex-shrink:0;}
+.ai-score-num{font-family:'DM Serif Display',serif;font-size:20px;line-height:1;}
+.ai-score-label{font-size:10px;color:var(--text-light);}
+
+/* ── SUBSCRIPTION CARD ── */
+.sub-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--r-xl);overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow-sm);}
+.sub-header{padding:18px 22px;display:flex;align-items:center;gap:14px;}
+.sub-icon{width:44px;height:44px;border-radius:12px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.sub-name{font-size:16px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.sub-status{font-size:12px;}
+.sub-status.active{color:var(--teal-mid);}
+.sub-status.inactive{color:var(--red);}
+.sub-body{padding:0 22px 18px;}
+.sub-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;}
+.sub-cell{background:var(--bg);border-radius:var(--r);padding:12px 14px;}
+.sub-cell-label{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);margin-bottom:4px;}
+.sub-cell-val{font-size:14px;font-weight:600;color:var(--text);}
+.sub-actions{display:flex;gap:10px;}
+.btn{padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.btn-primary{background:var(--teal-mid);color:#fff;}
+.btn-primary:hover{background:var(--teal);}
+.btn-outline{background:transparent;border:1px solid var(--border-md);color:var(--text-muted);}
+.btn-outline:hover{border-color:var(--text);color:var(--text);}
+.btn-danger{background:transparent;border:1px solid rgba(226,75,74,0.3);color:var(--red);}
+.btn-danger:hover{background:var(--red-light);}
+
+/* ── PAYMENT HISTORY ── */
+.pay-table{width:100%;border-collapse:collapse;}
+.pay-table th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--border);}
+.pay-table td{font-size:13px;padding:12px 12px;border-bottom:0.5px solid var(--border);color:var(--text);}
+.pay-table tr:last-child td{border-bottom:none;}
+.pay-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:8px;}
+.pay-success{background:var(--teal-light);color:var(--teal-mid);}
+.pay-refund{background:var(--red-light);color:var(--red);}
+
+/* ── PROGRESS BARS ── */
+.progress-list{display:flex;flex-direction:column;gap:14px;}
+.prog-item{display:flex;align-items:center;gap:14px;}
+.prog-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.prog-info{flex:1;}
+.prog-top{display:flex;justify-content:space-between;margin-bottom:5px;}
+.prog-name{font-size:13px;font-weight:600;color:var(--text);}
+.prog-pct{font-size:12px;font-weight:700;color:var(--teal-mid);}
+.prog-bar{height:7px;background:var(--bg);border-radius:10px;overflow:hidden;border:0.5px solid var(--border);}
+.prog-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--teal),var(--teal-mid));}
+.prog-sub{font-size:11px;color:var(--text-light);margin-top:4px;}
+
+/* ── SETTINGS FORM ── */
+.form-group{margin-bottom:18px;}
+.form-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;display:block;}
+.form-input{width:100%;padding:10px 14px;border:0.5px solid var(--border-md);border-radius:var(--r);font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:var(--teal-mid);background:var(--white);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-divider{height:0.5px;background:var(--border);margin:24px 0;}
+.danger-zone{background:var(--red-light);border:0.5px solid rgba(226,75,74,0.2);border-radius:var(--r-lg);padding:18px 20px;}
+.dz-title{font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px;}
+.dz-desc{font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.6;}
+
+/* ── NOTICE CARDS ── */
+.notice-list{display:flex;flex-direction:column;gap:10px;}
+.notice-item{padding:14px 16px;background:var(--bg);border-radius:var(--r-lg);border-left:3px solid var(--teal-mid);cursor:pointer;transition:all 0.2s;}
+.notice-item:hover{background:var(--teal-light);}
+.notice-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.notice-title{font-size:13px;font-weight:600;color:var(--text);}
+.notice-date{font-size:11px;color:var(--text-light);}
+.notice-preview{font-size:12px;color:var(--text-muted);line-height:1.5;}
+.notice-new{font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;background:var(--teal-mid);color:#fff;margin-left:6px;}
+
+/* ── FEEDBACK FORM ── */
+.feedback-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--r-xl);padding:22px;box-shadow:var(--shadow-sm);}
+.feedback-types{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.ftype-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:0.5px solid var(--border-md);background:transparent;color:var(--text-muted);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.ftype-btn.act{background:var(--teal-mid);color:#fff;border-color:var(--teal-mid);}
+.form-textarea{width:100%;padding:12px 14px;border:0.5px solid var(--border-md);border-radius:var(--r);font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;resize:vertical;min-height:120px;line-height:1.6;transition:border-color 0.2s;}
+.form-textarea:focus{border-color:var(--teal-mid);background:var(--white);}
+.rating-row{display:flex;gap:8px;margin-bottom:16px;}
+.star-btn{font-size:24px;background:none;border:none;cursor:pointer;opacity:.4;transition:all 0.2s;line-height:1;}
+.star-btn.lit{opacity:1;}
+
+/* ── WRONG NOTE ── */
+.wrong-list{display:flex;flex-direction:column;gap:10px;}
+.wrong-item{background:var(--bg);border-radius:var(--r-lg);padding:14px 16px;border:0.5px solid var(--border);}
+.wi-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.wi-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:8px;}
+.wi-q{font-size:13px;color:var(--text);line-height:1.55;margin-bottom:8px;}
+.wi-ans{display:flex;gap:12px;font-size:12px;}
+.wi-wrong{color:var(--red);}
+.wi-right{color:var(--teal-mid);}
+.wi-memo{width:100%;padding:7px 10px;border:0.5px solid var(--border-md);border-radius:7px;font-size:12px;font-family:inherit;background:var(--white);color:var(--text);outline:none;margin-top:8px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr;padding:16px 16px 60px;}
+  .sidebar{width:100%;}
+  .sidebar-nav{width:100%;}
+  .stat-row{grid-template-columns:repeat(2,1fr);}
+  .sub-grid{grid-template-columns:1fr 1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+<!-- Firebase Auth Guard -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+  import { getAuth, onAuthStateChanged, signOut }
+    from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+  import { getFirestore, doc, getDoc }
+    from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+  const app  = initializeApp({
+    apiKey:"AIzaSyB3OWQRy6AgDSrtjDXBclFxfV4mqhzWp-w",
+    authDomain:"linguawalk.firebaseapp.com",
+    projectId:"linguawalk",
+    storageBucket:"linguawalk.firebasestorage.app",
+    messagingSenderId:"558390764757",
+    appId:"1:558390764757:web:e6b26210045669dc686e5c"
+  });
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  onAuthStateChanged(auth, async (user) => {
+    if(!user){
+      // Firebase 미로그인 → localStorage 확인 (임시 호환)
+      const local = JSON.parse(localStorage.getItem('lw-user') || 'null');
+      if(!local){ location.href='/login.html'; return; }
+      applyUserInfo(local);
+      return;
+    }
+    // Firebase 로그인 상태
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    const data = snap.exists() ? snap.data() : { role:'user', plan:'free', name: user.email };
+    if(data.role === 'admin'){ location.href='/admin.html'; return; }
+
+    // localStorage 동기화
+    const userData = { uid:user.uid, email:user.email, name:data.name||user.displayName||user.email,
+      role:data.role||'user', plan:data.plan||'free' };
+    localStorage.setItem('lw-user', JSON.stringify(userData));
+    applyUserInfo(userData);
+
+    // 로그아웃 함수 전역 등록
+    window._signOut = async () => {
+      await signOut(auth);
+      localStorage.removeItem('lw-user');
+      location.href='/';
+    };
+  });
+
+  function applyUserInfo(u){
+    const nameEl  = document.getElementById('user-name');
+    const emailEl = document.getElementById('user-email');
+    const badgeEl = document.getElementById('plan-badge');
+    if(nameEl)  nameEl.textContent  = u.name  || '';
+    if(emailEl) emailEl.textContent = u.email || '';
+    if(badgeEl){
+      var planMap={'free':'🎓 Free','pro':'⭐ Pro','admin':'🔑 Admin'};
+      badgeEl.textContent = planMap[u.plan] || '🎓 Free';
+      badgeEl.className='profile-plan plan-badge-'+(u.plan||'free');
+    }
+    // Pro 업그레이드 배너 표시/숨김
+    var banner=document.getElementById('upgrade-banner');
+    if(banner) banner.style.display=(u.plan==='free'||!u.plan)?'flex':'none';
+  }
+</script>
+<script>
+  // ── Vercel API 설정 ──
+  const API_URL = '/api/send-email';
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-lm">LW</div>
+    <span class="nav-brand-text">LinguaWalk</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-badge" id="plan-badge">TOEIC + IELTS</span>
+    <button class="nav-signout" onclick="window._signOut ? window._signOut() : (localStorage.removeItem('lw-user'), location.href='/')" data-en="Sign out" data-ko="로그아웃">Sign out</button>
+    <div class="lang-sw">
+      <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+      <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    </div>
+  </div>
+</nav>
+
+<div class="layout" style="display:flex;gap:20px;max-width:1100px;margin:0 auto;padding:32px 24px 80px;align-items:flex-start;">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside style="width:100px;min-width:100px;flex-shrink:0;" class="fade-in">
+
+    <!-- Profile card -->
+    <div style="background:#fff;border:0.5px solid rgba(28,43,69,0.15);border-radius:16px;padding:16px 10px;margin-bottom:12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.07);">
+      <div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#2A7F6F,#1C2B45);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 8px;color:#fff;font-weight:700;">김</div>
+      <div style="font-size:12px;font-weight:600;color:#1C2B45;margin-bottom:2px;" id="user-name">김민준</div>
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:8px;word-break:break-all;" id="user-email">minjun<br>@email.com</div>
+      <div style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;background:linear-gradient(135deg,#2A7F6F,#1D9E75);color:#fff;line-height:1.4;">TOEIC<br>+ IELTS</div>
+    </div>
+
+    <!-- Vertical icon menu -->
+    <div style="background:#fff;border:0.5px solid rgba(28,43,69,0.1);border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.07);">
+
+      <div class="snav-item act" onclick="showPage('dashboard',this)"
+        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 8px;cursor:pointer;border-left:none;border-bottom:0.5px solid rgba(28,43,69,0.08);transition:all 0.2s;border-top:3px solid #1D9E75;">
+        <span style="font-size:20px;line-height:1;">📊</span>
+        <span style="font-size:10px;font-weight:600;color:#1D9E75;text-align:center;line-height:1.3;" data-en="Dashboard" data-ko="대시보드">Dashboard</span>
+      </div>
+
+      <div class="snav-item" onclick="showPage('subscription',this)"
+        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 8px;cursor:pointer;border-left:none;border-bottom:0.5px solid rgba(28,43,69,0.08);transition:all 0.2s;border-top:3px solid transparent;">
+        <span style="font-size:20px;line-height:1;">💳</span>
+        <span style="font-size:10px;font-weight:500;color:#5a6a82;text-align:center;line-height:1.3;" data-en="Subscription" data-ko="구독 관리">구독<br>관리</span>
+      </div>
+
+      <div class="snav-item" onclick="showPage('progress',this)"
+        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 8px;cursor:pointer;border-left:none;border-bottom:0.5px solid rgba(28,43,69,0.08);transition:all 0.2s;border-top:3px solid transparent;">
+        <span style="font-size:20px;line-height:1;">📈</span>
+        <span style="font-size:10px;font-weight:500;color:#5a6a82;text-align:center;line-height:1.3;" data-en="My Progress" data-ko="학습 현황">학습<br>현황</span>
+      </div>
+
+      <div class="snav-item" onclick="showPage('wrongnote',this)"
+        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 8px;cursor:pointer;border-left:none;border-bottom:0.5px solid rgba(28,43,69,0.08);transition:all 0.2s;border-top:3px solid transparent;">
+        <span style="font-size:20px;line-height:1;">📝</span>
+        <span style="font-size:10px;font-weight:500;color:#5a6a82;text-align:center;line-height:1.3;" data-en="Wrong Note" data-ko="오답 노트">오답<br>노트</span>
+      </div>
+
+      <div class="snav-item" onclick="showPage('notices',this)"
+        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 8px;cursor:pointer;border-left:none;border-bottom:0.5px solid rgba(28,43,69,0.08);transition:all 0.2s;border-top:3px solid transparent;">
+        <span style="font-size:20px;line-height:1;">📢</span>
+        <span style="font-size:10px;font-weight:500;color:#5a6a82;text-align:center;line-height:1.3;" data-en="Notices" data-ko="공지사항">공지<br>사항</span>
+      </div>
+
+      <div class="snav-item" onclick="showPage('feedback',this)"
+        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 8px;cursor:pointer;border-left:none;border-bottom:0.5px solid rgba(28,43,69,0.08);transition:all 0.2s;border-top:3px solid transparent;">
+        <span style="font-size:20px;line-height:1;">✉️</span>
+        <span style="font-size:10px;font-weight:500;color:#5a6a82;text-align:center;line-height:1.3;" data-en="Feedback" data-ko="의견 보내기">의견<br>보내기</span>
+      </div>
+
+      <div class="snav-item" onclick="showPage('settings',this)"
+        style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 8px;cursor:pointer;border-left:none;transition:all 0.2s;border-top:3px solid transparent;">
+        <span style="font-size:20px;line-height:1;">⚙️</span>
+        <span style="font-size:10px;font-weight:500;color:#5a6a82;text-align:center;line-height:1.3;" data-en="Settings" data-ko="설정">설정</span>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ══ CONTENT ══ -->
+  <main class="content fade-in" style="flex:1;min-width:0;">
+
+    <!-- ─── DASHBOARD ─── -->
+    <div class="page-section act" id="page-dashboard">
+      <div class="sec-title" data-en="Dashboard" data-ko="대시보드">Dashboard</div>
+      <div class="sec-sub" data-en="Welcome back, Minjun! Here's your learning overview." data-ko="돌아오셨군요, 민준님! 학습 현황을 확인하세요.">Welcome back, Minjun! Here's your learning overview.</div>
+
+      <!-- Stats -->
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="sc-num" style="color:var(--teal-mid);">24</div>
+          <div class="sc-label" data-en="Days Streak" data-ko="연속 학습일">Days Streak</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-num" style="color:var(--toeic);">148</div>
+          <div class="sc-label" data-en="Questions Solved" data-ko="풀이 문항">Questions Solved</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-num" style="color:var(--toefl);">82%</div>
+          <div class="sc-label" data-en="Avg. Accuracy" data-ko="평균 정답률">Avg. Accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-num" style="color:var(--opic);">5.2h</div>
+          <div class="sc-label" data-en="This Week" data-ko="이번 주 학습">This Week</div>
+        </div>
+      </div>
+
+      <!-- Streak calendar -->
+      <div class="streak-card">
+        <div class="streak-fire">🔥</div>
+        <div class="streak-info">
+          <div class="streak-num">24</div>
+          <div class="streak-label" data-en="Day Streak — Keep it up!" data-ko="일 연속 학습 — 계속 유지하세요!">Day Streak — Keep it up!</div>
+        </div>
+        <div class="streak-cal" id="streak-cal"></div>
+      </div>
+
+      <!-- Recent activity -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title" data-en="Recent Activity" data-ko="최근 학습">Recent Activity</span>
+          <span class="card-action" data-en="View all →" data-ko="전체 보기 →">View all →</span>
+        </div>
+        <div class="card-body">
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="ai-icon" style="background:var(--toeic-light);">🎧</div>
+              <div class="ai-info">
+                <div class="ai-title">TOEIC Part 3 — Short Conversations</div>
+                <div class="ai-meta" data-en="Today · 3 questions" data-ko="오늘 · 3문항">Today · 3 questions</div>
+              </div>
+              <div class="ai-score">
+                <div class="ai-score-num" style="color:var(--toeic);">3/3</div>
+                <div class="ai-score-label">100%</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="ai-icon" style="background:var(--ielts-light);">📖</div>
+              <div class="ai-info">
+                <div class="ai-title">IELTS Reading — Academic</div>
+                <div class="ai-meta" data-en="Yesterday · 7 questions" data-ko="어제 · 7문항">Yesterday · 7 questions</div>
+              </div>
+              <div class="ai-score">
+                <div class="ai-score-num" style="color:var(--ielts);">5/7</div>
+                <div class="ai-score-label">71%</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="ai-icon" style="background:var(--ielts-light);">🗣</div>
+              <div class="ai-info">
+                <div class="ai-title">IELTS Speaking — Part 2</div>
+                <div class="ai-meta" data-en="2 days ago · AI scored" data-ko="2일 전 · AI 채점">2 days ago · AI scored</div>
+              </div>
+              <div class="ai-score">
+                <div class="ai-score-num" style="color:var(--ielts);">6.5</div>
+                <div class="ai-score-label">Band</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="ai-icon" style="background:var(--toeic-light);">📖</div>
+              <div class="ai-info">
+                <div class="ai-title">TOEIC Part 5 — Incomplete Sentences</div>
+                <div class="ai-meta" data-en="3 days ago · 10 questions" data-ko="3일 전 · 10문항">3 days ago · 10 questions</div>
+              </div>
+              <div class="ai-score">
+                <div class="ai-score-num" style="color:var(--toeic);">8/10</div>
+                <div class="ai-score-label">80%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SUBSCRIPTION ─── -->
+    <div class="page-section" id="page-subscription">
+      <div class="sec-title" data-en="Subscription" data-ko="구독 관리">Subscription</div>
+      <div class="sec-sub" data-en="Manage your plans and billing." data-ko="구독 플랜과 결제를 관리하세요.">Manage your plans and billing.</div>
+
+      <!-- Active plans -->
+      <div class="sub-card">
+        <div class="sub-header">
+          <div class="sub-icon">🏆</div>
+          <div>
+            <div class="sub-name">TOEIC</div>
+            <div class="sub-status active" data-en="● Active" data-ko="● 이용 중">● Active</div>
+          </div>
+        </div>
+        <div class="sub-body">
+          <div class="sub-grid">
+            <div class="sub-cell">
+              <div class="sub-cell-label" data-en="Plan" data-ko="플랜">Plan</div>
+              <div class="sub-cell-val" data-en="Monthly" data-ko="월정액">Monthly</div>
+            </div>
+            <div class="sub-cell">
+              <div class="sub-cell-label" data-en="Price" data-ko="금액">Price</div>
+              <div class="sub-cell-val">₩12,900/월</div>
+            </div>
+            <div class="sub-cell">
+              <div class="sub-cell-label" data-en="Next Billing" data-ko="다음 결제일">Next Billing</div>
+              <div class="sub-cell-val">2026. 06. 15</div>
+            </div>
+          </div>
+          <div class="sub-actions">
+            <button class="btn btn-outline" data-en="Change Plan" data-ko="플랜 변경">Change Plan</button>
+            <button class="btn btn-danger" data-en="Cancel Subscription" data-ko="구독 해지">Cancel Subscription</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-header">
+          <div class="sub-icon" style="background:var(--ielts-light);">🌍</div>
+          <div>
+            <div class="sub-name">IELTS</div>
+            <div class="sub-status active" data-en="● Active" data-ko="● 이용 중">● Active</div>
+          </div>
+        </div>
+        <div class="sub-body">
+          <div class="sub-grid">
+            <div class="sub-cell">
+              <div class="sub-cell-label" data-en="Plan" data-ko="플랜">Plan</div>
+              <div class="sub-cell-val" data-en="Monthly" data-ko="월정액">Monthly</div>
+            </div>
+            <div class="sub-cell">
+              <div class="sub-cell-label" data-en="Price" data-ko="금액">Price</div>
+              <div class="sub-cell-val">₩12,900/월</div>
+            </div>
+            <div class="sub-cell">
+              <div class="sub-cell-label" data-en="Next Billing" data-ko="다음 결제일">Next Billing</div>
+              <div class="sub-cell-val">2026. 06. 15</div>
+            </div>
+          </div>
+          <div class="sub-actions">
+            <button class="btn btn-outline" data-en="Change Plan" data-ko="플랜 변경">Change Plan</button>
+            <button class="btn btn-danger" data-en="Cancel Subscription" data-ko="구독 해지">Cancel Subscription</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add plan -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title" data-en="Add More Exams" data-ko="시험 추가 구독">Add More Exams</span>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="padding:14px 16px;border:0.5px solid var(--border-md);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:space-between;background:var(--bg);">
+              <div><div style="font-size:14px;font-weight:600;">TOEFL iBT</div><div style="font-size:11px;color:var(--text-light);">₩12,900/월</div></div>
+              <button class="btn btn-primary" style="padding:7px 14px;font-size:12px;" data-en="Add" data-ko="추가">Add</button>
+            </div>
+            <div style="padding:14px 16px;border:0.5px solid var(--border-md);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:space-between;background:var(--bg);">
+              <div><div style="font-size:14px;font-weight:600;">OPIc</div><div style="font-size:11px;color:var(--text-light);">₩12,900/월</div></div>
+              <button class="btn btn-primary" style="padding:7px 14px;font-size:12px;" data-en="Add" data-ko="추가">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment history -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title" data-en="Payment History" data-ko="결제 내역">Payment History</span>
+          <span class="card-action" data-en="Download CSV" data-ko="CSV 다운로드">Download CSV</span>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <table class="pay-table">
+            <thead>
+              <tr>
+                <th data-en="Date" data-ko="결제일">Date</th>
+                <th data-en="Item" data-ko="항목">Item</th>
+                <th data-en="Amount" data-ko="금액">Amount</th>
+                <th data-en="Method" data-ko="결제 수단">Method</th>
+                <th data-en="Status" data-ko="상태">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2026.05.15</td><td>TOEIC Monthly</td><td>₩12,900</td><td>카카오페이</td><td><span class="pay-badge pay-success">완료</span></td></tr>
+              <tr><td>2026.05.15</td><td>IELTS Monthly</td><td>₩12,900</td><td>카카오페이</td><td><span class="pay-badge pay-success">완료</span></td></tr>
+              <tr><td>2026.04.15</td><td>TOEIC Monthly</td><td>₩12,900</td><td>신용카드</td><td><span class="pay-badge pay-success">완료</span></td></tr>
+              <tr><td>2026.04.15</td><td>IELTS Monthly</td><td>₩12,900</td><td>신용카드</td><td><span class="pay-badge pay-success">완료</span></td></tr>
+              <tr><td>2026.03.20</td><td>OPIc Monthly</td><td>₩12,900</td><td>신용카드</td><td><span class="pay-badge pay-refund">환불</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PROGRESS ─── -->
+    <div class="page-section" id="page-progress">
+      <div class="sec-title" data-en="My Progress" data-ko="학습 현황">My Progress</div>
+      <div class="sec-sub" data-en="Track how far you've come in each section." data-ko="각 섹션별 학습 진행률을 확인하세요.">Track how far you've come in each section.</div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-title">TOEIC</span></div>
+        <div class="card-body">
+          <div class="progress-list">
+            <div class="prog-item">
+              <div class="prog-icon" style="background:var(--toeic-light);">🎧</div>
+              <div class="prog-info">
+                <div class="prog-top"><span class="prog-name">Part 1 — Photographs</span><span class="prog-pct">90%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:90%;"></div></div>
+                <div class="prog-sub" data-en="18 / 20 questions mastered" data-ko="20문항 중 18문항 완료">18 / 20 questions mastered</div>
+              </div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-icon" style="background:var(--toeic-light);">🎧</div>
+              <div class="prog-info">
+                <div class="prog-top"><span class="prog-name">Part 2 — Q&A</span><span class="prog-pct">75%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:75%;"></div></div>
+                <div class="prog-sub" data-en="15 / 20 questions mastered" data-ko="20문항 중 15문항 완료">15 / 20 questions mastered</div>
+              </div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-icon" style="background:var(--toeic-light);">🎧</div>
+              <div class="prog-info">
+                <div class="prog-top"><span class="prog-name">Part 3 — Conversations</span><span class="prog-pct">60%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:60%;"></div></div>
+                <div class="prog-sub" data-en="12 / 20 questions mastered" data-ko="20문항 중 12문항 완료">12 / 20 questions mastered</div>
+              </div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-icon" style="background:var(--toeic-light);">📖</div>
+              <div class="prog-info">
+                <div class="prog-top"><span class="prog-name">Part 5 — Incomplete Sentences</span><span class="prog-pct">45%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:45%;"></div></div>
+                <div class="prog-sub" data-en="9 / 20 questions mastered" data-ko="20문항 중 9문항 완료">9 / 20 questions mastered</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-title">IELTS</span></div>
+        <div class="card-body">
+          <div class="progress-list">
+            <div class="prog-item">
+              <div class="prog-icon" style="background:var(--ielts-light);">🎧</div>
+              <div class="prog-info">
+                <div class="prog-top"><span class="prog-name">Listening — Section 1–4</span><span class="prog-pct">55%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:55%;background:linear-gradient(90deg,var(--ielts),#c04060);"></div></div>
+                <div class="prog-sub" data-en="11 / 20 sessions completed" data-ko="20세션 중 11세션 완료">11 / 20 sessions completed</div>
+              </div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-icon" style="background:var(--ielts-light);">📖</div>
+              <div class="prog-info">
+                <div class="prog-top"><span class="prog-name">Reading — Academic</span><span class="prog-pct">70%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:70%;background:linear-gradient(90deg,var(--ielts),#c04060);"></div></div>
+                <div class="prog-sub" data-en="14 / 20 passages completed" data-ko="20지문 중 14지문 완료">14 / 20 passages completed</div>
+              </div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-icon" style="background:var(--ielts-light);">🗣</div>
+              <div class="prog-info">
+                <div class="prog-top"><span class="prog-name">Speaking — Parts 1·2·3</span><span class="prog-pct">40%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:40%;background:linear-gradient(90deg,var(--ielts),#c04060);"></div></div>
+                <div class="prog-sub" data-en="8 / 20 sessions completed" data-ko="20세션 중 8세션 완료">8 / 20 sessions completed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── WRONG NOTE ─── -->
+    <div class="page-section" id="page-wrongnote">
+      <div class="sec-title" data-en="Wrong Note" data-ko="오답 노트">Wrong Note</div>
+      <div class="sec-sub" data-en="Review questions you got wrong and add personal notes." data-ko="틀린 문제를 다시 보고 메모를 남기세요.">Review questions you got wrong and add personal notes.</div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title" data-en="Recent Mistakes" data-ko="최근 오답">Recent Mistakes</span>
+          <span class="card-action" data-en="Clear all" data-ko="전체 삭제">Clear all</span>
+        </div>
+        <div class="card-body">
+          <div class="wrong-list">
+            <div class="wrong-item">
+              <div class="wi-top">
+                <span class="wi-badge" style="background:var(--toeic-light);color:var(--toeic);">TOEIC Part 5</span>
+                <span style="font-size:11px;color:var(--text-light);">2026.05.19</span>
+              </div>
+              <div class="wi-q">The CEO announced that the company _____ its headquarters to Seoul next year.</div>
+              <div class="wi-ans">
+                <span class="wi-wrong" data-en="❌ My answer: will relocate" data-ko="❌ 내 답: will relocate">❌ My answer: will relocate</span>
+                <span class="wi-right" data-en="✓ Correct: is relocating" data-ko="✓ 정답: is relocating">✓ Correct: is relocating</span>
+              </div>
+              <input type="text" class="wi-memo" placeholder="메모를 남기세요..." value="현재진행형 vs 미래형 — 이미 결정된 계획은 현재진행형 사용">
+            </div>
+            <div class="wrong-item">
+              <div class="wi-top">
+                <span class="wi-badge" style="background:var(--ielts-light);color:var(--ielts);">IELTS Reading</span>
+                <span style="font-size:11px;color:var(--text-light);">2026.05.18</span>
+              </div>
+              <div class="wi-q">The author suggests that urban migration has _____ the rural economy.</div>
+              <div class="wi-ans">
+                <span class="wi-wrong" data-en="❌ My answer: TRUE" data-ko="❌ 내 답: TRUE">❌ My answer: TRUE</span>
+                <span class="wi-right" data-en="✓ Correct: NOT GIVEN" data-ko="✓ 정답: NOT GIVEN">✓ Correct: NOT GIVEN</span>
+              </div>
+              <input type="text" class="wi-memo" placeholder="메모를 남기세요..." value="NOT GIVEN: 지문에 직접 언급이 없을 때 → TRUE로 착각하지 말 것">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── NOTICES ─── -->
+    <div class="page-section" id="page-notices">
+      <div class="sec-title" data-en="Notices" data-ko="공지사항">Notices</div>
+      <div class="sec-sub" data-en="Latest updates from LinguaWalk." data-ko="LinguaWalk 최신 소식을 확인하세요.">Latest updates from LinguaWalk.</div>
+      <div class="card">
+        <div class="card-body">
+          <div class="notice-list">
+            <div class="notice-item">
+              <div class="notice-top">
+                <span class="notice-title">IELTS Writing Task 1 차트 기능 업데이트<span class="notice-new">NEW</span></span>
+                <span class="notice-date">2026.05.20</span>
+              </div>
+              <div class="notice-preview">Bar Chart, Line Graph, Pie Chart 등 실제 차트가 Chart.js로 시각화됩니다...</div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-top">
+                <span class="notice-title">OPIc TTS 자동 낭독 기능 추가<span class="notice-new">NEW</span></span>
+                <span class="notice-date">2026.05.18</span>
+              </div>
+              <div class="notice-preview">실제 OPIc처럼 문제 생성 후 TTS가 자동으로 문제를 읽어줍니다...</div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-top">
+                <span class="notice-title">서비스 이용약관 업데이트 안내</span>
+                <span class="notice-date">2026.05.10</span>
+              </div>
+              <div class="notice-preview">2026년 6월 1일부터 적용되는 새로운 이용약관을 안내드립니다...</div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-top">
+                <span class="notice-title">TOEIC 모의고사 기능 오픈</span>
+                <span class="notice-date">2026.05.01</span>
+              </div>
+              <div class="notice-preview">LC 100문항 + RC 100문항 실전 모의고사가 오픈되었습니다...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── FEEDBACK ─── -->
+    <div class="page-section" id="page-feedback">
+      <div class="sec-title" data-en="Send Feedback" data-ko="의견 보내기">Send Feedback</div>
+      <div class="sec-sub" data-en="Your feedback helps us improve LinguaWalk for everyone." data-ko="여러분의 의견이 LinguaWalk를 더 좋게 만듭니다.">Your feedback helps us improve LinguaWalk for everyone.</div>
+      <div class="feedback-card">
+        <!-- 전송 결과 메시지 -->
+        <div id="fb-result" style="display:none;padding:11px 14px;border-radius:9px;margin-bottom:14px;font-size:13px;font-weight:500;"></div>
+
+        <div class="form-group">
+          <label class="form-label" data-en="Type" data-ko="유형">Type</label>
+          <div class="feedback-types">
+            <button class="ftype-btn act" onclick="selectFType(this)" data-en="💡 Suggestion" data-ko="💡 제안">💡 Suggestion</button>
+            <button class="ftype-btn" onclick="selectFType(this)" data-en="🐛 Bug Report" data-ko="🐛 버그 신고">🐛 Bug Report</button>
+            <button class="ftype-btn" onclick="selectFType(this)" data-en="📚 Content Request" data-ko="📚 콘텐츠 요청">📚 Content Request</button>
+            <button class="ftype-btn" onclick="selectFType(this)" data-en="❓ Question" data-ko="❓ 질문">❓ Question</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-en="Overall Rating" data-ko="전체 만족도">Overall Rating</label>
+          <div class="rating-row" id="stars">
+            <button class="star-btn lit" onclick="setRating(1)">⭐</button>
+            <button class="star-btn lit" onclick="setRating(2)">⭐</button>
+            <button class="star-btn lit" onclick="setRating(3)">⭐</button>
+            <button class="star-btn lit" onclick="setRating(4)">⭐</button>
+            <button class="star-btn" onclick="setRating(5)">⭐</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-en="Subject" data-ko="제목">Subject</label>
+          <input type="text" id="fb-subject" class="form-input" placeholder="e.g. TOEIC Part 3 question quality">
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-en="Message" data-ko="내용">Message</label>
+          <textarea id="fb-message" class="form-textarea" placeholder="Tell us what you think..."></textarea>
+        </div>
+        <button id="fb-send-btn" class="btn btn-primary" style="width:100%;padding:13px;" onclick="sendFeedback()" data-en="📨 Send Feedback" data-ko="📨 의견 보내기">📨 의견 보내기</button>
+      </div>
+    </div>
+
+    <!-- ─── SETTINGS ─── -->
+    <div class="page-section" id="page-settings">
+      <div class="sec-title" data-en="Settings" data-ko="설정">Settings</div>
+      <div class="sec-sub" data-en="Manage your account and preferences." data-ko="계정 정보와 환경설정을 관리하세요.">Manage your account and preferences.</div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-title" data-en="Profile" data-ko="프로필">Profile</span></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-en="Name" data-ko="이름">Name</label>
+              <input type="text" class="form-input" value="김민준">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-en="Email" data-ko="이메일">Email</label>
+              <input type="email" class="form-input" value="minjun@email.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-en="Phone" data-ko="전화번호">Phone</label>
+              <input type="tel" class="form-input" placeholder="010-0000-0000">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-en="Language" data-ko="언어">Language</label>
+              <select class="form-input">
+                <option>한국어</option>
+                <option>English</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" data-en="Save Changes" data-ko="변경 저장">Save Changes</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-title" data-en="Change Password" data-ko="비밀번호 변경">Change Password</span></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label class="form-label" data-en="Current Password" data-ko="현재 비밀번호">Current Password</label>
+            <input type="password" class="form-input" placeholder="••••••••">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-en="New Password" data-ko="새 비밀번호">New Password</label>
+              <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-en="Confirm Password" data-ko="비밀번호 확인">Confirm Password</label>
+              <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+          </div>
+          <button class="btn btn-primary" data-en="Update Password" data-ko="비밀번호 변경">Update Password</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-title" data-en="Notifications" data-ko="알림 설정">Notifications</span></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:13px;font-weight:600;" data-en="Daily Learning Reminder" data-ko="일일 학습 알림">Daily Learning Reminder</div>
+                <div style="font-size:11px;color:var(--text-light);" data-en="Get reminded to practice every day" data-ko="매일 학습 알림을 받으세요">Get reminded to practice every day</div>
+              </div>
+              <label style="position:relative;width:44px;height:24px;cursor:pointer;">
+                <input type="checkbox" checked style="opacity:0;width:0;height:0;">
+                <span style="position:absolute;inset:0;background:var(--teal-mid);border-radius:12px;transition:0.2s;" id="toggle-1"></span>
+                <span style="position:absolute;left:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:0.2s;transform:translateX(20px);" id="knob-1"></span>
+              </label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:13px;font-weight:600;" data-en="New Content Alerts" data-ko="새 콘텐츠 알림">New Content Alerts</div>
+                <div style="font-size:11px;color:var(--text-light);" data-en="When new features or content are added" data-ko="새 기능이나 콘텐츠가 추가될 때">When new features or content are added</div>
+              </div>
+              <label style="position:relative;width:44px;height:24px;cursor:pointer;">
+                <input type="checkbox" checked style="opacity:0;width:0;height:0;">
+                <span style="position:absolute;inset:0;background:var(--teal-mid);border-radius:12px;" id="toggle-2"></span>
+                <span style="position:absolute;left:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:0.2s;transform:translateX(20px);" id="knob-2"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger zone -->
+      <div class="danger-zone">
+        <div class="dz-title" data-en="⚠️ Delete Account" data-ko="⚠️ 회원 탈퇴">⚠️ Delete Account</div>
+        <div class="dz-desc" data-en="Permanently delete your account and all learning data. Active subscriptions will be cancelled immediately. This action cannot be undone." data-ko="계정과 모든 학습 데이터를 영구적으로 삭제합니다. 이용 중인 구독이 즉시 해지됩니다. 이 작업은 되돌릴 수 없습니다.">Permanently delete your account and all learning data. This action cannot be undone.</div>
+        <button class="btn btn-danger" data-en="Delete My Account" data-ko="회원 탈퇴">Delete My Account</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── LANG ──
+function setLang(l){
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+
+// ── NAV ──
+function showPage(id, navEl){
+  document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.snav-item').forEach(n=>{
+    n.classList.remove('act');
+    n.style.borderTopColor='transparent';
+    n.style.background='';
+    const label=n.querySelector('span:last-child');
+    if(label){label.style.color='#5a6a82';label.style.fontWeight='500';}
+  });
+  document.getElementById('page-'+id).classList.add('act');
+  navEl.classList.add('act');
+  navEl.style.borderTopColor='#1D9E75';
+  navEl.style.background='#e1f5ee';
+  const activeLabel=navEl.querySelector('span:last-child');
+  if(activeLabel){activeLabel.style.color='#1D9E75';activeLabel.style.fontWeight='600';}
+}
+
+// ── STREAK CALENDAR ──
+function buildCal(){
+  const cal=document.getElementById('streak-cal');
+  if(!cal) return;
+  const days=['M','T','W','T','F','S','S'];
+  const pattern=[1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,2];
+  pattern.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.className='cal-day '+(s===1?'cal-done':s===2?'cal-today':'cal-miss');
+    d.textContent=days[i%7];
+    cal.appendChild(d);
+  });
+}
+
+// ── FEEDBACK ──
+function selectFType(btn){
+  document.querySelectorAll('.ftype-btn').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+}
+function setRating(n){
+  document.querySelectorAll('.star-btn').forEach((b,i)=>{
+    b.classList.toggle('lit',i<n);
+  });
+}
+
+// ── FEEDBACK SEND (EmailJS) ──
+let currentRating = 4;
+let currentFType = '💡 Suggestion';
+
+function setRating(n){
+  currentRating = n;
+  document.querySelectorAll('.star-btn').forEach((b,i)=>{
+    b.classList.toggle('lit', i < n);
+  });
+}
+
+function selectFType(btn){
+  document.querySelectorAll('.ftype-btn').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  currentFType = btn.textContent.trim();
+}
+
+async function sendFeedback(){
+  const user = JSON.parse(localStorage.getItem('lw-user') || '{}');
+  const subject = document.getElementById('fb-subject').value.trim();
+  const message = document.getElementById('fb-message').value.trim();
+  const btn = document.getElementById('fb-send-btn');
+
+  if(!subject){ showFbResult('error', '제목을 입력해 주세요.'); return; }
+  if(!message){ showFbResult('error', '내용을 입력해 주세요.'); return; }
+
+  btn.disabled = true;
+  btn.textContent = '전송 중...';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type:          'feedback',
+        user_name:     user.name  || '비회원',
+        user_email:    user.email || 'unknown',
+        feedback_type: currentFType,
+        rating:        currentRating,
+        subject:       subject,
+        message:       message
+      })
+    });
+    const data = await res.json();
+    if(res.ok){
+      showFbResult('success', '✓ 의견이 전송되었습니다. 소중한 피드백 감사합니다!');
+      document.getElementById('fb-subject').value = '';
+      document.getElementById('fb-message').value = '';
+    } else {
+      showFbResult('error', data.error || '전송에 실패했습니다.');
+    }
+  } catch(err) {
+    console.error('API error:', err);
+    showFbResult('error', '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '📨 의견 보내기';
+  }
+}
+
+function showFbResult(type, msg){
+  const el = document.getElementById('fb-result');
+  el.style.display = 'block';
+  if(type === 'success'){
+    el.style.background = 'var(--teal-light)';
+    el.style.color = 'var(--teal-mid)';
+    el.style.border = '0.5px solid rgba(29,158,117,0.25)';
+  } else {
+    el.style.background = 'var(--red-light)';
+    el.style.color = 'var(--red)';
+    el.style.border = '0.5px solid rgba(226,75,74,0.25)';
+  }
+  el.textContent = msg;
+}
+
+// ── INIT ──
+(function(){
+  let s;try{s=localStorage.getItem('lw-lang');}catch(e){}
+  setLang(s||((navigator.language||'').startsWith('ko')?'ko':'en'));
+  buildCal();
+})();
+</script>
+</body>
+</html>

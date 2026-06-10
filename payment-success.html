@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — 결제 완료</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B45;--teal-mid:#1D9E75;--teal-light:#e1f5ee;--gold:#f1b500;--bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--border:rgba(28,43,69,0.12);--red:#e24b4a;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+
+.card{background:var(--white);border-radius:20px;max-width:460px;width:100%;padding:40px 36px;box-shadow:0 8px 32px rgba(0,0,0,0.1);text-align:center;}
+.icon{font-size:56px;margin-bottom:16px;}
+.title{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);margin-bottom:8px;}
+.desc{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:24px;}
+.info-box{background:var(--bg);border-radius:12px;padding:16px;margin-bottom:24px;text-align:left;}
+.info-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:0.5px solid var(--border);}
+.info-row:last-child{border-bottom:none;font-weight:700;color:var(--text);}
+.info-label{color:var(--text-muted);}
+.btn-primary{display:block;width:100%;padding:14px;border-radius:12px;background:var(--teal-mid);color:#fff;font-size:15px;font-weight:700;text-decoration:none;margin-bottom:10px;transition:all 0.2s;border:none;cursor:pointer;font-family:inherit;}
+.btn-primary:hover{background:#1a8a65;}
+.btn-sec{display:block;font-size:13px;color:var(--text-muted);text-decoration:none;padding:8px;}
+.error-card .icon{font-size:48px;}
+.spinner{width:48px;height:48px;border:4px solid var(--border);border-top-color:var(--teal-mid);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="card" id="main-card">
+  <div class="spinner" id="spinner"></div>
+  <div style="font-size:14px;color:var(--text-muted);" id="status-text">결제를 확인하는 중입니다…</div>
+</div>
+
+<script type="module">
+import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+import { getAuth, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+const app  = initializeApp({
+  apiKey:"AIzaSyB3OWQRy6AgDSrtjDXBclFxfV4mqhzWp-w",
+  authDomain:"linguawalk.firebaseapp.com",
+  projectId:"linguawalk",
+  storageBucket:"linguawalk.firebasestorage.app",
+  messagingSenderId:"558390764757",
+  appId:"1:558390764757:web:e6b26210045669dc686e5c"
+});
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, async (user) => {
+  const params     = new URLSearchParams(location.search);
+  const paymentKey = params.get('paymentKey');
+  const orderId    = params.get('orderId');
+  const amount     = params.get('amount');
+  const uid        = params.get('uid') || (user && user.uid);
+  const lang       = params.get('lang') || 'all';
+
+  if (!paymentKey || !orderId || !amount || !uid) {
+    showError('결제 정보가 올바르지 않습니다.');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/confirm-payment', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ paymentKey, orderId, amount: parseInt(amount), uid, lang }),
+    });
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      showError(data.error || '결제 승인에 실패했습니다.');
+      return;
+    }
+
+    // localStorage 업데이트
+    try {
+      const cached = JSON.parse(localStorage.getItem('lw-user') || '{}');
+      cached.plan = 'pro';
+      localStorage.setItem('lw-user', JSON.stringify(cached));
+    } catch(e) {}
+
+    showSuccess({ orderId, amount, lang });
+
+  } catch(e) {
+    showError('서버 오류: ' + e.message);
+  }
+});
+
+var LANG_LABELS = {all:'전체 언어 묶음',en:'English',ja:'日本語',zh:'中文',fr:'Français',de:'Deutsch',es:'Español'};
+
+function showSuccess({ orderId, amount, lang }) {
+  document.getElementById('main-card').innerHTML =
+    '<div class="icon">🎉</div>'
+    + '<div class="title">결제가 완료되었습니다!</div>'
+    + '<div class="desc">LinguaWalk Pro 플랜이 활성화되었습니다.<br>이제 모든 프리미엄 기능을 자유롭게 이용하세요.</div>'
+    + '<div class="info-box">'
+    + '<div class="info-row"><span class="info-label">플랜</span><span>⭐ Pro — ' + (LANG_LABELS[lang]||lang) + '</span></div>'
+    + '<div class="info-row"><span class="info-label">주문번호</span><span>' + orderId + '</span></div>'
+    + '<div class="info-row"><span class="info-label">결제 금액</span><span>' + parseInt(amount).toLocaleString() + '원</span></div>'
+    + '</div>'
+    + '<a href="/mypage.html" class="btn-primary">내 페이지에서 확인 →</a>'
+    + '<a href="/" class="btn-sec">홈으로 돌아가기</a>';
+}
+
+function showError(msg) {
+  document.getElementById('main-card').innerHTML =
+    '<div class="icon">⚠️</div>'
+    + '<div class="title">결제를 확인하지 못했습니다</div>'
+    + '<div class="desc" style="color:var(--red);">' + msg + '</div>'
+    + '<a href="/pricing.html" class="btn-primary">다시 시도하기</a>'
+    + '<a href="/" class="btn-sec">홈으로 돌아가기</a>';
+}
+</script>
+</body>
+</html>

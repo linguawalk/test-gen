@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — 中文</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --zh:#c0392b;--zh-dark:#7f1a12;--zh-light:#fdf0ef;
+  --hsk:#e74c3c;--hsk-card:linear-gradient(135deg,#7f1a12 0%,#c0392b 100%);
+  --general:#1a6b9e;--general-card:linear-gradient(135deg,#0d3d5e 0%,#1a6b9e 100%);
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.07);--shadow-md:0 4px 16px rgba(0,0,0,0.1);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* NAV */
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;margin-right:28px;}
+.nav-lm{width:32px;height:32px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;}
+.nav-brand-text{font-size:15px;font-weight:600;color:#fff;}
+.nav-crumb{font-size:13px;color:rgba(255,255,255,0.45);margin-right:auto;}
+.nav-links{display:flex;align-items:center;gap:4px;margin-right:16px;}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:all 0.2s;white-space:nowrap;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.08);}
+.nav-signin{padding:6px 16px;border-radius:20px;background:var(--teal-mid);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-right:10px;transition:all 0.2s;text-decoration:none;}
+.nav-signin:hover{background:var(--teal);}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:20px;padding:2px;gap:1px;}
+.lbtn{padding:4px 11px;border-radius:16px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#4a0000 0%,#8b0000 40%,var(--zh) 100%);padding:56px 5% 52px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;}
+.hero::after{content:'';position:absolute;left:-40px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:rgba(0,0,0,0.08);pointer-events:none;}
+.hero-inner{max-width:860px;margin:0 auto;position:relative;}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:14px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,54px);color:#fff;line-height:1.15;margin-bottom:14px;}
+.hero-title em{color:#fcd34d;font-style:italic;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:500px;margin-bottom:28px;}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+.cta-primary{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;border-radius:24px;background:var(--zh);color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;border:2px solid rgba(255,255,255,0.2);}
+.cta-primary:hover{background:var(--zh-dark);transform:translateY(-1px);}
+.cta-secondary{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;border-radius:24px;background:rgba(255,255,255,0.1);color:#fff;font-size:14px;font-weight:500;text-decoration:none;border:0.5px solid rgba(255,255,255,0.2);transition:all 0.2s;}
+.cta-secondary:hover{background:rgba(255,255,255,0.18);}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;}
+.hs-item{text-align:center;}
+.hs-num{font-family:'DM Serif Display',serif;font-size:26px;color:#fff;line-height:1;}
+.hs-label{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;text-transform:uppercase;letter-spacing:.4px;}
+
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:40px 5% 80px;}
+.sec-heading{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:16px;padding-bottom:10px;border-bottom:0.5px solid var(--border);}
+
+/* GENERAL CARD */
+.general-section{margin-bottom:40px;}
+.general-card{background:var(--general-card);border-radius:18px;overflow:hidden;margin-bottom:16px;position:relative;}
+.general-card::before{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.gc-inner{padding:28px 28px 24px;position:relative;}
+.gc-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:4px 12px;border-radius:12px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);margin-bottom:12px;}
+.gc-title{font-family:'DM Serif Display',serif;font-size:28px;color:#fff;margin-bottom:8px;}
+.gc-desc{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.65;max-width:520px;margin-bottom:20px;}
+.level-pills{display:flex;gap:7px;flex-wrap:wrap;}
+.pill{padding:5px 14px;border-radius:16px;font-size:11px;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.pill-free{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);border:0.5px solid rgba(255,255,255,0.25);}
+.pill-free:hover{background:rgba(255,255,255,0.25);}
+.gc-footer{margin-top:20px;padding-top:18px;border-top:0.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:space-between;}
+.gc-start-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:24px;background:rgba(255,255,255,0.15);color:#fff;font-size:14px;font-weight:600;text-decoration:none;border:0.5px solid rgba(255,255,255,0.25);transition:all 0.2s;}
+.gc-start-btn:hover{background:rgba(255,255,255,0.25);}
+.gc-note{font-size:12px;color:rgba(255,255,255,0.5);}
+
+/* SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.skill-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;text-decoration:none;transition:all 0.2s;box-shadow:var(--shadow-sm);}
+.skill-card:hover{border-color:var(--general);box-shadow:0 4px 16px rgba(26,107,158,0.12);transform:translateY(-1px);}
+.sc-icon-wrap{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.sc-sub{font-size:11px;color:var(--text-light);}
+
+/* EXAM SECTION */
+.exam-section{margin-bottom:40px;}
+.exam-card{background:var(--white);border:0.5px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:all 0.2s;}
+.exam-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.ec-header{padding:22px 22px 18px;position:relative;overflow:hidden;}
+.ec-header::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.08);pointer-events:none;}
+.ec-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.18);color:rgba(255,255,255,0.9);letter-spacing:.4px;text-transform:uppercase;margin-bottom:14px;}
+.ec-icon{font-size:30px;margin-bottom:10px;display:block;}
+.ec-title{font-family:'DM Serif Display',serif;font-size:26px;color:#fff;font-weight:400;margin-bottom:4px;}
+.ec-subtitle{font-size:11px;color:rgba(255,255,255,0.55);margin-bottom:10px;}
+.ec-desc{font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;line-height:1.55;}
+.hsk-header{background:var(--hsk-card);}
+.ec-body{background:var(--white);padding:20px 24px;flex:1;display:flex;flex-direction:column;}
+.ec-parts{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;flex:1;}
+.ep-item{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--text-muted);line-height:1.5;}
+.ep-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;background:var(--zh);}
+.ep-item strong{color:var(--text);font-weight:600;}
+.ec-footer-link{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:0.5px solid var(--border);text-decoration:none;font-size:13px;font-weight:600;color:var(--zh);transition:gap 0.2s;}
+.ec-footer-link:hover .ef-arrow{transform:translateX(3px);}
+.ef-arrow{transition:transform 0.2s;font-size:16px;}
+
+/* HSK LEVEL VISUAL */
+.hsk-levels{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.hsk-lv{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700;border:0.5px solid rgba(255,255,255,0.2);}
+.hsk-lv.l1{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);}
+.hsk-lv.l2{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);}
+.hsk-lv.l3{background:rgba(255,255,255,0.16);color:rgba(255,255,255,0.85);}
+.hsk-lv.l4{background:rgba(255,255,255,0.2);color:rgba(255,255,255,0.9);}
+.hsk-lv.l5{background:rgba(255,255,255,0.25);color:#fff;}
+.hsk-lv.l6{background:#fcd34d;color:#7f1a12;border-color:transparent;}
+
+/* WHY */
+.why-section{margin-bottom:48px;}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.why-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:22px;box-shadow:var(--shadow-sm);}
+.wc-icon{font-size:28px;margin-bottom:12px;}
+.wc-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.wc-desc{font-size:13px;color:var(--text-muted);line-height:1.65;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+@media(max-width:640px){
+  nav .nav-links{display:none;}
+  .skills-grid{grid-template-columns:1fr 1fr;}
+  .why-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/index.html" class="nav-brand">
+    <div class="nav-lm">LW</div>
+    <span class="nav-brand-text">LinguaWalk</span>
+  </a>
+  <span class="nav-crumb">🇨🇳 中文</span>
+  <div class="nav-links">
+    <a href="general/index.html" class="nav-link" data-ko="일반" data-zh="通用">일반</a>
+    <a href="hsk/index.html" class="nav-link">HSK</a>
+  </div>
+  <a href="/login.html" class="nav-signin" data-ko="로그인" data-zh="登录">로그인</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('zh')" id="btn-zh">中文</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero fade-in">
+  <div class="hero-inner">
+    <div class="hero-tag">AI-POWERED CHINESE LEARNING · LinguaWalk</div>
+    <h1 class="hero-title">
+      <span data-ko="중국어를 배우세요," data-zh="学中文，">중국어를 배우세요,</span><br>
+      <em data-ko="나만의 방식으로" data-zh="用你的方式">나만의 방식으로</em>
+    </h1>
+    <p class="hero-desc"
+      data-ko="General 중국어부터 HSK 대비까지, AI 개인 튜터가 완벽 지원합니다."
+      data-zh="从通用中文到HSK备考，AI个人导师全力支持。">
+      General 중국어부터 HSK 대비까지, AI 개인 튜터가 완벽 지원합니다.
+    </p>
+    <div class="hero-ctas">
+      <a href="general/index.html" class="cta-primary">
+        🚀 <span data-ko="학습 시작" data-zh="开始学习">학습 시작</span>
+      </a>
+      <a href="hsk/index.html" class="cta-secondary">
+        📝 <span data-ko="HSK 준비" data-zh="HSK备考">HSK 준비</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs-item">
+        <div class="hs-num">5</div>
+        <div class="hs-label" data-ko="스킬" data-zh="技能">스킬</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">A1–C2</div>
+        <div class="hs-label" data-ko="전 레벨" data-zh="全级别">전 레벨</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">HSK 6</div>
+        <div class="hs-label" data-ko="시험 대비" data-zh="考试备考">시험 대비</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-num">∞</div>
+        <div class="hs-label" data-ko="AI 문제" data-zh="AI题目">AI 문제</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- GENERAL -->
+  <div class="general-section fade-in">
+    <div class="sec-heading" data-ko="GENERAL 중국어" data-zh="通用中文">GENERAL 중국어</div>
+    <div class="general-card">
+      <div class="gc-inner">
+        <div class="gc-badge" data-ko="인기 · 무료" data-zh="热门 · 免费">인기 · 무료</div>
+        <div class="gc-title" data-ko="General 中文" data-zh="通用中文">General 中文</div>
+        <div class="gc-desc"
+          data-ko="듣기·읽기·말하기·쓰기·어휘문법 — 한 곳에서 모두. A1부터 C2까지 완전 무료."
+          data-zh="听力・阅读・口语・写作・词汇语法 — 一站式学习。A1到C2完全免费。">
+          듣기·읽기·말하기·쓰기·어휘문법 — 한 곳에서 모두. A1부터 C2까지 완전 무료.
+        </div>
+        <div class="level-pills">
+          <a href="general/index.html?level=A1" class="pill pill-free">A1 Free</a>
+          <a href="general/index.html?level=A2" class="pill pill-free">A2 Free</a>
+          <a href="general/index.html?level=B1" class="pill pill-free">B1 Free</a>
+          <a href="general/index.html?level=B2" class="pill pill-free">B2 Free</a>
+          <a href="general/index.html?level=C1" class="pill pill-free">C1 Free</a>
+          <a href="general/index.html?level=C2" class="pill pill-free">C2 Free</a>
+        </div>
+        <div class="gc-footer">
+          <a href="general/index.html" class="gc-start-btn">
+            <span data-ko="General 중국어 시작 →" data-zh="开始通用中文 →">General 중국어 시작 →</span>
+          </a>
+          <span class="gc-note" data-ko="전 영역 · 전 레벨 무료" data-zh="全技能 · 全级别免费">전 영역 · 전 레벨 무료</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 스킬 카드 -->
+    <div class="skills-grid">
+      <a href="general/listening.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#faeeda;">🎧</div>
+        <div>
+          <div class="sc-name" data-ko="듣기" data-zh="听力">듣기 · 听力</div>
+          <div class="sc-sub" data-ko="이미지 포함 · 1문제씩" data-zh="图片 · 逐题生成">이미지 · 1문제씩</div>
+        </div>
+      </a>
+      <a href="general/reading.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#dbeafe;">📖</div>
+        <div>
+          <div class="sc-name" data-ko="읽기" data-zh="阅读">읽기 · 阅读</div>
+          <div class="sc-sub">A1–C2</div>
+        </div>
+      </a>
+      <a href="general/speaking.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#fce7f3;">🗣️</div>
+        <div>
+          <div class="sc-name" data-ko="말하기" data-zh="口语">말하기 · 口语</div>
+          <div class="sc-sub">A1–C2</div>
+        </div>
+      </a>
+      <a href="general/writing.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#ede9fe;">✍️</div>
+        <div>
+          <div class="sc-name" data-ko="쓰기" data-zh="写作">쓰기 · 写作</div>
+          <div class="sc-sub">A1–C2</div>
+        </div>
+      </a>
+      <a href="general/vocabulary.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#dcfce7;">📚</div>
+        <div>
+          <div class="sc-name" data-ko="어휘·문법" data-zh="词汇·语法">어휘·문법</div>
+          <div class="sc-sub">A1–C2</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 시험 대비 -->
+  <div class="exam-section fade-in">
+    <div class="sec-heading" data-ko="시험 대비" data-zh="考试备考">시험 대비</div>
+    <div class="exam-card">
+      <div class="ec-header hsk-header">
+        <span class="ec-badge" data-ko="시험별 플랜" data-zh="考试专项">시험별 플랜</span>
+        <span class="ec-icon">📝</span>
+        <div class="ec-title">HSK</div>
+        <div class="ec-subtitle" data-ko="汉语水平考试 — 중국어능력시험" data-zh="汉语水平考试">汉语水平考试</div>
+        <div class="ec-desc"
+          data-ko="전 세계 연간 600만 명+ 응시. 1급~6급 완전 대비. 듣기·읽기·쓰기."
+          data-zh="全球每年600万+考生。1级到6级全面备考。听力・阅读・写作。">
+          전 세계 연간 600만 명+ 응시. 1급~6급 완전 대비.
+        </div>
+        <div class="hsk-levels">
+          <span class="hsk-lv l1" data-ko="1급 — A1" data-zh="1级 — A1">1급 A1</span>
+          <span class="hsk-lv l2" data-ko="2급 — A2" data-zh="2级 — A2">2급 A2</span>
+          <span class="hsk-lv l3" data-ko="3급 — B1" data-zh="3级 — B1">3급 B1</span>
+          <span class="hsk-lv l4" data-ko="4급 — B2" data-zh="4级 — B2">4급 B2</span>
+          <span class="hsk-lv l5" data-ko="5급 — C1" data-zh="5级 — C1">5급 C1</span>
+          <span class="hsk-lv l6" data-ko="6급 — C2" data-zh="6级 — C2">6급 C2</span>
+        </div>
+      </div>
+      <div class="ec-body">
+        <div class="ec-parts">
+          <div class="ep-item">
+            <span class="ep-dot"></span>
+            <span><strong data-ko="듣기 (听力)" data-zh="听力">듣기</strong> — <span data-ko="대화 · 독백 · 상황 이해" data-zh="对话・独白・情境理解">대화 · 독백 · 상황 이해</span></span>
+          </div>
+          <div class="ep-item">
+            <span class="ep-dot"></span>
+            <span><strong data-ko="읽기 (阅读)" data-zh="阅读">읽기</strong> — <span data-ko="어휘 · 문법 · 독해 1급~6급" data-zh="词汇・语法・阅读 1-6级">어휘 · 문법 · 독해 1~6급</span></span>
+          </div>
+          <div class="ep-item">
+            <span class="ep-dot"></span>
+            <span><strong data-ko="쓰기 (写作)" data-zh="写作">쓰기</strong> — <span data-ko="어순 배열 · 작문 (4급 이상)" data-zh="语序排列・作文 (4级以上)">어순 배열 · 작문 (4급 이상)</span></span>
+          </div>
+        </div>
+        <a href="hsk/index.html" class="ec-footer-link">
+          <span data-ko="HSK 준비 시작" data-zh="开始HSK备考">HSK 준비 시작</span>
+          <span class="ef-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <div class="why-section fade-in">
+    <div class="sec-heading" data-ko="LinguaWalk를 선택하는 이유" data-zh="为什么选择LinguaWalk">LinguaWalk를 선택하는 이유</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="wc-icon">🤖</div>
+        <div class="wc-title" data-ko="AI 생성 콘텐츠" data-zh="AI生成内容">AI 생성 콘텐츠</div>
+        <div class="wc-desc" data-ko="매번 새로운 문제. 무한한 다양성, 절대 반복되지 않습니다." data-zh="每次全新题目。无限多样，绝不重复。">매번 새로운 문제. 무한한 다양성, 절대 반복되지 않습니다.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">🎯</div>
+        <div class="wc-title" data-ko="HSK 형식 정확 재현" data-zh="精准还原HSK题型">HSK 형식 정확 재현</div>
+        <div class="wc-desc" data-ko="실제 HSK 시험 형식에 충실한 문제로 실전 감각을 키우세요." data-zh="忠实还原HSK考试题型，培养实战感。">실제 HSK 형식에 충실한 문제로 실전 감각을 키우세요.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">🗣️</div>
+        <div class="wc-title" data-ko="AI 튜터 지원" data-zh="AI导师支持">AI 튜터 지원</div>
+        <div class="wc-desc" data-ko="모르는 내용은 AI 튜터에게 바로 질문하세요. 중국어·한국어로 즉시 답변." data-zh="不懂的内容马上问AI导师。中韩双语即时解答。">모르는 것은 AI 튜터에게 바로 질문하세요.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">🔊</div>
+        <div class="wc-title" data-ko="원어민 음성 연습" data-zh="母语发音练习">원어민 음성 연습</div>
+        <div class="wc-desc" data-ko="중국어 TTS 음성으로 듣기·말하기 실력을 효율적으로 향상시키세요." data-zh="通过中文TTS语音高效提升听力和口语能力。">중국어 TTS 음성으로 듣기·말하기를 향상시키세요.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let lang='ko';
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-zh]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-zh');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-zh').classList.toggle('act',l==='zh');
+}
+(function(){ setLang('ko'); })();
+</script>
+<script>
+(function(){
+  var btn=document.querySelector('.nav-signin');
+  if(!btn) return;
+  var user;
+  try{ user=JSON.parse(localStorage.getItem('lw-user')); }catch(e){}
+  if(user && user.uid){
+    btn.textContent=(user.name||user.email||'').substring(0,6)||'내정보';
+    btn.href='/mypage.html';
+    btn.classList.add('nav-signed-in');
+  } else {
+    btn.href='/login.html';
+  }
+})();
+</script>
+</body>
+</html>

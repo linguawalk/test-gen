@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — HSK 対策</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --zh:#c0392b;--zh-dark:#7f1a12;--zh-light:#fdf0ef;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--zh-dark) 0%,var(--zh) 60%,#e74c3c 100%);padding:52px 5% 48px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;}
+.hero::after{content:'';position:absolute;left:-40px;bottom:-60px;width:200px;height:200px;border-radius:50%;background:rgba(0,0,0,0.08);pointer-events:none;}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,52px);color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:12px;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:520px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.h-badge{font-size:12px;padding:5px 14px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);border:0.5px solid rgba(255,255,255,0.2);}
+
+.main{max-width:820px;margin:0 auto;padding:36px 5% 80px;}
+.sec-heading{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-light);margin-bottom:14px;padding-bottom:10px;border-bottom:0.5px solid var(--border);}
+
+/* 개요 */
+.overview-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:32px;}
+.ov-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.ov-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.ov-cell{background:var(--zh-light);border-radius:10px;padding:14px 16px;}
+.ov-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--zh);line-height:1;margin-bottom:4px;}
+.ov-label{font-size:12px;color:var(--text-muted);}
+
+/* 레벨 선택 */
+.level-selector{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:28px;}
+.ls-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;}
+.level-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.lv-pill{padding:10px 20px;border-radius:24px;font-size:14px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.2s;background:var(--bg);position:relative;}
+.lv-pill:hover{border-color:var(--zh);background:var(--zh-light);}
+.lv-pill.act{background:var(--zh);color:#fff;border-color:var(--zh);}
+.lv-1{border-color:#27ae60;color:#27ae60;}
+.lv-1:hover,.lv-1.act{background:#27ae60;color:#fff;border-color:#27ae60;}
+.lv-2{border-color:#2ecc71;color:#1a8a4a;}
+.lv-2:hover,.lv-2.act{background:#2ecc71;color:#fff;border-color:#2ecc71;}
+.lv-3{border-color:#f39c12;color:#b07d0a;}
+.lv-3:hover,.lv-3.act{background:#f39c12;color:#fff;border-color:#f39c12;}
+.lv-4{border-color:#e67e22;color:#b5510e;}
+.lv-4:hover,.lv-4.act{background:#e67e22;color:#fff;border-color:#e67e22;}
+.lv-5{border-color:#e74c3c;color:#c0392b;}
+.lv-5:hover,.lv-5.act{background:#e74c3c;color:#fff;border-color:#e74c3c;}
+.lv-6{border-color:var(--zh-dark);color:var(--zh-dark);}
+.lv-6:hover,.lv-6.act{background:var(--zh-dark);color:#fff;border-color:var(--zh-dark);}
+.lv-info{margin-top:14px;padding:12px 14px;background:var(--bg);border-radius:10px;font-size:13px;color:var(--text-muted);line-height:1.65;border-left:3px solid var(--zh);}
+
+/* HSK 레벨 시각화 */
+.hsk-level-visual{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.hlv-item{flex:1;min-width:60px;padding:12px 8px;border-radius:10px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.hlv-item:hover{transform:translateY(-2px);}
+.hlv-num{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:2px;}
+.hlv-vocab{font-size:10px;opacity:.75;}
+.hlv-cefr{font-size:9px;opacity:.6;margin-top:2px;}
+
+/* 섹션 카드 */
+.section-cards{display:flex;flex-direction:column;gap:14px;margin-bottom:36px;}
+.sec-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:22px 24px;transition:all 0.2s;}
+.sec-card:hover{border-color:var(--zh);box-shadow:0 4px 20px rgba(192,57,43,0.1);}
+.sc-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;}
+.sc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:var(--zh-light);}
+.sc-info{flex:1;}
+.sc-name{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.sc-desc{font-size:13px;color:var(--text-muted);line-height:1.6;}
+.sc-parts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.sc-part{font-size:11px;padding:3px 10px;border-radius:8px;background:var(--zh-light);color:var(--zh);font-weight:500;}
+.sc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:0.5px solid var(--border);}
+.sc-link{font-size:13px;font-weight:600;color:var(--zh);text-decoration:none;display:flex;align-items:center;gap:5px;transition:gap 0.2s;}
+.sc-link:hover{gap:8px;}
+.sc-time{font-size:12px;color:var(--text-light);}
+
+/* 합격 기준표 */
+.pass-table{width:100%;border-collapse:collapse;font-size:13px;}
+.pass-table th{padding:10px 12px;text-align:left;background:var(--zh-light);color:var(--zh);font-weight:700;}
+.pass-table td{padding:10px 12px;border-bottom:0.5px solid var(--border);}
+.pass-table tr:last-child td{border-bottom:none;}
+.lv-badge{display:inline-block;padding:2px 10px;border-radius:10px;font-weight:700;font-size:12px;}
+
+/* 팁 */
+.tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.tip-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:18px;}
+.tip-icon{font-size:24px;margin-bottom:10px;}
+.tip-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.tip-text{font-size:12px;color:var(--text-muted);line-height:1.65;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+@media(max-width:600px){.ov-grid{grid-template-columns:1fr 1fr}.tips-grid{grid-template-columns:1fr}.hsk-level-visual{gap:4px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📝 HSK</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← 중국어 홈" data-zh="← 中文首页">← 중국어 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('zh')" id="btn-zh">中文</button>
+  </div>
+</nav>
+
+<div class="hero fade-in">
+  <div class="hero-inner">
+    <div class="hero-tag" data-ko="汉语水平考试 · 시험 대비" data-zh="汉语水平考试 · 考试备考">汉语水平考试 · 시험 대비</div>
+    <div class="hero-title"><span>📝</span><span>HSK</span></div>
+    <p class="hero-desc" data-ko="HSK 1급~6급 완전 대비 — 전 세계 연간 600만 명+ 응시. AI가 생성하는 듣기·읽기·쓰기 문제로 실전 감각을 키우세요." data-zh="HSK 1级到6级全面备考 — 全球每年600万+考生。通过AI生成的听力・阅读・写作题培养实战感。">HSK 1급~6급 완전 대비 — 전 세계 연간 600만 명+ 응시.</p>
+    <div class="hero-badges">
+      <span class="h-badge">HSK 1 · 2 · 3 · 4 · 5 · 6</span>
+      <span class="h-badge" data-ko="听力 · 阅读 · 写作" data-zh="听力 · 阅读 · 写作">听力 · 阅读 · 写作</span>
+      <span class="h-badge" data-ko="拼音 지원" data-zh="拼音支持">拼音 지원</span>
+      <span class="h-badge">🤖 AI</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 시험 개요 -->
+  <div class="sec-heading" data-ko="시험 개요" data-zh="考试概况">시험 개요</div>
+  <div class="overview-card fade-in">
+    <div class="ov-title">📋 <span data-ko="HSK 시험 정보" data-zh="HSK考试信息">HSK 시험 정보</span></div>
+    <div class="ov-grid">
+      <div class="ov-cell"><div class="ov-num">6</div><div class="ov-label" data-ko="급수 (1~6급)" data-zh="级别 (1-6级)">급수 (1~6급)</div></div>
+      <div class="ov-cell"><div class="ov-num">600만+</div><div class="ov-label" data-ko="연간 응시자" data-zh="年考生人数">연간 응시자</div></div>
+      <div class="ov-cell"><div class="ov-num">5,000</div><div class="ov-label" data-ko="6급 어휘 수" data-zh="6级词汇量">6급 어휘 수</div></div>
+      <div class="ov-cell"><div class="ov-num">6회</div><div class="ov-label" data-ko="연간 시험 횟수" data-zh="每年考试次数">연간 시험 횟수</div></div>
+    </div>
+  </div>
+
+  <!-- HSK 레벨 시각화 -->
+  <div class="sec-heading" data-ko="레벨 선택" data-zh="选择级别">레벨 선택</div>
+  <div class="level-selector fade-in">
+    <div class="ls-title" data-ko="목표 급수를 선택하세요" data-zh="请选择目标级别">목표 급수를 선택하세요</div>
+    <!-- 레벨 시각화 바 -->
+    <div class="hsk-level-visual">
+      <div class="hlv-item" style="background:#e8f8f0;color:#1a7a45;" onclick="selectLevel('1',document.querySelector('.lv-1'))">
+        <div class="hlv-num">1급</div>
+        <div class="hlv-vocab">150 词</div>
+        <div class="hlv-cefr">A1</div>
+      </div>
+      <div class="hlv-item" style="background:#eafaf1;color:#1a8a4a;" onclick="selectLevel('2',document.querySelector('.lv-2'))">
+        <div class="hlv-num">2급</div>
+        <div class="hlv-vocab">300 词</div>
+        <div class="hlv-cefr">A2</div>
+      </div>
+      <div class="hlv-item" style="background:#fef9e7;color:#9a7209;" onclick="selectLevel('3',document.querySelector('.lv-3'))">
+        <div class="hlv-num">3급</div>
+        <div class="hlv-vocab">600 词</div>
+        <div class="hlv-cefr">B1</div>
+      </div>
+      <div class="hlv-item" style="background:#fef5e7;color:#a04010;" onclick="selectLevel('4',document.querySelector('.lv-4'))">
+        <div class="hlv-num">4급</div>
+        <div class="hlv-vocab">1,200 词</div>
+        <div class="hlv-cefr">B2</div>
+      </div>
+      <div class="hlv-item" style="background:#fdedec;color:#c0392b;" onclick="selectLevel('5',document.querySelector('.lv-5'))">
+        <div class="hlv-num">5급</div>
+        <div class="hlv-vocab">2,500 词</div>
+        <div class="hlv-cefr">C1</div>
+      </div>
+      <div class="hlv-item" style="background:#f9e7e7;color:#7f1a12;" onclick="selectLevel('6',document.querySelector('.lv-6'))">
+        <div class="hlv-num">6급</div>
+        <div class="hlv-vocab">5,000 词</div>
+        <div class="hlv-cefr">C2</div>
+      </div>
+    </div>
+    <div class="level-pills">
+      <button class="lv-pill lv-1" onclick="selectLevel('1',this)">HSK 1</button>
+      <button class="lv-pill lv-2" onclick="selectLevel('2',this)">HSK 2</button>
+      <button class="lv-pill lv-3" onclick="selectLevel('3',this)">HSK 3</button>
+      <button class="lv-pill lv-4 act" onclick="selectLevel('4',this)">HSK 4</button>
+      <button class="lv-pill lv-5" onclick="selectLevel('5',this)">HSK 5</button>
+      <button class="lv-pill lv-6" onclick="selectLevel('6',this)">HSK 6</button>
+    </div>
+    <div class="lv-info" id="lv-info"></div>
+    <a href="listening.html?level=4" class="sc-link" id="start-btn" style="margin-top:16px;display:inline-flex;padding:12px 24px;background:var(--zh);color:#fff;border-radius:24px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='var(--zh-dark)'" onmouseout="this.style.background='var(--zh)'">
+      🚀 <span id="start-label" data-ko="HSK 4급 준비 시작 →" data-zh="开始HSK 4级备考 →">HSK 4급 준비 시작 →</span>
+    </a>
+  </div>
+
+  <!-- 학습 섹션 -->
+  <div class="sec-heading" data-ko="학습 섹션" data-zh="学习部分">학습 섹션</div>
+  <div class="section-cards fade-in">
+
+    <!-- 听力 -->
+    <div class="sec-card">
+      <div class="sc-top">
+        <div class="sc-icon">🎧</div>
+        <div class="sc-info">
+          <div class="sc-name" data-ko="听力 — 듣기" data-zh="听力">听力 — 듣기</div>
+          <div class="sc-desc" data-ko="대화 이해·독백 이해·상황 판단 등 HSK 듣기 전 유형 연습. 중국어 TTS 음성으로 실전 감각 향상." data-zh="对话理解・独白理解・情境判断等HSK听力全题型练习。通过中文TTS语音提升实战感。">대화·독백·상황 판단 — HSK 전 유형</div>
+        </div>
+      </div>
+      <div class="sc-parts">
+        <span class="sc-part" data-ko="第1部分 — 대화 이해" data-zh="第1部分 — 对话理解">第1部分 — 对话理解</span>
+        <span class="sc-part" data-ko="第2部分 — 문장 판단" data-zh="第2部分 — 句子判断">第2部分 — 句子判断</span>
+        <span class="sc-part" data-ko="第3部分 — 독백 이해" data-zh="第3部分 — 独白理解">第3部分 — 独白理解</span>
+      </div>
+      <div class="sc-footer">
+        <a href="listening.html" class="sc-link" id="listen-link" data-ko="听力 연습 시작 →" data-zh="开始听力练习 →">听力 연습 시작 →</a>
+        <span class="sc-time" data-ko="급수별 20~35분" data-zh="各级别20~35分钟">급수별 20~35분</span>
+      </div>
+    </div>
+
+    <!-- 阅读 -->
+    <div class="sec-card">
+      <div class="sc-top">
+        <div class="sc-icon">📖</div>
+        <div class="sc-info">
+          <div class="sc-name" data-ko="阅读 — 읽기" data-zh="阅读">阅读 — 읽기</div>
+          <div class="sc-desc" data-ko="어휘 선택·문장 배열·독해 문제. HSK 어휘 필수 단어 포함. 拼音 지원." data-zh="词汇选择・句子排列・阅读理解。含HSK必备词汇。拼音支持。">어휘·문장 배열·독해 + 拼音</div>
+        </div>
+      </div>
+      <div class="sc-parts">
+        <span class="sc-part" data-ko="第1部分 — 어휘·문법" data-zh="第1部分 — 词汇·语法">第1部分 — 词汇·语法</span>
+        <span class="sc-part" data-ko="第2部分 — 문장 배열" data-zh="第2部分 — 句子排列">第2部分 — 句子排列</span>
+        <span class="sc-part" data-ko="第3部分 — 독해" data-zh="第3部分 — 阅读理解">第3部分 — 阅读理解</span>
+      </div>
+      <div class="sc-footer">
+        <a href="reading.html" class="sc-link" id="read-link" data-ko="阅读 연습 시작 →" data-zh="开始阅读练习 →">阅读 연습 시작 →</a>
+        <span class="sc-time" data-ko="급수별 25~45분" data-zh="各级别25~45分钟">급수별 25~45분</span>
+      </div>
+    </div>
+
+    <!-- 写作 -->
+    <div class="sec-card">
+      <div class="sc-top">
+        <div class="sc-icon">✍️</div>
+        <div class="sc-info">
+          <div class="sc-name" data-ko="写作 — 쓰기 (HSK 3~6급)" data-zh="写作 (HSK 3-6级)">写作 — 쓰기 (3~6급)</div>
+          <div class="sc-desc" data-ko="어순 배열·작문 문제. HSK 3급부터 쓰기 영역 포함. 拼音 피드백 제공." data-zh="语序排列・写作题。HSK 3级起含写作。提供拼音反馈。">어순 배열 + 작문 + AI 채점</div>
+        </div>
+      </div>
+      <div class="sc-parts">
+        <span class="sc-part" data-ko="第1部分 — 어순 배열" data-zh="第1部分 — 语序排列">第1部分 — 语序排列</span>
+        <span class="sc-part" data-ko="第2部分 — 작문" data-zh="第2部分 — 写作">第2部分 — 写作</span>
+        <span class="sc-part" data-ko="HSK 3~6급" data-zh="HSK 3-6级">HSK 3~6급</span>
+      </div>
+      <div class="sc-footer">
+        <a href="writing.html" class="sc-link" id="write-link" data-ko="写作 연습 시작 →" data-zh="开始写作练习 →">写作 연습 시작 →</a>
+        <span class="sc-time" data-ko="급수별 25~40분" data-zh="各级别25~40分钟">급수별 25~40분</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 합격 기준표 -->
+  <div class="sec-heading" data-ko="급수별 합격 기준" data-zh="各级别合格标准">급수별 합격 기준</div>
+  <div class="overview-card fade-in">
+    <div style="overflow-x:auto;">
+      <table class="pass-table">
+        <thead>
+          <tr>
+            <th data-ko="급수" data-zh="级别">급수</th>
+            <th data-ko="CEFR" data-zh="CEFR">CEFR</th>
+            <th data-ko="어휘 수" data-zh="词汇量">어휘 수</th>
+            <th data-ko="총점" data-zh="总分">총점</th>
+            <th data-ko="합격 기준" data-zh="合格分数">합격 기준</th>
+            <th data-ko="시험 구성" data-zh="考试结构">시험 구성</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="lv-badge" style="background:#e8f8f0;color:#1a7a45;">HSK 1</span></td><td>A1</td><td>150</td><td>300</td><td>180</td><td data-ko="듣기+읽기" data-zh="听力+阅读">듣기+읽기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#eafaf1;color:#1a8a4a;">HSK 2</span></td><td>A2</td><td>300</td><td>300</td><td>180</td><td data-ko="듣기+읽기" data-zh="听力+阅读">듣기+읽기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#fef9e7;color:#9a7209;">HSK 3</span></td><td>B1</td><td>600</td><td>300</td><td>180</td><td data-ko="듣기+읽기+쓰기" data-zh="听力+阅读+写作">듣기+읽기+쓰기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#fef5e7;color:#a04010;">HSK 4</span></td><td>B2</td><td>1,200</td><td>300</td><td>180</td><td data-ko="듣기+읽기+쓰기" data-zh="听力+阅读+写作">듣기+읽기+쓰기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#fdedec;color:#c0392b;">HSK 5</span></td><td>C1</td><td>2,500</td><td>300</td><td>180</td><td data-ko="듣기+읽기+쓰기" data-zh="听力+阅读+写作">듣기+읽기+쓰기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#f9e7e7;color:#7f1a12;">HSK 6</span></td><td>C2</td><td>5,000</td><td>300</td><td>180</td><td data-ko="듣기+읽기+쓰기" data-zh="听力+阅读+写作">듣기+읽기+쓰기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 합격 전략 -->
+  <div class="sec-heading" data-ko="HSK 합격 전략" data-zh="HSK合格策略">HSK 합격 전략</div>
+  <div class="tips-grid fade-in">
+    <div class="tip-card">
+      <div class="tip-icon">📅</div>
+      <div class="tip-title" data-ko="매일 듣기 습관" data-zh="每天听力习惯">매일 듣기 습관</div>
+      <div class="tip-text" data-ko="중국어 뉴스·팟캐스트를 매일 15분 이상 듣세요. 표준어(普通话) 속도에 익숙해지는 것이 핵심입니다." data-zh="每天至少15分钟听中文新闻或播客。熟悉普通话语速是关键。">중국어 뉴스·팟캐스트를 매일 15분 이상 듣세요.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📝</div>
+      <div class="tip-title" data-ko="HSK 필수 어휘 암기" data-zh="记忆HSK必备词汇">HSK 필수 어휘 암기</div>
+      <div class="tip-text" data-ko="급수별 필수 어휘를 拼音과 함께 암기하세요. 하루 10개씩 꾸준히 학습하는 것이 효과적입니다." data-zh="结合拼音记忆各级别必备词汇。每天10个，持续学习最有效。">급수별 필수 어휘를 拼音과 함께 암기하세요.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🗣️</div>
+      <div class="tip-title" data-ko="성조 정확히 익히기" data-zh="准确掌握声调">성조 정확히 익히기</div>
+      <div class="tip-text" data-ko="중국어 성조는 의미를 결정합니다. 새 단어를 배울 때 반드시 성조를 함께 학습하세요." data-zh="中文声调决定词义。学新词时必须同时学习声调。">새 단어를 배울 때 반드시 성조를 함께 학습하세요.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">⏱️</div>
+      <div class="tip-title" data-ko="시간 제한 연습" data-zh="限时练习">시간 제한 연습</div>
+      <div class="tip-text" data-ko="특히 읽기 파트는 시간이 촉박합니다. 실전처럼 시간을 재고 문제를 푸는 연습을 반복하세요." data-zh="阅读部分时间较紧张。反复进行计时练习，像真实考试一样。">읽기 파트는 시간이 촉박합니다. 시간을 재고 연습하세요.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let lang='ko', selectedLevel='4';
+
+const LEVEL_INFO={
+  '1':{ko:'🟢 HSK 1급 (A1) — 입문. 150개 기초 어휘. 간단한 인사와 숫자를 이해하고 사용할 수 있습니다.',zh:'🟢 HSK 1级 (A1) — 入门。150个基础词汇。能理解和使用简单的问候语和数字。'},
+  '2':{ko:'🟢 HSK 2급 (A2) — 초급. 300개 어휘. 간단한 일상 대화를 이해하고 사용할 수 있습니다.',zh:'🟢 HSK 2级 (A2) — 初级。300个词汇。能理解和使用简单的日常对话。'},
+  '3':{ko:'🟡 HSK 3급 (B1) — 중급 초반. 600개 어휘. 학습·업무·생활에서 기본적인 의사소통이 가능합니다.',zh:'🟡 HSK 3级 (B1) — 中级初阶。600个词汇。能在学习・工作・生活中进行基本交流。'},
+  '4':{ko:'🟠 HSK 4급 (B2) — 중급. 1,200개 어휘. 다양한 주제로 유창하게 중국어로 대화할 수 있습니다.',zh:'🟠 HSK 4级 (B2) — 中级。1,200个词汇。能就各种话题流利地用中文交流。'},
+  '5':{ko:'🔴 HSK 5급 (C1) — 고급. 2,500개 어휘. 중국어 신문·잡지를 읽고 방송을 이해할 수 있습니다.',zh:'🔴 HSK 5级 (C1) — 高级。2,500个词汇。能阅读中文报纸杂志，理解广播内容。'},
+  '6':{ko:'🔴 HSK 6급 (C2) — 최고급. 5,000개 어휘. 듣고 읽는 중국어 정보를 쉽게 이해하고 표현합니다.',zh:'🔴 HSK 6级 (C2) — 精通。5,000个词汇。能轻松理解和表达所听到、读到的中文信息。'},
+};
+
+function selectLevel(lv, btn){
+  selectedLevel=lv;
+  document.querySelectorAll('.lv-pill').forEach(b=>b.classList.remove('act'));
+  if(btn) btn.classList.add('act');
+  document.getElementById('lv-info').textContent=lang==='ko'?LEVEL_INFO[lv].ko:LEVEL_INFO[lv].zh;
+  // 링크 업데이트
+  document.getElementById('start-btn').href='listening.html?level='+lv;
+  document.getElementById('listen-link').href='listening.html?level='+lv;
+  document.getElementById('read-link').href='reading.html?level='+lv;
+  const wl=document.getElementById('write-link'); if(wl) wl.href='writing.html?level='+lv;
+  // 시작 버튼 텍스트
+  const label=document.getElementById('start-label');
+  if(label) label.textContent=lang==='ko'?`HSK ${lv}급 준비 시작 →`:`开始HSK ${lv}级备考 →`;
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-zh]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-zh');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-zh').classList.toggle('act',l==='zh');
+  document.getElementById('lv-info').textContent=LEVEL_INFO[selectedLevel][l];
+  const label=document.getElementById('start-label');
+  if(label) label.textContent=l==='ko'?`HSK ${selectedLevel}급 준비 시작 →`:`开始HSK ${selectedLevel}级备考 →`;
+}
+
+(function(){
+  setLang('ko');
+  selectLevel('4', document.querySelector('.lv-4'));
+})();
+</script>
+</body>
+</html>

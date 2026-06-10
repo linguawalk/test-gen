@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General 中文 — 听力</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --zh:#c0392b;--zh-dark:#7f1a12;--zh-light:#fdf0ef;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+
+.hero{background:linear-gradient(135deg,var(--zh-dark) 0%,var(--zh) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+.part-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:4px;}
+.ptab{flex:1;padding:9px 10px;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;}
+.ptab:hover{color:var(--zh);}
+.ptab.act{background:var(--zh);color:#fff;}
+
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--zh);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--zh-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.loading{padding:40px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:16px;display:none;}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--zh);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.photo-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.photo-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#dde3ee;overflow:hidden;}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.4s;}
+.photo-loading{position:absolute;inset:0;background:rgba(28,43,69,0.55);display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-size:12px;}
+.photo-loading.hidden{display:none;}
+.ph-spin{width:28px;height:28px;border:2.5px solid rgba(255,255,255,0.25);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+.photo-cap{padding:9px 16px;background:var(--zh-light);font-size:12px;color:var(--zh);}
+
+.audio-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.ac-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:6px;}
+.ac-title{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;}
+.ac-badge{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--zh-light);color:var(--zh);font-weight:600;}
+.player-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border-radius:10px;border:0.5px solid var(--border);}
+.play-btn{width:40px;height:40px;border-radius:50%;background:var(--zh);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.play-btn:hover{background:var(--zh-dark);}
+.play-btn svg{width:16px;height:16px;fill:#fff;}
+.player-info{flex:1;}
+.player-label{font-size:11px;color:var(--text-muted);margin-bottom:4px;}
+.player-bar{height:5px;background:var(--border);border-radius:5px;overflow:hidden;}
+.player-fill{height:100%;background:linear-gradient(90deg,var(--zh-dark),var(--zh));border-radius:5px;width:0%;transition:width 0.1s;}
+.speed-btn{padding:3px 9px;border-radius:7px;border:0.5px solid var(--border-md);background:transparent;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;font-family:inherit;flex-shrink:0;}
+.speed-btn:hover{background:var(--zh-light);color:var(--zh);border-color:var(--zh);}
+
+/* 핀인 표시 */
+.pinyin-text{font-size:12px;color:var(--zh);letter-spacing:1px;margin-bottom:4px;font-style:italic;}
+
+.choices-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:16px;}
+.choices-locked{opacity:0.25;pointer-events:none;filter:blur(2px);transition:all 0.4s;}
+.p1-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.p1-btn{height:60px;border-radius:12px;border:2px solid var(--border-md);background:var(--white);cursor:pointer;font-family:'DM Serif Display',serif;font-size:24px;font-weight:700;color:var(--text-muted);transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.p1-btn:hover:not(:disabled){border-color:var(--zh);background:var(--zh-light);color:var(--zh);}
+.p1-btn.playing{border-color:var(--zh);background:var(--zh-light);color:var(--zh);animation:pulse-btn 0.6s infinite alternate;}
+@keyframes pulse-btn{from{transform:scale(1)}to{transform:scale(1.06)}}
+.p1-btn.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.p1-btn.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+
+.q-item{background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;}
+.q-item:last-child{margin-bottom:0;}
+.q-num{font-size:10px;font-weight:700;color:var(--zh);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px;line-height:1.5;}
+.q-opts{display:flex;flex-direction:column;gap:7px;}
+.q-opt{padding:9px 14px;border-radius:8px;border:1.5px solid var(--border-md);background:var(--white);cursor:pointer;font-size:13px;color:var(--text);transition:all 0.2s;text-align:left;font-family:inherit;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(:disabled){border-color:var(--zh);background:var(--zh-light);}
+.q-opt.correct{border-color:var(--green);background:var(--green-light);color:#166534;font-weight:500;}
+.q-opt.wrong{border-color:var(--red);background:var(--red-light);color:#991b1b;}
+.q-opt-ltr{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-muted);flex-shrink:0;}
+.q-opt.correct .q-opt-ltr{background:var(--green);color:#fff;}
+.q-opt.wrong .q-opt-ltr{background:var(--red);color:#fff;}
+.q-feedback{margin-top:8px;font-size:12px;padding:8px 12px;border-radius:7px;display:none;line-height:1.5;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-light);color:#166534;}
+.q-feedback.wrong{background:var(--red-light);color:#991b1b;}
+
+.script-wrap{margin-top:10px;border-top:0.5px solid var(--border);padding-top:10px;display:none;}
+.script-wrap.open{display:block;}
+.script-toggle{font-size:11px;color:var(--zh);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 0;margin-bottom:8px;}
+.script-line{display:flex;gap:8px;padding:5px 8px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+.script-line:hover{background:var(--zh-light);}
+.script-line.act{background:var(--zh-light);}
+.sl-spk{font-size:10px;font-weight:700;color:var(--zh);min-width:46px;padding-top:2px;text-transform:uppercase;}
+.sl-txt{font-size:13px;color:var(--text);line-height:1.65;flex:1;}
+.sl-pinyin{font-size:11px;color:var(--text-muted);font-style:italic;display:block;margin-bottom:2px;}
+
+.score-card{background:linear-gradient(135deg,var(--zh-dark),var(--zh));border-radius:14px;padding:24px;text-align:center;margin-bottom:20px;display:none;}
+.sc-score{font-family:'DM Serif Display',serif;font-size:52px;color:#fff;line-height:1;margin-bottom:6px;}
+.sc-pct{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:10px;}
+.sc-msg{font-size:13px;color:#fcd34d;font-weight:500;}
+
+.action-btns{display:flex;gap:10px;display:none;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;}
+.act-btn.primary{background:var(--zh);color:#fff;border-color:var(--zh);}
+.act-btn.primary:hover{background:var(--zh-dark);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" data-ko="General 중국어 · 듣기" data-zh="通用中文 · 听力">General 중국어 · 듣기</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← General 홈" data-zh="← 通用首页">← General 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('zh')" id="btn-zh">中文</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="hero fade-in">
+    <div class="hero-tag" data-ko="GENERAL 중국어 · 듣기" data-zh="通用中文 · 听力">GENERAL 중국어 · 듣기</div>
+    <div class="hero-title" data-ko="🎧 중국어 듣기 연습" data-zh="🎧 中文听力练习">🎧 중국어 듣기 연습</div>
+    <div class="hero-desc" data-ko="사진 묘사, 대화, 담화 — AI가 생성한 중국어 듣기 문제로 실력을 키우세요." data-zh="看图说话、对话、独白 — 通过AI生成的中文听力题提升实力。">사진 묘사, 대화, 담화 — AI가 생성한 중국어 듣기 문제.</div>
+    <div class="hero-badges">
+      <span class="hero-badge" data-ko="파트 1 — 사진 묘사" data-zh="第1部分 — 看图说话">파트 1 — 사진 묘사</span>
+      <span class="hero-badge" data-ko="파트 2 — 대화 응답" data-zh="第2部分 — 对话应答">파트 2 — 대화 응답</span>
+      <span class="hero-badge" data-ko="파트 3 — 대화/담화" data-zh="第3部分 — 对话/独白">파트 3 — 대화/담화</span>
+      <span class="hero-badge">拼音</span>
+    </div>
+  </div>
+
+  <div class="part-tabs fade-in">
+    <button class="ptab act" onclick="selectPart('p1',this)" data-ko="📸 파트 1" data-zh="📸 第1部分">📸 파트 1</button>
+    <button class="ptab" onclick="selectPart('p2',this)" data-ko="💬 파트 2" data-zh="💬 第2部分">💬 파트 2</button>
+    <button class="ptab" onclick="selectPart('p3',this)" data-ko="🗣️ 파트 3" data-zh="🗣️ 第3部分">🗣️ 파트 3</button>
+  </div>
+
+  <div class="settings-row fade-in">
+    <div class="setting-item">
+      <div class="si-label" data-ko="레벨" data-zh="级别">레벨</div>
+      <select class="si-select" id="sel-level">
+        <option value="A1">A1 (HSK 1급 이하)</option>
+        <option value="A2" selected>A2 (HSK 1~2급)</option>
+        <option value="B1">B1 (HSK 3급)</option>
+        <option value="B2">B2 (HSK 4급)</option>
+        <option value="C1">C1 (HSK 5급)</option>
+        <option value="C2">C2 (HSK 6급)</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="주제" data-zh="话题">주제</div>
+      <select class="si-select" id="sel-topic">
+        <option value="日常生活">일상생활 / 日常生活</option>
+        <option value="购物饮食">쇼핑·식사 / 购物饮食</option>
+        <option value="工作学习">직장·학습 / 工作学习</option>
+        <option value="旅游交通">여행·교통 / 旅游交通</option>
+        <option value="健康医疗">건강·의료 / 健康医疗</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="음성 속도" data-zh="语速">음성 속도</div>
+      <select class="si-select" id="sel-speed">
+        <option value="0.7" data-ko="느리게 (0.7x)" data-zh="慢速 (0.7x)">느리게 (0.7x)</option>
+        <option value="0.9" selected data-ko="보통 (0.9x)" data-zh="正常 (0.9x)">보통 (0.9x)</option>
+        <option value="1.1" data-ko="빠르게 (1.1x)" data-zh="快速 (1.1x)">빠르게 (1.1x)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn fade-in" id="gen-btn" onclick="generate()">
+    🤖 <span id="gen-label" data-ko="중국어 듣기 생성" data-zh="生成中文听力题">중국어 듣기 생성</span>
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div id="loading-text" style="font-size:14px;color:var(--text-muted);">생성 중...</div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="score-card" id="score-card">
+    <div class="sc-score" id="sc-score"></div>
+    <div class="sc-pct" id="sc-pct"></div>
+    <div class="sc-msg" id="sc-msg"></div>
+  </div>
+
+  <div class="action-btns" id="action-btns">
+    <button class="act-btn primary" onclick="generate()" data-ko="🔄 새 문제" data-zh="🔄 新题目">🔄 새 문제</button>
+    <a href="../../index.html" class="act-btn" data-ko="← General 홈" data-zh="← 通用首页">← General 홈</a>
+  </div>
+</div>
+
+<script>
+let lang='ko', currentPart='p1', currentData=null;
+let isLoading=false, ttsActive=false;
+let correct=0, answered=0, total=0;
+const SPEEDS=[0.7,0.8,0.9,1.0,1.1,1.2];
+const LETTERS=['A','B','C','D'];
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-zh]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-zh');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-zh').classList.toggle('act',l==='zh');
+}
+
+function selectPart(id,btn){
+  stopTTS(); currentPart=id;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  resetContent();
+}
+
+function resetContent(){
+  stopTTS();
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('score-card').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  correct=0; answered=0; total=0; currentData=null;
+}
+
+async function callClaude(prompt, maxTok){
+  const r=await fetch('/api/claude',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTok||1000,
+      messages:[{role:'user',content:prompt}]})});
+  const d=await r.json();
+  const raw=d.content?.[0]?.text||'';
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+async function loadImage(itemId, prompt){
+  const img=document.getElementById('img-'+itemId);
+  const ld=document.getElementById('imgl-'+itemId);
+  if(!img) return;
+  function show(url){
+    img.onload=()=>{ img.style.opacity=1; if(ld) ld.classList.add('hidden'); };
+    img.onerror=()=>{ img.onerror=null; img.src='https://picsum.photos/1200/675?random='+itemId; img.onload=()=>{ img.style.opacity=1; if(ld) ld.classList.add('hidden'); }; };
+    img.src=url;
+  }
+  try{
+    const ctrl=new AbortController();
+    const timer=setTimeout(()=>ctrl.abort(),20000);
+    const r=await fetch('/api/generate-image',{method:'POST',signal:ctrl.signal,
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt,aspectRatio:'16:9'})});
+    clearTimeout(timer);
+    const d=await r.json();
+    if(d.imageUrl){ show(d.imageUrl); return; }
+  }catch(e){}
+  show('https://picsum.photos/1200/675?random='+itemId);
+}
+
+async function generate(){
+  if(isLoading) return;
+  isLoading=true; resetContent();
+  document.getElementById('gen-btn').disabled=true;
+  document.getElementById('loading').style.display='block';
+  const level=document.getElementById('sel-level').value;
+  const topic=document.getElementById('sel-topic').value;
+  const speed=parseFloat(document.getElementById('sel-speed').value);
+  const area=document.getElementById('content-area');
+  const lt=document.getElementById('loading-text');
+
+  try{
+    if(currentPart==='p1'){
+      lt.textContent=lang==='ko'?'🤖 문제 생성 중…':'🤖 生成题目中…';
+      const item=await callClaude(promptP1(level,topic),800);
+      item.id=1; total=1;
+      document.getElementById('loading').style.display='none';
+      area.appendChild(makeP1Card(item,speed));
+      loadImage(1, item.imagePrompt);
+    } else if(currentPart==='p2'){
+      lt.textContent=lang==='ko'?'🤖 대화 응답 문제 생성 중…':'🤖 生成对话应答题…';
+      currentData=await callClaude(promptP2(level,topic),1200);
+      total=currentData.items.length;
+      document.getElementById('loading').style.display='none';
+      area.appendChild(makeP2Block(currentData.items,speed));
+    } else {
+      lt.textContent=lang==='ko'?'🤖 대화/담화 생성 중…':'🤖 生成对话/独白…';
+      currentData=await callClaude(promptP3(level,topic),1500);
+      total=currentData.questions.length;
+      document.getElementById('loading').style.display='none';
+      area.appendChild(makeP3Card(currentData,speed));
+    }
+    document.getElementById('action-btns').style.display='flex';
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    area.innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패':'生成失败'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  isLoading=false;
+  document.getElementById('gen-btn').disabled=false;
+}
+
+function promptP1(level,topic){
+  const ans=Math.floor(Math.random()*4);
+  return `Generate 1 HSK-style Chinese listening Part 1 question. Level: ${level} (${{'A1':'HSK1','A2':'HSK1-2','B1':'HSK3','B2':'HSK4','C1':'HSK5','C2':'HSK6'}[level]}). Topic: ${topic}.
+Return ONLY JSON (no markdown, single-line strings):
+{"imagePrompt":"realistic everyday Chinese scene 5 words","choices":["(A) 中文描述","(B) 中文描述","(C) 中文描述","(D) 中文描述"],"pinyins":["(A) pīnyīn","(B) pīnyīn","(C) pīnyīn","(D) pīnyīn"],"answer":${ans},"explanation_ko":"정답 해설 한국어"}
+Rules: choices[${ans}] is the ONLY correct description. imagePrompt matches choices[${ans}]. Single-line strings.`;
+}
+
+function promptP2(level,topic){
+  return `Generate 3 Chinese listening Part 2 (短对话应答) questions. Level: ${level}. Topic: ${topic}.
+Return ONLY JSON (no markdown, single-line strings):
+{"items":[{"id":1,"question":"中文问题","pinyin":"pīnyīn","choices":["(A) 应答","(B) 应答","(C) 应答"],"answer":0,"explanation_ko":"해설"}]}
+3 choices (A/B/C), answer 0-based, vary positions. Single-line strings.`;
+}
+
+function promptP3(level,topic){
+  const isDialogue=Math.random()>0.4;
+  if(isDialogue){
+    return `Generate 1 Chinese listening conversation set. Level: ${level}. Topic: ${topic}.
+Return ONLY JSON (no markdown, single-line strings):
+{"type":"dialogue","context":"상황 설명","dialogue":[{"speaker":"A","line":"中文台词","pinyin":"pīnyīn"},{"speaker":"B","line":"中文台词","pinyin":"pīnyīn"},{"speaker":"A","line":"中文台词","pinyin":"pīnyīn"}],"questions":[{"id":1,"text":"问题","choices":["(A)...","(B)...","(C)...","(D)..."],"answer":0,"explanation_ko":"해설"},{"id":2,"text":"问题","choices":["(A)...","(B)...","(C)...","(D)..."],"answer":1,"explanation_ko":"해설"},{"id":3,"text":"问题","choices":["(A)...","(B)...","(C)...","(D)..."],"answer":2,"explanation_ko":"해설"}]}
+3 questions, answer 0-based, vary positions, single-line strings.`;
+  } else {
+    return `Generate 1 Chinese listening monologue set. Level: ${level}. Topic: ${topic}.
+Return ONLY JSON (no markdown, single-line strings):
+{"type":"monologue","talkType":"广播","script":"中文独白 (2-3句)","script_pinyin":"pīnyīn","questions":[{"id":1,"text":"问题","choices":["(A)...","(B)...","(C)...","(D)..."],"answer":0,"explanation_ko":"해설"},{"id":2,"text":"问题","choices":["(A)...","(B)...","(C)...","(D)..."],"answer":1,"explanation_ko":"해설"},{"id":3,"text":"问题","choices":["(A)...","(B)...","(C)...","(D)..."],"answer":2,"explanation_ko":"해설"}]}
+3 questions, answer 0-based, vary positions, single-line strings.`;
+  }
+}
+
+// ── 파트 1 카드 ──────────────────────────────────────────────────────
+function makeP1Card(item,speed){
+  const div=document.createElement('div');
+
+  // 사진
+  const photoCard=document.createElement('div'); photoCard.className='photo-card fade-in';
+  const photoWrap=document.createElement('div'); photoWrap.className='photo-wrap';
+  const img=document.createElement('img'); img.id='img-1'; img.alt=''; img.style.cssText='opacity:0;';
+  img.onload=()=>img.style.opacity=1;
+  const photoLd=document.createElement('div'); photoLd.className='photo-loading'; photoLd.id='imgl-1';
+  photoLd.innerHTML='<div class="ph-spin"></div><span style="font-size:11px">'+(lang==='ko'?'이미지 로딩…':'加载图片…')+'</span>';
+  photoWrap.append(img,photoLd);
+  const photoCap=document.createElement('div'); photoCap.className='photo-cap';
+  photoCap.setAttribute('data-ko','📸 사진을 보고 올바른 묘사를 고르세요');
+  photoCap.setAttribute('data-zh','📸 看图选择正确描述');
+  photoCap.textContent=lang==='ko'?'📸 사진을 보고 올바른 묘사를 고르세요':'📸 看图选择正确描述';
+  photoCard.append(photoWrap,photoCap);
+
+  // 오디오
+  const ac=document.createElement('div'); ac.className='audio-card fade-in';
+  const acHead=document.createElement('div'); acHead.className='ac-header';
+  acHead.innerHTML=`<div class="ac-title">🎧 <span data-ko="문제 1" data-zh="第1题">${lang==='ko'?'문제 1':'第1题'}</span> <span class="ac-badge">Part 1</span></div>
+    <div style="font-size:11px;color:var(--text-muted);" data-ko="▶ 재생 후 선택 가능" data-zh="▶ 播放后可选择">${lang==='ko'?'▶ 재생 후 선택 가능':'▶ 播放后可选择'}</div>`;
+  const pr=document.createElement('div'); pr.className='player-row';
+  const pbtn=document.createElement('button'); pbtn.className='play-btn'; pbtn.id='pbtn-1';
+  pbtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  pbtn.addEventListener('click',()=>playP1(item,speed));
+  const pInfo=document.createElement('div'); pInfo.className='player-info';
+  pInfo.innerHTML=`<div class="player-label" data-ko="▶ 버튼을 눌러 음성을 들으세요" data-zh="▶ 点击按钮收听音频">${lang==='ko'?'▶ 버튼을 눌러 음성을 들으세요':'▶ 点击按钮收听音频'}</div><div class="player-bar"><div class="player-fill" id="pfill-1"></div></div>`;
+  const spdBtn=document.createElement('button'); spdBtn.className='speed-btn'; spdBtn.id='pspd-1'; spdBtn.textContent=speed+'x';
+  spdBtn.addEventListener('click',()=>cycleSpeed('pspd-1'));
+  pr.append(pbtn,pInfo,spdBtn);
+  ac.append(acHead,pr);
+
+  // 선택지 (A/B/C/D 버튼만 — 파트1은 음성으로만)
+  const cs=document.createElement('div'); cs.className='choices-section fade-in';
+  const csHint=document.createElement('div');
+  csHint.style.cssText='font-size:12px;color:var(--zh);background:var(--zh-light);padding:8px 12px;border-radius:8px;margin-bottom:10px;';
+  csHint.setAttribute('data-ko','🔊 음성을 먼저 들은 후 선택하세요');
+  csHint.setAttribute('data-zh','🔊 请先收听音频再选择');
+  csHint.textContent=lang==='ko'?'🔊 음성을 먼저 들은 후 선택하세요':'🔊 请先收听音频再选择';
+  csHint.id='hint-1';
+  const grid=document.createElement('div'); grid.className='p1-grid choices-locked'; grid.id='p1choices-1';
+  LETTERS.forEach((ltr,i)=>{
+    const btn=document.createElement('button'); btn.className='p1-btn'; btn.textContent=ltr;
+    btn.dataset.text=item.choices[i]||'';
+    btn.dataset.pinyin=item.pinyins?.[i]||'';
+    btn.addEventListener('click',()=>ansP1(i,btn,item));
+    grid.appendChild(btn);
+  });
+  const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='p1fb-1';
+  cs.append(csHint,grid,fb);
+
+  div.append(photoCard,ac,cs);
+  return div;
+}
+
+function playP1(item,speed){
+  const btn=document.getElementById('pbtn-1');
+  const fill=document.getElementById('pfill-1');
+  const spd=parseFloat(document.getElementById('pspd-1')?.textContent)||speed;
+  stopTTS();
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="#fff"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+
+  // 선택지 즉시 unlock
+  const choicesEl=document.getElementById('p1choices-1');
+  const hintEl=document.getElementById('hint-1');
+  if(choicesEl){ choicesEl.classList.remove('choices-locked'); }
+  if(hintEl) hintEl.style.display='none';
+
+  // A→B→C→D 순서로 중국어 TTS
+  const queue=item.choices.map((c,i)=>LETTERS[i]+'. '+c);
+  const vs=speechSynthesis.getVoices();
+  const zhv=vs.find(v=>v.lang.startsWith('zh'))||vs.find(v=>v.lang.startsWith('en'));
+  let qi=0; ttsActive=true;
+
+  function playNext(){
+    if(!ttsActive||qi>=queue.length){
+      btn.innerHTML='<svg viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+      fill.style.width='100%'; ttsActive=false;
+      if(choicesEl) choicesEl.querySelectorAll('.p1-btn').forEach(b=>b.classList.remove('playing'));
+      return;
+    }
+    fill.style.width=(qi/queue.length*100)+'%';
+    if(choicesEl) choicesEl.querySelectorAll('.p1-btn').forEach((b,i)=>b.classList.toggle('playing',i===qi));
+    const text=queue[qi];
+    const u=new SpeechSynthesisUtterance(text); u.lang='zh-CN'; u.rate=spd;
+    if(zhv) u.voice=zhv;
+    qi++;
+    let done=false;
+    function next(){ if(done)return; done=true; playNext(); }
+    u.onend=next;
+    setTimeout(next, Math.ceil(text.length*500/spd)+1500);
+    speechSynthesis.speak(u);
+  }
+  playNext();
+}
+
+function ansP1(idx,btn,item){
+  const opts=document.getElementById('p1choices-1')?.querySelectorAll('.p1-btn'); if(!opts) return;
+  opts.forEach(b=>{b.disabled=true;b.classList.remove('playing');});
+  opts[item.answer].classList.add('correct');
+  if(idx!==item.answer) btn.classList.add('wrong');
+  const fb=document.getElementById('p1fb-1');
+  const ct=item.choices[item.answer]||'';
+  const cp=item.pinyins?.[item.answer]||'';
+  fb.innerHTML=(idx===item.answer
+    ?`✅ ${lang==='ko'?'정답':'正确'}! <strong>${LETTERS[item.answer]}.</strong> ${ct}<br><span style="font-size:11px;color:var(--teal-mid);">${cp}</span><br><small>${item.explanation_ko}</small>`
+    :`❌ ${lang==='ko'?'오답. 정답:':'错误。正确答案:'} <strong>${LETTERS[item.answer]}.</strong> ${ct}<br><span style="font-size:11px;color:var(--teal-mid);">${cp}</span><br><small>${item.explanation_ko}</small>`);
+  fb.className='q-feedback show '+(idx===item.answer?'correct':'wrong');
+  answered++; if(idx===item.answer) correct++;
+  checkDone();
+}
+
+// ── 파트 2 블록 ──────────────────────────────────────────────────────
+function makeP2Block(items,speed){
+  const wrap=document.createElement('div'); wrap.className='audio-card fade-in';
+  const hdr=document.createElement('div'); hdr.className='ac-header';
+  hdr.innerHTML=`<div class="ac-title">💬 ${lang==='ko'?'대화 응답':'对话应答'} <span class="ac-badge">${items.length}${lang==='ko'?'문제':'题'}</span></div>`;
+  wrap.appendChild(hdr);
+  items.forEach(item=>{
+    const d=document.createElement('div'); d.className='q-item';
+    const ar=document.createElement('div');
+    ar.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border-radius:10px;margin-bottom:10px;border:0.5px solid var(--border);';
+    const pbtn=document.createElement('button'); pbtn.className='play-btn'; pbtn.style.cssText='width:36px;height:36px;';
+    pbtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+    pbtn.addEventListener('click',()=>playP2(item,speed));
+    const info=document.createElement('div'); info.className='player-info';
+    info.innerHTML=`<div class="player-label">${lang==='ko'?'질문을 듣고 응답을 고르세요':'听问题选择应答'}</div><div class="player-bar"><div class="player-fill" id="p2fill-${item.id}"></div></div>`;
+    const spdBtn=document.createElement('button'); spdBtn.className='speed-btn'; spdBtn.id='p2spd-'+item.id; spdBtn.textContent=speed+'x';
+    spdBtn.addEventListener('click',()=>cycleSpeed('p2spd-'+item.id));
+    ar.append(pbtn,info,spdBtn);
+    const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='Q'+item.id;
+    const opts=document.createElement('div'); opts.className='q-opts'; opts.id='p2opts-'+item.id;
+    item.choices.forEach((c,i)=>{
+      const btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML=`<span class="q-opt-ltr">${'ABC'[i]}</span><span>${c}</span>`;
+      btn.addEventListener('click',()=>ansQ(item.id,i,btn,item.answer,item.explanation_ko,opts,'p2'));
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='fb-p2-'+item.id;
+    d.append(ar,qNum,opts,fb);
+    wrap.appendChild(d);
+  });
+  return wrap;
+}
+
+function playP2(item,speed){
+  const fill=document.getElementById('p2fill-'+item.id);
+  const spd=parseFloat(document.getElementById('p2spd-'+item.id)?.textContent)||speed;
+  stopTTS();
+  const u=new SpeechSynthesisUtterance(item.question); u.lang='zh-CN'; u.rate=spd;
+  const vs=speechSynthesis.getVoices(); const zhv=vs.find(v=>v.lang.startsWith('zh'))||vs.find(v=>v.lang.startsWith('en'));
+  if(zhv) u.voice=zhv;
+  u.onboundary=e=>{ if(e.name==='word'&&fill) fill.style.width=Math.min(100,e.charIndex/item.question.length*100)+'%'; };
+  u.onend=()=>{ ttsActive=false; if(fill) fill.style.width='100%'; };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+
+// ── 파트 3 카드 ──────────────────────────────────────────────────────
+function makeP3Card(data,speed){
+  const isDialogue=data.type==='dialogue';
+  const lines=isDialogue?data.dialogue:[{speaker:data.talkType||'旁白',line:data.script,pinyin:data.script_pinyin}];
+  const wrap=document.createElement('div'); wrap.className='audio-card fade-in';
+
+  const hdr=document.createElement('div'); hdr.className='ac-header';
+  const ttl=document.createElement('div'); ttl.className='ac-title';
+  ttl.innerHTML=(isDialogue?'🗣️ ':'📢 ')+(lang==='ko'?(isDialogue?'대화':'담화'):(isDialogue?'对话':'独白'))+'&nbsp;<span class="ac-badge">'+(isDialogue?'对话':'独白')+'</span>';
+  const togBtn=document.createElement('button'); togBtn.className='script-toggle';
+  togBtn.textContent=lang==='ko'?'📄 스크립트 보기':'📄 查看脚本';
+  togBtn.addEventListener('click',function(){
+    const sc=document.getElementById('script-p3');
+    const open=sc.classList.toggle('open');
+    togBtn.textContent=open?(lang==='ko'?'🙈 숨기기':'🙈 隐藏'):(lang==='ko'?'📄 스크립트 보기':'📄 查看脚本');
+  });
+  hdr.append(ttl,togBtn);
+
+  const pr=document.createElement('div'); pr.className='player-row';
+  const pbtn=document.createElement('button'); pbtn.className='play-btn'; pbtn.style.cssText='width:36px;height:36px;';
+  pbtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  pbtn.addEventListener('click',()=>playP3(data,speed));
+  const pInfo=document.createElement('div'); pInfo.className='player-info';
+  pInfo.innerHTML=`<div class="player-label">${isDialogue?(lang==='ko'?data.context||'대화를 들으세요':data.context||'请听对话'):(lang==='ko'?'담화를 들으세요':'请听独白')}</div><div class="player-bar"><div class="player-fill" id="p3fill"></div></div>`;
+  const spdBtn=document.createElement('button'); spdBtn.className='speed-btn'; spdBtn.id='p3spd'; spdBtn.textContent=speed+'x';
+  spdBtn.addEventListener('click',()=>cycleSpeed('p3spd'));
+  pr.append(pbtn,pInfo,spdBtn);
+
+  // 스크립트 (핀인 포함)
+  const scriptWrap=document.createElement('div'); scriptWrap.className='script-wrap'; scriptWrap.id='script-p3';
+  lines.forEach((l,i)=>{
+    const row=document.createElement('div'); row.className='script-line'; row.id='sl-p3-'+i;
+    const pinyinEl=l.pinyin?`<span class="sl-pinyin">${l.pinyin}</span>`:'';
+    row.innerHTML=`<span class="sl-spk">${l.speaker}</span><span class="sl-txt">${pinyinEl}${l.line}</span>`;
+    row.addEventListener('click',()=>playFromLine(data,i,speed));
+    scriptWrap.appendChild(row);
+  });
+
+  const qSec=document.createElement('div'); qSec.style.marginTop='14px';
+  data.questions.forEach(q=>{
+    const qDiv=document.createElement('div'); qDiv.className='q-item';
+    const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='Q'+q.id;
+    const qTxt=document.createElement('div'); qTxt.className='q-text'; qTxt.textContent=q.text;
+    const opts=document.createElement('div'); opts.className='q-opts'; opts.id='p3opts-'+q.id;
+    q.choices.forEach((c,i)=>{
+      const btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML=`<span class="q-opt-ltr">${LETTERS[i]}</span><span>${c}</span>`;
+      btn.addEventListener('click',()=>ansQ(q.id,i,btn,q.answer,q.explanation_ko,opts,'p3'));
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='fb-p3-'+q.id;
+    qDiv.append(qNum,qTxt,opts,fb);
+    qSec.appendChild(qDiv);
+  });
+
+  wrap.append(hdr,pr,scriptWrap,qSec);
+  return wrap;
+}
+
+function playP3(data,speed){
+  const spd=parseFloat(document.getElementById('p3spd')?.textContent)||speed;
+  stopTTS();
+  if(data.type==='dialogue') playDlg(data.dialogue,0,spd);
+  else playMono(data.script,spd);
+}
+function playFromLine(data,idx,speed){
+  if(data.type!=='dialogue') return;
+  const spd=parseFloat(document.getElementById('p3spd')?.textContent)||speed;
+  stopTTS(); playDlg(data.dialogue,idx,spd);
+}
+function playDlg(lines,idx,spd){
+  if(idx>=lines.length){ ttsActive=false; hlLine(-1); return; }
+  hlLine(idx);
+  const fill=document.getElementById('p3fill');
+  if(fill) fill.style.width=(idx/lines.length*100)+'%';
+  const vs=speechSynthesis.getVoices();
+  const zhvList=vs.filter(v=>v.lang.startsWith('zh'));
+  const u=new SpeechSynthesisUtterance(lines[idx].line); u.lang='zh-CN'; u.rate=spd;
+  if(zhvList.length>1) u.voice=zhvList[idx%zhvList.length];
+  else if(zhvList.length) u.voice=zhvList[0];
+  u.onend=()=>{ if(ttsActive) playDlg(lines,idx+1,spd); };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function playMono(script,spd){
+  hlLine(0);
+  const fill=document.getElementById('p3fill');
+  const u=new SpeechSynthesisUtterance(script); u.lang='zh-CN'; u.rate=spd;
+  const vs=speechSynthesis.getVoices(); const zhv=vs.find(v=>v.lang.startsWith('zh'))||vs.find(v=>v.lang.startsWith('en'));
+  if(zhv) u.voice=zhv;
+  u.onboundary=e=>{ if(e.name==='word'&&fill) fill.style.width=Math.min(100,e.charIndex/script.length*100)+'%'; };
+  u.onend=()=>{ ttsActive=false; hlLine(-1); if(fill) fill.style.width='100%'; };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function hlLine(idx){
+  document.querySelectorAll('[id^="sl-p3-"]').forEach(e=>e.classList.remove('act'));
+  if(idx>=0){ const e=document.getElementById('sl-p3-'+idx); if(e) e.classList.add('act'); }
+}
+
+function ansQ(qId,idx,btn,answer,expl,optsEl,prefix){
+  const opts=optsEl?.querySelectorAll('.q-opt'); if(!opts||opts[0]?.disabled) return;
+  opts.forEach(b=>b.disabled=true);
+  opts[answer].classList.add('correct');
+  if(idx!==answer) btn.classList.add('wrong');
+  const qItem=btn.closest('.q-item');
+  const fb=qItem?.querySelector('.q-feedback');
+  if(fb){ fb.textContent=expl||''; fb.className='q-feedback show '+(idx===answer?'correct':'wrong'); }
+  answered++; if(idx===answer) correct++;
+  checkDone();
+}
+
+function stopTTS(){ speechSynthesis.cancel(); ttsActive=false; }
+function cycleSpeed(btnId){
+  const btn=document.getElementById(btnId); if(!btn) return;
+  const cur=parseFloat(btn.textContent);
+  const i=SPEEDS.indexOf(cur);
+  btn.textContent=SPEEDS[(i+1)%SPEEDS.length]+'x';
+}
+function checkDone(){
+  if(answered<total) return;
+  const pct=Math.round(correct/total*100);
+  const sc=document.getElementById('score-card'); sc.style.display='block';
+  document.getElementById('sc-score').textContent=`${correct}/${total}`;
+  document.getElementById('sc-pct').textContent=`${pct}%`;
+  document.getElementById('sc-msg').textContent=
+    pct>=80?(lang==='ko'?'🎉 훌륭합니다!':'🎉 太棒了！'):
+    pct>=60?(lang==='ko'?'👍 잘 하셨습니다!':'👍 做得不错！'):
+    (lang==='ko'?'💪 계속 연습!':'💪 继续加油！');
+  sc.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+(function(){ setLang('ko'); })();
+</script>
+</body>
+</html>

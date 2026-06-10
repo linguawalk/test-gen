@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General 中文</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --zh:#c0392b;--zh-dark:#7f1a12;--zh-light:#fdf0ef;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --gold:#c9952a;--gold-light:#fdf3dc;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 6%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#4a0000 0%,#8b0000 40%,var(--zh) 100%);padding:48px 6% 44px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-inner{max-width:860px;margin:0 auto;position:relative;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:10px;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:500px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.h-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,0.14);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+.h-badge.gold{background:rgba(201,149,42,0.25);color:#fcd34d;border-color:rgba(201,149,42,0.3);}
+
+.wrap{max-width:860px;margin:0 auto;padding:36px 6% 80px;}
+
+/* LEVEL SELECTOR */
+.level-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:28px;}
+.ls-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.ls-desc{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+.level-tabs{display:flex;gap:3px;background:var(--bg);border-radius:10px;padding:3px;flex-wrap:wrap;}
+.lv-tab{flex:1;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;min-width:60px;}
+.lv-tab:hover{color:var(--zh);}
+.lv-tab.act{background:var(--zh);color:#fff;}
+.lv-tab.locked{cursor:default;opacity:0.5;}
+.lv-tab.locked:hover{color:var(--text-muted);}
+.lv-lock{font-size:9px;position:absolute;top:3px;right:5px;}
+.level-info{margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;}
+.level-info.pro{background:var(--gold-light);color:#854f0b;}
+.cefr-map{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.cefr-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:8px;background:var(--zh-light);color:var(--zh);}
+
+/* SKILLS */
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.sh-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);}
+.sh-line{flex:1;height:0.5px;background:var(--border);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:32px;}
+.skill-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:all 0.25s;position:relative;}
+.skill-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.09);}
+.sc-top{padding:20px 20px 14px;flex:1;}
+.sc-icon{font-size:32px;margin-bottom:10px;}
+.sc-name{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.sc-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;}
+.sc-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.sc-tag{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:500;}
+.sc-bottom{padding:12px 20px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.sc-cta{font-size:13px;font-weight:600;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade{opacity:0;animation:fadeUp 0.45s ease forwards;}
+.fade:nth-child(1){animation-delay:.05s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.15s}.fade:nth-child(4){animation-delay:.20s}
+.fade:nth-child(5){animation-delay:.25s}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📚 <span data-ko="General 중국어" data-zh="通用中文">General 중국어</span></span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← 중국어 홈" data-zh="← 中文首页">← 중국어 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('zh')" id="btn-zh">中文</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag" data-ko="GENERAL 중국어 · 전체 레벨" data-zh="通用中文 · 全级别">GENERAL 중국어 · 전체 레벨</div>
+    <h1 class="hero-title" data-ko="A1부터 C2까지 중국어 학습" data-zh="从A1到C2学习中文">A1부터 C2까지 중국어 학습</h1>
+    <p class="hero-desc"
+      data-ko="듣기·읽기·말하기·쓰기·어휘문법 — AI 기반 5개 영역. A1·A2 무료로 시작."
+      data-zh="听力・阅读・口语・写作・词汇语法 — AI驱动5大技能。A1・A2免费开始。">
+      듣기·읽기·말하기·쓰기·어휘문법 — AI 기반 5개 영역.
+    </p>
+    <div class="hero-badges">
+      <span class="h-badge" data-ko="A1 & A2 — 무료" data-zh="A1 & A2 — 免费">A1 & A2 — 무료</span>
+      <span class="h-badge gold" data-ko="B1~C2 — Pro" data-zh="B1~C2 — Pro">B1~C2 — Pro</span>
+      <span class="h-badge" data-ko="5개 영역" data-zh="5大技能">5개 영역</span>
+      <span class="h-badge">🤖 AI 튜터</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 레벨 선택 -->
+  <div class="level-section fade">
+    <div class="ls-title" data-ko="레벨 선택" data-zh="选择级别">레벨 선택</div>
+    <div class="ls-desc" data-ko="CEFR 기준 · HSK 대응표는 아래 표시" data-zh="CEFR标准 · 下方显示HSK对应">CEFR 기준 · HSK 대응표 표시</div>
+    <div class="level-tabs">
+      <button class="lv-tab act" onclick="selectLevel('A1',this)">A1</button>
+      <button class="lv-tab" onclick="selectLevel('A2',this)">A2</button>
+      <button class="lv-tab locked" onclick="showProMsg('B1')">B1<span class="lv-lock" style="position:relative;">🔒</span></button>
+      <button class="lv-tab locked" onclick="showProMsg('B2')">B2<span class="lv-lock" style="position:relative;">🔒</span></button>
+      <button class="lv-tab locked" onclick="showProMsg('C1')">C1<span class="lv-lock" style="position:relative;">🔒</span></button>
+      <button class="lv-tab locked" onclick="showProMsg('C2')">C2<span class="lv-lock" style="position:relative;">🔒</span></button>
+    </div>
+    <div class="level-info" id="level-info"></div>
+    <div class="cefr-map" id="cefr-map"></div>
+  </div>
+
+  <!-- 스킬 섹션 -->
+  <div class="sh fade">
+    <span class="sh-label" data-ko="영역 선택" data-zh="选择技能">영역 선택</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="skills-grid">
+
+    <!-- 듣기 -->
+    <a href="listening.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">🎧</div>
+        <div class="sc-name" data-ko="듣기 · 听力" data-zh="听力">듣기 · 听力</div>
+        <div class="sc-desc"
+          data-ko="사진 보고 음성 듣기부터 대화·담화까지. TTS 음성으로 듣기 실력을 키웁니다. 1문제씩 생성."
+          data-zh="从看图听音到对话・独白。TTS语音提升听力能力。逐题生成。">
+          사진 묘사·대화·담화 · TTS 음성 · 1문제씩
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-ko="사진 묘사" data-zh="看图说话">사진 묘사</span>
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-ko="대화" data-zh="对话">대화</span>
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-ko="담화" data-zh="独白">담화</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#ba7517;" data-ko="듣기 시작 →" data-zh="开始听力 →">듣기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 읽기 -->
+    <a href="reading.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">📖</div>
+        <div class="sc-name" data-ko="읽기 · 阅读" data-zh="阅读">읽기 · 阅读</div>
+        <div class="sc-desc"
+          data-ko="뉴스·이메일·에세이·설명문. 핀인(拼音) 표시 옵션. AI 튜터 즉시 해설."
+          data-zh="新闻・邮件・散文・说明文。拼音显示选项。AI导师即时讲解。">
+          뉴스·이메일·에세이 · 拼音 · AI 튜터
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal-mid);" data-ko="뉴스" data-zh="新闻">뉴스</span>
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal-mid);" data-ko="이메일" data-zh="邮件">이메일</span>
+          <span class="sc-tag" style="background:var(--teal-light);color:var(--teal-mid);" data-ko="拼音" data-zh="拼音">拼音</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:var(--teal-mid);" data-ko="읽기 시작 →" data-zh="开始阅读 →">읽기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 말하기 -->
+    <a href="speaking.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">🗣️</div>
+        <div class="sc-name" data-ko="말하기 · 口语" data-zh="口语">말하기 · 口语</div>
+        <div class="sc-desc"
+          data-ko="롤플레이·인터뷰·일상회화. AI가 발음·유창성·성조를 피드백합니다."
+          data-zh="角色扮演・采访・日常对话。AI反馈发音・流利度・声调。">
+          롤플레이 · AI 채점 · 성조 피드백
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ko="롤플레이" data-zh="角色扮演">롤플레이</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ko="성조" data-zh="声调">성조</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ko="AI 채점" data-zh="AI评分">AI 채점</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#993556;" data-ko="말하기 시작 →" data-zh="开始口语 →">말하기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 쓰기 -->
+    <a href="writing.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">✍️</div>
+        <div class="sc-name" data-ko="쓰기 · 写作" data-zh="写作">쓰기 · 写作</div>
+        <div class="sc-desc"
+          data-ko="이메일·에세이·일기·리포트. AI가 어법·어휘·논리성을 채점합니다."
+          data-zh="邮件・散文・日记・报告。AI评估语法・词汇・逻辑性。">
+          이메일 · 에세이 · AI 채점
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ko="이메일" data-zh="邮件">이메일</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ko="에세이" data-zh="散文">에세이</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ko="일기" data-zh="日记">일기</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#534ab7;" data-ko="쓰기 시작 →" data-zh="开始写作 →">쓰기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 어휘·문법 -->
+    <a href="vocabulary.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">📚</div>
+        <div class="sc-name" data-ko="어휘·문법 · 词汇语法" data-zh="词汇·语法">어휘·문법 · 词汇语法</div>
+        <div class="sc-desc"
+          data-ko="HSK 필수 어휘·문법 패턴. 플래시카드·퀴즈·빈칸 채우기로 실력 향상."
+          data-zh="HSK必备词汇・语法句型。闪卡・测验・填空提升实力。">
+          HSK 어휘 · 문법 패턴 · 플래시카드
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ko="HSK 어휘" data-zh="HSK词汇">HSK 어휘</span>
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ko="문법" data-zh="语法">문법</span>
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ko="플래시카드" data-zh="闪卡">플래시카드</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#5b2d8e;" data-ko="어휘·문법 시작 →" data-zh="开始词汇语法 →">어휘·문법 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<script>
+let lang='ko', currentLevel='A1';
+
+const LEVEL_INFO={
+  A1:{free:true,
+    ko:'🟢 A1 — 입문. 기초 발음(拼音)과 기본 인사·숫자·색깔 표현을 배웁니다. 전 영역 무료. HSK 1급 이하.',
+    zh:'🟢 A1 — 入门。学习基础拼音和基本问候・数字・颜色表达。全技能免费。HSK 1级以下。',
+    hsk:'HSK 1级以下'},
+  A2:{free:true,
+    ko:'🟢 A2 — 초급. 간단한 일상 대화와 기초 문장을 이해하고 사용할 수 있습니다. 전 영역 무료. HSK 1~2급.',
+    zh:'🟢 A2 — 初级。能理解和使用简单的日常对话和基础句子。全技能免费。HSK 1-2级。',
+    hsk:'HSK 1-2级'},
+  B1:{free:false,
+    ko:'🔒 B1 — 중급 초반. Pro 플랜 필요. HSK 3급 수준. 친숙한 주제의 요점을 이해할 수 있습니다.',
+    zh:'🔒 B1 — 中级初阶。需要Pro计划。HSK 3级水平。能理解熟悉话题的要点。',
+    hsk:'HSK 3级'},
+  B2:{free:false,
+    ko:'🔒 B2 — 중급. Pro 플랜 필요. HSK 4급 수준. 복잡한 내용을 이해하고 유창하게 대화할 수 있습니다.',
+    zh:'🔒 B2 — 中级。需要Pro计划。HSK 4级水平。能理解复杂内容并流利交流。',
+    hsk:'HSK 4级'},
+  C1:{free:false,
+    ko:'🔒 C1 — 고급. Pro 플랜 필요. HSK 5급 수준. 어렵고 긴 텍스트를 이해하고 자연스럽게 표현합니다.',
+    zh:'🔒 C1 — 高级。需要Pro计划。HSK 5级水平。能理解复杂长篇文本并自然表达。',
+    hsk:'HSK 5级'},
+  C2:{free:false,
+    ko:'🔒 C2 — 최고급. Pro 플랜 필요. HSK 6급 수준. 듣고 읽는 모든 것을 쉽게 이해하고 정확히 표현합니다.',
+    zh:'🔒 C2 — 精通。需要Pro计划。HSK 6级水平。能轻松理解所有内容并精确表达。',
+    hsk:'HSK 6级'},
+};
+
+function selectLevel(lv, el){
+  currentLevel=lv;
+  document.querySelectorAll('.lv-tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+  updateLevelInfo();
+  try{localStorage.setItem('lw-zh-level',lv);}catch(e){}
+}
+
+function updateLevelInfo(){
+  const info=LEVEL_INFO[currentLevel];
+  const el=document.getElementById('level-info');
+  const mapEl=document.getElementById('cefr-map');
+  el.textContent=lang==='ko'?info.ko:info.zh;
+  el.className='level-info'+(info.free?'':' pro');
+  mapEl.innerHTML=`<span class="cefr-badge">HSK: ${info.hsk}</span>`;
+}
+
+function showProMsg(lv){
+  alert(lang==='ko'
+    ?`${lv} 레벨은 Pro 플랜에서 이용 가능합니다. 곧 오픈 예정입니다!`
+    :`${lv}级别需要Pro计划。即将开放！`);
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-zh]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-zh');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-zh').classList.toggle('act',l==='zh');
+  updateLevelInfo();
+}
+
+(function(){
+  setLang('ko');
+  let savedLv; try{savedLv=localStorage.getItem('lw-zh-level');}catch(e){}
+  if(savedLv && LEVEL_INFO[savedLv] && LEVEL_INFO[savedLv].free){
+    document.querySelectorAll('.lv-tab').forEach(t=>{
+      if(t.textContent.trim()===savedLv){ t.classList.add('act'); selectLevel(savedLv,t); return; }
+    });
+  } else { updateLevelInfo(); }
+  // URL 파라미터 레벨
+  const lv=new URLSearchParams(location.search).get('level');
+  if(lv && LEVEL_INFO[lv]){
+    document.querySelectorAll('.lv-tab').forEach(t=>{
+      if(t.textContent.trim()===lv){ selectLevel(lv,t); t.classList.add('act'); }
+      else t.classList.remove('act');
+    });
+  }
+})();
+</script>
+</body>
+</html>

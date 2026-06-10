@@ -1,0 +1,9 @@
+{
+  "name": "linguawalk",
+  "version": "1.0.0",
+  "description": "LinguaWalk - Your Walk Through Every Language",
+  "dependencies": {
+    "nodemailer": "^6.9.9",
+    "firebase-admin": "^12.0.0"
+  }
+}

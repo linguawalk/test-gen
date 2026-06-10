@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — Español</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --es:#c60b1e;--es-dark:#8b0013;--es-light:#fdf0f1;
+  --es-gold:#f1b500;--es-gold-light:#fef9e7;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.07);--shadow-md:0 4px 16px rgba(0,0,0,0.1);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* 스페인 국기 줄무늬 */
+.flag-bar{display:flex;height:7px;width:100%;}
+.fb-red{flex:1;background:#c60b1e;}
+.fb-gold{flex:2;background:#f1b500;}
+
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;margin-right:28px;}
+.nav-lm{width:32px;height:32px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;}
+.nav-brand-text{font-size:15px;font-weight:600;color:#fff;}
+.nav-crumb{font-size:13px;color:rgba(255,255,255,0.45);margin-right:auto;}
+.nav-signin{padding:6px 16px;border-radius:20px;background:var(--teal-mid);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-right:10px;transition:all 0.2s;text-decoration:none;}
+.nav-signin:hover{background:var(--teal);}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:20px;padding:2px;gap:1px;}
+.lbtn{padding:4px 11px;border-radius:16px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+/* HERO — 스페인 삼색 그라디언트 */
+.hero{background:linear-gradient(135deg,var(--es-dark) 0%,var(--es) 40%,#c8871a 70%,var(--es-gold) 100%);padding:56px 5% 52px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;}
+.hero-inner{max-width:860px;margin:0 auto;position:relative;}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,54px);color:#fff;line-height:1.15;margin-bottom:14px;}
+.hero-title em{color:#fff9e0;font-style:italic;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:500px;margin-bottom:28px;}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+.cta-primary{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;border-radius:24px;background:rgba(255,255,255,0.18);color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;border:1.5px solid rgba(255,255,255,0.35);}
+.cta-primary:hover{background:rgba(255,255,255,0.28);}
+.cta-secondary{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;border-radius:24px;background:rgba(255,255,255,0.08);color:#fff;font-size:14px;font-weight:500;text-decoration:none;border:0.5px solid rgba(255,255,255,0.2);transition:all 0.2s;}
+.cta-secondary:hover{background:rgba(255,255,255,0.15);}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;}
+.hs-item{text-align:center;}
+.hs-num{font-family:'DM Serif Display',serif;font-size:26px;color:#fff;line-height:1;}
+.hs-label{font-size:11px;color:rgba(255,255,255,0.5);margin-top:3px;text-transform:uppercase;letter-spacing:.4px;}
+
+.main{max-width:860px;margin:0 auto;padding:40px 5% 80px;}
+.sec-heading{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:16px;padding-bottom:10px;border-bottom:0.5px solid var(--border);}
+
+/* General 카드 */
+.general-card{background:linear-gradient(135deg,var(--es-dark) 0%,var(--es) 100%);border-radius:18px;overflow:hidden;margin-bottom:16px;position:relative;}
+.general-card::before{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.06);pointer-events:none;}
+.gc-inner{padding:28px 28px 24px;position:relative;}
+.gc-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:4px 12px;border-radius:12px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.95);margin-bottom:12px;}
+.gc-title{font-family:'DM Serif Display',serif;font-size:28px;color:#fff;margin-bottom:8px;}
+.gc-desc{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.65;max-width:520px;margin-bottom:20px;}
+.level-pills{display:flex;gap:7px;flex-wrap:wrap;}
+.pill{padding:5px 14px;border-radius:16px;font-size:11px;font-weight:600;text-decoration:none;transition:all 0.2s;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.95);border:0.5px solid rgba(255,255,255,0.25);}
+.pill:hover{background:rgba(255,255,255,0.25);}
+.gc-footer{margin-top:20px;padding-top:18px;border-top:0.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:space-between;}
+.gc-start-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:24px;background:var(--es-gold);color:#1a0a00;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;}
+.gc-start-btn:hover{background:#d9a200;}
+.gc-note{font-size:12px;color:rgba(255,255,255,0.5);}
+
+/* 스킬 그리드 */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px;}
+.skill-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;text-decoration:none;transition:all 0.2s;box-shadow:var(--shadow-sm);}
+.skill-card:hover{border-color:var(--es);box-shadow:0 4px 16px rgba(198,11,30,0.1);transform:translateY(-1px);}
+.sc-icon-wrap{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.sc-sub{font-size:11px;color:var(--text-light);}
+
+/* DELE 카드 */
+.exam-card{background:var(--white);border:0.5px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:all 0.2s;margin-bottom:32px;}
+.exam-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.ec-header{padding:22px 22px 18px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--es-dark) 0%,var(--es) 100%);}
+.ec-header::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.ec-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(241,181,0,0.2);color:var(--es-gold);letter-spacing:.4px;text-transform:uppercase;margin-bottom:14px;border:0.5px solid rgba(241,181,0,0.3);}
+.ec-icon{font-size:30px;margin-bottom:10px;display:block;}
+.ec-title{font-family:'DM Serif Display',serif;font-size:26px;color:#fff;margin-bottom:4px;}
+.ec-subtitle{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;}
+.ec-desc{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.55;}
+.dele-levels{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+.dl-badge{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700;border:0.5px solid rgba(255,255,255,0.15);}
+.dl-a{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.75);}
+.dl-b{background:rgba(241,181,0,0.2);color:var(--es-gold);}
+.dl-c{background:var(--es-gold);color:var(--es-dark);border-color:transparent;}
+.ec-body{background:var(--white);padding:20px 24px;flex:1;display:flex;flex-direction:column;}
+.ec-parts{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;flex:1;}
+.ep-item{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--text-muted);line-height:1.5;}
+.ep-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;background:var(--es);}
+.ep-item strong{color:var(--text);font-weight:600;}
+.ec-footer-link{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:0.5px solid var(--border);text-decoration:none;font-size:13px;font-weight:600;color:var(--es);transition:all 0.2s;}
+.ef-arrow{transition:transform 0.2s;font-size:16px;}
+.ec-footer-link:hover .ef-arrow{transform:translateX(3px);}
+
+/* WHY */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.why-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:22px;box-shadow:var(--shadow-sm);}
+.wc-icon{font-size:28px;margin-bottom:12px;}
+.wc-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.wc-desc{font-size:13px;color:var(--text-muted);line-height:1.65;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+@media(max-width:640px){.skills-grid{grid-template-columns:1fr 1fr;}.why-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="flag-bar"><div class="fb-red"></div><div class="fb-gold"></div><div class="fb-red"></div></div>
+
+<nav>
+  <a href="/index.html" class="nav-brand">
+    <div class="nav-lm">LW</div>
+    <span class="nav-brand-text">LinguaWalk</span>
+  </a>
+  <span class="nav-crumb">🇪🇸 Español</span>
+  <a href="/login.html" class="nav-signin" data-ko="로그인" data-es="Iniciar sesión">로그인</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('es')" id="btn-es">Español</button>
+  </div>
+</nav>
+
+<div class="hero fade-in">
+  <div class="hero-inner">
+    <div class="hero-tag">AI-POWERED SPANISH LEARNING · LinguaWalk</div>
+    <h1 class="hero-title">
+      <span data-ko="스페인어를 배우세요," data-es="Aprende español,">스페인어를 배우세요,</span><br>
+      <em data-ko="나만의 방식으로" data-es="a tu manera">나만의 방식으로</em>
+    </h1>
+    <p class="hero-desc" data-ko="General 스페인어부터 DELE 대비까지, AI 개인 튜터가 완벽 지원합니다." data-es="Del español general a la preparación DELE, tu tutor IA te acompaña.">General 스페인어부터 DELE 대비까지.</p>
+    <div class="hero-ctas">
+      <a href="general/index.html" class="cta-primary">🚀 <span data-ko="학습 시작" data-es="Empezar a aprender">학습 시작</span></a>
+      <a href="dele/index.html" class="cta-secondary">📜 <span data-ko="DELE 준비" data-es="Preparar DELE">DELE 준비</span></a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-num">5</div><div class="hs-label" data-ko="스킬" data-es="Habilidades">스킬</div></div>
+      <div class="hs-item"><div class="hs-num">A1–C2</div><div class="hs-label" data-ko="전 레벨" data-es="Todos los niveles">전 레벨</div></div>
+      <div class="hs-item"><div class="hs-num">DELE</div><div class="hs-label" data-ko="시험 대비" data-es="Examen">시험 대비</div></div>
+      <div class="hs-item"><div class="hs-num">∞</div><div class="hs-label" data-ko="AI 문제" data-es="Ejercicios IA">AI 문제</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- GENERAL -->
+  <div class="sec-heading" data-ko="GENERAL 스페인어" data-es="ESPAÑOL GENERAL">GENERAL 스페인어</div>
+  <div class="general-card fade-in">
+    <div class="gc-inner">
+      <div class="gc-badge" data-ko="전 레벨 무료" data-es="Todos los niveles gratis">전 레벨 무료</div>
+      <div class="gc-title" data-ko="General Español" data-es="Español General">General Español</div>
+      <div class="gc-desc" data-ko="Escuchar·Leer·Hablar·Escribir·Vocabulario — 한 곳에서 모두. A1~C2 완전 무료." data-es="Escuchar · Leer · Hablar · Escribir · Vocabulario — todo en un lugar. A1 a C2, completamente gratis.">Escuchar·Leer·Hablar·Escribir·Vocabulario — A1~C2 완전 무료.</div>
+      <div class="level-pills">
+        <a href="general/index.html?level=A1" class="pill">A1 Free</a>
+        <a href="general/index.html?level=A2" class="pill">A2 Free</a>
+        <a href="general/index.html?level=B1" class="pill">B1 Free</a>
+        <a href="general/index.html?level=B2" class="pill">B2 Free</a>
+        <a href="general/index.html?level=C1" class="pill">C1 Free</a>
+        <a href="general/index.html?level=C2" class="pill">C2 Free</a>
+      </div>
+      <div class="gc-footer">
+        <a href="general/index.html" class="gc-start-btn"><span data-ko="General 스페인어 시작 →" data-es="Empezar español general →">General 스페인어 시작 →</span></a>
+        <span class="gc-note" data-ko="전 레벨 무료" data-es="Todos los niveles gratis">전 레벨 무료</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-grid fade-in">
+    <a href="general/listening.html" class="skill-card">
+      <div class="sc-icon-wrap" style="background:#faeeda;">🎧</div>
+      <div><div class="sc-name" data-ko="듣기 · Escuchar" data-es="Escuchar">듣기 · Escuchar</div><div class="sc-sub">A1–C2</div></div>
+    </a>
+    <a href="general/reading.html" class="skill-card">
+      <div class="sc-icon-wrap" style="background:#fdf0f1;">📖</div>
+      <div><div class="sc-name" data-ko="읽기 · Leer" data-es="Leer">읽기 · Leer</div><div class="sc-sub">A1–C2</div></div>
+    </a>
+    <a href="general/speaking.html" class="skill-card">
+      <div class="sc-icon-wrap" style="background:#fce7f3;">🗣️</div>
+      <div><div class="sc-name" data-ko="말하기 · Hablar" data-es="Hablar">말하기 · Hablar</div><div class="sc-sub">A1–C2</div></div>
+    </a>
+    <a href="general/writing.html" class="skill-card">
+      <div class="sc-icon-wrap" style="background:#ede9fe;">✍️</div>
+      <div><div class="sc-name" data-ko="쓰기 · Escribir" data-es="Escribir">쓰기 · Escribir</div><div class="sc-sub">A1–C2</div></div>
+    </a>
+    <a href="general/vocabulary.html" class="skill-card">
+      <div class="sc-icon-wrap" style="background:#dcfce7;">📚</div>
+      <div><div class="sc-name" data-ko="어휘·문법 · Vocabulario" data-es="Vocabulario & Gramática">어휘·문법</div><div class="sc-sub">A1–C2</div></div>
+    </a>
+  </div>
+
+  <!-- DELE -->
+  <div class="sec-heading" data-ko="시험 대비" data-es="Preparación para exámenes">시험 대비</div>
+  <div class="exam-card fade-in">
+    <div class="ec-header">
+      <span class="ec-badge" data-ko="공인 자격증 · 영구 유효" data-es="Diploma oficial · Válido para siempre">공인 자격증 · 영구 유효</span>
+      <span class="ec-icon">📜</span>
+      <div class="ec-title">DELE</div>
+      <div class="ec-subtitle">Diplomas de Español como Lengua Extranjera · Instituto Cervantes</div>
+      <div class="ec-desc" data-ko="스페인 교육부 공인 · 영구 유효 · 전 세계 공인 자격증. 4개 영역(읽기·듣기·쓰기·말하기) 완전 대비." data-es="Certificado por el Ministerio de Educación de España · Válido para siempre · Reconocido mundialmente. Preparación completa para las 4 competencias.">스페인 교육부 공인 · 영구 유효 · 전 세계 공인 자격증.</div>
+      <div class="dele-levels">
+        <span class="dl-badge dl-a">A1</span>
+        <span class="dl-badge dl-a">A2</span>
+        <span class="dl-badge dl-b">B1</span>
+        <span class="dl-badge dl-b">B2</span>
+        <span class="dl-badge dl-c">C1</span>
+        <span class="dl-badge dl-c">C2</span>
+      </div>
+    </div>
+    <div class="ec-body">
+      <div class="ec-parts">
+        <div class="ep-item"><span class="ep-dot"></span><span><strong data-ko="Comprensión de lectura — 읽기" data-es="Comprensión de lectura">읽기</strong> — <span data-ko="문서·기사·에세이 이해" data-es="Comprensión de documentos, artículos y ensayos">문서·기사·에세이 이해</span></span></div>
+        <div class="ep-item"><span class="ep-dot"></span><span><strong data-ko="Comprensión auditiva — 듣기" data-es="Comprensión auditiva">듣기</strong> — <span data-ko="대화·방송·강의 이해" data-es="Comprensión de diálogos, emisiones y conferencias">대화·방송·강의 이해</span></span></div>
+        <div class="ep-item"><span class="ep-dot"></span><span><strong data-ko="Expresión escrita — 쓰기" data-es="Expresión escrita">쓰기</strong> — <span data-ko="편지·에세이·요약 작성" data-es="Redacción de cartas, ensayos y resúmenes">편지·에세이·요약 작성</span></span></div>
+        <div class="ep-item"><span class="ep-dot"></span><span><strong data-ko="Expresión oral — 말하기" data-es="Expresión oral">말하기</strong> — <span data-ko="발표·역할극·토론" data-es="Presentación, juego de roles, debate">발표·역할극·토론</span></span></div>
+      </div>
+      <a href="dele/index.html" class="ec-footer-link">
+        <span data-ko="DELE 준비 시작" data-es="Empezar preparación DELE">DELE 준비 시작</span>
+        <span class="ef-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <div class="sec-heading" data-ko="LinguaWalk를 선택하는 이유" data-es="¿Por qué elegir LinguaWalk?">LinguaWalk를 선택하는 이유</div>
+  <div class="why-grid fade-in">
+    <div class="why-card">
+      <div class="wc-icon">🤖</div>
+      <div class="wc-title" data-ko="AI 생성 콘텐츠" data-es="Contenido generado por IA">AI 생성 콘텐츠</div>
+      <div class="wc-desc" data-ko="매번 새로운 문제. 무한한 다양성, 절대 반복되지 않습니다." data-es="Ejercicios nuevos cada vez. Variedad infinita, nunca repetidos.">매번 새로운 문제. 절대 반복되지 않습니다.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🎯</div>
+      <div class="wc-title" data-ko="DELE 형식 정확 재현" data-es="Formato DELE reproducido con precisión">DELE 형식 정확 재현</div>
+      <div class="wc-desc" data-ko="실제 DELE 시험 형식에 충실한 문제로 실전 감각을 키우세요." data-es="Practique con ejercicios fieles al formato real del examen DELE.">실제 DELE 형식으로 실전 감각을 키우세요.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🌍</div>
+      <div class="wc-title" data-ko="다양한 스페인어 변형" data-es="Variantes del español">다양한 스페인어 변형</div>
+      <div class="wc-desc" data-ko="스페인·중남미 스페인어를 모두 학습하세요. 세계 5억 명이 사용하는 언어." data-es="Aprenda tanto el español de España como el latinoamericano. El idioma de 500 millones de personas.">스페인·중남미 스페인어. 세계 5억 명이 사용.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🔊</div>
+      <div class="wc-title" data-ko="스페인어 TTS 발음 연습" data-es="Práctica de pronunciación TTS">스페인어 TTS 발음 연습</div>
+      <div class="wc-desc" data-ko="es-ES 음성으로 듣기·말하기 실력을 효율적으로 향상시키세요." data-es="Mejore su escucha y expresión oral con la voz TTS en español (es-ES).">es-ES 음성으로 듣기·말하기를 향상시키세요.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var lang='ko';
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-es]').forEach(function(el){
+    var t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-es');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-es').classList.toggle('act',l==='es');
+}
+(function(){ setLang('ko'); })();
+</script>
+<script>
+(function(){
+  var btn=document.querySelector('.nav-signin');
+  if(!btn) return;
+  var user;
+  try{ user=JSON.parse(localStorage.getItem('lw-user')); }catch(e){}
+  if(user && user.uid){
+    btn.textContent=(user.name||user.email||'').substring(0,6)||'내정보';
+    btn.href='/mypage.html';
+    btn.classList.add('nav-signed-in');
+  } else {
+    btn.href='/login.html';
+  }
+})();
+</script>
+</body>
+</html>

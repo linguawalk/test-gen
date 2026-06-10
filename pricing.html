@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — Pro 플랜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--navy2:#0e1f38;
+  --teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --gold:#f1b500;--gold-light:#fef9e7;
+  --bg:#F8F7F4;--white:#fff;
+  --text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.12);--border-md:rgba(28,43,69,0.2);
+  --shadow:0 4px 20px rgba(0,0,0,0.08);--shadow-md:0 8px 32px rgba(0,0,0,0.12);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal-mid);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+
+.hero{background:linear-gradient(160deg,var(--navy2) 0%,#142244 50%,#1a3a6a 100%);padding:56px 5% 52px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;left:50%;top:-80px;transform:translateX(-50%);width:600px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(29,158,117,0.15) 0%,transparent 70%);}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,48px);color:#fff;margin-bottom:12px;line-height:1.2;}
+.hero-desc{font-size:15px;color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 28px;line-height:1.7;}
+
+.main{max-width:900px;margin:0 auto;padding:44px 5% 80px;}
+
+/* 언어 선택 */
+.lang-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:32px;}
+.lt-btn{padding:9px 18px;border-radius:24px;border:1.5px solid var(--border-md);background:var(--white);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:all 0.2s;color:var(--text-muted);}
+.lt-btn:hover{border-color:var(--teal-mid);color:var(--teal-mid);}
+.lt-btn.act{background:var(--teal-mid);color:#fff;border-color:var(--teal-mid);}
+.lt-btn.act-all{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+/* 요금 카드 */
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.plan-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;padding:28px 24px;position:relative;transition:all 0.2s;box-shadow:var(--shadow);}
+.plan-card.pro{border-color:var(--gold);box-shadow:0 8px 32px rgba(241,181,0,0.15);}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a0a00;font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap;}
+.plan-icon{font-size:32px;margin-bottom:12px;}
+.plan-name{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.plan-price{font-family:'DM Serif Display',serif;font-size:38px;color:var(--text);line-height:1;margin-bottom:4px;}
+.plan-price span{font-size:16px;font-weight:500;color:var(--text-muted);font-family:'DM Sans',sans-serif;}
+.plan-desc{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;}
+.plan-features{list-style:none;margin-bottom:24px;}
+.plan-features li{font-size:13px;color:var(--text-muted);padding:5px 0;display:flex;align-items:center;gap:8px;line-height:1.5;}
+.plan-features li::before{content:'✓';color:var(--teal-mid);font-weight:700;flex-shrink:0;}
+.plan-features li.no::before{content:'✗';color:var(--text-light);}
+.plan-features li.no{color:var(--text-light);}
+.plan-cta{width:100%;padding:13px;border-radius:12px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.cta-free{background:var(--bg);color:var(--text-muted);border:1.5px solid var(--border-md);}
+.cta-pro{background:linear-gradient(135deg,#b8860b,var(--gold));color:#1a0a00;}
+.cta-pro:hover{opacity:.9;transform:translateY(-1px);}
+
+/* 비교표 */
+.compare-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:32px;}
+.compare-table th{padding:14px 16px;background:var(--navy);color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;text-align:left;}
+.compare-table th:first-child{width:45%;}
+.compare-table td{padding:12px 16px;font-size:13px;border-bottom:0.5px solid var(--border);color:var(--text-muted);}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table td:first-child{font-weight:500;color:var(--text);}
+.check-y{color:var(--teal-mid);font-weight:700;font-size:16px;}
+.check-n{color:var(--text-light);}
+.check-p{color:var(--gold);font-weight:600;font-size:12px;}
+
+/* FAQ */
+.faq-item{background:var(--white);border:0.5px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;}
+.faq-q{padding:16px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text);}
+.faq-arrow{font-size:12px;color:var(--text-light);transition:transform 0.2s;}
+.faq-a{padding:0 20px 16px;font-size:13px;color:var(--text-muted);line-height:1.7;display:none;}
+.faq-item.open .faq-a{display:block;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+
+.sec-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);margin-bottom:16px;text-align:center;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+@media(max-width:600px){.plan-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-space"></div>
+  <a href="/" class="nav-back">← 홈으로</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">LINGUAWALK PRO</div>
+  <h1 class="hero-title">더 많이 배우고,<br>더 빠르게 성장하세요</h1>
+  <p class="hero-desc">AI 튜터와 함께하는 무제한 학습. 원하는 언어를 Pro로 업그레이드하세요.</p>
+</div>
+
+<div class="main">
+
+  <!-- 언어 선택 -->
+  <div style="text-align:center;margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:10px;">Pro로 업그레이드할 언어를 선택하세요</div>
+    <div class="lang-tabs" id="lang-tabs">
+      <button class="lt-btn act-all" onclick="selectLang('all',this)">🌍 전체 언어 묶음</button>
+      <button class="lt-btn" onclick="selectLang('en',this)">🇺🇸 English</button>
+      <button class="lt-btn" onclick="selectLang('ja',this)">🇯🇵 日本語</button>
+      <button class="lt-btn" onclick="selectLang('zh',this)">🇨🇳 中文</button>
+      <button class="lt-btn" onclick="selectLang('fr',this)">🇫🇷 Français</button>
+      <button class="lt-btn" onclick="selectLang('de',this)">🇩🇪 Deutsch</button>
+      <button class="lt-btn" onclick="selectLang('es',this)">🇪🇸 Español</button>
+    </div>
+  </div>
+
+  <!-- 요금 카드 -->
+  <div class="plan-grid fade-in">
+    <div class="plan-card">
+      <div class="plan-icon">🎓</div>
+      <div class="plan-name">Free</div>
+      <div class="plan-price">0<span>원 / 월</span></div>
+      <div class="plan-desc">기본 학습 기능 무료 이용</div>
+      <ul class="plan-features">
+        <li>General 전 레벨 무제한</li>
+        <li>AI 문제 생성 (일 20회)</li>
+        <li class="no">시험 대비 (DELE · JLPT 등)</li>
+        <li class="no">AI 말하기 피드백</li>
+        <li class="no">AI 쓰기 채점</li>
+      </ul>
+      <button class="plan-cta cta-free" disabled>현재 플랜</button>
+    </div>
+    <div class="plan-card pro">
+      <div class="plan-badge">⭐ 추천</div>
+      <div class="plan-icon">⭐</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price" id="price-display">9,900<span>원 / 월</span></div>
+      <div class="plan-desc" id="price-desc">선택한 언어 Pro 플랜</div>
+      <ul class="plan-features">
+        <li>General 전 레벨 무제한</li>
+        <li>AI 문제 생성 무제한</li>
+        <li>시험 대비 전 영역 무제한</li>
+        <li>AI 말하기 피드백</li>
+        <li>AI 쓰기 채점 (DELE 형식)</li>
+      </ul>
+      <button class="plan-cta cta-pro" id="pay-btn" onclick="startPayment()">Pro 시작하기 →</button>
+    </div>
+  </div>
+
+  <!-- 비교표 -->
+  <div class="sec-title">Free vs Pro 상세 비교</div>
+  <table class="compare-table fade-in">
+    <thead>
+      <tr><th>기능</th><th style="text-align:center;">Free</th><th style="text-align:center;">Pro</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>General 학습 (A1~C2)</td><td style="text-align:center;"><span class="check-y">✓</span></td><td style="text-align:center;"><span class="check-y">✓</span></td></tr>
+      <tr><td>AI 문제 생성</td><td style="text-align:center;color:var(--text-muted);">일 20회</td><td style="text-align:center;"><span class="check-p">무제한</span></td></tr>
+      <tr><td>DELE / JLPT / HSK 등 시험 대비</td><td style="text-align:center;"><span class="check-n">✗</span></td><td style="text-align:center;"><span class="check-y">✓</span></td></tr>
+      <tr><td>AI 말하기 피드백</td><td style="text-align:center;"><span class="check-n">✗</span></td><td style="text-align:center;"><span class="check-y">✓</span></td></tr>
+      <tr><td>AI 쓰기 채점 (5항목)</td><td style="text-align:center;"><span class="check-n">✗</span></td><td style="text-align:center;"><span class="check-y">✓</span></td></tr>
+      <tr><td>어휘 플래시카드 무제한</td><td style="text-align:center;color:var(--text-muted);">일 5세트</td><td style="text-align:center;"><span class="check-p">무제한</span></td></tr>
+      <tr><td>우선 고객 지원</td><td style="text-align:center;"><span class="check-n">✗</span></td><td style="text-align:center;"><span class="check-y">✓</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- FAQ -->
+  <div class="sec-title">자주 묻는 질문</div>
+  <div class="fade-in">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">언제든지 해지할 수 있나요? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">네, 언제든지 해지 가능합니다. 해지 후에도 남은 구독 기간 동안은 Pro 기능을 이용할 수 있으며, 다음 결제일부터 청구가 중단됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">전체 언어 묶음과 개별 언어의 차이는? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">개별 언어 Pro는 선택한 1개 언어의 모든 Pro 기능을 이용할 수 있습니다. 전체 언어 묶음은 6개 언어 전부를 한 번에 이용할 수 있어 더 경제적입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">무료 체험이 있나요? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">신규 가입자에게는 14일 Pro 무료 체험을 제공합니다. 체험 기간 종료 후 자동 결제는 되지 않으며, Pro를 계속 이용하려면 구독을 시작하면 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">결제는 어떻게 이루어지나요? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">토스페이먼츠를 통해 안전하게 결제됩니다. 국내 카드, 카카오페이, 네이버페이 등 간편결제를 모두 지원합니다. 매월 결제일에 자동으로 청구됩니다.</div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+import { getAuth, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+const app  = initializeApp({
+  apiKey:            "AIzaSyB3OWQRy6AgDSrtjDXBclFxfV4mqhzWp-w",
+  authDomain:        "linguawalk.firebaseapp.com",
+  projectId:         "linguawalk",
+  storageBucket:     "linguawalk.firebasestorage.app",
+  messagingSenderId: "558390764757",
+  appId:             "1:558390764757:web:e6b26210045669dc686e5c"
+});
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  window._currentUser = user || null;
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem('lw-user')); } catch(e) {}
+  if (!user && !cached) {
+    document.getElementById('pay-btn').textContent = '로그인 후 이용 가능';
+  } else if (cached && cached.plan === 'pro') {
+    document.getElementById('pay-btn').textContent = '이미 Pro 플랜입니다';
+    document.getElementById('pay-btn').disabled = true;
+    document.getElementById('pay-btn').style.opacity = '.6';
+  }
+});
+</script>
+
+<script>
+// 토스페이먼츠 클라이언트 키
+var TOSS_CLIENT_KEY = 'test_ck_pP2YxJ4K87ENNbY0Qxo0VRGZwXLO';
+
+// 언어별 가격표
+var PRICES = {
+  all: { price: 29900, label: '전체 언어 묶음 (6개)' },
+  en:  { price: 12900, label: '🇺🇸 English' },
+  ja:  { price: 9900,  label: '🇯🇵 日本語' },
+  zh:  { price: 9900,  label: '🇨🇳 中文' },
+  fr:  { price: 9900,  label: '🇫🇷 Français' },
+  de:  { price: 9900,  label: '🇩🇪 Deutsch' },
+  es:  { price: 9900,  label: '🇪🇸 Español' },
+};
+
+var selectedLang = 'all';
+
+function selectLang(lang, btn) {
+  selectedLang = lang;
+  document.querySelectorAll('.lt-btn').forEach(function(b) {
+    b.classList.remove('act', 'act-all');
+  });
+  btn.classList.add(lang === 'all' ? 'act-all' : 'act');
+  var info = PRICES[lang];
+  document.getElementById('price-display').innerHTML =
+    info.price.toLocaleString() + '<span>원 / 월</span>';
+  document.getElementById('price-desc').textContent = info.label + ' Pro 플랜';
+}
+
+function toggleFaq(el) {
+  el.closest('.faq-item').classList.toggle('open');
+}
+
+async function startPayment() {
+  // 로그인 확인
+  var user = window._currentUser;
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem('lw-user')); } catch(e) {}
+  if (!user && !cached) {
+    location.href = '/login.html?redirect=/pricing.html';
+    return;
+  }
+  var uid = user ? user.uid : cached.uid;
+  var info = PRICES[selectedLang];
+
+  // 토스페이먼츠 SDK 로드
+  var btn = document.getElementById('pay-btn');
+  btn.disabled = true;
+  btn.textContent = '결제창 열기 중…';
+
+  try {
+    // SDK 스크립트 동적 로드
+    if (!window.TossPayments) {
+      await new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = 'https://js.tosspayments.com/v1/payment';
+        s.onload = resolve; s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    var tossPayments = TossPayments(TOSS_CLIENT_KEY);
+    var orderId = 'LW-' + Date.now() + '-' + uid.substring(0, 8);
+    var orderName = 'LinguaWalk Pro - ' + info.label;
+
+    // 결제창 호출
+    await tossPayments.requestPayment('카드', {
+      amount:          info.price,
+      orderId:         orderId,
+      orderName:       orderName,
+      customerName:    (cached && cached.name) || (user && user.email) || '회원',
+      successUrl:      location.origin + '/payment-success.html?uid=' + uid + '&lang=' + selectedLang,
+      failUrl:         location.origin + '/pricing.html?error=fail',
+    });
+  } catch(e) {
+    if (e.code !== 'USER_CANCEL') {
+      alert('결제 중 오류가 발생했습니다: ' + (e.message || ''));
+    }
+  }
+  btn.disabled = false;
+  btn.textContent = 'Pro 시작하기 →';
+}
+
+// URL 파라미터로 에러 처리
+(function() {
+  var params = new URLSearchParams(location.search);
+  if (params.get('error') === 'fail') {
+    var msg = document.createElement('div');
+    msg.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#fee2e2;color:#991b1b;padding:12px 24px;border-radius:10px;font-size:13px;font-weight:500;z-index:100;';
+    msg.textContent = '결제가 취소되거나 실패했습니다. 다시 시도해 주세요.';
+    document.body.appendChild(msg);
+    setTimeout(function(){ msg.remove(); }, 4000);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — JLPT 聴解</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --jlpt:#c0392b;--jlpt-dark:#7f1a12;--jlpt-light:#fdf0ef;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--jlpt-dark) 0%,var(--jlpt) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.h-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+/* MONDAI TABS */
+.mondai-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:3px;overflow-x:auto;}
+.mtab{flex:1;padding:9px 8px;border-radius:9px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;white-space:nowrap;min-width:70px;}
+.mtab:hover{color:var(--jlpt);}
+.mtab.act{background:var(--jlpt);color:#fff;}
+
+/* PART INFO */
+.part-info{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:14px;}
+.pi-title{font-size:13px;font-weight:600;color:var(--jlpt);margin-bottom:6px;}
+.pi-desc{font-size:12px;color:var(--text-muted);line-height:1.65;}
+.pi-tip{margin-top:8px;padding:8px 12px;background:var(--jlpt-light);border-radius:8px;font-size:12px;color:var(--jlpt);}
+
+/* SETTINGS */
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+/* GEN BTN */
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--jlpt);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--jlpt-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+/* LOADING */
+.loading{padding:40px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:16px;display:none;}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--jlpt);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* AUDIO CARD */
+.audio-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.ac-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--jlpt);margin-bottom:10px;}
+.player-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border-radius:10px;border:0.5px solid var(--border);}
+.play-btn{width:40px;height:40px;border-radius:50%;background:var(--jlpt);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.play-btn:hover{background:var(--jlpt-dark);}
+.play-btn svg{width:16px;height:16px;fill:#fff;}
+.player-info{flex:1;}
+.player-label{font-size:11px;color:var(--text-muted);margin-bottom:4px;}
+.player-bar{height:5px;background:var(--border);border-radius:5px;overflow:hidden;}
+.player-fill{height:100%;background:linear-gradient(90deg,var(--jlpt-dark),var(--jlpt));border-radius:5px;width:0%;transition:width 0.1s;}
+.speed-btn{padding:3px 9px;border-radius:7px;border:0.5px solid var(--border-md);background:transparent;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;font-family:inherit;flex-shrink:0;}
+.speed-btn:hover{background:var(--jlpt-light);color:var(--jlpt);border-color:var(--jlpt);}
+
+/* SCRIPT */
+.script-wrap{margin-top:10px;border-top:0.5px solid var(--border);padding-top:10px;display:none;}
+.script-wrap.open{display:block;}
+.script-toggle{font-size:11px;color:var(--jlpt);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 0;margin-bottom:8px;}
+.script-line{display:flex;gap:8px;padding:5px 8px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+.script-line:hover{background:var(--jlpt-light);}
+.script-line.act{background:var(--jlpt-light);}
+.sl-spk{font-size:10px;font-weight:700;color:var(--jlpt);min-width:46px;padding-top:2px;text-transform:uppercase;}
+.sl-txt{font-size:13px;color:var(--text);line-height:1.65;flex:1;}
+
+/* QUESTIONS */
+.q-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.q-item{margin-bottom:12px;padding:12px;background:var(--bg);border-radius:10px;}
+.q-item:last-child{margin-bottom:0;}
+.q-num{font-size:10px;font-weight:700;color:var(--jlpt);letter-spacing:.5px;margin-bottom:6px;}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px;line-height:1.55;}
+.q-opts{display:flex;flex-direction:column;gap:6px;}
+.q-opt{padding:9px 14px;border-radius:8px;border:1.5px solid var(--border-md);background:var(--white);cursor:pointer;font-size:13px;color:var(--text);transition:all 0.2s;text-align:left;font-family:inherit;display:flex;align-items:center;gap:10px;}
+.q-opt:hover:not(:disabled){border-color:var(--jlpt);background:var(--jlpt-light);}
+.q-opt.correct{border-color:var(--green);background:var(--green-light);color:#166534;font-weight:500;}
+.q-opt.wrong{border-color:var(--red);background:var(--red-light);color:#991b1b;}
+.q-opt-ltr{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-muted);flex-shrink:0;}
+.q-opt.correct .q-opt-ltr{background:var(--green);color:#fff;}
+.q-opt.wrong .q-opt-ltr{background:var(--red);color:#fff;}
+.q-feedback{margin-top:8px;font-size:12px;padding:8px 12px;border-radius:7px;display:none;line-height:1.5;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-light);color:#166534;}
+.q-feedback.wrong{background:var(--red-light);color:#991b1b;}
+
+/* SCORE */
+.score-card{background:linear-gradient(135deg,var(--jlpt-dark),var(--jlpt));border-radius:14px;padding:24px;text-align:center;margin-bottom:20px;display:none;}
+.sc-score{font-family:'DM Serif Display',serif;font-size:52px;color:#fff;line-height:1;margin-bottom:6px;}
+.sc-pct{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:10px;}
+.sc-msg{font-size:13px;color:#fcd34d;font-weight:500;}
+
+.action-btns{display:flex;gap:10px;display:none;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;}
+.act-btn.primary{background:var(--jlpt);color:#fff;border-color:var(--jlpt);}
+.act-btn.primary:hover{background:var(--jlpt-dark);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📝 JLPT 聴解</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back" data-ko="← JLPT" data-ja="← JLPT">← JLPT</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('ja')" id="btn-ja">日本語</button>
+  </div>
+</nav>
+
+<div class="main fade-in">
+
+  <div class="hero">
+    <div class="hero-tag" data-ko="JLPT · 聴解 연습" data-ja="JLPT · 聴解練習">JLPT · 聴解 연습</div>
+    <div class="hero-title" data-ko="🎧 JLPT 聴解" data-ja="🎧 JLPT 聴解">🎧 JLPT 聴解</div>
+    <div class="hero-desc" data-ko="問題1~4 전체 유형 연습. 이미지 없이 순수 청해력만으로 도전하세요." data-ja="問題1〜4の全タイプを練習。画像なしで純粋な聴解力を鍛えましょう。">問題1~4 전체 유형 연습.</div>
+    <div class="hero-badges">
+      <span class="h-badge">N5 · N4 · N3 · N2 · N1</span>
+      <span class="h-badge" data-ko="問題1 — 課題理解" data-ja="問題1 — 課題理解">問題1 — 課題理解</span>
+      <span class="h-badge" data-ko="問題2 — ポイント理解" data-ja="問題2 — ポイント理解">問題2 — ポイント理解</span>
+      <span class="h-badge" data-ko="問題4 — 即時応答" data-ja="問題4 — 即時応答">問題4 — 即時応答</span>
+    </div>
+  </div>
+
+  <!-- 問題 탭 -->
+  <div class="mondai-tabs">
+    <button class="mtab act" onclick="selectMondai('m1',this)" data-ko="問題1 課題理解" data-ja="問題1 課題理解">問題1 課題理解</button>
+    <button class="mtab" onclick="selectMondai('m2',this)" data-ko="問題2 ポイント理解" data-ja="問題2 ポイント理解">問題2 ポイント理解</button>
+    <button class="mtab" onclick="selectMondai('m3',this)" data-ko="問題3 概要理解" data-ja="問題3 概要理解">問題3 概要理解</button>
+    <button class="mtab" onclick="selectMondai('m4',this)" data-ko="問題4 即時応答" data-ja="問題4 即時応答">問題4 即時応答</button>
+  </div>
+
+  <!-- 問題 설명 -->
+  <div class="part-info" id="part-info"></div>
+
+  <!-- 설정 -->
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" data-ko="JLPT 레벨" data-ja="JLPTレベル">JLPT 레벨</div>
+      <select class="si-select" id="sel-level">
+        <option value="N5">N5</option>
+        <option value="N4">N4</option>
+        <option value="N3" selected>N3</option>
+        <option value="N2">N2</option>
+        <option value="N1">N1</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-ko="음성 속도" data-ja="話速">음성 속도</div>
+      <select class="si-select" id="sel-speed">
+        <option value="0.7" data-ko="느리게 (0.7x)" data-ja="ゆっくり (0.7x)">느리게 (0.7x)</option>
+        <option value="0.9" selected data-ko="보통 (0.9x)" data-ja="普通 (0.9x)">보통 (0.9x)</option>
+        <option value="1.1" data-ko="빠르게 (1.1x)" data-ja="速め (1.1x)">빠르게 (1.1x)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn" id="gen-btn" onclick="generate()">
+    🤖 <span id="gen-label" data-ko="JLPT 聴解 문제 생성" data-ja="JLPT聴解問題を生成">JLPT 聴解 문제 생성</span>
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div id="loading-text" style="font-size:14px;color:var(--text-muted);">생성 중...</div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="score-card" id="score-card">
+    <div class="sc-score" id="sc-score"></div>
+    <div class="sc-pct" id="sc-pct"></div>
+    <div class="sc-msg" id="sc-msg"></div>
+  </div>
+
+  <div class="action-btns" id="action-btns">
+    <button class="act-btn primary" onclick="generate()" data-ko="🔄 새 문제" data-ja="🔄 新しい問題">🔄 새 문제</button>
+    <a href="index.html" class="act-btn" data-ko="← JLPT 홈" data-ja="← JLPTホーム">← JLPT 홈</a>
+  </div>
+</div>
+
+<script>
+let lang='ko', currentMondai='m1', currentData=null;
+let isLoading=false, ttsActive=false;
+let correct=0, answered=0, total=0;
+const SPEEDS=[0.7,0.8,0.9,1.0,1.1,1.2];
+
+// ── 問題 정보 ─────────────────────────────────────────────────────────
+const MONDAI_INFO={
+  m1:{
+    ko:'問題1 — 課題理解: 대화나 담화를 듣고 구체적인 과제(해야 할 일 등)를 파악하는 문제입니다.',
+    ja:'問題1 — 課題理解: 会話や談話を聞いて、具体的な課題（すべきことなど）を把握する問題です。',
+    tipKo:'💡 먼저 상황과 질문을 읽어두세요. 大事な情報を놓치지 마세요.',
+    tipJa:'💡 まず状況と質問を読んでおきましょう。大事な情報を聞き逃さないように。'
+  },
+  m2:{
+    ko:'問題2 — ポイント理解: 대화나 담화를 듣고 핵심 포인트를 파악하는 문제입니다.',
+    ja:'問題2 — ポイント理解: 会話や談話を聞いて、要点を把握する問題です。',
+    tipKo:'💡 선택지를 먼저 읽고 무엇을 들어야 할지 예측하세요.',
+    tipJa:'💡 選択肢を先に読み、何を聞くべきか予測しましょう。'
+  },
+  m3:{
+    ko:'問題3 — 概要理解: 대화나 담화의 전체적인 의도와 주제를 파악하는 문제입니다.',
+    ja:'問題3 — 概要理解: 会話や談話の全体的な意図やテーマを把握する問題です。',
+    tipKo:'💡 전체 흐름을 파악하세요. 세부 사항보다 화자의 의도가 중요합니다.',
+    tipJa:'💡 全体の流れをつかみましょう。細部より話者の意図が大切です。'
+  },
+  m4:{
+    ko:'問題4 — 即時応答: 짧은 문장을 듣고 적절한 응답을 고르는 문제입니다. (N3 이하에만 출제)',
+    ja:'問題4 — 即時応答: 短い文を聞いて、適切な応答を選ぶ問題です。（N3以下のみ）',
+    tipKo:'💡 짧고 빠르게 나옵니다. 의문사(だれ·なに·いつ·どこ·なぜ·どう)에 집중하세요.',
+    tipJa:'💡 短くて速いです。疑問詞（だれ・なに・いつ・どこ・なぜ・どう）に注目。'
+  }
+};
+
+function selectMondai(id, btn){
+  stopTTS(); currentMondai=id;
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  renderPartInfo();
+  resetContent();
+}
+
+function renderPartInfo(){
+  const info=MONDAI_INFO[currentMondai];
+  document.getElementById('part-info').innerHTML=`
+    <div class="pi-title">${lang==='ko'?info.ko.split(':')[0]:info.ja.split(':')[0]}</div>
+    <div class="pi-desc">${lang==='ko'?info.ko.split(':').slice(1).join(':'):info.ja.split(':').slice(1).join(':')}</div>
+    <div class="pi-tip">${lang==='ko'?info.tipKo:info.tipJa}</div>`;
+}
+
+function resetContent(){
+  stopTTS();
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('score-card').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  correct=0; answered=0; total=0; currentData=null;
+}
+
+// ── API ───────────────────────────────────────────────────────────────
+async function callClaude(prompt, maxTok){
+  const r=await fetch('/api/claude',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTok||1200,
+      messages:[{role:'user',content:prompt}]})});
+  const d=await r.json();
+  const raw=d.content?.[0]?.text||'';
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+// ── 생성 ─────────────────────────────────────────────────────────────
+async function generate(){
+  if(isLoading) return;
+  isLoading=true; resetContent();
+  document.getElementById('gen-btn').disabled=true;
+  document.getElementById('loading').style.display='block';
+  const level=document.getElementById('sel-level').value;
+  const speed=parseFloat(document.getElementById('sel-speed').value);
+  const lt=document.getElementById('loading-text');
+  lt.textContent=lang==='ko'?'🤖 문제 생성 중…':'🤖 問題を生成中…';
+
+  try{
+    if(currentMondai==='m1'||currentMondai==='m2'||currentMondai==='m3'){
+      currentData=await callClaude(promptDialogue(currentMondai,level),1200);
+      total=currentData.questions.length;
+      document.getElementById('loading').style.display='none';
+      document.getElementById('content-area').appendChild(makeDialogueCard(currentData,speed));
+    } else {
+      // 問題4: 즉시응답 3문제
+      currentData=await callClaude(promptSokuji(level),1000);
+      total=currentData.items.length;
+      document.getElementById('loading').style.display='none';
+      document.getElementById('content-area').appendChild(makeSokujiBlock(currentData.items,speed));
+    }
+    document.getElementById('action-btns').style.display='flex';
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('content-area').innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해주세요.':'生成失敗。もう一度お試しください。'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  isLoading=false;
+  document.getElementById('gen-btn').disabled=false;
+}
+
+// ── 프롬프트 ─────────────────────────────────────────────────────────
+function promptDialogue(mondai,level){
+  const typeMap={
+    m1:'課題理解 (話し手が次に何をするかを問う)',
+    m2:'ポイント理解 (重要なポイントを問う)',
+    m3:'概要理解 (話し手の意図・目的・感情を問う)'
+  };
+  return `JLPT ${level} 聴解 ${typeMap[mondai]} 問題を1セット生成してください。
+ONLY return valid JSON (no markdown, single-line strings):
+{"type":"${mondai}","context":"状況説明 (日本語1文)","dialogue":[{"speaker":"A","line":"日本語の台詞 (${level}レベル)"},{"speaker":"B","line":"日本語の台詞"},{"speaker":"A","line":"日本語の台詞"}],"questions":[{"id":1,"text":"質問文 (日本語)","choices":["1 選択肢","2 選択肢","3 選択肢","4 選択肢"],"answer":0,"explanation_ko":"${lang==='ko'?'한국어 해설':'解説'}"},{"id":2,"text":"質問文","choices":["1 選択肢","2 選択肢","3 選択肢","4 選択肢"],"answer":1,"explanation_ko":"해설"}]}
+Rules: dialogue must be natural ${level}-level Japanese. answer is 0-based index. Vary answer positions. Single-line strings.`;
+}
+
+function promptSokuji(level){
+  return `JLPT ${level} 聴解 問題4 即時応答 3問を生成してください。
+ONLY return valid JSON (no markdown, single-line strings):
+{"items":[{"id":1,"question":"短い日本語の質問文","choices":["1 応答","2 応答","3 応答"],"answer":0,"explanation_ko":"해설"},{"id":2,"question":"短い質問","choices":["1 応答","2 応答","3 応答"],"answer":1,"explanation_ko":"해설"},{"id":3,"question":"短い質問","choices":["1 応答","2 応答","3 応答"],"answer":2,"explanation_ko":"해설"}]}
+Rules: 3 choices each, answer is 0-based index (vary positions), single-line strings.`;
+}
+
+// ── 대화/담화 카드 ────────────────────────────────────────────────────
+function makeDialogueCard(data,speed){
+  const wrap=document.createElement('div');
+
+  // 오디오 카드
+  const ac=document.createElement('div'); ac.className='audio-card fade-in';
+  const acLabel=document.createElement('div'); acLabel.className='ac-label';
+  acLabel.textContent=lang==='ko'?'🎧 대화를 들으세요':'🎧 会話を聞いてください';
+
+  const pr=document.createElement('div'); pr.className='player-row';
+  const pbtn=document.createElement('button'); pbtn.className='play-btn';
+  pbtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  pbtn.addEventListener('click',()=>playDialogue(data.dialogue,speed));
+  const pInfo=document.createElement('div'); pInfo.className='player-info';
+  pInfo.innerHTML=`<div class="player-label">${data.context}</div><div class="player-bar"><div class="player-fill" id="jfill"></div></div>`;
+  const spdBtn=document.createElement('button'); spdBtn.className='speed-btn'; spdBtn.id='jspd'; spdBtn.textContent=speed+'x';
+  spdBtn.addEventListener('click',()=>cycleSpeed('jspd'));
+  pr.append(pbtn,pInfo,spdBtn);
+
+  // 스크립트 토글
+  const scriptToggle=document.createElement('button'); scriptToggle.className='script-toggle';
+  scriptToggle.textContent=lang==='ko'?'📄 스크립트 보기':'📄 スクリプトを見る';
+  const scriptWrap=document.createElement('div'); scriptWrap.className='script-wrap';
+  data.dialogue.forEach((l,i)=>{
+    const row=document.createElement('div'); row.className='script-line'; row.id='jsl-'+i;
+    row.innerHTML=`<span class="sl-spk">${l.speaker}</span><span class="sl-txt">${l.line}</span>`;
+    row.addEventListener('click',()=>playFromLine(data.dialogue,i,speed));
+    scriptWrap.appendChild(row);
+  });
+  scriptToggle.addEventListener('click',function(){
+    const open=scriptWrap.classList.toggle('open');
+    this.textContent=open?(lang==='ko'?'🙈 숨기기':'🙈 隠す'):(lang==='ko'?'📄 스크립트 보기':'📄 スクリプトを見る');
+  });
+
+  ac.append(acLabel,pr,scriptToggle,scriptWrap);
+
+  // 문제
+  const qSec=document.createElement('div'); qSec.className='q-section fade-in';
+  data.questions.forEach(q=>{
+    const qDiv=document.createElement('div'); qDiv.className='q-item';
+    const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='問題 '+q.id;
+    const qTxt=document.createElement('div'); qTxt.className='q-text'; qTxt.textContent=q.text;
+    const opts=document.createElement('div'); opts.className='q-opts';
+    q.choices.forEach((c,i)=>{
+      const btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML=`<span class="q-opt-ltr">${i+1}</span><span>${c}</span>`;
+      btn.addEventListener('click',()=>answerQ(q.id,i,btn,q.answer,q.explanation_ko,opts));
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='jfb-'+q.id;
+    qDiv.append(qNum,qTxt,opts,fb);
+    qSec.appendChild(qDiv);
+  });
+
+  wrap.append(ac,qSec);
+  return wrap;
+}
+
+// ── 即時応答 블록 ─────────────────────────────────────────────────────
+function makeSokujiBlock(items,speed){
+  const wrap=document.createElement('div'); wrap.className='audio-card fade-in';
+  const label=document.createElement('div'); label.className='ac-label';
+  label.textContent=lang==='ko'?'🎧 질문을 듣고 응답을 고르세요':'🎧 質問を聞いて応答を選んでください';
+  wrap.appendChild(label);
+
+  items.forEach(item=>{
+    const d=document.createElement('div'); d.style.marginBottom='16px';
+    const pr=document.createElement('div'); pr.className='player-row'; pr.style.marginBottom='10px';
+    const pbtn=document.createElement('button'); pbtn.className='play-btn'; pbtn.style.cssText='width:36px;height:36px;';
+    pbtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+    pbtn.addEventListener('click',()=>playSokuji(item,speed));
+    const pInfo=document.createElement('div'); pInfo.className='player-info';
+    pInfo.innerHTML=`<div class="player-label">${lang==='ko'?'質問 '+item.id+' — 듣고 고르세요':'質問 '+item.id+' — 聞いて選んでください'}</div><div class="player-bar"><div class="player-fill" id="sfill-${item.id}"></div></div>`;
+    const spdBtn=document.createElement('button'); spdBtn.className='speed-btn'; spdBtn.id='sspd-'+item.id; spdBtn.textContent=speed+'x';
+    spdBtn.addEventListener('click',()=>cycleSpeed('sspd-'+item.id));
+    pr.append(pbtn,pInfo,spdBtn);
+
+    const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='Q'+item.id;
+    const opts=document.createElement('div'); opts.className='q-opts'; opts.id='sopts-'+item.id;
+    item.choices.forEach((c,i)=>{
+      const btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML=`<span class="q-opt-ltr">${i+1}</span><span>${c}</span>`;
+      btn.addEventListener('click',()=>answerQ(item.id,i,btn,item.answer,item.explanation_ko,opts));
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='jfb-'+item.id;
+    d.append(pr,qNum,opts,fb);
+    wrap.appendChild(d);
+  });
+  return wrap;
+}
+
+// ── TTS ──────────────────────────────────────────────────────────────
+function playDialogue(lines,speed){
+  const spd=parseFloat(document.getElementById('jspd')?.textContent)||speed;
+  stopTTS(); playDlgLine(lines,0,spd);
+}
+function playFromLine(lines,idx,speed){
+  const spd=parseFloat(document.getElementById('jspd')?.textContent)||speed;
+  stopTTS(); playDlgLine(lines,idx,spd);
+}
+function playDlgLine(lines,idx,spd){
+  if(idx>=lines.length){ ttsActive=false; hlLine(-1); return; }
+  const fill=document.getElementById('jfill');
+  if(fill) fill.style.width=(idx/lines.length*100)+'%';
+  hlLine(idx);
+  const vs=speechSynthesis.getVoices();
+  const jvs=vs.filter(v=>v.lang.startsWith('ja'));
+  const u=new SpeechSynthesisUtterance(lines[idx].line); u.lang='ja-JP'; u.rate=spd;
+  if(jvs.length>1) u.voice=jvs[idx%jvs.length];
+  else if(jvs.length) u.voice=jvs[0];
+  u.onend=()=>{ if(ttsActive) playDlgLine(lines,idx+1,spd); };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function hlLine(idx){
+  document.querySelectorAll('[id^="jsl-"]').forEach(e=>e.classList.remove('act'));
+  if(idx>=0){ const e=document.getElementById('jsl-'+idx); if(e) e.classList.add('act'); }
+}
+function playSokuji(item,speed){
+  const spd=parseFloat(document.getElementById('sspd-'+item.id)?.textContent)||speed;
+  stopTTS();
+  const fill=document.getElementById('sfill-'+item.id);
+  const u=new SpeechSynthesisUtterance(item.question); u.lang='ja-JP'; u.rate=spd;
+  const vs=speechSynthesis.getVoices(); const jv=vs.find(v=>v.lang.startsWith('ja'));
+  if(jv) u.voice=jv;
+  u.onboundary=e=>{ if(e.name==='word'&&fill) fill.style.width=Math.min(100,e.charIndex/item.question.length*100)+'%'; };
+  u.onend=()=>{ ttsActive=false; if(fill) fill.style.width='100%'; };
+  speechSynthesis.speak(u); ttsActive=true;
+}
+function stopTTS(){ speechSynthesis.cancel(); ttsActive=false; }
+function cycleSpeed(btnId){
+  const btn=document.getElementById(btnId); if(!btn) return;
+  const cur=parseFloat(btn.textContent);
+  const i=SPEEDS.indexOf(cur);
+  btn.textContent=SPEEDS[(i+1)%SPEEDS.length]+'x';
+}
+
+// ── 답변 ─────────────────────────────────────────────────────────────
+function answerQ(qId,idx,btn,answer,expl,optsEl){
+  const opts=optsEl?.querySelectorAll('.q-opt'); if(!opts||opts[0]?.disabled) return;
+  opts.forEach(b=>b.disabled=true);
+  opts[answer].classList.add('correct');
+  if(idx!==answer) btn.classList.add('wrong');
+  const fb=document.getElementById('jfb-'+qId);
+  if(fb){ fb.textContent=expl||''; fb.className='q-feedback show '+(idx===answer?'correct':'wrong'); }
+  answered++; if(idx===answer) correct++;
+  checkDone();
+}
+function checkDone(){
+  if(answered<total) return;
+  const pct=Math.round(correct/total*100);
+  const sc=document.getElementById('score-card'); sc.style.display='block';
+  document.getElementById('sc-score').textContent=`${correct}/${total}`;
+  document.getElementById('sc-pct').textContent=`${pct}%`;
+  document.getElementById('sc-msg').textContent=
+    pct>=80?(lang==='ko'?'🎉 훌륭합니다!':'🎉 素晴らしい！'):
+    pct>=60?(lang==='ko'?'👍 잘 하셨습니다!':'👍 よくできました！'):
+    (lang==='ko'?'💪 계속 연습!':'💪 練習を続けましょう！');
+  sc.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ── 언어·초기화 ───────────────────────────────────────────────────────
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-ja]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-ja');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-ja').classList.toggle('act',l==='ja');
+  renderPartInfo();
+}
+
+(function(){
+  setLang('ko');
+  // URL 파라미터로 레벨 설정
+  const params=new URLSearchParams(location.search);
+  const lv=params.get('level');
+  if(lv) document.getElementById('sel-level').value=lv;
+})();
+</script>
+</body>
+</html>

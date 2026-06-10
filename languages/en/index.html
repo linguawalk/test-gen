@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--navy2:#1a2f50;--navy3:#0e1f38;
+  --teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --bg:#F5F4F0;--white:#fff;
+  --text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.15);
+  --toeic:#b07010;--toeic-bg:#8b5a0a;--toeic-card:linear-gradient(135deg,#7a4a06 0%,#c17e1a 100%);
+  --toefl:#2952a3;--toefl-card:linear-gradient(135deg,#1a3575 0%,#3464c8 100%);
+  --ielts:#7a1535;--ielts-card:linear-gradient(135deg,#5a0e28 0%,#a02040 100%);
+  --opic:#5b2d8e;--opic-card:linear-gradient(135deg,#3d1a6a 0%,#7c3aad 100%);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.1);
+  --r:10px;--r-lg:14px;--r-xl:18px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ═══════════════ NAV ═══════════════ */
+nav{
+  background:var(--navy3);
+  height:56px;display:flex;align-items:center;
+  padding:0 5%;position:sticky;top:0;z-index:100;
+  border-bottom:0.5px solid rgba(255,255,255,0.06);
+}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;margin-right:28px;}
+.nav-lm{
+  width:32px;height:32px;background:var(--teal);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;letter-spacing:-.5px;
+}
+.nav-brand-text{font-size:15px;font-weight:600;color:#fff;}
+.nav-crumb{font-size:13px;color:rgba(255,255,255,0.45);margin-right:auto;}
+.nav-links{display:flex;align-items:center;gap:4px;margin-right:16px;}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);text-decoration:none;padding:5px 11px;border-radius:7px;transition:all 0.2s;white-space:nowrap;}
+.nav-link:hover,.nav-link.act{color:#fff;background:rgba(255,255,255,0.08);}
+.nav-signin{
+  padding:6px 16px;border-radius:20px;
+  background:var(--teal-mid);color:#fff;
+  font-size:13px;font-weight:600;border:none;cursor:pointer;
+  font-family:inherit;margin-right:10px;transition:all 0.2s;
+}
+.nav-signin:hover{background:var(--teal);}
+.nav-signed-in{background:var(--teal-mid) !important;color:#fff !important;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.1);border-radius:20px;padding:2px;gap:1px;}
+.lbtn{padding:4px 11px;border-radius:16px;font-size:11px;font-weight:600;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero{
+  background:linear-gradient(160deg,var(--navy3) 0%,#142244 45%,#1e3a6a 100%);
+  padding:64px 5% 60px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;right:0;top:0;
+  width:55%;height:100%;
+  background:radial-gradient(ellipse at 70% 40%,rgba(42,127,111,0.15) 0%,transparent 65%),
+             radial-gradient(ellipse at 90% 80%,rgba(41,82,163,0.1) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:18px;}
+.hero-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(36px,5.5vw,58px);
+  color:#fff;line-height:1.1;margin-bottom:16px;
+  font-weight:400;letter-spacing:-.5px;
+}
+.hero-title em{font-style:italic;color:#4cd4a0;display:block;}
+.hero-desc{font-size:15px;color:rgba(255,255,255,0.6);line-height:1.75;max-width:500px;margin-bottom:32px;}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px;}
+.cta-primary{
+  display:flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:24px;
+  background:var(--teal-mid);color:#fff;
+  font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;
+  transition:all 0.2s;text-decoration:none;
+}
+.cta-primary:hover{background:var(--teal);transform:translateY(-1px);}
+.cta-secondary{
+  display:flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:24px;
+  background:rgba(255,255,255,0.1);color:#fff;
+  font-size:14px;font-weight:600;border:0.5px solid rgba(255,255,255,0.2);
+  cursor:pointer;font-family:inherit;transition:all 0.2s;text-decoration:none;
+}
+.cta-secondary:hover{background:rgba(255,255,255,0.16);}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;}
+.hs-item{display:flex;flex-direction:column;gap:3px;}
+.hs-num{font-family:'DM Serif Display',serif;font-size:28px;color:#fff;line-height:1;}
+.hs-label{font-size:11px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:.6px;}
+
+/* LEVEL TEST BANNER */
+.level-banner{
+  background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);
+  border-radius:var(--r-lg);padding:16px 22px;margin-top:28px;
+  display:flex;align-items:center;gap:16px;
+  text-decoration:none;transition:all 0.2s;
+  max-width:640px;
+}
+.level-banner:hover{background:rgba(255,255,255,0.09);}
+.lb-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(135deg,#f97316,#ec4899);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.lb-tag{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--teal-mid);margin-bottom:3px;}
+.lb-title{font-size:14px;font-weight:600;color:#fff;}
+.lb-desc{font-size:12px;color:rgba(255,255,255,0.5);}
+.lb-arrow{margin-left:auto;font-size:18px;color:rgba(255,255,255,0.35);}
+
+/* ═══════════════ MAIN ═══════════════ */
+.main{max-width:900px;margin:0 auto;padding:48px 5% 100px;}
+
+/* SECTION HEADING */
+.sec-heading{
+  font-size:11px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--text-light);
+  margin-bottom:20px;padding-bottom:12px;
+  border-bottom:0.5px solid var(--border);
+}
+
+/* ═══════════════ GENERAL SECTION ═══════════════ */
+.general-section{margin-bottom:48px;}
+
+/* General hero card */
+.general-card{
+  background:linear-gradient(135deg,#0d4a35 0%,var(--teal) 60%,#1a9e75 100%);
+  border-radius:var(--r-xl);padding:28px 30px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.general-card::before{
+  content:'';position:absolute;right:-30px;top:-30px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,0.07);pointer-events:none;
+}
+.general-card::after{
+  content:'';position:absolute;left:-20px;bottom:-20px;
+  width:140px;height:140px;border-radius:50%;
+  background:rgba(0,0,0,0.06);pointer-events:none;
+}
+.gc-inner{position:relative;z-index:1;}
+.gc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px;}
+.gc-badge{
+  font-size:11px;font-weight:700;padding:4px 13px;border-radius:20px;
+  background:rgba(255,255,255,0.18);color:#fff;
+  border:0.5px solid rgba(255,255,255,0.28);letter-spacing:.4px;text-transform:uppercase;
+}
+.gc-title{font-family:'DM Serif Display',serif;font-size:28px;color:#fff;margin-bottom:8px;font-weight:400;}
+.gc-desc{font-size:14px;color:rgba(255,255,255,0.72);line-height:1.7;max-width:500px;margin-bottom:20px;}
+
+/* Level pills */
+.level-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.pill{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;
+  border:1px solid rgba(255,255,255,0.25);cursor:pointer;transition:all 0.2s;text-decoration:none;
+}
+.pill-free{background:rgba(255,255,255,0.22);color:#fff;}
+.pill-pro{background:rgba(255,255,255,0.22);color:#fff;}
+.pill:hover{background:rgba(255,255,255,0.3);color:#fff;}
+
+/* Skill cards grid */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px;}
+.skill-card{
+  background:var(--white);border:0.5px solid var(--border-md);
+  border-radius:var(--r-lg);padding:16px 18px;
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;transition:all 0.2s;
+  box-shadow:var(--shadow-sm);
+}
+.skill-card:hover{border-color:var(--teal-mid);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.sc-icon-wrap{
+  width:38px;height:38px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;flex-shrink:0;background:var(--bg);
+}
+.sc-info{flex:1;}
+.sc-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.sc-sub{font-size:11px;color:var(--text-light);}
+.skill-card-wide{grid-column:span 2;}
+
+/* ═══════════════ EXAM PREP ═══════════════ */
+.exam-section{margin-bottom:48px;}
+.exam-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+.exam-card{
+  border-radius:var(--r-xl);overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-md);
+}
+.ec-header{padding:24px 24px 20px;position:relative;overflow:hidden;}
+.ec-header::before{
+  content:'';position:absolute;right:-20px;top:-20px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,0.08);pointer-events:none;
+}
+.ec-badge{
+  display:inline-flex;align-items:center;
+  font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;
+  background:rgba(255,255,255,0.18);color:rgba(255,255,255,0.9);
+  letter-spacing:.4px;text-transform:uppercase;margin-bottom:14px;
+}
+.ec-icon{font-size:30px;margin-bottom:10px;display:block;}
+.ec-title{font-family:'DM Serif Display',serif;font-size:24px;color:#fff;font-weight:400;margin-bottom:4px;}
+.ec-subtitle{font-size:11px;color:rgba(255,255,255,0.55);margin-bottom:12px;letter-spacing:.2px;}
+.ec-desc{font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;line-height:1.55;}
+.ec-body{background:var(--white);padding:20px 24px;flex:1;display:flex;flex-direction:column;}
+.ec-parts{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;flex:1;}
+.ep-item{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--text-muted);line-height:1.5;}
+.ep-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.ep-item strong{color:var(--text);font-weight:600;}
+.ec-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:14px;border-top:0.5px solid var(--border);
+  text-decoration:none;
+  font-size:13px;font-weight:600;
+  transition:gap 0.2s;
+}
+.ec-footer:hover .ef-arrow{transform:translateX(3px);}
+.ef-arrow{transition:transform 0.2s;font-size:16px;}
+.sep-badge{
+  font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;
+  background:#fff7ed;color:#c2410c;border:0.5px solid rgba(194,65,12,0.2);
+}
+/* pricing info strip under each exam card */
+.ec-pricing{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-radius:9px;margin-bottom:14px;
+  font-size:12px;font-weight:500;
+}
+.ecp-toeic{background:var(--toeic-light,#faeeda);color:var(--toeic,#b07010);}
+.ecp-toefl{background:#e5edf8;color:var(--toefl,#2952a3);}
+.ecp-ielts{background:#f7eef1;color:var(--ielts,#7a1535);}
+.ecp-opic{background:#f0eaf8;color:var(--opic,#5b2d8e);}
+.ecp-price{font-family:'DM Serif Display',serif;font-size:16px;font-weight:400;}
+
+/* TOEIC */
+.toeic-header{background:var(--toeic-card);}
+.toeic-footer{color:var(--toeic);}
+.toeic-dot{background:var(--toeic);}
+/* TOEFL */
+.toefl-header{background:var(--toefl-card);}
+.toefl-footer{color:var(--toefl);}
+.toefl-dot{background:var(--toefl);}
+/* IELTS */
+.ielts-header{background:var(--ielts-card);}
+.ielts-footer{color:var(--ielts);}
+.ielts-dot{background:var(--ielts);}
+/* OPIc */
+.opic-header{background:var(--opic-card);}
+.opic-footer{color:var(--opic);}
+.opic-dot{background:var(--opic);}
+
+/* ═══════════════ WHY SECTION ═══════════════ */
+.why-section{margin-bottom:48px;}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.why-card{
+  background:var(--white);border:0.5px solid var(--border);
+  border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow-sm);
+}
+.wc-icon{font-size:28px;margin-bottom:12px;}
+.wc-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.wc-desc{font-size:13px;color:var(--text-muted);line-height:1.65;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+
+@media(max-width:640px){
+  nav .nav-links{display:none;}
+  .skills-grid{grid-template-columns:1fr 1fr;}
+  .skill-card-wide{grid-column:span 1;}
+  .exam-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:34px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="/index.html" class="nav-brand">
+    <div class="nav-lm">LW</div>
+    <span class="nav-brand-text">LinguaWalk</span>
+  </a>
+  <span class="nav-crumb">English</span>
+  <div class="nav-links">
+    <a href="general/index.html" class="nav-link" data-en="General" data-ko="General">General</a>
+    <a href="toeic/index.html" class="nav-link" data-en="TOEIC" data-ko="TOEIC">TOEIC</a>
+    <a href="toefl/index.html" class="nav-link" data-en="TOEFL" data-ko="TOEFL">TOEFL</a>
+    <a href="ielts/index.html" class="nav-link" data-en="IELTS" data-ko="IELTS">IELTS</a>
+    <a href="opic/index.html" class="nav-link" data-en="OPIc" data-ko="OPIc">OPIc</a>
+    <a href="test.html" class="nav-link" data-en="Level Test" data-ko="레벨 테스트">Level Test</a>
+  </div>
+  <a href="/login.html" class="nav-signin" style="text-decoration:none;" data-en="Sign in" data-ko="로그인">Sign in</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">AI-POWERED ENGLISH LEARNING</div>
+    <h1 class="hero-title">
+      <span data-en="Learn English," data-ko="영어를 배우세요,">Learn English,</span>
+      <em data-en="Your Way" data-ko="나만의 방식으로">Your Way</em>
+    </h1>
+    <p class="hero-desc" data-en="General English from A1 to C2, or focused preparation for TOEIC, TOEFL, IELTS, and OPIc — all powered by your personal AI tutor." data-ko="A1부터 C2까지 General 영어, 또는 TOEIC, TOEFL, IELTS, OPIc 집중 준비 — 모두 개인 AI 튜터가 지원합니다.">General English from A1 to C2, or focused preparation for TOEIC, TOEFL, and IELTS — all powered by your personal AI tutor.</p>
+    <div class="hero-ctas">
+      <a href="test.html" class="cta-primary">
+        🎯 <span data-en="Free Level Test" data-ko="무료 레벨 테스트">Free Level Test</span>
+      </a>
+      <a href="general/index.html" class="cta-secondary">
+        🚀 <span data-en="Start Learning" data-ko="학습 시작">Start Learning</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-num">6</div><div class="hs-label" data-en="Skills" data-ko="스킬">Skills</div></div>
+      <div class="hs-item"><div class="hs-num">A1–C2</div><div class="hs-label" data-en="All Levels" data-ko="전 레벨">All Levels</div></div>
+      <div class="hs-item"><div class="hs-num">4</div><div class="hs-label" data-en="Exams" data-ko="시험">Exams</div></div>
+      <div class="hs-item"><div class="hs-num">∞</div><div class="hs-label" data-en="AI Questions" data-ko="AI 문제">AI Questions</div></div>
+    </div>
+
+    <!-- Level Test Banner -->
+    <a href="test.html" class="level-banner">
+      <div class="lb-icon">🎯</div>
+      <div>
+        <div class="lb-tag" data-en="START HERE · FREE" data-ko="여기서 시작 · 무료">START HERE · FREE</div>
+        <div class="lb-title" data-en="Level Test — Find your English level in 10 minutes" data-ko="레벨 테스트 — 10분 만에 영어 레벨 확인">Level Test — Find your English level in 10 minutes</div>
+        <div class="lb-desc" data-en="AI diagnoses A1 to C2. Results guide your learning path." data-ko="AI가 A1~C2를 진단합니다. 결과가 학습 경로를 안내합니다.">AI diagnoses A1 to C2. Results guide your learning path.</div>
+      </div>
+      <div class="lb-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+
+  <!-- ──── GENERAL ENGLISH ──── -->
+  <div class="general-section fade-in">
+    <div class="sec-heading" data-en="GENERAL ENGLISH — A1 TO C2" data-ko="GENERAL 영어 — A1~C2">GENERAL ENGLISH — A1 TO C2</div>
+
+    <div class="general-card">
+      <div class="gc-inner">
+        <div class="gc-top">
+          <div class="gc-badge" data-en="MOST POPULAR · 100% FREE" data-ko="인기 · 100% 무료">MOST POPULAR · 100% FREE</div>
+        </div>
+        <div class="gc-title" data-en="General English" data-ko="General 영어">General English</div>
+        <div class="gc-desc" data-en="Vocabulary, Grammar, Listening, Reading, Speaking, and Writing — all in one place. All levels A1 to C2 are completely free, forever." data-ko="어휘, 문법, 듣기, 읽기, 말하기, 쓰기 — 한 곳에서 모두. A1~C2 전 레벨이 완전히 무료입니다.">Vocabulary, Grammar, Listening, Reading, Speaking, and Writing — all in one place. All levels A1 to C2 are completely free, forever.</div>
+        <div class="level-pills">
+          <a href="general/index.html?level=A1" class="pill pill-free">A1 Free</a>
+          <a href="general/index.html?level=A2" class="pill pill-free">A2 Free</a>
+          <a href="general/index.html?level=B1" class="pill pill-free">B1 Free</a>
+          <a href="general/index.html?level=B2" class="pill pill-free">B2 Free</a>
+          <a href="general/index.html?level=C1" class="pill pill-free">C1 Free</a>
+          <a href="general/index.html?level=C2" class="pill pill-free">C2 Free</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skill Cards -->
+    <div class="skills-grid">
+      <a href="general/vocabulary.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#fef3e0;">📚</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Vocabulary" data-ko="어휘">Vocabulary</div>
+          <div class="sc-sub">18 topics</div>
+        </div>
+      </a>
+      <a href="general/grammar.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#fce4e4;">✏️</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Grammar" data-ko="문법">Grammar</div>
+          <div class="sc-sub">14 topics</div>
+        </div>
+      </a>
+      <a href="general/listening.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#e1f5ee;">🎧</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Listening" data-ko="듣기">Listening</div>
+          <div class="sc-sub">A1-C2</div>
+        </div>
+      </a>
+      <a href="general/reading.html" class="skill-card">
+        <div class="sc-icon-wrap" style="background:#e5edf8;">📖</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Reading" data-ko="읽기">Reading</div>
+          <div class="sc-sub">A1-C2</div>
+        </div>
+      </a>
+      <a href="general/speaking.html" class="skill-card skill-card-wide">
+        <div class="sc-icon-wrap" style="background:#f0eaf8;">🗣</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Speaking" data-ko="말하기">Speaking</div>
+          <div class="sc-sub">A1-C2</div>
+        </div>
+      </a>
+      <a href="general/writing.html" class="skill-card skill-card-wide">
+        <div class="sc-icon-wrap" style="background:#fff7ed;">✍️</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Writing" data-ko="쓰기">Writing</div>
+          <div class="sc-sub">A1-C2</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ──── EXAM PREPARATION ──── -->
+  <div class="exam-section fade-in">
+    <div class="sec-heading" data-en="EXAM PREPARATION — PER EXAM PLAN" data-ko="시험 대비 — 시험별 플랜">EXAM PREPARATION — PER EXAM PLAN</div>
+
+    <div class="exam-grid">
+
+      <!-- TOEIC -->
+      <div class="exam-card">
+        <div class="ec-header toeic-header">
+          <span class="ec-badge" data-en="Per Exam Plan" data-ko="시험별 플랜">Per Exam Plan</span>
+          <span class="ec-icon">🏆</span>
+          <div class="ec-title">TOEIC</div>
+          <div class="ec-subtitle" data-en="Test of English for International Communication" data-ko="국제 영어소통 능력 시험">Test of English for International Communication</div>
+          <div class="ec-desc" data-en="Listening and Reading. The most widely used business English proficiency test." data-ko="듣기와 읽기. 가장 널리 사용되는 비즈니스 영어 능력 시험.">Listening and Reading. The most widely used business English proficiency test.</div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-parts">
+            <div class="ep-item">
+              <span class="ep-dot toeic-dot"></span>
+              <span>🎧 <strong data-en="Listening" data-ko="듣기">Listening</strong> — <span data-en="Part 1 · 2 · 3 · 4" data-ko="Part 1 · 2 · 3 · 4">Part 1 · 2 · 3 · 4</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot toeic-dot"></span>
+              <span>📖 <strong data-en="Reading" data-ko="읽기">Reading</strong> — <span data-en="Part 5 · 6 · 7" data-ko="Part 5 · 6 · 7">Part 5 · 6 · 7</span></span>
+            </div>
+
+          </div>
+          <a href="toeic/index.html" class="ec-footer toeic-footer">
+            <span data-en="Start TOEIC Prep" data-ko="TOEIC 준비 시작">Start TOEIC Prep</span>
+            <span class="ef-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- TOEFL -->
+      <div class="exam-card">
+        <div class="ec-header toefl-header">
+          <span class="ec-badge" data-en="Per Exam Plan" data-ko="시험별 플랜">Per Exam Plan</span>
+          <span class="ec-icon">🎓</span>
+          <div class="ec-title">TOEFL iBT</div>
+          <div class="ec-subtitle" data-en="Test of English as a Foreign Language" data-ko="외국어로서의 영어 시험">Test of English as a Foreign Language</div>
+          <div class="ec-desc" data-en="All 4 skills. Required for US and Canadian university admissions." data-ko="4개 스킬 전체. 미국·캐나다 대학 입학에 필요합니다.">All 4 skills. Required for US and Canadian university admissions.</div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-parts">
+            <div class="ep-item">
+              <span class="ep-dot toefl-dot"></span>
+              <span>📖 <strong data-en="Reading" data-ko="읽기">Reading</strong> — <span data-en="Factual · Inference · Vocabulary" data-ko="사실 · 추론 · 어휘">Factual · Inference · Vocabulary</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot toefl-dot"></span>
+              <span>🎧 <strong data-en="Listening" data-ko="듣기">Listening</strong> — <span data-en="Lectures · Conversations" data-ko="강의 · 대화">Lectures · Conversations</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot toefl-dot"></span>
+              <span>🗣 <strong data-en="Speaking" data-ko="말하기">Speaking</strong> — <span data-en="Independent · Integrated" data-ko="독립형 · 통합형">Independent · Integrated</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot toefl-dot"></span>
+              <span>✍️ <strong data-en="Writing" data-ko="쓰기">Writing</strong> — <span data-en="Integrated · Discussion" data-ko="통합형 · 토론형">Integrated · Discussion</span></span>
+            </div>
+          </div>
+          <a href="toefl/index.html" class="ec-footer toefl-footer">
+            <span data-en="Start TOEFL Prep" data-ko="TOEFL 준비 시작">Start TOEFL Prep</span>
+            <span class="ef-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- IELTS -->
+      <div class="exam-card">
+        <div class="ec-header ielts-header">
+          <span class="ec-badge" data-en="Per Exam Plan" data-ko="시험별 플랜">Per Exam Plan</span>
+          <span class="ec-icon">🌍</span>
+          <div class="ec-title">IELTS</div>
+          <div class="ec-subtitle" data-en="International English Language Testing System" data-ko="국제 영어 능력 평가 시험">International English Language Testing System</div>
+          <div class="ec-desc" data-en="All 4 skills. Accepted by UK, Australia, Canada and 10,000+ institutions." data-ko="4개 스킬 전체. 영국, 호주, 캐나다 및 10,000개 이상 기관에서 인정.">All 4 skills. Accepted by UK, Australia, Canada and 10,000+ institutions.</div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-parts">
+            <div class="ep-item">
+              <span class="ep-dot ielts-dot"></span>
+              <span>🎧 <strong data-en="Listening" data-ko="듣기">Listening</strong> — <span data-en="Section 1 · 2 · 3 · 4" data-ko="Section 1 · 2 · 3 · 4">Section 1 · 2 · 3 · 4</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot ielts-dot"></span>
+              <span>📖 <strong data-en="Reading" data-ko="읽기">Reading</strong> — <span data-en="T/F/NG · Matching · MC" data-ko="T/F/NG · 매칭 · 객관식">T/F/NG · Matching · MC</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot ielts-dot"></span>
+              <span>✍️ <strong data-en="Writing" data-ko="쓰기">Writing</strong> — <span data-en="Task 1 Graph · Task 2 Essay" data-ko="Task 1 그래프 · Task 2 에세이">Task 1 Graph · Task 2 Essay</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot ielts-dot"></span>
+              <span>🗣 <strong data-en="Speaking" data-ko="말하기">Speaking</strong> — <span data-en="Part 1 · 2 · 3" data-ko="Part 1 · 2 · 3">Part 1 · 2 · 3</span></span>
+            </div>
+          </div>
+          <a href="ielts/index.html" class="ec-footer ielts-footer">
+            <span data-en="Start IELTS Prep" data-ko="IELTS 준비 시작">Start IELTS Prep</span>
+            <span class="ef-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- OPIc -->
+      <div class="exam-card">
+        <div class="ec-header opic-header">
+          <span class="ec-badge" data-en="Per Exam Plan" data-ko="시험별 플랜">Per Exam Plan</span>
+          <span class="ec-icon">🎤</span>
+          <div class="ec-title">OPIc</div>
+          <div class="ec-subtitle" data-en="Oral Proficiency Interview — computer" data-ko="컴퓨터 기반 구술 능력 인터뷰">Oral Proficiency Interview — computer</div>
+          <div class="ec-desc" data-en="Speaking only. The most widely used oral English proficiency test in Korea." data-ko="말하기 전용. 한국에서 가장 널리 사용되는 영어 말하기 능력 시험.">Speaking only. The most widely used oral English proficiency test in Korea.</div>
+        </div>
+        <div class="ec-body">
+          <div class="ec-parts">
+            <div class="ep-item">
+              <span class="ep-dot opic-dot"></span>
+              <span>👤 <span data-en="Self Introduction &amp; Survey" data-ko="자기소개 &amp; 설문">Self Introduction &amp; Survey</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot opic-dot"></span>
+              <span>🏠 <span data-en="Describe a Place / Person" data-ko="장소/사람 묘사">Describe a Place / Person</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot opic-dot"></span>
+              <span>📖 <span data-en="Past Experience Narration" data-ko="과거 경험 서술">Past Experience Narration</span></span>
+            </div>
+            <div class="ep-item">
+              <span class="ep-dot opic-dot"></span>
+              <span>🔄 <span data-en="Role Play &amp; Compare" data-ko="롤플레이 &amp; 비교">Role Play &amp; Compare</span></span>
+            </div>
+          </div>
+          <a href="opic/index.html" class="ec-footer opic-footer">
+            <span data-en="Start OPIc Prep" data-ko="OPIc 준비 시작">Start OPIc Prep</span>
+            <span class="ef-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /exam-grid -->
+  </div>
+
+  <!-- ──── WHY LINGUAWALK ──── -->
+  <div class="why-section fade-in">
+    <div class="sec-heading" data-en="WHY LINGUAWALK" data-ko="LinguaWalk를 선택하는 이유">WHY LINGUAWALK</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="wc-icon">🤖</div>
+        <div class="wc-title" data-en="AI-Generated Content" data-ko="AI 생성 콘텐츠">AI-Generated Content</div>
+        <div class="wc-desc" data-en="Every question is freshly generated. Infinite variety, never the same twice." data-ko="매번 새롭게 생성되는 문제. 무한한 다양성, 절대 반복되지 않습니다.">Every question is freshly generated. Infinite variety, never the same twice.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">🎯</div>
+        <div class="wc-title" data-en="Exam-Accurate Format" data-ko="시험 형식 정확 재현">Exam-Accurate Format</div>
+        <div class="wc-desc" data-en="TOEIC, TOEFL, IELTS, and OPIc questions follow the exact format of the real exam." data-ko="TOEIC, TOEFL, IELTS, OPIc 문제가 실제 시험 형식을 정확히 따릅니다.">TOEIC, TOEFL, IELTS, and OPIc questions follow the exact format of the real exam.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">💬</div>
+        <div class="wc-title" data-en="AI Tutor Support" data-ko="AI 튜터 지원">AI Tutor Support</div>
+        <div class="wc-desc" data-en="Ask about any word or concept. Your AI tutor explains in Korean." data-ko="어떤 단어나 개념이든 질문하세요. AI 튜터가 한국어로 설명합니다.">Ask about any word or concept. Your AI tutor explains in Korean.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">🎙</div>
+        <div class="wc-title" data-en="Voice Practice" data-ko="음성 연습">Voice Practice</div>
+        <div class="wc-desc" data-en="Record your speaking and get AI feedback on content, fluency, and grammar." data-ko="말하기를 녹음하고 내용, 유창성, 문법에 대한 AI 피드백을 받으세요.">Record your speaking and get AI feedback on content, fluency, and grammar.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+function setLang(l){
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+(function(){
+  let s;try{s=localStorage.getItem('lw-lang');}catch(e){}
+  setLang(s||((navigator.language||'').startsWith('ko')?'ko':'en'));
+})();
+</script>
+
+<script>
+// auth handled by shared snippet
+  }
+})();
+</script>
+<script>
+(function(){
+  var btn=document.querySelector('.nav-signin');
+  if(!btn) return;
+  var user;
+  try{ user=JSON.parse(localStorage.getItem('lw-user')); }catch(e){}
+  if(user && user.uid){
+    btn.textContent=(user.name||user.email||'').substring(0,6)||'내정보';
+    btn.href='/mypage.html';
+    btn.classList.add('nav-signed-in');
+  } else {
+    btn.href='/login.html';
+  }
+})();
+</script>
+</body>
+</html>

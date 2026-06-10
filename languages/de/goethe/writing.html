@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — Goethe-Zertifikat Schreiben</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --de-blue:#003b8e;--de-blue-light:#e8edf8;--de-gold:#f5c400;
+  --purple:#7c3aed;--purple-light:#ede9fe;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --amber:#b45309;--amber-light:#fef3c7;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+
+.hero{background:linear-gradient(135deg,#4c1d95 0%,var(--purple) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+.hero-badge.gold{background:rgba(245,196,0,0.2);color:var(--de-gold);border-color:rgba(245,196,0,0.3);}
+
+.ex-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:3px;}
+.etab{flex:1;padding:9px 8px;border-radius:9px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;}
+.etab:hover{color:var(--purple);}
+.etab.act{background:var(--purple);color:#fff;}
+
+.ex-info{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:14px;}
+.ei-title{font-size:13px;font-weight:600;color:var(--purple);margin-bottom:6px;}
+.ei-desc{font-size:12px;color:var(--text-muted);line-height:1.65;}
+.ei-tip{margin-top:8px;padding:8px 12px;background:var(--purple-light);border-radius:8px;font-size:12px;color:var(--purple);}
+
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--purple);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:#6d28d9;}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.prompt-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:14px;}
+.pc-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:var(--de-blue-light);color:var(--de-blue);display:inline-block;margin-bottom:6px;}
+.pc-badge2{font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:var(--purple-light);color:var(--purple);display:inline-block;margin-bottom:10px;margin-left:6px;}
+.pc-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);margin-bottom:10px;line-height:1.4;}
+.pc-instruction{font-size:14px;color:var(--text-muted);line-height:1.7;padding:12px 14px;background:var(--bg);border-radius:8px;border-left:3px solid var(--purple);margin-bottom:12px;}
+.pc-stimulus{font-size:13px;color:var(--text);line-height:1.8;padding:14px;background:var(--de-blue-light);border-radius:8px;border:0.5px solid rgba(0,59,142,0.15);margin-bottom:12px;font-style:italic;}
+.pc-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.pc-meta-item{font-size:11px;padding:3px 10px;border-radius:8px;background:var(--purple-light);color:var(--purple);font-weight:500;}
+.phrase-tag{font-size:12px;padding:4px 12px;border-radius:20px;background:var(--amber-light);color:var(--amber);display:inline-block;margin:3px;}
+.outline-item{display:flex;gap:8px;margin-bottom:5px;font-size:13px;color:var(--text-muted);}
+.outline-num{color:var(--purple);font-weight:700;flex-shrink:0;}
+
+.write-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.wc-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.wc-title{font-size:13px;font-weight:600;color:var(--text);}
+.word-count{font-size:12px;color:var(--text-muted);}
+.word-count span{font-weight:700;color:var(--purple);}
+.writing-textarea{width:100%;min-height:200px;padding:14px;border:0.5px solid var(--border-md);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);line-height:1.85;resize:vertical;outline:none;background:var(--bg);}
+.writing-textarea:focus{border-color:var(--purple);}
+.writing-textarea::placeholder{color:var(--text-light);}
+.word-bar{height:4px;background:var(--border);border-radius:4px;margin-top:8px;overflow:hidden;}
+.word-fill{height:100%;background:linear-gradient(90deg,var(--purple),#a78bfa);border-radius:4px;transition:width 0.3s;}
+.submit-btn{margin-top:14px;width:100%;padding:12px;border-radius:10px;background:var(--purple);color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;transition:all 0.2s;}
+.submit-btn:hover{background:#6d28d9;}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);}
+.card-title{font-size:13px;font-weight:600;color:var(--text);}
+.card-body{padding:18px;}
+
+.score-grid{display:grid;grid-template-columns:repeat(5,1fr);border:0.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.si{padding:14px 6px;text-align:center;border-right:0.5px solid var(--border);}
+.si:last-child{border-right:none;}
+.sn{font-family:'DM Serif Display',serif;font-size:22px;color:var(--purple);line-height:1;}
+.sl{font-size:9px;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:.3px;}
+.fb-sec{padding:12px 0;border-bottom:0.5px solid var(--border);}
+.fb-sec:last-child{border-bottom:none;}
+.fb-lbl{font-size:11px;font-weight:700;color:var(--text);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.fb-txt{font-size:13px;color:var(--text-muted);line-height:1.65;}
+.improved-box{background:var(--green-light);border-radius:8px;padding:14px;font-size:13px;color:#166534;line-height:1.85;white-space:pre-line;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../../index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📜 Goethe — Schreiben</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back" data-ko="← Goethe" data-de="← Goethe">← Goethe</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('de')" id="btn-de">Deutsch</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="hero fade-in">
+    <div class="hero-tag" data-ko="Goethe-Zertifikat · Schreiben 연습" data-de="Goethe-Zertifikat · Schriftliche Prüfung">Goethe-Zertifikat · Schreiben 연습</div>
+    <div class="hero-title" data-ko="✍️ Goethe Schreiben (쓰기)" data-de="✍️ Goethe Schreiben">✍️ Goethe Schreiben (쓰기)</div>
+    <div class="hero-desc" data-ko="Goethe 실제 형식 — 편지와 에세이를 독일어로 작성하고 AI 5항목 채점을 받으세요." data-de="Echtes Goethe-Format — Schreiben Sie Briefe und Essays auf Deutsch. KI-Bewertung nach 5 Goethe-Kriterien.">Goethe 실제 형식 — 편지·에세이 + AI 채점.</div>
+    <div class="hero-badges">
+      <span class="hero-badge">A1 ~ C2</span>
+      <span class="hero-badge" data-ko="Teil 1 — 편지·이메일" data-de="Teil 1 — Brief/E-Mail">Teil 1 — 편지</span>
+      <span class="hero-badge" data-ko="Teil 2 — 에세이·의견" data-de="Teil 2 — Essay/Erörterung">Teil 2 — 에세이</span>
+      <span class="hero-badge" data-ko="AI 5항목 채점" data-de="KI 5 Kriterien">🤖 AI 채점</span>
+      <span class="hero-badge gold">Goethe-Format</span>
+    </div>
+  </div>
+
+  <div class="ex-tabs fade-in">
+    <button class="etab act" onclick="selectEx('t1',this)" data-ko="Teil 1 편지·이메일" data-de="Teil 1 Brief/E-Mail">Teil 1</button>
+    <button class="etab" onclick="selectEx('t2',this)" data-ko="Teil 2 에세이·의견" data-de="Teil 2 Essay/Erörterung">Teil 2</button>
+  </div>
+
+  <div class="ex-info fade-in" id="ex-info"></div>
+
+  <div class="settings-row fade-in">
+    <div class="setting-item">
+      <div class="si-label" data-ko="레벨" data-de="Niveau">레벨</div>
+      <select class="si-select" id="sel-level">
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+        <option value="B1" selected>B1</option>
+        <option value="B2">B2</option>
+        <option value="C1">C1</option>
+        <option value="C2">C2</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn fade-in" id="gen-btn" onclick="generate()">
+    🤖 <span data-ko="Goethe Schreiben 주제 생성" data-de="Goethe Schreibaufgabe generieren">Goethe Schreiben 주제 생성</span>
+  </button>
+
+  <div id="content-area"></div>
+</div>
+
+<script>
+var lang='ko', currentEx='t1', currentPrompt=null;
+
+var EX_INFO={
+  t1:{
+    ko:'Teil 1 — Brief/E-Mail: 편지나 이메일을 작성합니다. 공식(formell)과 비공식(informell)을 구분하고 Anrede·Grussformel을 갖추세요.',
+    de:'Teil 1 — Brief/E-Mail: Schreiben Sie einen Brief oder eine E-Mail. Unterscheiden Sie formell/informell und verwenden Sie korrekte Anrede und Grußformel.',
+    tipKo:'💡 공식: "Sehr geehrte(r)..." / 비공식: "Liebe(r)..." 로 시작. 마무리: "Mit freundlichen Gruessen" (공식) / "Liebe Gruesse" (비공식).',
+    tipDe:'💡 Formell: "Sehr geehrte(r)..." / Informell: "Liebe(r)..." Schluss: "Mit freundlichen Grüßen" (formell) / "Liebe Grüße" (informell).'
+  },
+  t2:{
+    ko:'Teil 2 — Einfuehrung/Argumentation: 주어진 주제에 대한 의견문 또는 논설문을 작성합니다. 서론-본론-결론 구조.',
+    de:'Teil 2 — Einführung/Argumentation: Schreiben Sie einen Meinungsaufsatz oder eine Erörterung zu einem Thema. Struktur: Einleitung-Hauptteil-Schluss.',
+    tipKo:'💡 Erstens... Zweitens... Zusammenfassend... 등 접속어를 활용하세요. 자신의 의견을 명확히 하고 근거를 제시하세요.',
+    tipDe:'💡 Verwenden Sie Konnektoren: Erstens... Zweitens... Außerdem... Zusammenfassend. Vertreten Sie klar Ihre Meinung und begründen Sie sie.'
+  }
+};
+
+function selectEx(id,btn){
+  currentEx=id;
+  document.querySelectorAll('.etab').forEach(function(t){t.classList.remove('act');});
+  btn.classList.add('act');
+  renderExInfo();
+  document.getElementById('content-area').innerHTML='';
+}
+
+function renderExInfo(){
+  var info=EX_INFO[currentEx];
+  document.getElementById('ex-info').innerHTML=
+    '<div class="ei-title">'+(lang==='ko'?info.ko.split(':')[0]:info.de.split(':')[0])+'</div>'
+    +'<div class="ei-desc">'+(lang==='ko'?info.ko.split(':').slice(1).join(':'):info.de.split(':').slice(1).join(':'))+'</div>'
+    +'<div class="ei-tip">'+(lang==='ko'?info.tipKo:info.tipDe)+'</div>';
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-de]').forEach(function(el){
+    var t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-de');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-de').classList.toggle('act',l==='de');
+  renderExInfo();
+}
+
+async function generate(){
+  var level=document.getElementById('sel-level').value;
+  var btn=document.getElementById('gen-btn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ <span>'+(lang==='ko'?'생성 중...':'Generierung...')+'</span>';
+  document.getElementById('content-area').innerHTML='';
+
+  var goethe='Goethe-Zertifikat '+level;
+  var wordRanges={A1:'30-50',A2:'50-80',B1:'80-120',B2:'120-180',C1:'150-220',C2:'200-280'};
+  var words=wordRanges[level]||'80-120';
+  var exTypes={
+    t1:'Brief oder E-Mail (formell oder informell)',
+    t2:'Meinungsaufsatz oder Einfuehrung und Argumentation'
+  };
+
+  var prompt='Generate a '+goethe+' Goethe-Zertifikat Schreiben exercise.\n'
+    +'Exercise: '+exTypes[currentEx]+' / Word count: '+words+'\n\n'
+    +'Return ONLY valid JSON object (no markdown, no backticks, single-line strings):\n'
+    +'{"level":"'+level+'","goethe":"'+goethe+'","type":"'+exTypes[currentEx]+'",'
+    +'"title":"Aufgabentitel auf Deutsch",'
+    +'"instruction":"Klare Aufgabenstellung auf Deutsch (2-3 Saetze)",'
+    +'"stimulus":"Situationsbeschreibung oder Thema auf Deutsch (1-2 Saetze)",'
+    +'"word_limit":"'+words+' Woerter","time_limit":"20-25 Minuten",'
+    +'"tips":["Schreibtipp 1 auf Deutsch","Tipp 2","Tipp 3"],'
+    +'"useful_phrases":["Formulierung 1","Formulierung 2","Formulierung 3","Formulierung 4"],'
+    +'"outline":["Einleitung","Hauptteil 1","Hauptteil 2","Schluss"]}\n'
+    +'ALL content in German. Avoid special characters where possible. Single-line strings.';
+
+  try{
+    var res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:800,
+        messages:[{role:'user',content:prompt}]})});
+    var data=await res.json();
+    var raw=data.content?.[0]?.text||'';
+    var s=raw.replace(/```json|```/g,'').trim();
+    var fi=s.indexOf('{'); var li=s.lastIndexOf('}');
+    if(fi!==-1&&li!==-1) s=s.slice(fi,li+1);
+    currentPrompt=JSON.parse(s);
+    renderWriting();
+  }catch(e){
+    document.getElementById('content-area').innerHTML=
+      '<div style="text-align:center;padding:24px;color:var(--de-red,#d4242b)">⚠️ '+(lang==='ko'?'생성 실패':'Fehler')+'<br><small>'+e.message+'</small></div>';
+    console.error(e);
+  }
+  btn.disabled=false;
+  btn.innerHTML='🔄 <span>'+(lang==='ko'?'새 주제':'Neues Thema')+'</span>';
+}
+
+function renderWriting(){
+  var p=currentPrompt;
+  var area=document.getElementById('content-area');
+  area.innerHTML='';
+
+  var pc=document.createElement('div'); pc.className='prompt-card fade-in';
+  var badge=document.createElement('span'); badge.className='pc-badge'; badge.textContent=p.goethe||'';
+  var badge2=document.createElement('span'); badge2.className='pc-badge2'; badge2.textContent=p.type||'';
+  var title=document.createElement('div'); title.className='pc-title'; title.textContent=p.title||'';
+  var instr=document.createElement('div'); instr.className='pc-instruction'; instr.textContent=p.instruction||'';
+  pc.append(badge,badge2,title,instr);
+  if(p.stimulus){
+    var stim=document.createElement('div'); stim.className='pc-stimulus'; stim.textContent=p.stimulus;
+    pc.appendChild(stim);
+  }
+  var meta=document.createElement('div'); meta.className='pc-meta';
+  meta.innerHTML='<span class="pc-meta-item">📝 '+(p.word_limit||'')+'</span>'
+    +'<span class="pc-meta-item">⏱ '+(p.time_limit||'')+'</span>';
+  pc.appendChild(meta);
+
+  var wc=document.createElement('div'); wc.className='write-card fade-in';
+  var wHead=document.createElement('div'); wHead.className='wc-head';
+  var wTitle=document.createElement('div'); wTitle.className='wc-title';
+  wTitle.textContent=lang==='ko'?'✏️ 독일어로 작성하세요':'✏️ Schreiben Sie auf Deutsch';
+  var wcount=document.createElement('div'); wcount.className='word-count';
+  wcount.innerHTML=(lang==='ko'?'단어 수':'Wörter')+': <span id="wc">0</span>';
+  wHead.append(wTitle,wcount);
+  var wBody=document.createElement('div'); wBody.style.padding='18px';
+  var wordTarget=parseInt((p.word_limit||'80-120').split('-')[1]||120);
+  var ta=document.createElement('textarea'); ta.className='writing-textarea'; ta.id='writing-area';
+  ta.placeholder=lang==='ko'?'여기에 독일어로 작성하세요…':'Schreiben Sie hier auf Deutsch...';
+  ta.addEventListener('input',function(){
+    var wn=ta.value.trim().split(/\s+/).filter(function(w){return w.length>0;}).length;
+    document.getElementById('wc').textContent=wn;
+    var fill=document.getElementById('word-fill');
+    if(fill) fill.style.width=Math.min(100,(wn/wordTarget)*100)+'%';
+  });
+  var wBar=document.createElement('div'); wBar.className='word-bar';
+  wBar.innerHTML='<div class="word-fill" id="word-fill" style="width:0%"></div>';
+  var subBtn=document.createElement('button'); subBtn.className='submit-btn'; subBtn.id='submit-btn';
+  subBtn.textContent=lang==='ko'?'✓ 제출하고 AI 피드백 받기':'✓ Einreichen und KI-Feedback erhalten';
+  subBtn.addEventListener('click',submitWriting);
+  wBody.append(ta,wBar,subBtn);
+  wc.append(wHead,wBody);
+
+  var hc=document.createElement('div'); hc.className='card fade-in';
+  var hHead=document.createElement('div'); hHead.className='card-head';
+  hHead.innerHTML='<div class="card-title">'+(lang==='ko'?'💡 Schreibtipps & Formulierungen':'💡 Schreibtipps & Formulierungen')+'</div>';
+  var hBody=document.createElement('div'); hBody.className='card-body';
+  var tipsDiv=document.createElement('div'); tipsDiv.style.cssText='display:flex;flex-direction:column;gap:6px;margin-bottom:12px;';
+  (p.tips||[]).forEach(function(t){
+    var d=document.createElement('div');
+    d.style.cssText='font-size:12px;padding:7px 12px;background:var(--purple-light);color:var(--purple);border-radius:8px;line-height:1.5;';
+    d.textContent='💡 '+t; tipsDiv.appendChild(d);
+  });
+  var phLabel=document.createElement('div');
+  phLabel.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);margin:10px 0 6px;';
+  phLabel.textContent=lang==='ko'?'유용한 표현':'Nützliche Formulierungen';
+  var phDiv=document.createElement('div');
+  (p.useful_phrases||[]).forEach(function(ph){
+    var sp=document.createElement('span'); sp.className='phrase-tag'; sp.textContent=ph; phDiv.appendChild(sp);
+  });
+  var outLabel=document.createElement('div');
+  outLabel.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);margin:12px 0 6px;';
+  outLabel.textContent=lang==='ko'?'구조 예시':'Textstruktur';
+  var outDiv=document.createElement('div');
+  (p.outline||[]).forEach(function(s,i){
+    var d=document.createElement('div'); d.className='outline-item';
+    d.innerHTML='<span class="outline-num">'+(i+1)+'.</span><span>'+s+'</span>';
+    outDiv.appendChild(d);
+  });
+  hBody.append(tipsDiv,phLabel,phDiv,outLabel,outDiv);
+  hc.append(hHead,hBody);
+
+  var fbDiv=document.createElement('div'); fbDiv.id='feedback-section';
+  area.append(pc,wc,hc,fbDiv);
+}
+
+async function submitWriting(){
+  var text=document.getElementById('writing-area').value.trim();
+  var wn=text.split(/\s+/).filter(function(w){return w.length>0;}).length;
+  if(wn<5){
+    alert(lang==='ko'?'최소 5단어 이상 독일어로 작성해 주세요.':'Bitte schreiben Sie mindestens 5 Woerter auf Deutsch.');
+    return;
+  }
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  btn.textContent=lang==='ko'?'⏳ AI 채점 중...':'⏳ KI-Bewertung laeuft...';
+  var fb=document.getElementById('feedback-section');
+  fb.innerHTML='<div style="text-align:center;padding:24px;background:var(--white);border:0.5px solid var(--border);border-radius:14px;">'
+    +'<div style="font-size:24px;margin-bottom:8px;">⏳</div>'
+    +'<div style="color:var(--text-muted);font-size:14px;">'+(lang==='ko'?'AI 채점 중…':'KI-Bewertung laeuft...')+'</div></div>';
+
+  var prompt='Du bist ein Goethe-Institut Pruefungsbewerter fuer die schriftliche Pruefung. Bewerte diesen deutschen Text.\n\n'
+    +'Aufgabe ('+currentEx+'): '+(currentPrompt.title||'')+'\n'
+    +'Anweisung: '+(currentPrompt.instruction||'')+'\n'
+    +'Niveau: '+(currentPrompt.level||'')+' ('+(currentPrompt.goethe||'')+')\n'
+    +'Text des Lernenden: "'+text+'"\n\n'
+    +'Return ONLY valid JSON object (no markdown, single-line strings):\n'
+    +'{"task_score":7,"grammar_score":7,"vocabulary_score":7,"structure_score":7,"coherence_score":7,'
+    +'"strengths_de":"Staerken auf Deutsch",'
+    +'"grammar_de":"Grammatikfeedback auf Deutsch",'
+    +'"vocabulary_de":"Wortschatzfeedback auf Deutsch",'
+    +'"structure_de":"Strukturfeedback auf Deutsch",'
+    +'"improved_de":"Verbesserte Version des Textes auf Deutsch"}\n'
+    +'Score 1-10. Ermutigender Ton. Goethe-Pruefungsbewerter-Perspektive. Alles auf Deutsch. Single-line strings.';
+
+  try{
+    var res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1200,
+        messages:[{role:'user',content:prompt}]})});
+    var data=await res.json();
+    var raw=data.content?.[0]?.text||'';
+    var s=raw.replace(/```json|```/g,'').trim();
+    var fi=s.indexOf('{'); var li=s.lastIndexOf('}');
+    if(fi!==-1&&li!==-1) s=s.slice(fi,li+1);
+    var r=JSON.parse(s);
+    var overall=Math.round((r.task_score+r.grammar_score+r.vocabulary_score+r.structure_score+r.coherence_score)/5);
+
+    fb.innerHTML='<div class="card fade-in">'
+      +'<div class="card-head"><div class="card-title">🤖 '+(lang==='ko'?'Goethe AI 채점 결과':'Goethe KI-Bewertungsergebnis')+'</div></div>'
+      +'<div class="card-body">'
+      +'<div class="score-grid">'
+      +'<div class="si"><div class="sn">'+overall+'</div><div class="sl">'+(lang==='ko'?'종합':'Gesamt')+'</div></div>'
+      +'<div class="si"><div class="sn">'+r.task_score+'</div><div class="sl">'+(lang==='ko'?'과제':'Aufgabe')+'</div></div>'
+      +'<div class="si"><div class="sn">'+r.grammar_score+'</div><div class="sl">'+(lang==='ko'?'문법':'Grammatik')+'</div></div>'
+      +'<div class="si"><div class="sn">'+r.vocabulary_score+'</div><div class="sl">'+(lang==='ko'?'어휘':'Wortschatz')+'</div></div>'
+      +'<div class="si"><div class="sn">'+r.structure_score+'</div><div class="sl">'+(lang==='ko'?'구조':'Struktur')+'</div></div>'
+      +'</div>'
+      +'<div class="fb-sec"><div class="fb-lbl">✅ '+(lang==='ko'?'잘한 점':'Stärken')+'</div><div class="fb-txt">'+r.strengths_de+'</div></div>'
+      +'<div class="fb-sec"><div class="fb-lbl">📝 '+(lang==='ko'?'문법':'Grammatik')+'</div><div class="fb-txt">'+r.grammar_de+'</div></div>'
+      +'<div class="fb-sec"><div class="fb-lbl">📚 '+(lang==='ko'?'어휘':'Wortschatz')+'</div><div class="fb-txt">'+r.vocabulary_de+'</div></div>'
+      +'<div class="fb-sec"><div class="fb-lbl">🏗 '+(lang==='ko'?'구조':'Struktur')+'</div><div class="fb-txt">'+r.structure_de+'</div></div>'
+      +'<div class="fb-sec"><div class="fb-lbl">✨ '+(lang==='ko'?'개선된 작문':'Verbesserter Text')+'</div>'
+      +'<div class="improved-box">'+r.improved_de+'</div></div>'
+      +'<button onclick="generate()" style="margin-top:16px;width:100%;padding:12px;border-radius:10px;background:var(--purple);color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;">'
+      +'🔄 '+(lang==='ko'?'새 주제로 연습':'Mit neuem Thema üben')+'</button>'
+      +'</div></div>';
+  }catch(e){
+    fb.innerHTML='<div style="padding:16px;color:var(--de-red,#d4242b)">⚠️ '+(lang==='ko'?'피드백 생성 실패':'Fehler')+'</div>';
+    console.error(e);
+  }
+  btn.disabled=false;
+  btn.textContent=lang==='ko'?'✓ 제출하고 AI 피드백 받기':'✓ Einreichen und KI-Feedback erhalten';
+}
+
+(function(){
+  setLang('ko');
+  renderExInfo();
+  var lv=new URLSearchParams(location.search).get('level');
+  if(lv) document.getElementById('sel-level').value=lv;
+})();
+</script>
+</body>
+</html>

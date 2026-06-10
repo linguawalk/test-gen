@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General 日本語</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#1C2B45;--teal:#2A7F6F;--teal-light:#E1F5EE;--teal-mid:#1D9E75;
+    --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+    --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+    --accent:#2A7F6F;--accent-light:#E1F5EE;
+    --gold:#c9952a;--gold-light:#fdf3dc;
+    --ja:#c0392b;--ja-light:#fdf0ef;
+  }
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 6%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+  .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+  .nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+  .nav-lt{font-size:16px;font-weight:600;color:#fff;}
+  .nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+  .nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+  .nav-space{flex:1;}
+  .nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 12px;border-radius:7px;transition:all 0.2s;}
+  .nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+  .lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+  .lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+  .lbtn.act{background:var(--teal);color:#fff;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#8b1a12 0%,#c0392b 100%);padding:48px 6% 44px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+  .hero-inner{max-width:860px;margin:0 auto;position:relative;}
+  .hero-tag{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;}
+  .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:10px;}
+  .hero-desc{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:500px;margin-bottom:20px;}
+  .hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+  .h-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,0.14);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+  .h-badge.gold{background:rgba(201,149,42,0.25);color:#fcd34d;border-color:rgba(201,149,42,0.3);}
+
+  .wrap{max-width:860px;margin:0 auto;padding:36px 6% 80px;}
+
+  /* LEVEL SELECTOR */
+  .level-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:28px;}
+  .ls-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .ls-desc{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+  .level-tabs{display:flex;gap:3px;background:var(--bg);border-radius:10px;padding:3px;flex-wrap:wrap;}
+  .lv-tab{flex:1;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;min-width:60px;position:relative;}
+  .lv-tab:hover{color:var(--ja);}
+  .lv-tab.act{background:var(--ja);color:#fff;}
+  .lv-tab.locked{cursor:default;opacity:0.5;}
+  .lv-tab.locked:hover{color:var(--text-muted);}
+  .lv-lock{font-size:9px;position:absolute;top:3px;right:5px;}
+  .level-info{margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;}
+  .level-info.pro{background:var(--gold-light);color:#854f0b;}
+
+  /* CEFR ↔ JLPT 대응 */
+  .cefr-map{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .cefr-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:8px;background:var(--ja-light);color:var(--ja);}
+
+  /* SKILLS GRID */
+  .sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .sh-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);}
+  .sh-line{flex:1;height:0.5px;background:var(--border);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:32px;}
+  .skill-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:all 0.25s;position:relative;}
+  .skill-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.09);}
+  .sc-top{padding:20px 20px 14px;flex:1;}
+  .sc-icon{font-size:32px;margin-bottom:10px;}
+  .sc-name{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .sc-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;}
+  .sc-tags{display:flex;gap:5px;flex-wrap:wrap;}
+  .sc-tag{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:500;}
+  .sc-bottom{padding:12px 20px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .sc-cta{font-size:13px;font-weight:600;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .fade{opacity:0;animation:fadeUp 0.45s ease forwards;}
+  .fade:nth-child(1){animation-delay:.05s}.fade:nth-child(2){animation-delay:.10s}
+  .fade:nth-child(3){animation-delay:.15s}.fade:nth-child(4){animation-delay:.20s}
+  .fade:nth-child(5){animation-delay:.25s}.fade:nth-child(6){animation-delay:.30s}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📚 <span data-ja="General 日本語" data-ko="General 일본어">General 日本語</span></span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ja="← 日本語ホーム" data-ko="← 일본어 홈">← 日本語ホーム</a>
+  <div class="lang-sw">
+    <button class="lbtn" onclick="setLang('ja')" id="btn-ja">日本語</button>
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag" data-ja="GENERAL 日本語 · 全レベル" data-ko="GENERAL 일본어 · 전체 레벨">GENERAL 日本語 · 全レベル</div>
+    <h1 class="hero-title" data-ja="A1から C2まで日本語を学ぼう" data-ko="A1부터 C2까지 일본어 학습">A1から C2まで日本語を学ぼう</h1>
+    <p class="hero-desc"
+      data-ja="語彙・文法・聴解・読解・会話・作文 — AIが支える6つのスキル。A1は無料でスタート。"
+      data-ko="어휘·문법·듣기·읽기·말하기·쓰기 — AI 기반 6개 영역. A1 무료로 시작.">
+      語彙・文法・聴解・読解・会話・作文 — AIが支える6つのスキル。
+    </p>
+    <div class="hero-badges">
+      <span class="h-badge" data-ja="A1 & A2 — 無料" data-ko="A1 & A2 — 무료">A1 & A2 — 無料</span>
+      <span class="h-badge gold" data-ja="B1~C2 — Free" data-ko="B1~C2 — Free">B1~C2 — Free</span>
+      <span class="h-badge" data-ja="6スキル" data-ko="6개 영역">6スキル</span>
+      <span class="h-badge">🤖 AI チューター</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Level Selector -->
+  <div class="level-section fade">
+    <div class="ls-title" data-ja="レベルを選んでください" data-ko="레벨 선택">レベルを選んでください</div>
+    <div class="ls-desc">
+      <span data-ja="CEFR基準 · JLPTとの対応表は下に表示" data-ko="CEFR 기준 · JLPT 대응표는 아래 표시">CEFR基準 · JLPTとの対応は下に表示</span>
+    </div>
+    <div class="level-tabs">
+      <button class="lv-tab act" onclick="selectLevel('A1',this)">A1</button>
+      <button class="lv-tab" onclick="selectLevel('A2',this)">A2</button>
+      <button class="lv-tab" onclick="selectLevel('B1',this)">B1</button>
+      <button class="lv-tab" onclick="selectLevel('B2',this)">B2</button>
+      <button class="lv-tab" onclick="selectLevel('C1',this)">C1</button>
+      <button class="lv-tab" onclick="selectLevel('C2',this)">C2</button>
+    </div>
+    <div class="level-info" id="level-info"></div>
+    <div class="cefr-map" id="cefr-map"></div>
+  </div>
+
+  <!-- Skills -->
+  <div class="sh fade">
+    <span class="sh-label" data-ja="スキルを選んでください" data-ko="영역 선택">スキルを選んでください</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="skills-grid">
+
+    <!-- 聴解 Listening -->
+    <a href="listening.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">🎧</div>
+        <div class="sc-name" data-ja="聴解" data-ko="듣기">聴解</div>
+        <div class="sc-desc"
+          data-ja="写真を見て音声を聞く問題から会話・担話まで。TTS音声でリスニング力を鍛えます。1問ずつ生成。"
+          data-ko="사진 보고 음성 듣기부터 대화·담화까지. TTS 음성으로 듣기 실력을 키웁니다. 1문제씩 생성.">
+          写真描写・会話・談話 · TTS音声 · 1問ずつ
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-ja="写真描写" data-ko="사진묘사">写真描写</span>
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-ja="会話" data-ko="대화">대화</span>
+          <span class="sc-tag" style="background:#faeeda;color:#ba7517;" data-ja="談話" data-ko="담화">談話</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#ba7517;" data-ja="聴解を始める →" data-ko="듣기 시작 →">聴解を始める →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 読解 Reading -->
+    <a href="reading.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">📖</div>
+        <div class="sc-name" data-ja="読解" data-ko="읽기">読解</div>
+        <div class="sc-desc"
+          data-ja="ニュース記事・メール・エッセイ・説明文。単語をクリックするとAIが即座に解説します。"
+          data-ko="뉴스 기사·이메일·에세이·설명문. 단어 클릭으로 AI가 즉시 해설합니다.">
+          ニュース・メール・エッセイ · 単語解説 · AI問答
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:var(--accent-light);color:var(--accent);" data-ja="ニュース" data-ko="뉴스">ニュース</span>
+          <span class="sc-tag" style="background:var(--accent-light);color:var(--accent);" data-ja="メール" data-ko="이메일">メール</span>
+          <span class="sc-tag" style="background:var(--accent-light);color:var(--accent);" data-ja="エッセイ" data-ko="에세이">エッセイ</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:var(--accent);" data-ja="読解を始める →" data-ko="읽기 시작 →">読解を始める →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 会話 Speaking -->
+    <a href="speaking.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">🗣️</div>
+        <div class="sc-name" data-ja="会話" data-ko="말하기">말하기</div>
+        <div class="sc-desc"
+          data-ja="ロールプレイ・インタビュー・日常会話。AIが発音・流暢さ・文法をフィードバックします。"
+          data-ko="롤플레이·인터뷰·일상회화. AI가 발음·유창성·문법을 피드백합니다.">
+          ロールプレイ · AI採点 · 発音練習
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ja="ロールプレイ" data-ko="롤플레이">ロールプレイ</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ja="日常会話" data-ko="일상회화">日常会話</span>
+          <span class="sc-tag" style="background:#fbeaf0;color:#993556;" data-ja="意見述べ" data-ko="의견말하기">意見述べ</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#993556;" data-ja="会話を始める →" data-ko="말하기 시작 →">말하기 시작 →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 作文 Writing -->
+    <a href="writing.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">✍️</div>
+        <div class="sc-name" data-ja="作文" data-ko="쓰기">作文</div>
+        <div class="sc-desc"
+          data-ja="メール・エッセイ・日記・レポート。AIが課題達成度・文法・語彙・論理性を採点します。"
+          data-ko="이메일·에세이·일기·리포트. AI가 과제달성도·문법·어휘·논리성을 채점합니다.">
+          メール · エッセイ · AI採点
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ja="メール" data-ko="이메일">メール</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ja="エッセイ" data-ko="에세이">エッセイ</span>
+          <span class="sc-tag" style="background:#f1effe;color:#534ab7;" data-ja="日記" data-ko="일기">日記</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#534ab7;" data-ja="作文を始める →" data-ko="쓰기 시작 →">作文を始める →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+    <!-- 語彙・文法 Vocabulary & Grammar -->
+    <a href="vocabulary.html" class="skill-card fade">
+      <div class="sc-top">
+        <div class="sc-icon">📚</div>
+        <div class="sc-name" data-ja="語彙・文法" data-ko="어휘·문법">語彙・文法</div>
+        <div class="sc-desc"
+          data-ja="日常・ビジネス・敬語など20テーマの語彙と文法。AIクイズで定着率アップ。"
+          data-ko="일상·비즈니스·경어 등 20개 테마 어휘와 문법. AI 퀴즈로 암기력 향상.">
+          20テーマ · 敬語 · ひらがな · AI問題
+        </div>
+        <div class="sc-tags">
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ja="日常語彙" data-ko="일상어휘">日常語彙</span>
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ja="敬語" data-ko="경어">敬語</span>
+          <span class="sc-tag" style="background:#f0eaf8;color:#5b2d8e;" data-ja="文型" data-ko="문형">文型</span>
+        </div>
+      </div>
+      <div class="sc-bottom">
+        <span class="sc-cta" style="color:#5b2d8e;" data-ja="語彙・文法を始める →" data-ko="어휘·문법 시작 →">語彙・文法を始める →</span>
+        <span style="font-size:11px;color:var(--text-light);">A1–C2</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<script>
+let lang='ko', currentLevel='A1';
+
+const LEVEL_INFO={
+  A1:{
+    free:true,
+    ja:'🟢 A1 — 入門。基本的なひらがな・カタカナと挨拶表現を学びます。全スキル無料。JLPT N5以下相当。',
+    ko:'🟢 A1 — 입문. 기초 히라가나·가타카나와 인사 표현을 배웁니다. 전 영역 무료. JLPT N5 이하 수준.',
+    jlpt:'N5以下相当 / N5 이하 수준'
+  },
+  A2:{
+    free:true,
+    ja:'🟢 A2 — 初級。日常的なやり取りができます。全スキル無料。JLPT N5相当。',
+    ko:'🟢 A2 — 초급. 일상적인 대화가 가능합니다. 전 영역 무료. JLPT N5 수준.',
+    jlpt:'N5相当 / N5 수준'
+  },
+  B1:{
+    free:true,
+    ja:'B1 — 中級前半。よく使われる話題の会話が理解できます。JLPT N4~N3相当。',
+    ko:'B1 — 중급 초반. 자주 사용되는 주제의 대화를 이해할 수 있습니다. JLPT N4~N3 수준.',
+    jlpt:'N4〜N3相当 / N4~N3 수준'
+  },
+  B2:{
+    free:true,
+    ja:'B2 — 中級。幅広いテーマで流暢なやり取りができます。JLPT N3~N2相当。',
+    ko:'B2 — 중급. 다양한 주제로 유창한 대화가 가능합니다. JLPT N3~N2 수준.',
+    jlpt:'N3〜N2相当 / N3~N2 수준'
+  },
+  C1:{
+    free:true,
+    ja:'C1 — 上級。複雑な内容も流暢に表現できます。JLPT N2~N1相当。',
+    ko:'C1 — 고급. 복잡한 내용도 유창하게 표현할 수 있습니다. JLPT N2~N1 수준.',
+    jlpt:'N2〜N1相当 / N2~N1 수준'
+  },
+  C2:{
+    free:true,
+    ja:'C2 — 習得。ほぼすべての日本語を理解し使いこなせます。JLPT N1以上相当。',
+    ko:'C2 — 숙달. 거의 모든 일본어를 이해하고 구사할 수 있습니다. JLPT N1 이상 수준.',
+    jlpt:'N1以上相当 / N1 이상 수준'
+  },
+};
+
+function selectLevel(lv,el){
+  currentLevel=lv;
+  document.querySelectorAll('.lv-tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+  updateLevelInfo();
+}
+
+function updateLevelInfo(){
+  const info=LEVEL_INFO[currentLevel];
+  const infoEl=document.getElementById('level-info');
+  const mapEl=document.getElementById('cefr-map');
+  infoEl.textContent=lang==='ko'?info.ko:info.ja;
+  infoEl.className='level-info'+(info.free?'':' pro');
+  mapEl.innerHTML=`<span class="cefr-badge">JLPT: ${info.jlpt}</span>`;
+}
+
+function showProMsg(lv){ /* 모두 무료 */ }
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ja][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-ja');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ja').classList.toggle('act',l==='ja');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  updateLevelInfo();
+}
+
+(function(){
+  setLang('ko');
+  updateLevelInfo();
+})();
+</script>
+</body>
+</html>

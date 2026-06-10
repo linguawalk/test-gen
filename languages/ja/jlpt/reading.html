@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — JLPT 読解・言語知識</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --jlpt:#c0392b;--jlpt-dark:#7f1a12;--jlpt-light:#fdf0ef;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:860px;margin:0 auto;padding:28px 5% 80px;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--jlpt-dark) 0%,var(--jlpt) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.h-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+/* PART TABS */
+.part-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:3px;}
+.ptab{flex:1;padding:9px 8px;border-radius:9px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;white-space:nowrap;}
+.ptab:hover{color:var(--jlpt);}
+.ptab.act{background:var(--jlpt);color:#fff;}
+
+/* PART INFO */
+.part-info{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:14px;}
+.pi-title{font-size:13px;font-weight:600;color:var(--jlpt);margin-bottom:6px;}
+.pi-desc{font-size:12px;color:var(--text-muted);line-height:1.65;}
+.pi-tip{margin-top:8px;padding:8px 12px;background:var(--jlpt-light);border-radius:8px;font-size:12px;color:var(--jlpt);}
+
+/* SETTINGS */
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+/* GEN BTN */
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--jlpt);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--jlpt-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+/* LOADING */
+.loading{padding:40px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:16px;display:none;}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--jlpt);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* CARDS */
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);}
+.card-body{padding:18px;}
+
+/* PASSAGE */
+.passage-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.pm-badge{font-size:11px;padding:3px 10px;border-radius:8px;font-weight:600;}
+.pm-level{background:var(--jlpt-light);color:var(--jlpt);}
+.pm-type{background:var(--teal-light);color:var(--teal-mid);}
+.pm-chars{background:var(--bg);color:var(--text-muted);border:0.5px solid var(--border);}
+.passage-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);margin-bottom:12px;line-height:1.4;}
+.passage-body{font-size:15px;line-height:2.1;color:var(--text);white-space:pre-line;letter-spacing:0.02em;}
+ruby{ruby-align:center;}
+rt{font-size:0.55em;color:var(--text-muted);}
+
+/* FILL-IN (文法) */
+.fill-sentence{font-size:16px;line-height:2.2;color:var(--text);margin-bottom:14px;}
+.blank{display:inline-block;width:72px;border-bottom:2px solid var(--jlpt);text-align:center;vertical-align:middle;font-weight:700;color:var(--jlpt);margin:0 4px;}
+
+/* QUESTIONS */
+.q-item{margin-bottom:12px;padding:12px 14px;background:var(--bg);border-radius:10px;}
+.q-item:last-child{margin-bottom:0;}
+.q-num{font-size:10px;font-weight:700;color:var(--jlpt);letter-spacing:.5px;margin-bottom:6px;}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px;line-height:1.6;}
+.q-opts{display:flex;flex-direction:column;gap:6px;}
+.q-opt{padding:9px 14px;border-radius:8px;border:1.5px solid var(--border-md);background:var(--white);cursor:pointer;font-size:13px;color:var(--text);transition:all 0.2s;text-align:left;font-family:inherit;display:flex;align-items:center;gap:10px;line-height:1.5;}
+.q-opt:hover:not(:disabled){border-color:var(--jlpt);background:var(--jlpt-light);}
+.q-opt.correct{border-color:var(--green);background:var(--green-light);color:#166534;font-weight:500;}
+.q-opt.wrong{border-color:var(--red);background:var(--red-light);color:#991b1b;}
+.q-opt-ltr{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-muted);flex-shrink:0;}
+.q-opt.correct .q-opt-ltr{background:var(--green);color:#fff;}
+.q-opt.wrong .q-opt-ltr{background:var(--red);color:#fff;}
+.q-feedback{margin-top:8px;font-size:12px;padding:8px 12px;border-radius:7px;display:none;line-height:1.5;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-light);color:#166534;}
+.q-feedback.wrong{background:var(--red-light);color:#991b1b;}
+
+/* SCORE */
+.score-card{background:linear-gradient(135deg,var(--jlpt-dark),var(--jlpt));border-radius:14px;padding:24px;text-align:center;margin-bottom:20px;display:none;}
+.sc-score{font-family:'DM Serif Display',serif;font-size:52px;color:#fff;line-height:1;margin-bottom:6px;}
+.sc-pct{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:10px;}
+.sc-msg{font-size:13px;color:#fcd34d;font-weight:500;}
+
+.action-btns{display:flex;gap:10px;display:none;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;}
+.act-btn.primary{background:var(--jlpt);color:#fff;border-color:var(--jlpt);}
+.act-btn.primary:hover{background:var(--jlpt-dark);}
+
+/* SCORE BAR */
+.score-bar{display:flex;align-items:center;gap:12px;background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none;}
+.sb-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--jlpt);}
+.sb-bar{flex:1;height:6px;background:var(--bg);border-radius:6px;overflow:hidden;}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--jlpt-dark),var(--jlpt));border-radius:6px;transition:width 0.3s;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📝 JLPT 読解・言語知識</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back" data-ko="← JLPT" data-ja="← JLPT">← JLPT</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('ja')" id="btn-ja">日本語</button>
+  </div>
+</nav>
+
+<div class="main fade-in">
+
+  <div class="hero">
+    <div class="hero-tag" data-ko="JLPT · 読解・言語知識 연습" data-ja="JLPT · 読解・言語知識練習">JLPT · 読解・言語知識 연습</div>
+    <div class="hero-title" data-ko="📖 JLPT 読解・言語知識" data-ja="📖 JLPT 読解・言語知識">📖 JLPT 読解・言語知識</div>
+    <div class="hero-desc" data-ko="文字・語彙 → 文法 → 読解 3단계로 JLPT 言語知識・読解 영역을 완전 대비하세요." data-ja="文字・語彙 → 文法 → 読解の3ステップでJLPT言語知識・読解を完全対策しましょう。">文字・語彙 → 文法 → 読解 3단계 완전 대비</div>
+    <div class="hero-badges">
+      <span class="h-badge">N5 · N4 · N3 · N2 · N1</span>
+      <span class="h-badge" data-ko="文字・語彙" data-ja="文字・語彙">文字・語彙</span>
+      <span class="h-badge" data-ko="文法" data-ja="文法">文法</span>
+      <span class="h-badge" data-ko="読解" data-ja="読解">読解</span>
+    </div>
+  </div>
+
+  <!-- 파트 탭 -->
+  <div class="part-tabs">
+    <button class="ptab act" onclick="selectPart('vocab',this)" data-ko="📚 文字・語彙" data-ja="📚 文字・語彙">📚 文字・語彙</button>
+    <button class="ptab" onclick="selectPart('grammar',this)" data-ko="📐 文法" data-ja="📐 文法">📐 文法</button>
+    <button class="ptab" onclick="selectPart('reading-s',this)" data-ko="📄 短文読解" data-ja="📄 短文読解">📄 短文読解</button>
+    <button class="ptab" onclick="selectPart('reading-m',this)" data-ko="📃 中長文読解" data-ja="📃 中長文読解">📃 中長文読解</button>
+  </div>
+
+  <div class="part-info" id="part-info"></div>
+
+  <!-- 설정 -->
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" data-ko="JLPT 레벨" data-ja="JLPTレベル">JLPT 레벨</div>
+      <select class="si-select" id="sel-level">
+        <option value="N5">N5</option>
+        <option value="N4">N4</option>
+        <option value="N3" selected>N3</option>
+        <option value="N2">N2</option>
+        <option value="N1">N1</option>
+      </select>
+    </div>
+    <div class="setting-item" id="q-count-wrap">
+      <div class="si-label" data-ko="문제 수" data-ja="問題数">문제 수</div>
+      <select class="si-select" id="sel-count">
+        <option value="5" selected>5</option>
+        <option value="8">8</option>
+        <option value="10">10</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn" id="gen-btn" onclick="generate()">
+    🤖 <span id="gen-label" data-ko="문제 생성" data-ja="問題を生成">문제 생성</span>
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div id="loading-text" style="font-size:14px;color:var(--text-muted);">생성 중...</div>
+  </div>
+
+  <div class="score-bar" id="score-bar">
+    <div>
+      <div class="sb-num" id="sb-num">0 / 0</div>
+      <div style="font-size:11px;color:var(--text-muted);" data-ko="정답" data-ja="正解">정답</div>
+    </div>
+    <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="score-card" id="score-card">
+    <div class="sc-score" id="sc-score"></div>
+    <div class="sc-pct" id="sc-pct"></div>
+    <div class="sc-msg" id="sc-msg"></div>
+  </div>
+
+  <div class="action-btns" id="action-btns">
+    <button class="act-btn primary" onclick="generate()" data-ko="🔄 새 문제" data-ja="🔄 新しい問題">🔄 새 문제</button>
+    <a href="index.html" class="act-btn" data-ko="← JLPT 홈" data-ja="← JLPTホーム">← JLPT 홈</a>
+  </div>
+</div>
+
+<script>
+let lang='ko', currentPart='vocab';
+let isLoading=false, correct=0, answered=0, total=0;
+
+// ── 파트 정보 ─────────────────────────────────────────────────────────
+const PART_INFO={
+  vocab:{
+    ko:'文字・語彙: 한자 읽기·쓰기, 어휘 의미, 문맥 속 어휘 선택 문제입니다.',
+    ja:'文字・語彙: 漢字の読み書き、語彙の意味、文脈に合う語彙を選ぶ問題です。',
+    tipKo:'💡 한자의 음독·훈독을 구별하고, 문맥에서 의미를 유추하는 연습이 중요합니다.',
+    tipJa:'💡 漢字の音読み・訓読みを区別し、文脈から意味を推測する練習が大切です。'
+  },
+  grammar:{
+    ko:'文法: 문장의 빈칸에 알맞은 문법 항목(助詞・助動詞・文型)을 선택하는 문제입니다.',
+    ja:'文法: 文の空欄に適切な文法項目（助詞・助動詞・文型）を選ぶ問題です。',
+    tipKo:'💡 자주 출제되는 문형과 접속 방법을 암기하세요. 레벨별 필수 문형이 중요합니다.',
+    tipJa:'💡 よく出る文型と接続方法を暗記しましょう。レベル別の必須文型が重要です。'
+  },
+  'reading-s':{
+    ko:'短文読解: 짧은 지문(80~200字)을 읽고 내용을 이해하는 문제입니다.',
+    ja:'短文読解: 短い文章（80〜200字）を読んで内容を理解する問題です。',
+    tipKo:'💡 첫 문장과 마지막 문장에 핵심 내용이 있는 경우가 많습니다.',
+    tipJa:'💡 最初と最後の文に重要な内容が含まれることが多いです。'
+  },
+  'reading-m':{
+    ko:'中長文読解: 중문·장문(200~500字)을 읽고 주제·세부 내용·추론 문제에 답합니다.',
+    ja:'中長文読解: 中文・長文（200〜500字）を読んで主題・詳細・推論問題に答えます。',
+    tipKo:'💡 질문을 먼저 읽어 무엇을 찾아야 할지 파악한 후 지문을 읽으세요.',
+    tipJa:'💡 質問を先に読み、何を探すべきか把握してから文章を読みましょう。'
+  }
+};
+
+function selectPart(id, btn){
+  currentPart=id;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  renderPartInfo();
+  resetContent();
+  // 읽기는 문제수 숨김 (1지문 고정)
+  const qw=document.getElementById('q-count-wrap');
+  qw.style.display=(id==='reading-s'||id==='reading-m')?'none':'block';
+}
+
+function renderPartInfo(){
+  const info=PART_INFO[currentPart];
+  document.getElementById('part-info').innerHTML=`
+    <div class="pi-title">${lang==='ko'?info.ko.split(':')[0]:info.ja.split(':')[0]}</div>
+    <div class="pi-desc">${lang==='ko'?info.ko.split(':').slice(1).join(':'):info.ja.split(':').slice(1).join(':')}</div>
+    <div class="pi-tip">${lang==='ko'?info.tipKo:info.tipJa}</div>`;
+}
+
+function resetContent(){
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('score-card').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  correct=0; answered=0; total=0;
+}
+
+// ── API ───────────────────────────────────────────────────────────────
+async function callClaude(prompt, maxTok){
+  const r=await fetch('/api/claude',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTok||1500,
+      messages:[{role:'user',content:prompt}]})});
+  const d=await r.json();
+  const raw=d.content?.[0]?.text||'';
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+// ── 생성 ─────────────────────────────────────────────────────────────
+async function generate(){
+  if(isLoading) return;
+  isLoading=true; resetContent();
+  document.getElementById('gen-btn').disabled=true;
+  document.getElementById('loading').style.display='block';
+  const level=document.getElementById('sel-level').value;
+  const count=parseInt(document.getElementById('sel-count').value)||5;
+
+  try{
+    let data;
+    if(currentPart==='vocab'){
+      data=await callClaude(promptVocab(level,count),1500);
+      total=data.items.length;
+      document.getElementById('loading').style.display='none';
+      renderVocab(data.items);
+    } else if(currentPart==='grammar'){
+      data=await callClaude(promptGrammar(level,count),1500);
+      total=data.items.length;
+      document.getElementById('loading').style.display='none';
+      renderGrammar(data.items);
+    } else {
+      data=await callClaude(promptReading(level,currentPart),2000);
+      total=data.questions.length;
+      document.getElementById('loading').style.display='none';
+      renderReading(data);
+    }
+    document.getElementById('score-bar').style.display='flex';
+    updateScoreBar();
+    document.getElementById('action-btns').style.display='flex';
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('content-area').innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해주세요.':'生成失敗。もう一度お試しください。'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  isLoading=false;
+  document.getElementById('gen-btn').disabled=false;
+}
+
+// ── 프롬프트 ─────────────────────────────────────────────────────────
+function promptVocab(level,count){
+  return `JLPT ${level} 文字・語彙 問題を${count}問生成してください。
+ONLY return valid JSON (no markdown, single-line strings):
+{"items":[{"id":1,"type":"読み方","question":"次の言葉の読み方として正しいものはどれですか。「重要」","choices":["1 じゅうよ","2 じゅうよう","3 ちゅうよう","4 ちょうよう"],"answer":1,"explanation_ko":"重要(じゅうよう)는 '중요'라는 뜻입니다."}]}
+타입: 読み方(한자읽기) / 意味(어휘의미) / 使い方(어휘사용법) 를 섞어서 출제. answer는 0-based index. 선택지는 반드시 4개.`;
+}
+
+function promptGrammar(level,count){
+  return `JLPT ${level} 文法 問題を${count}問生成してください。빈칸 채우기 형식.
+ONLY return valid JSON (no markdown, single-line strings):
+{"items":[{"id":1,"sentence":"明日、友達___会う予定です。","blank_position":"中","choices":["1 に","2 を","3 で","4 が"],"answer":0,"explanation_ko":"「友達に会う」: ~に会う는 '~를 만나다'는 뜻으로 に를 씁니다."}]}
+sentence에서 빈칸은 ___로 표시. answer는 0-based index. 선택지 4개.`;
+}
+
+function promptReading(level,type){
+  const isShort=type==='reading-s';
+  const charRange=isShort?{N5:'60-100',N4:'80-130',N3:'100-180',N2:'150-250',N1:'200-300'}[level]:
+                          {N5:'120-180',N4:'150-220',N3:'200-300',N2:'280-400',N1:'350-500'}[level];
+  const qCount=isShort?3:4;
+  return `JLPT ${level} ${isShort?'短文':'中長文'}読解 問題を1セット生成してください。文章の長さ: ${charRange}字。
+ONLY return valid JSON (no markdown, single-line strings):
+{"title":"文章のタイトル","level":"${level}","char_count":150,"passage":"日本語の文章テキスト (後で後りがなは[よみかた]形式で)","questions":[{"id":1,"text":"質問文","choices":["1 選択肢","2 選択肢","3 選択肢","4 選択肢"],"answer":0,"explanation_ko":"한국어 해설"},{"id":2,"text":"質問文","choices":["1 選択肢","2 選択肢","3 選択肢","4 選択肢"],"answer":2,"explanation_ko":"해설"}]}
+${qCount}문제 포함. N5/N4는 難しい漢字に[ふりがな]を付ける. answer는 0-based index (vary positions). single-line strings only.`;
+}
+
+// ── 렌더 함수 ─────────────────────────────────────────────────────────
+function renderVocab(items){
+  const card=document.createElement('div'); card.className='card fade-in';
+  const head=document.createElement('div'); head.className='card-head';
+  head.innerHTML=`<span class="card-title">${lang==='ko'?'文字・語彙 問題':'文字・語彙問題'} (${items.length}${lang==='ko'?'문제':'問'})</span>`;
+  const body=document.createElement('div'); body.className='card-body';
+  items.forEach(item=>body.appendChild(makeQItem(item,'v')));
+  card.append(head,body);
+  document.getElementById('content-area').appendChild(card);
+}
+
+function renderGrammar(items){
+  const card=document.createElement('div'); card.className='card fade-in';
+  const head=document.createElement('div'); head.className='card-head';
+  head.innerHTML=`<span class="card-title">${lang==='ko'?'文法 問題':'文法問題'} (${items.length}${lang==='ko'?'문제':'問'})</span>`;
+  const body=document.createElement('div'); body.className='card-body';
+  items.forEach(item=>{
+    // 문법은 sentence에 ___ 표시
+    const qDiv=document.createElement('div'); qDiv.className='q-item';
+    const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='問題 '+item.id;
+    const sentDiv=document.createElement('div'); sentDiv.className='fill-sentence';
+    sentDiv.innerHTML=item.sentence.replace('___',`<span class="blank">（　）</span>`);
+    const opts=document.createElement('div'); opts.className='q-opts';
+    item.choices.forEach((c,i)=>{
+      const btn=document.createElement('button'); btn.className='q-opt';
+      btn.innerHTML=`<span class="q-opt-ltr">${i+1}</span><span>${c}</span>`;
+      btn.addEventListener('click',()=>answerQ(item.id,i,btn,item.answer,item.explanation_ko,opts));
+      opts.appendChild(btn);
+    });
+    const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='jfb-'+item.id;
+    qDiv.append(qNum,sentDiv,opts,fb);
+    body.appendChild(qDiv);
+  });
+  card.append(head,body);
+  document.getElementById('content-area').appendChild(card);
+}
+
+function renderReading(data){
+  const area=document.getElementById('content-area');
+
+  // 지문 카드
+  const passageCard=document.createElement('div'); passageCard.className='card fade-in';
+  const pHead=document.createElement('div'); pHead.className='card-head';
+  pHead.innerHTML=`
+    <span class="card-title">${lang==='ko'?'읽기 지문':'読解文章'}</span>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span class="pm-badge pm-level">${data.level}</span>
+      <span class="pm-badge pm-chars">~${data.char_count}字</span>
+    </div>`;
+  const pBody=document.createElement('div'); pBody.className='card-body';
+  const pTitle=document.createElement('div'); pTitle.className='passage-title'; pTitle.textContent=data.title;
+  const pText=document.createElement('div'); pText.className='passage-body';
+  // 후리가나 처리: 漢字[よみ] → <ruby>
+  pText.innerHTML=data.passage.replace(/([^\[]+)\[([^\]]+)\]/g,'<ruby>$1<rt>$2</rt></ruby>');
+  pBody.append(pTitle,pText);
+  passageCard.append(pHead,pBody);
+
+  // 문제 카드
+  const qCard=document.createElement('div'); qCard.className='card fade-in';
+  const qHead=document.createElement('div'); qHead.className='card-head';
+  qHead.innerHTML=`<span class="card-title">${lang==='ko'?'이해도 문제':'理解度問題'} (${data.questions.length}${lang==='ko'?'문제':'問'})</span>`;
+  const qBody=document.createElement('div'); qBody.className='card-body';
+  data.questions.forEach(q=>qBody.appendChild(makeQItem(q,'r')));
+  qCard.append(qHead,qBody);
+
+  area.append(passageCard,qCard);
+}
+
+function makeQItem(q,prefix){
+  const qDiv=document.createElement('div'); qDiv.className='q-item';
+  const qNum=document.createElement('div'); qNum.className='q-num'; qNum.textContent='問題 '+q.id;
+  const qTxt=document.createElement('div'); qTxt.className='q-text'; qTxt.textContent=q.text||q.question||'';
+  const opts=document.createElement('div'); opts.className='q-opts';
+  q.choices.forEach((c,i)=>{
+    const btn=document.createElement('button'); btn.className='q-opt';
+    btn.innerHTML=`<span class="q-opt-ltr">${i+1}</span><span>${c}</span>`;
+    btn.addEventListener('click',()=>answerQ(q.id,i,btn,q.answer,q.explanation_ko,opts));
+    opts.appendChild(btn);
+  });
+  const fb=document.createElement('div'); fb.className='q-feedback'; fb.id='jfb-'+prefix+'-'+q.id;
+  qDiv.append(qNum,qTxt,opts,fb);
+  return qDiv;
+}
+
+// ── 답변·점수 ─────────────────────────────────────────────────────────
+function answerQ(qId,idx,btn,answer,expl,optsEl){
+  const opts=optsEl?.querySelectorAll('.q-opt'); if(!opts||opts[0]?.disabled) return;
+  opts.forEach(b=>b.disabled=true);
+  opts[answer].classList.add('correct');
+  if(idx!==answer) btn.classList.add('wrong');
+  // 피드백 — q-item 내에서 q-feedback 찾기
+  const qItem=btn.closest('.q-item');
+  const fb=qItem?.querySelector('.q-feedback');
+  if(fb){ fb.textContent=expl||''; fb.className='q-feedback show '+(idx===answer?'correct':'wrong'); }
+  answered++; if(idx===answer) correct++;
+  updateScoreBar();
+  if(answered>=total) setTimeout(showResult,600);
+}
+
+function updateScoreBar(){
+  const fill=document.getElementById('sb-fill');
+  const num=document.getElementById('sb-num');
+  if(fill) fill.style.width=`${(answered/total)*100}%`;
+  if(num) num.textContent=`${correct} / ${total}`;
+}
+
+function showResult(){
+  const pct=Math.round(correct/total*100);
+  const sc=document.getElementById('score-card'); sc.style.display='block';
+  document.getElementById('sc-score').textContent=`${correct}/${total}`;
+  document.getElementById('sc-pct').textContent=`${pct}%`;
+  document.getElementById('sc-msg').textContent=
+    pct>=80?(lang==='ko'?'🎉 훌륭합니다!':'🎉 素晴らしい！'):
+    pct>=60?(lang==='ko'?'👍 잘 하셨습니다!':'👍 よくできました！'):
+    (lang==='ko'?'💪 계속 연습!':'💪 練習を続けましょう！');
+  sc.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ── 언어·초기화 ───────────────────────────────────────────────────────
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-ja]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-ja');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-ja').classList.toggle('act',l==='ja');
+  renderPartInfo();
+}
+
+(function(){
+  setLang('ko');
+  renderPartInfo();
+  const params=new URLSearchParams(location.search);
+  const lv=params.get('level');
+  if(lv) document.getElementById('sel-level').value=lv;
+})();
+</script>
+</body>
+</html>

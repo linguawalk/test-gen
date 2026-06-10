@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General 中文 — 词汇·语法</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --zh:#c0392b;--zh-dark:#7f1a12;--zh-light:#fdf0ef;
+  --indigo:#4f46e5;--indigo-light:#eef2ff;
+  --green:#16a34a;--green-light:#dcfce7;--green-dark:#14532d;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,var(--indigo) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+
+.mode-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;gap:4px;}
+.mode-tab{flex:1;padding:10px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;}
+.mode-tab.act{background:var(--indigo);color:#fff;}
+.mode-tab:hover:not(.act){color:var(--indigo);}
+
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:120px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--indigo);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:#4338ca;}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.score-bar{display:flex;align-items:center;gap:12px;background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none;}
+.sb-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--indigo);}
+.sb-bar{flex:1;height:6px;background:var(--bg);border-radius:6px;overflow:hidden;}
+.sb-fill{height:100%;background:linear-gradient(90deg,#1e1b4b,var(--indigo));border-radius:6px;transition:width 0.3s;}
+
+/* 플래시카드 */
+.fc-wrap{perspective:1000px;margin-bottom:14px;}
+.flashcard{width:100%;min-height:220px;position:relative;transform-style:preserve-3d;transition:transform 0.5s;cursor:pointer;border-radius:14px;}
+.flashcard.flipped{transform:rotateY(180deg);}
+.fc-front,.fc-back{position:absolute;inset:0;border-radius:14px;padding:28px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.fc-front{background:linear-gradient(135deg,#1e1b4b,var(--indigo));color:#fff;}
+.fc-back{background:var(--white);border:0.5px solid var(--border);transform:rotateY(180deg);}
+.fc-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.6;margin-bottom:10px;}
+.fc-word{font-family:'DM Serif Display',serif;font-size:52px;margin-bottom:4px;line-height:1.1;}
+.fc-pinyin{font-size:18px;opacity:.8;margin-bottom:6px;font-style:italic;}
+.fc-pos{font-size:12px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.2);display:inline-block;margin-bottom:12px;}
+.fc-hint{font-size:12px;opacity:.55;margin-top:auto;}
+.fc-def{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.5;}
+.fc-ko{font-size:15px;color:var(--indigo);font-weight:600;margin-bottom:8px;}
+.fc-example{font-size:12px;color:var(--text-muted);line-height:1.65;background:var(--bg);padding:8px 12px;border-radius:8px;width:100%;text-align:left;}
+.fc-ex-pinyin{font-size:11px;color:var(--zh);font-style:italic;margin-top:3px;}
+.nav-btns{display:flex;gap:10px;margin-top:8px;}
+.nav-btn{flex:1;padding:12px;border-radius:10px;border:0.5px solid var(--border-md);background:var(--white);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.nav-btn:disabled{opacity:.4;cursor:default;}
+.nav-btn.primary{background:var(--indigo);color:#fff;border-color:var(--indigo);}
+.nav-btn.primary:hover{background:#4338ca;}
+
+/* 퀴즈 */
+.quiz-word{background:linear-gradient(135deg,#1e1b4b,var(--indigo));border-radius:14px;padding:28px;text-align:center;margin-bottom:14px;color:#fff;}
+.qw-word{font-family:'DM Serif Display',serif;font-size:52px;margin-bottom:4px;line-height:1.1;}
+.qw-pinyin{font-size:16px;opacity:.75;margin-bottom:6px;font-style:italic;}
+.qw-pos{font-size:12px;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,0.2);display:inline-block;}
+.qw-label{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.options{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.opt-btn{padding:12px 16px;border-radius:10px;border:1.5px solid var(--border-md);background:var(--white);font-size:13px;color:var(--text);cursor:pointer;font-family:inherit;transition:all 0.2s;text-align:left;line-height:1.5;}
+.opt-btn:hover:not(:disabled){border-color:var(--indigo);background:var(--indigo-light);}
+.opt-btn.correct{border-color:var(--green);background:var(--green-light);color:var(--green-dark);font-weight:500;}
+.opt-btn.wrong{border-color:var(--red);background:var(--red-light);color:#991b1b;}
+
+/* 단어 목록 */
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;}
+.word-item{background:var(--bg);border-radius:10px;padding:14px;cursor:pointer;transition:all 0.2s;border:0.5px solid var(--border);}
+.word-item:hover{border-color:var(--indigo);background:var(--indigo-light);}
+.wi-word{font-size:22px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.wi-pinyin{font-size:12px;color:var(--zh);font-style:italic;margin-bottom:3px;}
+.wi-pos{font-size:11px;color:var(--text-light);}
+.wi-ko{font-size:12px;color:var(--indigo);font-weight:600;margin-top:4px;}
+
+/* 문법 카드 */
+.grammar-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.gc-header{background:linear-gradient(135deg,#1e1b4b,var(--indigo));padding:20px 22px;color:#fff;}
+.gc-pattern{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:4px;}
+.gc-name{font-size:13px;opacity:.75;}
+.gc-body{padding:18px;}
+.gc-meaning{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px;padding:10px 14px;background:var(--indigo-light);border-radius:8px;border-left:3px solid var(--indigo);}
+.gc-meaning-ko{font-size:12px;color:var(--text-muted);margin-top:4px;}
+.gc-examples-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-light);margin-bottom:8px;}
+.gc-example{display:flex;flex-direction:column;gap:2px;padding:8px 12px;background:var(--bg);border-radius:8px;margin-bottom:6px;}
+.gc-ex-zh{font-size:14px;color:var(--text);line-height:1.65;}
+.gc-ex-pinyin{font-size:11px;color:var(--zh);font-style:italic;}
+.gc-ex-ko{font-size:12px;color:var(--text-muted);}
+
+/* 문법 퀴즈 */
+.gq-sentence{background:linear-gradient(135deg,#1e1b4b,var(--indigo));border-radius:14px;padding:24px;text-align:center;margin-bottom:14px;color:#fff;}
+.gq-label{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.gq-text{font-size:18px;line-height:1.9;margin-bottom:6px;}
+.gq-pinyin{font-size:12px;opacity:.6;font-style:italic;margin-bottom:6px;}
+.gq-ko{font-size:13px;opacity:.65;}
+.blank{display:inline-block;width:72px;border-bottom:2px solid rgba(255,255,255,0.6);text-align:center;vertical-align:middle;}
+
+.result-box{background:linear-gradient(135deg,#1e1b4b,var(--indigo));border-radius:14px;padding:32px;text-align:center;display:none;color:#fff;margin-top:16px;}
+.rb-icon{font-size:48px;margin-bottom:12px;}
+.rb-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:6px;}
+.rb-score{font-size:18px;opacity:.8;margin-bottom:16px;}
+.rb-btn{padding:12px 28px;border-radius:10px;background:rgba(255,255,255,0.15);color:#fff;border:0.5px solid rgba(255,255,255,0.3);cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;transition:all 0.2s;}
+
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);}
+.card-body{padding:18px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" data-ko="General 중국어 · 어휘·문법" data-zh="通用中文 · 词汇·语法">General 중국어 · 어휘·문법</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← General 홈" data-zh="← 通用首页">← General 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('zh')" id="btn-zh">中文</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="hero fade-in">
+    <div class="hero-tag" data-ko="GENERAL 중국어 · 어휘·문법" data-zh="通用中文 · 词汇·语法">GENERAL 중국어 · 어휘·문법</div>
+    <div class="hero-title" data-ko="📚 어휘·문법 학습" data-zh="📚 词汇·语法学习">📚 어휘·문법 학습</div>
+    <div class="hero-desc" data-ko="HSK 필수 어휘를 플래시카드로 외우고, 문법 패턴을 학습하세요." data-zh="用闪卡记忆HSK必备词汇，学习语法句型。">HSK 필수 어휘를 플래시카드로 외우고, 문법 패턴을 학습하세요.</div>
+    <div class="hero-badges">
+      <span class="hero-badge">A1 ~ C2 (HSK 1~6)</span>
+      <span class="hero-badge" data-ko="🃏 플래시카드" data-zh="🃏 闪卡">🃏 플래시카드</span>
+      <span class="hero-badge" data-ko="📝 퀴즈" data-zh="📝 测验">📝 퀴즈</span>
+      <span class="hero-badge">拼音</span>
+    </div>
+  </div>
+
+  <div class="mode-tabs fade-in">
+    <button class="mode-tab act" onclick="setSection('vocab',this)" data-ko="📚 어휘" data-zh="📚 词汇">📚 어휘</button>
+    <button class="mode-tab" onclick="setSection('grammar',this)" data-ko="📐 문법·문형" data-zh="📐 语法·句型">📐 문법·문형</button>
+  </div>
+
+  <!-- 어휘 설정 -->
+  <div id="vocab-settings">
+    <div class="settings-row fade-in">
+      <div class="setting-item">
+        <div class="si-label" data-ko="레벨" data-zh="级别">레벨</div>
+        <select class="si-select" id="v-level">
+          <option value="A1">A1 (HSK 1급)</option>
+          <option value="A2" selected>A2 (HSK 1~2급)</option>
+          <option value="B1">B1 (HSK 3급)</option>
+          <option value="B2">B2 (HSK 4급)</option>
+          <option value="C1">C1 (HSK 5급)</option>
+          <option value="C2">C2 (HSK 6급)</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="주제" data-zh="话题">주제</div>
+        <select class="si-select" id="v-topic">
+          <option value="日常生活">일상생활 / 日常生活</option>
+          <option value="工作学习">직장·학습 / 工作学习</option>
+          <option value="旅游交通">여행·교통 / 旅游交通</option>
+          <option value="饮食健康">음식·건강 / 饮食健康</option>
+          <option value="情感社交">감정·사교 / 情感社交</option>
+          <option value="自然环境">자연·환경 / 自然环境</option>
+          <option value="文化艺术">문화·예술 / 文化艺术</option>
+          <option value="科技商业">기술·비즈니스 / 科技商业</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="단어 수" data-zh="单词数">단어 수</div>
+        <select class="si-select" id="v-count">
+          <option value="5">5</option>
+          <option value="8" selected>8</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="학습 모드" data-zh="学习模式">학습 모드</div>
+        <select class="si-select" id="v-mode">
+          <option value="flashcard" data-ko="🃏 플래시카드" data-zh="🃏 闪卡">🃏 플래시카드</option>
+          <option value="quiz" data-ko="📝 퀴즈" data-zh="📝 测验">📝 퀴즈</option>
+          <option value="list" data-ko="📋 단어 목록" data-zh="📋 单词列表">📋 단어 목록</option>
+        </select>
+      </div>
+    </div>
+    <button class="gen-btn fade-in" id="v-gen-btn" onclick="generateVocab()">
+      🤖 <span data-ko="어휘 생성" data-zh="生成词汇">어휘 생성</span>
+    </button>
+  </div>
+
+  <!-- 문법 설정 -->
+  <div id="grammar-settings" style="display:none;">
+    <div class="settings-row fade-in">
+      <div class="setting-item">
+        <div class="si-label" data-ko="레벨" data-zh="级别">레벨</div>
+        <select class="si-select" id="g-level">
+          <option value="A1">A1 (HSK 1급)</option>
+          <option value="A2" selected>A2 (HSK 1~2급)</option>
+          <option value="B1">B1 (HSK 3급)</option>
+          <option value="B2">B2 (HSK 4급)</option>
+          <option value="C1">C1 (HSK 5급)</option>
+          <option value="C2">C2 (HSK 6급)</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="카테고리" data-zh="类别">카테고리</div>
+        <select class="si-select" id="g-cat">
+          <option value="基本句型">기초 문형 / 基本句型</option>
+          <option value="助词用法">조사 용법 / 助词用法</option>
+          <option value="时态表达">시제 표현 / 时态表达</option>
+          <option value="比较句型">비교 문형 / 比较句型</option>
+          <option value="程度补语">정도 보어 / 程度补语</option>
+          <option value="连接表达">접속 표현 / 连接表达</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="si-label" data-ko="학습 모드" data-zh="学习模式">학습 모드</div>
+        <select class="si-select" id="g-mode">
+          <option value="learn" data-ko="📖 학습" data-zh="📖 学习">📖 학습</option>
+          <option value="quiz" data-ko="📝 빈칸 퀴즈" data-zh="📝 填空测验">📝 빈칸 퀴즈</option>
+        </select>
+      </div>
+    </div>
+    <button class="gen-btn fade-in" id="g-gen-btn" onclick="generateGrammar()">
+      🤖 <span data-ko="문법 문형 생성" data-zh="生成语法句型">문법 문형 생성</span>
+    </button>
+  </div>
+
+  <div class="score-bar" id="score-bar">
+    <div><div class="sb-num" id="sb-num">0 / 0</div><div style="font-size:12px;color:var(--text-muted);">진행</div></div>
+    <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
+    <div id="card-counter" style="font-size:12px;color:var(--text-light);white-space:nowrap;"></div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="result-box" id="result-box">
+    <div class="rb-icon" id="rb-icon">🎉</div>
+    <div class="rb-title" id="rb-title"></div>
+    <div class="rb-score" id="rb-score"></div>
+    <button class="rb-btn" onclick="reGenerate()">🔄 <span id="rb-btn-label"></span></button>
+  </div>
+</div>
+
+<script>
+let lang='ko', section='vocab';
+let words=[], grammars=[];
+let currentIdx=0, score=0, answered=0;
+let lastGenFn=null;
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-zh]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-zh');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-zh').classList.toggle('act',l==='zh');
+}
+
+function setSection(s,btn){
+  section=s;
+  document.querySelectorAll('.mode-tab').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById('vocab-settings').style.display=s==='vocab'?'block':'none';
+  document.getElementById('grammar-settings').style.display=s==='grammar'?'block':'none';
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  words=[]; grammars=[]; currentIdx=0; score=0; answered=0;
+}
+
+function reGenerate(){ if(lastGenFn) lastGenFn(); }
+
+// ── 어휘 생성 ─────────────────────────────────────────────────────────
+async function generateVocab(){
+  lastGenFn=generateVocab;
+  const level=document.getElementById('v-level').value;
+  const topic=document.getElementById('v-topic').value;
+  const count=document.getElementById('v-count').value;
+  const mode=document.getElementById('v-mode').value;
+  const btn=document.getElementById('v-gen-btn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ <span>'+(lang==='ko'?'생성 중...':'生成中...')+'</span>';
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  words=[]; currentIdx=0; score=0; answered=0;
+
+  const hsk={A1:'HSK1',A2:'HSK1-2',B1:'HSK3',B2:'HSK4',C1:'HSK5',C2:'HSK6'}[level]||level;
+
+  const prompt=`请生成${count}个${hsk}级别的中文词汇，话题：${topic}。
+ONLY return valid JSON array (no markdown, single-line strings):
+[{"word":"词语","pinyin":"pīnyīn","pos":"词性","meaning_zh":"中文释义","meaning_ko":"한국어 뜻","example_zh":"例句","example_pinyin":"例句拼音","example_ko":"예문 한국어 번역","tone_note":"声调注意点 (optional)"}]
+Rules: all Chinese content in Chinese, meaning_ko/example_ko in Korean. Single-line strings.`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,
+        messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.[0]?.text||'';
+    words=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    if(mode==='flashcard') renderFlashcards();
+    else if(mode==='quiz') renderVocabQuiz();
+    else renderWordList();
+  }catch(e){
+    document.getElementById('content-area').innerHTML=`<div style="text-align:center;padding:24px;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패':'生成失败'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  btn.disabled=false;
+  btn.innerHTML='🔄 <span>'+(lang==='ko'?'새로 생성':'重新生成')+'</span>';
+}
+
+// 플래시카드
+function renderFlashcards(){
+  document.getElementById('score-bar').style.display='flex';
+  showFlashcard(0);
+}
+
+function showFlashcard(idx){
+  currentIdx=idx;
+  const w=words[idx];
+  const area=document.getElementById('content-area');
+  const fc=document.createElement('div'); fc.className='fc-wrap fade-in';
+  fc.innerHTML=`
+    <div class="flashcard" id="fc" onclick="this.classList.toggle('flipped')">
+      <div class="fc-front">
+        <div class="fc-label">${lang==='ko'?'단어':'词语'} ${idx+1} / ${words.length}</div>
+        <div class="fc-word">${w.word}</div>
+        <div class="fc-pinyin">${w.pinyin}</div>
+        <div class="fc-pos">${w.pos}</div>
+        ${w.tone_note?`<div style="font-size:11px;opacity:.55;margin-top:4px;">🎵 ${w.tone_note}</div>`:''}
+        <div class="fc-hint">${lang==='ko'?'클릭해서 뒤집기 👆':'点击翻转 👆'}</div>
+      </div>
+      <div class="fc-back">
+        <div class="fc-label">${lang==='ko'?'뜻·예문':'意思·例句'}</div>
+        <div class="fc-def">${w.meaning_zh}</div>
+        <div class="fc-ko">${w.meaning_ko}</div>
+        <div class="fc-example">
+          ${w.example_zh}
+          <div class="fc-ex-pinyin">${w.example_pinyin||''}</div>
+          <div style="font-size:11px;color:var(--text-light);margin-top:2px;">${w.example_ko}</div>
+        </div>
+      </div>
+    </div>`;
+  const btns=document.createElement('div'); btns.className='nav-btns';
+  const prev=document.createElement('button'); prev.className='nav-btn';
+  prev.textContent='← '+(lang==='ko'?'이전':'上一个');
+  if(idx===0) prev.disabled=true;
+  prev.addEventListener('click',()=>showFlashcard(idx-1));
+  const next=document.createElement('button'); next.className='nav-btn primary';
+  next.textContent=idx===words.length-1?(lang==='ko'?'완료 ✓':'完成 ✓'):(lang==='ko'?'다음 →':'下一个 →');
+  next.addEventListener('click',()=>{ if(idx<words.length-1) showFlashcard(idx+1); else showResult(words.length,words.length,'vocab'); });
+  btns.append(prev,next);
+  area.innerHTML=''; area.append(fc,btns);
+  updateProgress(idx+1,words.length,idx+1,words.length);
+}
+
+// 퀴즈
+function renderVocabQuiz(){
+  document.getElementById('score-bar').style.display='flex';
+  showVQuiz(0);
+}
+
+function showVQuiz(idx){
+  currentIdx=idx;
+  const w=words[idx];
+  const others=words.filter((_,i)=>i!==idx).sort(()=>Math.random()-.5).slice(0,3).map(o=>o.meaning_ko);
+  const opts=[w.meaning_ko,...others].sort(()=>Math.random()-.5);
+  const area=document.getElementById('content-area');
+  const qDiv=document.createElement('div'); qDiv.className='quiz-word fade-in';
+  qDiv.innerHTML=`
+    <div class="qw-label">${lang==='ko'?'뜻을 고르세요':'选择正确意思'} (${idx+1}/${words.length})</div>
+    <div class="qw-word">${w.word}</div>
+    <div class="qw-pinyin">${w.pinyin}</div>
+    <div class="qw-pos">${w.pos}</div>`;
+  const optsDiv=document.createElement('div'); optsDiv.className='options';
+  opts.forEach((o,i)=>{
+    const btn=document.createElement('button'); btn.className='opt-btn';
+    btn.textContent=String.fromCharCode(65+i)+'. '+o;
+    btn.addEventListener('click',()=>{
+      optsDiv.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+      if(o===w.meaning_ko){ btn.classList.add('correct'); score++; }
+      else{ btn.classList.add('wrong'); optsDiv.querySelectorAll('.opt-btn').forEach(b=>{ if(b.textContent.includes(w.meaning_ko)) b.classList.add('correct'); }); }
+      answered++;
+      updateProgress(answered,words.length,score,words.length);
+      setTimeout(()=>{ if(idx<words.length-1) showVQuiz(idx+1); else showResult(score,words.length,'vocab'); },1200);
+    });
+    optsDiv.appendChild(btn);
+  });
+  area.innerHTML=''; area.append(qDiv,optsDiv);
+  updateProgress(answered,words.length,score,words.length);
+}
+
+// 단어 목록
+function renderWordList(){
+  const area=document.getElementById('content-area');
+  const card=document.createElement('div'); card.className='card fade-in';
+  const head=document.createElement('div'); head.className='card-head';
+  head.innerHTML=`<div class="card-title">${lang==='ko'?'단어 목록':'单词列表'} (${words.length}${lang==='ko'?'개':'个'})</div>`;
+  const body=document.createElement('div'); body.className='card-body';
+  const grid=document.createElement('div'); grid.className='word-grid';
+  words.forEach(w=>{
+    const item=document.createElement('div'); item.className='word-item';
+    item.innerHTML=`<div class="wi-word">${w.word}</div><div class="wi-pinyin">${w.pinyin}</div><div class="wi-pos">${w.pos}</div><div class="wi-ko">${w.meaning_ko}</div>`;
+    item.addEventListener('click',()=>showWordPopup(w));
+    grid.appendChild(item);
+  });
+  body.appendChild(grid);
+  card.append(head,body);
+  area.innerHTML=''; area.appendChild(card);
+}
+
+function showWordPopup(w){
+  const existing=document.getElementById('word-popup');
+  if(existing) existing.remove();
+  const popup=document.createElement('div');
+  popup.id='word-popup';
+  popup.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;';
+  popup.innerHTML=`
+    <div style="background:var(--white);border-radius:14px;padding:28px;max-width:400px;width:100%;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div>
+          <div style="font-size:40px;font-weight:700;color:var(--text);line-height:1.1;">${w.word}</div>
+          <div style="font-size:16px;color:var(--zh);font-style:italic;margin-top:2px;">${w.pinyin}</div>
+          <div style="font-size:12px;color:var(--text-light);">${w.pos}</div>
+        </div>
+        <button onclick="document.getElementById('word-popup').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-light);">✕</button>
+      </div>
+      <div style="background:var(--indigo-light);border-radius:8px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:14px;color:var(--indigo);font-weight:600;margin-bottom:4px;">${w.meaning_zh}</div>
+        <div style="font-size:13px;color:var(--text-muted);">${w.meaning_ko}</div>
+      </div>
+      <div style="font-size:13px;color:var(--text);line-height:1.7;background:var(--bg);padding:10px 12px;border-radius:8px;">
+        ${w.example_zh}
+        <div style="font-size:11px;color:var(--zh);font-style:italic;margin-top:3px;">${w.example_pinyin||''}</div>
+        <div style="font-size:11px;color:var(--text-light);margin-top:2px;">${w.example_ko}</div>
+      </div>
+      ${w.tone_note?`<div style="margin-top:10px;font-size:12px;color:var(--zh);background:var(--zh-light);padding:8px 12px;border-radius:8px;">🎵 ${w.tone_note}</div>`:''}
+    </div>`;
+  popup.addEventListener('click',e=>{ if(e.target===popup) popup.remove(); });
+  document.body.appendChild(popup);
+}
+
+// ── 문법 생성 ─────────────────────────────────────────────────────────
+async function generateGrammar(){
+  lastGenFn=generateGrammar;
+  const level=document.getElementById('g-level').value;
+  const cat=document.getElementById('g-cat').value;
+  const mode=document.getElementById('g-mode').value;
+  const btn=document.getElementById('g-gen-btn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ <span>'+(lang==='ko'?'생성 중...':'生成中...')+'</span>';
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  grammars=[]; currentIdx=0; score=0; answered=0;
+
+  const hsk={A1:'HSK1',A2:'HSK1-2',B1:'HSK3',B2:'HSK4',C1:'HSK5',C2:'HSK6'}[level]||level;
+
+  const prompt=`请生成3个${hsk}级别的中文语法句型，类别：${cat}。
+ONLY return valid JSON array (no markdown, single-line strings):
+[{"pattern":"句型结构","name":"句型名称","meaning_zh":"中文解释","meaning_ko":"한국어 설명","examples":[{"zh":"例句1","pinyin":"例句1拼音","ko":"예문1 번역"},{"zh":"例句2","pinyin":"例句2拼音","ko":"예문2 번역"},{"zh":"例句3","pinyin":"例句3拼音","ko":"예문3 번역"}],"quiz_sentence":"练习句子___完成","quiz_pinyin":"练习句子拼音","quiz_answer":"答案","quiz_options":["答案","错误选项1","错误选项2","错误选项3"]}]
+Rules: all Chinese content in Chinese, meaning_ko/examples.ko in Korean. Single-line strings.`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,
+        messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.[0]?.text||'';
+    grammars=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    if(mode==='learn') renderGrammarLearn();
+    else renderGrammarQuiz(0);
+  }catch(e){
+    document.getElementById('content-area').innerHTML=`<div style="text-align:center;padding:24px;color:var(--red)">⚠️ ${lang==='ko'?'생성 실패':'生成失败'}<br><small>${e.message}</small></div>`;
+    console.error(e);
+  }
+  btn.disabled=false;
+  btn.innerHTML='🔄 <span>'+(lang==='ko'?'새로 생성':'重新生成')+'</span>';
+}
+
+function renderGrammarLearn(){
+  const area=document.getElementById('content-area');
+  area.innerHTML='';
+  grammars.forEach(g=>{
+    const card=document.createElement('div'); card.className='grammar-card fade-in';
+    card.innerHTML=`
+      <div class="gc-header">
+        <div class="gc-pattern">${g.pattern}</div>
+        <div class="gc-name">${g.name}</div>
+      </div>
+      <div class="gc-body">
+        <div class="gc-meaning">${g.meaning_zh}<div class="gc-meaning-ko">${g.meaning_ko}</div></div>
+        <div class="gc-examples-title">${lang==='ko'?'예문':'例句'}</div>
+        ${(g.examples||[]).map(ex=>`
+          <div class="gc-example">
+            <div class="gc-ex-zh">${ex.zh}</div>
+            <div class="gc-ex-pinyin">${ex.pinyin||''}</div>
+            <div class="gc-ex-ko">${ex.ko}</div>
+          </div>`).join('')}
+      </div>`;
+    area.appendChild(card);
+  });
+}
+
+function renderGrammarQuiz(idx){
+  if(idx>=grammars.length){ showResult(score,grammars.length,'grammar'); return; }
+  currentIdx=idx;
+  const g=grammars[idx];
+  document.getElementById('score-bar').style.display='flex';
+  updateProgress(idx,grammars.length,score,grammars.length);
+  const area=document.getElementById('content-area');
+  const qDiv=document.createElement('div'); qDiv.className='gq-sentence fade-in';
+  qDiv.innerHTML=`
+    <div class="gq-label">${lang==='ko'?'빈칸에 알맞은 것을 고르세요':'选择填入空格的正确答案'} (${idx+1}/${grammars.length})</div>
+    <div class="gq-text">${g.quiz_sentence.replace('___','<span class="blank"></span>')}</div>
+    <div class="gq-pinyin">${g.quiz_pinyin||''}</div>
+    <div class="gq-ko">${g.meaning_ko}</div>`;
+  const optsDiv=document.createElement('div'); optsDiv.className='options';
+  const opts=(g.quiz_options||[]).sort(()=>Math.random()-.5);
+  opts.forEach((o,i)=>{
+    const btn=document.createElement('button'); btn.className='opt-btn';
+    btn.textContent=String.fromCharCode(65+i)+'. '+o;
+    btn.addEventListener('click',()=>{
+      optsDiv.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+      if(o===g.quiz_answer){ btn.classList.add('correct'); score++; }
+      else{ btn.classList.add('wrong'); optsDiv.querySelectorAll('.opt-btn').forEach(b=>{ if(b.textContent.includes(g.quiz_answer)) b.classList.add('correct'); }); }
+      answered++;
+      updateProgress(answered,grammars.length,score,grammars.length);
+      setTimeout(()=>renderGrammarQuiz(idx+1),1200);
+    });
+    optsDiv.appendChild(btn);
+  });
+  area.innerHTML=''; area.append(qDiv,optsDiv);
+}
+
+function updateProgress(curr,total,sc,tot){
+  const fill=document.getElementById('sb-fill');
+  const num=document.getElementById('sb-num');
+  const ctr=document.getElementById('card-counter');
+  if(fill) fill.style.width=`${total>0?(curr/total)*100:0}%`;
+  if(num) num.textContent=`${sc} / ${tot}`;
+  if(ctr) ctr.textContent=`${curr} / ${total}`;
+}
+
+function showResult(sc,total,type){
+  const pct=Math.round(sc/total*100);
+  const box=document.getElementById('result-box'); box.style.display='block';
+  document.getElementById('rb-icon').textContent=pct>=80?'🎉':pct>=60?'👍':'💪';
+  document.getElementById('rb-title').textContent=pct>=80?(lang==='ko'?'훌륭합니다!':'太棒了！'):pct>=60?(lang==='ko'?'잘 하셨습니다!':'做得不错！'):(lang==='ko'?'계속 연습!':'继续加油！');
+  document.getElementById('rb-score').textContent=`${sc} / ${total} (${pct}%)`;
+  document.getElementById('rb-btn-label').textContent=type==='vocab'?(lang==='ko'?'새 단어 세트':'新词汇组'):(lang==='ko'?'새 문법 세트':'新语法组');
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+(function(){ setLang('ko'); })();
+</script>
+</body>
+</html>

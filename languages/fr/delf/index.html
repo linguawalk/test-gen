@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — DELF / DALF 대비</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --fr:#1a4fa3;--fr-dark:#0d2d6b;--fr-light:#e8eef8;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+
+.hero{background:linear-gradient(135deg,#0d2d6b 0%,#1a4fa3 50%,#b22234 100%);padding:52px 5% 48px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,50px);color:#fff;margin-bottom:10px;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:520px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.h-badge{font-size:12px;padding:5px 14px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);border:0.5px solid rgba(255,255,255,0.2);}
+.h-badge.gold{background:rgba(252,211,77,0.2);color:#fcd34d;border-color:rgba(252,211,77,0.3);}
+
+.main{max-width:820px;margin:0 auto;padding:36px 5% 80px;}
+.sec-heading{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-light);margin-bottom:14px;padding-bottom:10px;border-bottom:0.5px solid var(--border);}
+
+/* 레벨 선택 */
+.level-selector{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:28px;}
+.ls-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;}
+.level-groups{display:flex;flex-direction:column;gap:12px;}
+.lg-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.level-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.lv-pill{padding:10px 18px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.2s;background:var(--bg);font-family:inherit;}
+.lv-pill:hover{border-color:var(--fr);background:var(--fr-light);}
+.lv-pill.act{background:var(--fr);color:#fff;border-color:var(--fr);}
+.lv-a1{border-color:#27ae60;color:#27ae60;}
+.lv-a1:hover,.lv-a1.act{background:#27ae60;color:#fff;border-color:#27ae60;}
+.lv-a2{border-color:#2ecc71;color:#1a8a4a;}
+.lv-a2:hover,.lv-a2.act{background:#2ecc71;color:#fff;border-color:#2ecc71;}
+.lv-b1{border-color:#f39c12;color:#9a6200;}
+.lv-b1:hover,.lv-b1.act{background:#f39c12;color:#fff;border-color:#f39c12;}
+.lv-b2{border-color:#e67e22;color:#a04010;}
+.lv-b2:hover,.lv-b2.act{background:#e67e22;color:#fff;border-color:#e67e22;}
+.lv-c1{border-color:var(--fr);color:var(--fr);}
+.lv-c1:hover,.lv-c1.act{background:var(--fr);color:#fff;border-color:var(--fr);}
+.lv-c2{border-color:var(--fr-dark);color:var(--fr-dark);}
+.lv-c2:hover,.lv-c2.act{background:var(--fr-dark);color:#fff;border-color:var(--fr-dark);}
+.lv-info{margin-top:14px;padding:12px 14px;background:var(--bg);border-radius:10px;font-size:13px;color:var(--text-muted);line-height:1.65;border-left:3px solid var(--fr);}
+.start-btn{display:block;width:100%;margin-top:16px;padding:14px;border-radius:10px;background:var(--fr);color:#fff;font-size:15px;font-weight:600;text-align:center;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.start-btn:hover{background:var(--fr-dark);}
+
+/* 영역 카드 */
+.skill-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:32px;}
+.skill-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px;transition:all 0.2s;text-decoration:none;display:block;}
+.skill-card:hover{border-color:var(--fr);box-shadow:0 4px 16px rgba(26,79,163,0.1);transform:translateY(-1px);}
+.sc-icon{font-size:28px;margin-bottom:10px;}
+.sc-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.sc-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:10px;}
+.sc-parts{display:flex;flex-direction:column;gap:4px;}
+.sc-part{font-size:11px;color:var(--text-muted);}
+.sc-part span{color:var(--fr);font-weight:600;}
+.sc-link{font-size:13px;font-weight:600;color:var(--fr);margin-top:12px;display:block;}
+
+/* 합격 기준표 */
+.pass-table{width:100%;border-collapse:collapse;font-size:13px;}
+.pass-table th{padding:10px 12px;text-align:left;background:var(--fr-light);color:var(--fr);font-weight:700;}
+.pass-table td{padding:10px 12px;border-bottom:0.5px solid var(--border);}
+.pass-table tr:last-child td{border-bottom:none;}
+.lv-badge{display:inline-block;padding:2px 10px;border-radius:10px;font-weight:700;font-size:12px;}
+
+/* 팁 */
+.tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.tip-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:18px;}
+.tip-icon{font-size:24px;margin-bottom:10px;}
+.tip-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.tip-text{font-size:12px;color:var(--text-muted);line-height:1.65;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards;}
+@media(max-width:600px){.skill-cards{grid-template-columns:1fr;}.tips-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../../index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">📝 DELF / DALF</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-ko="← 프랑스어 홈" data-fr="← Accueil français">← 프랑스어 홈</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('fr')" id="btn-fr">Français</button>
+  </div>
+</nav>
+
+<div class="hero fade-in">
+  <div class="hero-inner">
+    <div class="hero-tag" data-ko="프랑스어 공인 자격증 · 시험 대비" data-fr="Diplôme officiel de français · Préparation">프랑스어 공인 자격증 · 시험 대비</div>
+    <div class="hero-title">📝 DELF / DALF</div>
+    <p class="hero-desc" data-ko="A1부터 C2까지 — 프랑스 교육부 공인, 영구 유효 자격증. 듣기·읽기·쓰기·말하기 4개 영역 완전 대비." data-fr="De A1 à C2 — Certifié par le Ministère français de l'Éducation, diplôme valable à vie. Préparation complète aux 4 compétences.">A1부터 C2까지 — 프랑스 교육부 공인, 영구 유효 자격증.</p>
+    <div class="hero-badges">
+      <span class="h-badge">DELF A1 · A2 · B1 · B2</span>
+      <span class="h-badge">DALF C1 · C2</span>
+      <span class="h-badge gold" data-ko="✨ 영구 유효" data-fr="✨ Valable à vie">✨ 영구 유효</span>
+      <span class="h-badge">🤖 AI</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 레벨 선택 -->
+  <div class="sec-heading" data-ko="레벨 선택" data-fr="Choisir votre niveau">레벨 선택</div>
+  <div class="level-selector fade-in">
+    <div class="ls-title" data-ko="목표 레벨을 선택하세요" data-fr="Sélectionnez votre niveau cible">목표 레벨을 선택하세요</div>
+    <div class="level-groups">
+      <div>
+        <div class="lg-label" data-ko="DELF — 초급·중급" data-fr="DELF — Niveaux élémentaire et intermédiaire">DELF — 초급·중급</div>
+        <div class="level-pills">
+          <button class="lv-pill lv-a1" onclick="selectLevel('A1',this)">DELF A1</button>
+          <button class="lv-pill lv-a2" onclick="selectLevel('A2',this)">DELF A2</button>
+          <button class="lv-pill lv-b1 act" onclick="selectLevel('B1',this)">DELF B1</button>
+          <button class="lv-pill lv-b2" onclick="selectLevel('B2',this)">DELF B2</button>
+        </div>
+      </div>
+      <div>
+        <div class="lg-label" data-ko="DALF — 고급" data-fr="DALF — Niveaux avancés">DALF — 고급</div>
+        <div class="level-pills">
+          <button class="lv-pill lv-c1" onclick="selectLevel('C1',this)">DALF C1</button>
+          <button class="lv-pill lv-c2" onclick="selectLevel('C2',this)">DALF C2</button>
+        </div>
+      </div>
+    </div>
+    <div class="lv-info" id="lv-info"></div>
+    <a href="listening.html?level=B1" class="start-btn" id="start-btn">
+      🚀 <span id="start-label" data-ko="DELF B1 준비 시작 →" data-fr="Commencer DELF B1 →">DELF B1 준비 시작 →</span>
+    </a>
+  </div>
+
+  <!-- 4개 영역 카드 -->
+  <div class="sec-heading" data-ko="학습 영역" data-fr="Compétences à travailler">학습 영역</div>
+  <div class="skill-cards fade-in">
+    <a href="listening.html" class="skill-card" id="link-listening">
+      <div class="sc-icon">🎧</div>
+      <div class="sc-title" data-ko="듣기 — Compréhension de l'oral" data-fr="Compréhension de l'oral">듣기 — Compréhension orale</div>
+      <div class="sc-desc" data-ko="대화·방송·발표를 듣고 이해하는 능력. 실제 DELF 형식 문제." data-fr="Comprendre des dialogues, émissions et exposés. Exercices au format DELF réel.">대화·방송·발표 이해</div>
+      <div class="sc-parts">
+        <div class="sc-part"><span>Exercice 1</span> — <span data-ko="대화·인터뷰" data-fr="Dialogue / Interview">대화·인터뷰</span></div>
+        <div class="sc-part"><span>Exercice 2</span> — <span data-ko="방송·공지" data-fr="Émission / Annonce">방송·공지</span></div>
+        <div class="sc-part"><span>Exercice 3+</span> — <span data-ko="독백·발표" data-fr="Monologue / Exposé">독백·발표 (B2+)</span></div>
+      </div>
+      <span class="sc-link" data-ko="듣기 연습 시작 →" data-fr="Commencer l'écoute →">듣기 연습 시작 →</span>
+    </a>
+    <a href="reading.html" class="skill-card" id="link-reading">
+      <div class="sc-icon">📖</div>
+      <div class="sc-title" data-ko="읽기 — Compréhension des écrits" data-fr="Compréhension des écrits">읽기 — Compréhension écrite</div>
+      <div class="sc-desc" data-ko="공문·기사·에세이를 읽고 이해하는 능력." data-fr="Comprendre des documents officiels, articles et essais.">공문·기사·에세이 이해</div>
+      <div class="sc-parts">
+        <div class="sc-part"><span>Exercice 1</span> — <span data-ko="실용 문서" data-fr="Document pratique">실용 문서</span></div>
+        <div class="sc-part"><span>Exercice 2</span> — <span data-ko="기사·에세이" data-fr="Article / Essai">기사·에세이</span></div>
+      </div>
+      <span class="sc-link" data-ko="읽기 연습 시작 →" data-fr="Commencer la lecture →">읽기 연습 시작 →</span>
+    </a>
+    <a href="writing.html" class="skill-card" id="link-writing">
+      <div class="sc-icon">✍️</div>
+      <div class="sc-title" data-ko="쓰기 — Production écrite" data-fr="Production écrite">쓰기 — Production écrite</div>
+      <div class="sc-desc" data-ko="편지·에세이·요약을 작성하는 능력. AI 5항목 채점." data-fr="Rédiger des lettres, essais et résumés. Évaluation IA en 5 critères.">편지·에세이·요약 작성</div>
+      <div class="sc-parts">
+        <div class="sc-part"><span>Exercice 1</span> — <span data-ko="편지·메시지" data-fr="Lettre / Message">편지·메시지</span></div>
+        <div class="sc-part"><span>Exercice 2</span> — <span data-ko="에세이·요약 (B1+)" data-fr="Essai / Résumé (B1+)">에세이·요약 (B1+)</span></div>
+      </div>
+      <span class="sc-link" data-ko="쓰기 연습 시작 →" data-fr="Commencer l'écriture →">쓰기 연습 시작 →</span>
+    </a>
+    <a href="speaking.html" class="skill-card" id="link-speaking">
+      <div class="sc-icon">🗣️</div>
+      <div class="sc-title" data-ko="말하기 — Production orale" data-fr="Production orale">말하기 — Production orale</div>
+      <div class="sc-desc" data-ko="발표·역할극·토론 형식. 실제 DELF 면접 형식." data-fr="Monologue, jeu de rôle, débat. Format réel de l'entretien DELF.">발표·역할극·토론</div>
+      <div class="sc-parts">
+        <div class="sc-part"><span>Exercice 1</span> — <span data-ko="독백 발표" data-fr="Monologue">독백 발표</span></div>
+        <div class="sc-part"><span>Exercice 2</span> — <span data-ko="역할극·토론 (B1+)" data-fr="Jeu de rôle / Débat (B1+)">역할극·토론 (B1+)</span></div>
+      </div>
+      <span class="sc-link" data-ko="말하기 연습 시작 →" data-fr="Commencer l'expression →">말하기 연습 시작 →</span>
+    </a>
+  </div>
+
+  <!-- 합격 기준표 -->
+  <div class="sec-heading" data-ko="레벨별 합격 기준" data-fr="Critères de réussite par niveau">레벨별 합격 기준</div>
+  <div style="background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:32px;" class="fade-in">
+    <div style="overflow-x:auto;">
+      <table class="pass-table">
+        <thead>
+          <tr>
+            <th data-ko="레벨" data-fr="Niveau">레벨</th>
+            <th data-ko="총점" data-fr="Total">총점</th>
+            <th data-ko="합격 기준" data-fr="Seuil de réussite">합격 기준</th>
+            <th data-ko="영역별 최저" data-fr="Minimum par épreuve">영역별 최저</th>
+            <th data-ko="구성" data-fr="Épreuves">구성</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="lv-badge" style="background:#e8f8f0;color:#1a7a45;">DELF A1</span></td><td>100</td><td>50/100</td><td>5/25</td><td data-ko="듣기·읽기·쓰기·말하기" data-fr="CO·CE·PE·PO">듣기·읽기·쓰기·말하기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#eafaf1;color:#1a8a4a;">DELF A2</span></td><td>100</td><td>50/100</td><td>5/25</td><td data-ko="듣기·읽기·쓰기·말하기" data-fr="CO·CE·PE·PO">듣기·읽기·쓰기·말하기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#fef9e7;color:#9a7209;">DELF B1</span></td><td>100</td><td>50/100</td><td>5/25</td><td data-ko="듣기·읽기·쓰기·말하기" data-fr="CO·CE·PE·PO">듣기·읽기·쓰기·말하기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#fef5e7;color:#a04010;">DELF B2</span></td><td>100</td><td>50/100</td><td>5/25</td><td data-ko="듣기·읽기·쓰기·말하기" data-fr="CO·CE·PE·PO">듣기·읽기·쓰기·말하기</td></tr>
+          <tr><td><span class="lv-badge" style="background:var(--fr-light);color:var(--fr);">DALF C1</span></td><td>100</td><td>50/100</td><td>5/25</td><td data-ko="듣기·읽기·쓰기·말하기" data-fr="CO·CE·PE·PO">듣기·읽기·쓰기·말하기</td></tr>
+          <tr><td><span class="lv-badge" style="background:#e8eef8;color:#0d2d6b;">DALF C2</span></td><td>100</td><td>50/100</td><td>5/25</td><td data-ko="듣기·읽기·쓰기·말하기" data-fr="CO·CE·PE·PO">듣기·읽기·쓰기·말하기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 팁 -->
+  <div class="sec-heading" data-ko="DELF/DALF 합격 전략" data-fr="Stratégies pour réussir">합격 전략</div>
+  <div class="tips-grid fade-in">
+    <div class="tip-card">
+      <div class="tip-icon">🎧</div>
+      <div class="tip-title" data-ko="매일 프랑스어 듣기" data-fr="Écouter le français chaque jour">매일 프랑스어 듣기</div>
+      <div class="tip-text" data-ko="RFI·France Inter·TV5 Monde를 매일 15분 이상 청취하세요. 다양한 억양에 익숙해지는 것이 핵심입니다." data-fr="Écoutez RFI, France Inter ou TV5 Monde au moins 15 minutes par jour. S'habituer aux différents accents est essentiel.">RFI·France Inter를 매일 15분 이상 청취하세요.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">✍️</div>
+      <div class="tip-title" data-ko="쓰기 형식 완벽 숙지" data-fr="Maîtriser les formats d'écriture">쓰기 형식 완벽 숙지</div>
+      <div class="tip-text" data-ko="편지·에세이 각각의 형식(인사말·마무리 등)을 외우세요. 형식만 잘 지켜도 점수가 올라갑니다." data-fr="Mémorisez les formules de politesse et la structure de chaque type de texte. Respecter la forme rapporte des points.">편지·에세이 형식(인사말·마무리)을 외우세요.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🗣️</div>
+      <div class="tip-title" data-ko="말하기 준비 시간 활용" data-fr="Utiliser le temps de préparation">말하기 준비 시간 활용</div>
+      <div class="tip-text" data-ko="DELF 말하기는 준비 시간(10~30분)이 있습니다. 핵심 논점을 메모하고 서론·본론·결론 구조를 잡으세요." data-fr="Le DELF accorde un temps de préparation (10 à 30 min). Notez les points clés et construisez une structure intro-développement-conclusion.">준비 시간에 핵심 논점을 메모하고 구조를 잡으세요.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📊</div>
+      <div class="tip-title" data-ko="영역별 최저점 주의" data-fr="Attention au minimum par épreuve">영역별 최저점 주의</div>
+      <div class="tip-text" data-ko="총점 50점 이상이어도 한 영역에서 5점 미만이면 불합격입니다. 취약한 영역을 반드시 보완하세요." data-fr="Même avec plus de 50 points au total, un score inférieur à 5 dans une épreuve entraîne l'échec. Renforcez vos points faibles.">한 영역에서 5점 미만이면 불합격입니다.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let lang='ko', selectedLevel='B1';
+
+const LEVEL_INFO={
+  A1:{ko:'🟢 DELF A1 — 입문. 매우 기초적인 일상 표현과 인사를 이해하고 사용할 수 있습니다.',fr:'🟢 DELF A1 — Introductif. Comprendre et utiliser des expressions quotidiennes très élémentaires.'},
+  A2:{ko:'🟢 DELF A2 — 초급. 직접적인 정보가 담긴 문장을 이해하고 간단한 소통이 가능합니다.',fr:'🟢 DELF A2 — Élémentaire. Comprendre des phrases isolées et communiquer simplement.'},
+  B1:{ko:'🟡 DELF B1 — 중급. 친숙한 주제의 요점을 이해하고 일상적 상황에서 의사소통이 가능합니다.',fr:'🟡 DELF B1 — Intermédiaire. Comprendre les points essentiels sur des sujets familiers et communiquer en voyage.'},
+  B2:{ko:'🟠 DELF B2 — 중상급. 복잡한 내용을 이해하고 유창하게 의사소통할 수 있습니다.',fr:'🟠 DELF B2 — Avancé. Comprendre des textes complexes et communiquer avec aisance.'},
+  C1:{ko:'🔵 DALF C1 — 고급. 다양하고 긴 텍스트를 이해하고 자연스럽게 표현합니다.',fr:'🔵 DALF C1 — Autonome. Comprendre des textes longs variés et s\'exprimer spontanément.'},
+  C2:{ko:'🟣 DALF C2 — 최고급. 듣고 읽는 모든 것을 쉽게 이해하고 정확히 표현합니다.',fr:'🟣 DALF C2 — Maîtrise. Comprendre sans effort tout ce qui est lu ou entendu.'},
+};
+
+function selectLevel(lv, btn){
+  selectedLevel=lv;
+  document.querySelectorAll('.lv-pill').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById('lv-info').textContent=lang==='ko'?LEVEL_INFO[lv].ko:LEVEL_INFO[lv].fr;
+  const exam=(['C1','C2'].includes(lv)?'DALF ':'DELF ')+lv;
+  ['listening','reading','writing','speaking'].forEach(s=>{
+    const el=document.getElementById('link-'+s);
+    if(el) el.href=s+'.html?level='+lv;
+  });
+  document.getElementById('start-btn').href='listening.html?level='+lv;
+  const lbl=document.getElementById('start-label');
+  if(lbl) lbl.textContent=lang==='ko'?`${exam} 준비 시작 →`:`Commencer ${exam} →`;
+}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-ko][data-fr]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-fr');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  document.getElementById('btn-fr').classList.toggle('act',l==='fr');
+  document.getElementById('lv-info').textContent=LEVEL_INFO[selectedLevel][l];
+  const exam=(['C1','C2'].includes(selectedLevel)?'DALF ':'DELF ')+selectedLevel;
+  const lbl=document.getElementById('start-label');
+  if(lbl) lbl.textContent=l==='ko'?`${exam} 준비 시작 →`:`Commencer ${exam} →`;
+}
+
+(function(){
+  setLang('ko');
+  selectLevel('B1', document.querySelector('.lv-b1'));
+})();
+</script>
+</body>
+</html>
