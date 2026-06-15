@@ -193,6 +193,7 @@ const TASKS={
     info:{en:'✍️ Write an essay responding to an argument, problem, or viewpoint. Write at least 250 words in 40 minutes. Give your opinion with well-developed arguments.',ko:'✍️ 주장, 문제, 관점에 답하는 에세이를 쓰세요. 40분 내에 최소 250단어를 쓰세요. 충분히 발전된 논거와 함께 의견을 제시하세요.'}}
 };
 let lang='en', task='t1', data=null, isLoading=false, msgs=[];
+let activeChart=null;
 
 function setLang(l){
   lang=l;
@@ -212,6 +213,10 @@ function renderInfo(){
   document.getElementById('info-box').innerHTML=`<strong>${lang==='ko'?t.ko:t.en}</strong> · ⏱ ${t.time} ${lang==='ko'?'분':'min'} · ${lang==='ko'?'최소':'min'} ${t.words} ${lang==='ko'?'단어':'words'}<br>${lang==='ko'?t.info.ko:t.info.en}`;
 }
 function reset(){
+  if(activeChart){activeChart.destroy();activeChart=null;}
+  isLoading=false;
+  document.getElementById('loading-overlay').style.display='none';
+  document.getElementById('gen-btn').disabled=false;
   document.getElementById('content-area').innerHTML='';
   document.getElementById('tutor-wrap').style.display='none';
   document.getElementById('act-row').style.display='none';
@@ -239,7 +244,8 @@ async function callAPI(prompt,maxTokens){
 
 async function generateTask(){
   if(isLoading) return;
-  isLoading=true; reset();
+  reset();
+  isLoading=true;
   document.getElementById('gen-btn').disabled=true;
   document.getElementById('loading-overlay').style.display='block';
   const topic=document.getElementById('sel-topic').value;
@@ -330,7 +336,6 @@ function renderTask(){
   }
 }
 
-let activeChart=null;
 function renderChart(d){
   const wrap=document.getElementById('chart-canvas-wrap'); if(!wrap) return;
   if(activeChart){activeChart.destroy();activeChart=null;}
