@@ -1,1 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — OPIc Exam Preparation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#1C2B45; --teal:#2A7F6F; --teal-light:#E1F5EE; --teal-mid:#1D9E75;
+    --bg:#F8F7F4; --white:#fff; --text:#1C2B45; --text-muted:#5a6a82; --text-light:#94a3b8;
+    --border:rgba(28,43,69,0.1); --border-md:rgba(28,43,69,0.18);
+    --accent:#dc2626; --accent-light:#fee2e2; --accent-dark:#7f1d1d;
+  }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  nav { background:rgba(28,43,69,0.97); height:56px; display:flex; align-items:center; padding:0 5%; border-bottom:0.5px solid rgba(255,255,255,0.08); position:sticky; top:0; z-index:100; }
+  .nav-logo { display:flex; align-items:center; gap:8px; text-decoration:none; }
+  .nav-lm { width:28px; height:28px; background:var(--teal); border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; }
+  .nav-lt { font-size:16px; font-weight:600; color:#fff; }
+  .nav-sep { width:1px; height:18px; background:rgba(255,255,255,0.15); margin:0 12px; }
+  .nav-page { font-size:13px; color:rgba(255,255,255,0.6); }
+  .nav-space { flex:1; }
+  .nav-back { font-size:13px; color:rgba(255,255,255,0.6); text-decoration:none; padding:6px 10px; border-radius:7px; margin-right:6px; transition:all 0.2s; }
+  .nav-back:hover { background:rgba(255,255,255,0.08); color:#fff; }
+  .lang-sw { display:flex; background:rgba(255,255,255,0.08); border-radius:7px; padding:2px; gap:2px; }
+  .lbtn { padding:4px 10px; border-radius:5px; font-size:11px; font-weight:500; border:none; background:transparent; color:rgba(255,255,255,0.5); cursor:pointer; font-family:inherit; transition:all 0.2s; }
+  .lbtn.act { background:var(--teal); color:#fff; }
 
+  .hero { background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 60%,#ef4444 100%); padding:56px 5% 52px; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; right:-60px; top:-60px; width:340px; height:340px; border-radius:50%; background:rgba(255,255,255,0.05); pointer-events:none; }
+  .hero::after  { content:''; position:absolute; left:-40px; bottom:-60px; width:220px; height:220px; border-radius:50%; background:rgba(0,0,0,0.08); pointer-events:none; }
+  .hero-inner { max-width:820px; margin:0 auto; position:relative; }
+  .hero-tag { font-size:11px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-bottom:10px; }
+  .hero-title { font-family:'DM Serif Display',serif; font-size:clamp(36px,5vw,56px); color:#fff; margin-bottom:12px; display:flex; align-items:center; gap:14px; }
+  .hero-desc { font-size:14px; color:rgba(255,255,255,0.7); line-height:1.7; max-width:500px; margin-bottom:20px; }
+  .hero-badges { display:flex; gap:8px; flex-wrap:wrap; }
+  .hero-badge { font-size:12px; padding:5px 14px; border-radius:20px; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.9); border:0.5px solid rgba(255,255,255,0.2); }
+
+  .main { max-width:820px; margin:0 auto; padding:36px 5% 80px; }
+  .sec-heading { font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-light); margin-bottom:14px; padding-bottom:10px; border-bottom:0.5px solid var(--border); }
+
+  .overview-card { background:var(--white); border:0.5px solid var(--border); border-radius:14px; padding:20px; margin-bottom:32px; }
+  .ov-title { font-size:13px; font-weight:600; color:var(--text); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .ov-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ov-cell { background:var(--accent-light); border-radius:10px; padding:14px 16px; }
+  .ov-num { font-family:'DM Serif Display',serif; font-size:28px; color:var(--accent); line-height:1; margin-bottom:4px; }
+  .ov-label { font-size:12px; color:var(--text-muted); }
+
+  .section-cards { display:flex; flex-direction:column; gap:14px; margin-bottom:36px; }
+  .sec-card { background:var(--white); border:0.5px solid var(--border); border-radius:14px; padding:22px 24px; transition:all 0.2s; cursor:pointer; }
+  .sec-card:hover { border-color:var(--accent); box-shadow:0 4px 20px rgba(220,38,38,0.1); }
+  .sc-top { display:flex; align-items:flex-start; gap:14px; margin-bottom:14px; }
+  .sc-icon { width:44px; height:44px; border-radius:12px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; border:0.5px solid var(--border); }
+  .sc-info { flex:1; }
+  .sc-name { font-size:17px; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .sc-desc { font-size:13px; color:var(--text-muted); line-height:1.6; }
+  .sc-parts { display:flex; flex-direction:column; gap:5px; margin-bottom:16px; padding-left:58px; }
+  .sc-part-item { font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:6px; }
+  .sc-part-item::before { content:'•'; color:var(--accent); font-size:14px; line-height:1; }
+  .sc-footer { display:flex; align-items:center; justify-content:space-between; padding-top:14px; border-top:0.5px solid var(--border); }
+  .sc-link { font-size:13px; font-weight:600; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:5px; transition:gap 0.2s; }
+  .sc-link:hover { gap:8px; }
+  .sc-time { font-size:12px; color:var(--text-light); }
+
+  .grade-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+  .grade-chip { padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600; border:0.5px solid var(--border); background:var(--white); color:var(--text-muted); }
+  .grade-chip.target { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .fade-in { animation:fadeUp 0.4s ease forwards; }
+  @media(max-width:600px){ .ov-grid{grid-template-columns:1fr 1fr} .hero-title{font-size:32px} }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/languages/en/index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">🎤 OPIc</span>
+  <div class="nav-space"></div>
+  <a href="../../index.html" class="nav-back" data-en="← English Home" data-ko="← English Home">← English Home</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<div class="hero fade-in">
+  <div class="hero-inner">
+    <div class="hero-tag" data-en="EXAM PREPARATION" data-ko="시험 준비">EXAM PREPARATION</div>
+    <div class="hero-title">
+      <span>🎤</span>
+      <span>OPIc</span>
+    </div>
+    <p class="hero-desc" data-en="Korea's most widely used oral English proficiency test. Practice all OPIc question types with AI-generated prompts and instant feedback." data-ko="한국에서 가장 많이 사용되는 영어 말하기 능력 시험. AI가 생성하는 문제로 모든 OPIc 유형을 연습하고 즉각적인 피드백을 받으세요.">Korea's most widely used oral English proficiency test. Practice all question types with AI feedback.</p>
+    <div class="hero-badges">
+      <span class="hero-badge" data-en="Speaking Only" data-ko="말하기 전용">Speaking Only</span>
+      <span class="hero-badge">IM → AL</span>
+      <span class="hero-badge">🤖 AI Feedback</span>
+      <span class="hero-badge" data-en="∞ Practice Questions" data-ko="∞ 연습 문제">∞ Practice Questions</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- EXAM OVERVIEW -->
+  <div class="sec-heading" data-en="EXAM OVERVIEW" data-ko="시험 개요">EXAM OVERVIEW</div>
+  <div class="overview-card">
+    <div class="ov-title">📋 <span data-en="OPIc Test Information" data-ko="OPIc 시험 정보">OPIc Test Information</span></div>
+    <div class="ov-grid">
+      <div class="ov-cell"><div class="ov-num">40 min</div><div class="ov-label" data-en="Test Duration" data-ko="시험 시간">Test Duration</div></div>
+      <div class="ov-cell"><div class="ov-num">12–15</div><div class="ov-label" data-en="Questions" data-ko="문항 수">Questions</div></div>
+      <div class="ov-cell"><div class="ov-num">NL→AL</div><div class="ov-label" data-en="Grade Range" data-ko="등급 범위">Grade Range</div></div>
+      <div class="ov-cell"><div class="ov-num">Speaking</div><div class="ov-label" data-en="Only Skill Tested" data-ko="평가 영역">Only Skill Tested</div></div>
+    </div>
+  </div>
+
+  <!-- GRADE TARGETS -->
+  <div class="sec-heading" data-en="TARGET GRADE" data-ko="목표 등급">TARGET GRADE</div>
+  <div class="grade-row">
+    <div class="grade-chip">NL</div>
+    <div class="grade-chip">NM</div>
+    <div class="grade-chip">NH</div>
+    <div class="grade-chip">IL</div>
+    <div class="grade-chip">IM1</div>
+    <div class="grade-chip target">IM2</div>
+    <div class="grade-chip target">IM3</div>
+    <div class="grade-chip target">IH</div>
+    <div class="grade-chip target">AL</div>
+  </div>
+
+  <!-- QUESTION TYPES -->
+  <div class="sec-heading" data-en="PRACTICE BY QUESTION TYPE" data-ko="유형별 연습">PRACTICE BY QUESTION TYPE</div>
+  <div class="section-cards">
+
+    <!-- Self Introduction -->
+    <div class="sec-card">
+      <div class="sc-top">
+        <div class="sc-icon">👤</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Self Introduction & Background Survey" data-ko="자기소개 & 배경 설문">Self Introduction & Background Survey</div>
+          <div class="sc-desc" data-en="The OPIc starts with a background survey. Practice introducing yourself naturally and talking about your hobbies, job, and lifestyle." data-ko="OPIc은 배경 설문으로 시작합니다. 자신의 취미, 직업, 생활 방식에 대해 자연스럽게 소개하는 연습을 하세요.">The OPIc starts with a background survey. Practice introducing yourself naturally.</div>
+        </div>
+      </div>
+      <div class="sc-parts">
+        <div class="sc-part-item" data-en="Personal Introduction" data-ko="개인 소개">Personal Introduction</div>
+        <div class="sc-part-item" data-en="Hobbies & Interests" data-ko="취미 & 관심사">Hobbies & Interests</div>
+        <div class="sc-part-item" data-en="Daily Routine" data-ko="일상 루틴">Daily Routine</div>
+      </div>
+      <div class="sc-footer">
+        <a href="speaking.html?type=intro" class="sc-link" data-en="Practice Now →" data-ko="연습 시작 →">Practice Now →</a>
+        <span class="sc-time" data-en="First impression matters" data-ko="첫인상이 중요합니다">First impression matters</span>
+      </div>
+    </div>
+
+    <!-- Describe a Place/Person -->
+    <div class="sec-card">
+      <div class="sc-top">
+        <div class="sc-icon">🏠</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Describe a Place / Person / Thing" data-ko="장소 / 사람 / 사물 묘사">Describe a Place / Person / Thing</div>
+          <div class="sc-desc" data-en="Practice describing places you've visited, people you know, and objects from your daily life in detail." data-ko="방문한 장소, 아는 사람, 일상 속 사물을 자세하게 묘사하는 연습을 하세요.">Practice describing places, people, and objects in vivid detail.</div>
+        </div>
+      </div>
+      <div class="sc-parts">
+        <div class="sc-part-item" data-en="Favorite Place" data-ko="좋아하는 장소">Favorite Place</div>
+        <div class="sc-part-item" data-en="Memorable Person" data-ko="기억에 남는 사람">Memorable Person</div>
+        <div class="sc-part-item" data-en="Familiar Object" data-ko="친숙한 사물">Familiar Object</div>
+      </div>
+      <div class="sc-footer">
+        <a href="speaking.html?type=describe" class="sc-link" data-en="Practice Now →" data-ko="연습 시작 →">Practice Now →</a>
+        <span class="sc-time" data-en="Descriptive vocabulary key" data-ko="묘사 어휘가 핵심">Descriptive vocabulary key</span>
+      </div>
+    </div>
+
+    <!-- Past Experience -->
+    <div class="sec-card">
+      <div class="sc-top">
+        <div class="sc-icon">📖</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Past Experience Narration" data-ko="과거 경험 이야기">Past Experience Narration</div>
+          <div class="sc-desc" data-en="Tell stories about past experiences using past tenses correctly. This question type appears frequently in OPIc." data-ko="과거 시제를 정확하게 사용해 과거 경험을 이야기하세요. 이 유형은 OPIc에서 자주 출제됩니다.">Tell stories about past experiences correctly. Appears frequently in OPIc.</div>
+        </div>
+      </div>
+      <div class="sc-parts">
+        <div class="sc-part-item" data-en="Memorable Experience" data-ko="기억에 남는 경험">Memorable Experience</div>
+        <div class="sc-part-item" data-en="First Time Experience" data-ko="처음 경험">First Time Experience</div>
+        <div class="sc-part-item" data-en="Problem & Solution" data-ko="문제 & 해결">Problem & Solution</div>
+      </div>
+      <div class="sc-footer">
+        <a href="speaking.html?type=experience" class="sc-link" data-en="Practice Now →" data-ko="연습 시작 →">Practice Now →</a>
+        <span class="sc-time" data-en="Past tense accuracy crucial" data-ko="과거 시제 정확성이 핵심">Past tense accuracy crucial</span>
+      </div>
+    </div>
+
+    <!-- Role Play & Compare -->
+    <div class="sec-card">
+      <div class="sc-top">
+        <div class="sc-icon">🔄</div>
+        <div class="sc-info">
+          <div class="sc-name" data-en="Role Play & Comparison" data-ko="롤플레이 & 비교">Role Play & Comparison</div>
+          <div class="sc-desc" data-en="Handle real-life situations through role play and compare past vs. present. Two of the most challenging OPIc question types." data-ko="롤플레이를 통해 실생활 상황을 해결하고 과거와 현재를 비교하세요. OPIc에서 가장 도전적인 두 가지 유형입니다.">Handle real-life situations and compare past vs. present — the most challenging types.</div>
+        </div>
+      </div>
+      <div class="sc-parts">
+        <div class="sc-part-item" data-en="Role Play — Ask Questions" data-ko="롤플레이 — 질문하기">Role Play — Ask Questions</div>
+        <div class="sc-part-item" data-en="Role Play — Problem Solving" data-ko="롤플레이 — 문제 해결">Role Play — Problem Solving</div>
+        <div class="sc-part-item" data-en="Compare Past vs. Present" data-ko="과거와 현재 비교">Compare Past vs. Present</div>
+      </div>
+      <div class="sc-footer">
+        <a href="speaking.html?type=roleplay" class="sc-link" data-en="Practice Now →" data-ko="연습 시작 →">Practice Now →</a>
+        <span class="sc-time" data-en="IM→AL distinction here" data-ko="IM→AL 구분 포인트">IM→AL distinction here</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let lang='en';
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l==='ko'?'ko':'en';
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+(function(){
+  let saved; try{saved=localStorage.getItem('lw-lang');}catch(e){}
+  setLang(saved||((navigator.language||'').startsWith('ko')?'ko':'en'));
+})();
+</script>
+</body>
+</html>
