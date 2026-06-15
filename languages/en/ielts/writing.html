@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -57,13 +58,15 @@ nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;p
 .prompt-hdr-title{font-size:13px;font-weight:600;color:var(--accent-dark);margin-bottom:3px;}
 .prompt-timer{font-size:11px;color:var(--text-muted);}
 .prompt-body{padding:18px 20px;}
-.chart-box{background:var(--bg);border-radius:10px;padding:16px;margin-bottom:14px;border:1px solid var(--border);}
-.chart-title{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
-.chart-desc{font-size:13px;color:var(--text);line-height:1.7;}
-.chart-data{margin-top:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
-.chart-item{background:var(--white);border-radius:8px;padding:10px 12px;border:0.5px solid var(--border);}
-.chart-item-label{font-size:11px;color:var(--text-muted);margin-bottom:3px;}
-.chart-item-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--accent);}
+.chart-box{background:var(--white);border-radius:12px;padding:20px;margin-bottom:14px;border:1px solid var(--border);}
+.chart-title{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+.chart-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.5;}
+.chart-canvas-wrap{position:relative;width:100%;max-height:340px;}
+.chart-table{width:100%;border-collapse:collapse;font-size:13px;}
+.chart-table th{background:var(--accent-light);color:var(--accent);font-weight:600;padding:8px 12px;text-align:left;border:1px solid var(--border);}
+.chart-table td{padding:8px 12px;border:1px solid var(--border);color:var(--text);}
+.chart-table tr:nth-child(even) td{background:var(--bg);}
+.chart-note{font-size:11px;color:var(--text-light);margin-top:10px;text-align:center;}
 .essay-q{font-size:15px;font-weight:500;color:var(--text);line-height:1.65;padding:14px 16px;background:var(--bg);border-radius:10px;border-left:4px solid var(--accent);margin-bottom:12px;}
 .word-target{font-size:12px;color:var(--text-muted);margin-bottom:12px;}
 .writing-wrap{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
@@ -244,8 +247,25 @@ async function generateTask(){
   try{
     let prompt='';
     if(task==='t1'){
-      prompt=`Create an IELTS Academic Writing Task 1 (graph/chart description) about ${topic}. Target band: ${band}.
-Return a JSON object with: chartType (string e.g. "bar chart", "line graph", "pie chart", "table"), title (string, the chart title), description (string, 2-3 sentences describing what the chart shows), dataPoints (array of 4-6 objects each with label (string) and value (string e.g. "45%", "2.3 million")), writingPrompt (string, the IELTS task instruction), sampleResponse (string, a 170-word Band 7 response), sampleResponse_ko (Korean strategy tip)`;
+      prompt=`Create an IELTS Academic Writing Task 1 about ${topic}. Target band: ${band}.
+Choose one chart type randomly from: bar chart, line graph, pie chart, table.
+Return a JSON object with these exact fields:
+- chartType: one of "bar", "line", "pie", "table"
+- title: descriptive chart title string (include year if relevant)
+- xLabel: x-axis label string (for bar/line only, e.g. "Year" or "Country")
+- yLabel: y-axis label string (for bar/line only, e.g. "Percentage (%)" or "Million tonnes")
+- labels: array of 5-6 strings (categories or x-axis values)
+- datasets: array of 1-3 objects, each with name (string) and values (array of numbers matching labels length)
+- tableHeaders: array of strings (for table type only, column headers)
+- tableRows: array of arrays of strings (for table type only, row data)
+- writingPrompt: the full IELTS task instruction string
+- sampleResponse: 170-word Band 7 sample response string
+- sampleResponse_ko: Korean strategy tip string
+
+For bar chart example: labels=["UK","USA","Australia","Canada","India"], datasets=[{name:"2020",values:[45,38,62,29,71]},{name:"2023",values:[52,41,68,33,79]}]
+For line graph example: labels=["2018","2019","2020","2021","2022"], datasets=[{name:"Electric vehicles",values:[2.1,3.4,4.8,7.2,10.5]},{name:"Hybrid vehicles",values:[8.3,9.1,8.7,9.4,10.1]}]
+For pie chart example: labels=["Social media","Online news","TV","Radio","Newspapers"], datasets=[{name:"News consumption",values:[35,28,20,10,7]}]
+All values must be actual numbers (not strings). Make the data realistic and interesting for IELTS practice.`;
     } else {
       prompt=`Create an IELTS Academic Writing Task 2 (argumentative essay) about ${topic}. Target band: ${band}.
 Return a JSON object with: essayType (string e.g. "Opinion", "Discussion", "Problem-Solution", "Advantages-Disadvantages"), writingPrompt (string, the full IELTS essay question), outline (object with introduction (string), body1 (string), body2 (string), conclusion (string)), sampleResponse (string, a 270-word Band 7 essay), sampleResponse_ko (Korean strategy tip)`;
@@ -267,11 +287,13 @@ function renderTask(){
 
   if(task==='t1'){
     pb.innerHTML=`<div class="chart-box">
-      <div class="chart-title">📊 ${data.chartType?.toUpperCase()||'CHART'} — ${data.title||''}</div>
-      <div class="chart-desc">${data.description||''}</div>
-      ${data.dataPoints?.length?`<div class="chart-data">${(data.dataPoints||[]).map(dp=>`<div class="chart-item"><div class="chart-item-label">${dp.label}</div><div class="chart-item-val">${dp.value}</div></div>`).join('')}</div>`:''}
+      <div class="chart-title">📊 ${(data.chartType||'chart').toUpperCase()} — ${data.title||''}</div>
+      <div class="chart-subtitle">${data.xLabel||''} ${data.yLabel?'/ '+data.yLabel:''}</div>
+      <div class="chart-canvas-wrap" id="chart-canvas-wrap"></div>
+      <div class="chart-note" id="chart-note"></div>
     </div>
     <div class="essay-q">${data.writingPrompt||''}</div>`;
+    setTimeout(()=>renderChart(data),50);
   } else {
     const types={Opinion:lang==='ko'?'의견형':'Opinion',Discussion:lang==='ko'?'토론형':'Discussion','Problem-Solution':lang==='ko'?'문제-해결':'Problem-Solution','Advantages-Disadvantages':lang==='ko'?'장단점':'Advantages-Disadvantages'};
     pb.innerHTML=`<div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:3px 10px;border-radius:10px;margin-bottom:10px;">${types[data.essayType]||data.essayType}</div>
@@ -308,7 +330,96 @@ function renderTask(){
   }
 }
 
-function updateWC(){
+let activeChart=null;
+function renderChart(d){
+  const wrap=document.getElementById('chart-canvas-wrap'); if(!wrap) return;
+  if(activeChart){activeChart.destroy();activeChart=null;}
+  wrap.innerHTML='';
+
+  const type=d.chartType||'bar';
+  const labels=d.labels||[];
+  const datasets=d.datasets||[];
+  const COLORS=['#7c3aed','#2563eb','#16a34a','#d97706','#e24b4a','#0891b2'];
+  const COLORS_LIGHT=['rgba(124,58,237,0.15)','rgba(37,99,235,0.15)','rgba(22,163,74,0.15)','rgba(217,119,6,0.15)','rgba(226,75,74,0.15)','rgba(8,145,178,0.15)'];
+
+  if(type==='table'){
+    // 표 형식 렌더링
+    const headers=d.tableHeaders||[];
+    const rows=d.tableRows||[];
+    if(!headers.length&&datasets.length){
+      // datasets에서 테이블 구성
+      const tbl=document.createElement('table'); tbl.className='chart-table';
+      const thead=document.createElement('thead');
+      thead.innerHTML=`<tr><th>${d.xLabel||'Category'}</th>${datasets.map(ds=>`<th>${ds.name}</th>`).join('')}</tr>`;
+      const tbody=document.createElement('tbody');
+      labels.forEach((lbl,i)=>{
+        tbody.innerHTML+=`<tr><td><strong>${lbl}</strong></td>${datasets.map(ds=>`<td>${ds.values[i]!==undefined?ds.values[i]:'-'}</td>`).join('')}</tr>`;
+      });
+      tbl.append(thead,tbody); wrap.appendChild(tbl);
+    } else {
+      const tbl=document.createElement('table'); tbl.className='chart-table';
+      const thead=document.createElement('thead');
+      thead.innerHTML=`<tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
+      const tbody=document.createElement('tbody');
+      rows.forEach(row=>{tbody.innerHTML+=`<tr>${row.map((c,i)=>`<td>${i===0?`<strong>${c}</strong>`:c}</td>`).join('')}</tr>`;});
+      tbl.append(thead,tbody); wrap.appendChild(tbl);
+    }
+    document.getElementById('chart-note').textContent=lang==='ko'?'📋 위 표를 분석하여 주요 특징을 요약하세요.':'📋 Analyse the table above and summarise the key features.';
+    return;
+  }
+
+  if(type==='pie'||type==='doughnut'){
+    const canvas=document.createElement('canvas'); canvas.style.maxHeight='320px';
+    wrap.appendChild(canvas);
+    const vals=datasets[0]?.values||[];
+    activeChart=new Chart(canvas,{
+      type:'doughnut',
+      data:{labels,datasets:[{data:vals,backgroundColor:COLORS.slice(0,labels.length),borderColor:'#fff',borderWidth:2,hoverOffset:8}]},
+      options:{responsive:true,maintainAspectRatio:true,plugins:{
+        legend:{position:'right',labels:{font:{family:"'DM Sans',sans-serif",size:12},padding:14,boxWidth:14}},
+        tooltip:{callbacks:{label:function(ctx){const v=ctx.parsed;const total=vals.reduce((a,b)=>a+b,0);return ` ${ctx.label}: ${v} (${Math.round(v/total*100)}%)`;}}}
+      }}
+    });
+    document.getElementById('chart-note').textContent=lang==='ko'?`📊 위 도넛 차트는 ${d.title}을 보여줍니다.`:`📊 The chart above shows ${d.title}.`;
+    return;
+  }
+
+  // bar 또는 line
+  const canvas=document.createElement('canvas'); canvas.style.maxHeight='320px';
+  wrap.appendChild(canvas);
+  const isLine=type==='line';
+  const chartDatasets=datasets.map((ds,i)=>({
+    label:ds.name,
+    data:ds.values,
+    backgroundColor:isLine?COLORS_LIGHT[i%COLORS.length]:COLORS[i%COLORS.length],
+    borderColor:COLORS[i%COLORS.length],
+    borderWidth:isLine?2.5:0,
+    borderRadius:isLine?0:5,
+    fill:isLine,
+    tension:isLine?0.35:0,
+    pointBackgroundColor:isLine?COLORS[i%COLORS.length]:'transparent',
+    pointRadius:isLine?4:0,
+    pointHoverRadius:isLine?6:0
+  }));
+  activeChart=new Chart(canvas,{
+    type:isLine?'line':'bar',
+    data:{labels,datasets:chartDatasets},
+    options:{
+      responsive:true,maintainAspectRatio:true,
+      plugins:{
+        legend:{display:datasets.length>1,position:'top',labels:{font:{family:"'DM Sans',sans-serif",size:12},padding:12,boxWidth:12}},
+        tooltip:{mode:'index',intersect:false}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:"'DM Sans',sans-serif",size:11}},title:{display:!!d.xLabel,text:d.xLabel||'',font:{size:11}}},
+        y:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{font:{family:"'DM Sans',sans-serif",size:11}},title:{display:!!d.yLabel,text:d.yLabel||'',font:{size:11}},beginAtZero:true}
+      }
+    }
+  });
+  document.getElementById('chart-note').textContent=lang==='ko'?`📊 위 ${isLine?'꺾은선 그래프':'막대 그래프'}는 ${d.title}을 보여줍니다.`:`📊 The ${isLine?'line graph':'bar chart'} above shows ${d.title}.`;
+}
+
+
   const ta=document.getElementById('writing-area'); if(!ta) return;
   const wc=ta.value.trim().split(/\s+/).filter(w=>w).length;
   const el=document.getElementById('wc-label'); if(el) el.textContent=wc+' words';
