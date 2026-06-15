@@ -297,9 +297,11 @@ function renderTaskInfo(){
 
 function resetAll(){
   stopTimer(); stopRecording();
+  isLoading=false;
   document.getElementById('content-area').innerHTML='';
   document.getElementById('tutor-section').style.display='none';
   document.getElementById('action-btns').style.display='none';
+  document.getElementById('loading-overlay').style.display='none';
   currentData=null; messages=[];
 }
 
@@ -314,38 +316,61 @@ async function generateTask(){
 
   let prompt;
   if(currentTask==='t1'){
-    prompt=`Generate a TOEFL iBT Speaking Task 1 (Independent) on "${topic}". Difficulty: ${diff}.
-Return ONLY valid JSON:
-{"type":"t1","question":"A clear, debatable question about ${topic} asking for a personal preference or opinion (e.g., Do you prefer X or Y? / Some people believe... What is your opinion?)","sampleResponse":"A 45-second high-scoring response (about 90-100 words). State opinion clearly. Give 2 reasons with brief examples.","sampleResponse_ko":"한국어로 위 샘플 응답 해설"}`;
+    prompt=`Generate a TOEFL iBT Speaking Task 1 (Independent) prompt on the topic of "${topic}". Difficulty: ${diff}.
+Return ONLY a valid JSON object with these exact fields:
+- type: "t1"
+- question: a clear debatable question asking for personal preference or opinion about ${topic}
+- sampleResponse: a 45-second high-scoring spoken response (90-100 words), clearly stating opinion with 2 reasons and examples
+- sampleResponse_ko: Korean explanation of the sample response strategy`;
   } else if(currentTask==='t2'){
     prompt=`Generate a TOEFL iBT Speaking Task 2 (Campus Situation) on "${topic}". Difficulty: ${diff}.
-Return ONLY valid JSON:
-{"type":"t2","announcementTitle":"Campus announcement title","announcement":"A 2-3 sentence campus announcement about a policy/change","conversationScript":[{"speaker":"Student A","line":"..."},{"speaker":"Student B","line":"..."}],"question":"The man/woman expresses his/her opinion about the announcement. State his/her opinion and explain the reasons he/she gives.","sampleResponse":"60-second high-scoring response (~120 words)","sampleResponse_ko":"한국어 해설"}
-Conversation: 4-6 lines. One student has a clear opinion (agree/disagree) with 2 reasons.`;
+Return ONLY a valid JSON object with these exact fields:
+- type: "t2"
+- announcementTitle: string
+- announcement: 2-3 sentence campus announcement about a policy or change
+- conversationScript: array of 4-6 objects each with "speaker" (string) and "line" (string). One speaker clearly agrees or disagrees with 2 reasons.
+- question: string asking the student to state the speaker's opinion and reasons
+- sampleResponse: 60-second high-scoring response about 120 words
+- sampleResponse_ko: Korean strategy explanation`;
   } else if(currentTask==='t3'){
     prompt=`Generate a TOEFL iBT Speaking Task 3 (Academic Reading + Lecture) on "${topic}". Difficulty: ${diff}.
-Return ONLY valid JSON:
-{"type":"t3","conceptTitle":"Academic concept name","readingText":"2-3 sentence definition of the concept (academic style)","lectureScript":[{"speaker":"Professor","line":"..."}],"question":"Using the example from the lecture, explain the concept of [X].","sampleResponse":"60-second high-scoring response (~120 words)","sampleResponse_ko":"한국어 해설"}
-Lecture: 4-6 lines. Professor illustrates the concept with a concrete, vivid example.`;
+Return ONLY a valid JSON object with these exact fields:
+- type: "t3"
+- conceptTitle: name of the academic concept
+- readingText: 2-3 sentence academic definition of the concept
+- lectureScript: array of 4-6 objects each with "speaker" (string, e.g. "Professor") and "line" (string). Professor gives a concrete example of the concept.
+- question: string asking student to explain the concept using the lecture example
+- sampleResponse: 60-second high-scoring response about 120 words
+- sampleResponse_ko: Korean strategy explanation`;
   } else {
     prompt=`Generate a TOEFL iBT Speaking Task 4 (Academic Lecture) on "${topic}". Difficulty: ${diff}.
-Return ONLY valid JSON:
-{"type":"t4","conceptTitle":"Academic concept name","lectureScript":[{"speaker":"Professor","line":"..."}],"question":"Using points and examples from the lecture, explain [concept name].","sampleResponse":"60-second high-scoring response (~120 words)","sampleResponse_ko":"한국어 해설"}
-Lecture: 6-8 lines. Professor explains concept with 2 clear examples/sub-points.`;
+Return ONLY a valid JSON object with these exact fields:
+- type: "t4"
+- conceptTitle: name of the academic concept explained in the lecture
+- lectureScript: array of 6-8 objects each with "speaker" (string, e.g. "Professor") and "line" (string). Professor explains the concept with 2 clear examples.
+- question: string asking student to explain the concept using points and examples from the lecture
+- sampleResponse: 60-second high-scoring response about 120 words
+- sampleResponse_ko: Korean strategy explanation`;
   }
 
   try{
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
     const d=await res.json();
-    currentData=JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+    if(!d.content||!d.content[0]) throw new Error('No response from API');
+    const text=d.content[0].text;
+    const clean=text.replace(/```json/g,'').replace(/```/g,'').trim();
+    const jsonStart=clean.indexOf('{'); const jsonEnd=clean.lastIndexOf('}');
+    if(jsonStart===-1) throw new Error('No JSON found');
+    currentData=JSON.parse(clean.slice(jsonStart,jsonEnd+1));
     document.getElementById('loading-overlay').style.display='none';
     renderTask();
     initTutor();
     document.getElementById('action-btns').style.display='flex';
   }catch(e){
     document.getElementById('loading-overlay').style.display='none';
-    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}</div>`;
+    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}<br><small style="color:var(--text-light)">${e.message||''}</small></div>`;
+    console.error('Speaking generate error:',e);
   }
   isLoading=false; btn.disabled=false;
 }
@@ -512,8 +537,8 @@ Return ONLY valid JSON:
 }`;
 
   try{
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:fbPrompt}]})});
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1000,messages:[{role:'user',content:fbPrompt}]})});
     const d=await res.json();
     const fb=JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
     renderFeedback(fb);
@@ -570,8 +595,8 @@ async function sendMsg(){
     ?`당신은 TOEFL iBT 말하기 전문 코치입니다. 현재 과제: ${t.ko}. 준비 시간: ${t.prepSec}초, 발화 시간: ${t.respSec}초. 한국어로 구체적인 조언을 주세요.`
     :`You are a TOEFL iBT Speaking expert coach. Current task: ${t.en}. Prep: ${t.prepSec}s, Response: ${t.respSec}s. Give specific, actionable advice.`;
   try{
-    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,system:sys,messages:messages.slice(-6)})});
+    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:400,system:sys,messages:messages.slice(-6)})});
     const d=await r.json(); removeTyping(tid);
     const rep=d.content[0].text; messages.push({role:'assistant',content:rep}); addMsg('ai',rep);
   }catch(e){ removeTyping(tid); addMsg('ai','⚠️ Error. Please try again.'); }

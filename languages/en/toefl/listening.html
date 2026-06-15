@@ -329,65 +329,40 @@ async function generate(){
 
   let prompt;
   if(currentPart==='lecture'){
-    prompt=`Generate a TOEFL iBT Academic Lecture on the topic of "${topic}". Difficulty: ${diff}.
-Return ONLY valid JSON (no markdown):
-{
-  "type": "lecture",
-  "topic": "${topic}",
-  "professor": "Professor [LastName]",
-  "course": "[Course Name]",
-  "script": [
-    {"speaker": "Professor Chen", "line": "Today we're going to talk about..."},
-    {"speaker": "Professor Chen", "line": "..."},
-    {"speaker": "Student", "line": "(optional student question)"},
-    {"speaker": "Professor Chen", "line": "Great question. ..."}
-  ],
-  "questions": [
-    {"id": 1, "text": "What is the main topic of this lecture?", "choices": ["(A)...","(B)...","(C)...","(D)..."], "answer": 0, "explanation": "Explanation here", "explanation_ko": "한국어 해설"},
-    {"id": 2, ...},
-    {"id": 3, ...},
-    {"id": 4, ...},
-    {"id": 5, ...},
-    {"id": 6, ...}
-  ]
-}
-Rules:
-- script: 8-12 lines, professor-led lecture with 1-2 student interactions
-- 6 questions covering: main idea, detail (x2), inference, purpose, attitude/organization
-- TOEFL-level academic vocabulary
-- answer is 0-based index (0=A, 1=B, 2=C, 3=D)`;
+    prompt=`Generate a TOEFL iBT Academic Lecture on "${topic}". Difficulty: ${diff}.
+Return ONLY a valid JSON object. No markdown, no explanation, just the JSON.
+The JSON must have these exact fields:
+- type: "lecture"
+- topic: string
+- professor: string (e.g. "Professor Kim")
+- course: string (e.g. "Introduction to Biology")
+- script: array of 8-10 objects, each with "speaker" (string) and "line" (string)
+- questions: array of exactly 6 objects, each with "id" (number 1-6), "text" (string), "choices" (array of 4 strings starting with (A) (B) (C) (D)), "answer" (0-based index number), "explanation" (string), "explanation_ko" (string in Korean)
+
+Questions should cover: main idea, 2 details, inference, purpose, organization.`;
   } else {
     prompt=`Generate a TOEFL iBT Campus Conversation. Difficulty: ${diff}.
-Return ONLY valid JSON (no markdown):
-{
-  "type": "conversation",
-  "context": "Brief context (e.g. A student visits a professor during office hours)",
-  "script": [
-    {"speaker": "Student", "line": "Hi Professor, do you have a minute?"},
-    {"speaker": "Professor", "line": "Sure, come in. What's on your mind?"},
-    ...
-  ],
-  "questions": [
-    {"id": 1, "text": "Why does the student visit the professor?", "choices": ["(A)...","(B)...","(C)...","(D)..."], "answer": 0, "explanation": "...", "explanation_ko": "한국어 해설"},
-    {"id": 2, ...},
-    {"id": 3, ...},
-    {"id": 4, ...},
-    {"id": 5, ...}
-  ]
-}
-Rules:
-- script: 8-10 lines alternating between Student and Professor/Staff
-- 5 questions covering: purpose, detail (x2), inference, attitude
-- Realistic campus scenario (office hours, library, registration, etc.)
-- answer is 0-based index`;
+Return ONLY a valid JSON object. No markdown, no explanation, just the JSON.
+The JSON must have these exact fields:
+- type: "conversation"
+- context: string (brief description of the situation)
+- script: array of 8-10 objects, each with "speaker" (either "Student" or "Professor") and "line" (string)
+- questions: array of exactly 5 objects, each with "id" (number 1-5), "text" (string), "choices" (array of 4 strings starting with (A) (B) (C) (D)), "answer" (0-based index number), "explanation" (string), "explanation_ko" (string in Korean)
+
+Questions should cover: purpose, 2 details, inference, attitude.
+Use a realistic campus scenario (office hours, registration, library, student services, etc.).`;
   }
 
   try{
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2500,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2500,messages:[{role:'user',content:prompt}]})});
     const d=await res.json();
+    if(!d.content||!d.content[0]) throw new Error('No response');
     const text=d.content[0].text;
-    currentData=JSON.parse(text.replace(/```json|```/g,'').trim());
+    const clean=text.replace(/```json/g,'').replace(/```/g,'').trim();
+    const jsonStart=clean.indexOf('{'); const jsonEnd=clean.lastIndexOf('}');
+    if(jsonStart===-1) throw new Error('No JSON found');
+    currentData=JSON.parse(clean.slice(jsonStart,jsonEnd+1));
     total=currentData.questions.length;
     document.getElementById('loading-overlay').style.display='none';
     document.getElementById('content-area').appendChild(buildContentCard(currentData, spd));
@@ -395,7 +370,8 @@ Rules:
     document.getElementById('action-btns').style.display='flex';
   }catch(e){
     document.getElementById('loading-overlay').style.display='none';
-    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}</div>`;
+    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}<br><small style="color:var(--text-light)">${e.message||''}</small></div>`;
+    console.error('Generate error:',e);
   }
   isLoading=false; btn.disabled=false;
 }
@@ -562,8 +538,8 @@ async function sendMsg(){
     ?`당신은 TOEFL iBT 듣기 전문 튜터입니다. 현재 주제: ${currentData?.topic||currentData?.context||''}. 한국어로 간결하고 친절하게 답하세요.`
     :`You are a TOEFL iBT Listening expert tutor. Current content: ${currentData?.topic||currentData?.context||''}. Be concise and helpful in English.`;
   try{
-    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,system:sys,messages:messages.slice(-6)})});
+    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:500,system:sys,messages:messages.slice(-6)})});
     const d=await r.json(); removeTyping(tid);
     const rep=d.content[0].text; messages.push({role:'assistant',content:rep}); addMsg('ai',rep);
   }catch(e){ removeTyping(tid); addMsg('ai','⚠️ Error. Please try again.'); }

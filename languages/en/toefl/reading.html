@@ -263,62 +263,37 @@ async function generate(){
   const qcount=parseInt(document.getElementById('q-count').value);
 
   const prompt=`Generate a TOEFL iBT Reading passage on "${topic}". Difficulty: ${diff}. Include exactly ${qcount} questions.
-Return ONLY valid JSON (no markdown):
-{
-  "title": "Passage Title",
-  "topic": "${topic}",
-  "wordCount": 420,
-  "paragraphs": [
-    "Paragraph 1 text (100-120 words, academic style)...",
-    "Paragraph 2 text...",
-    "Paragraph 3 text...",
-    "Paragraph 4 text..."
-  ],
-  "questions": [
-    {
-      "id": 1,
-      "type": "factual",
-      "text": "According to the passage, what is...?",
-      "reference": "See paragraph 1",
-      "choices": ["(A)...","(B)...","(C)...","(D)..."],
-      "answer": 0,
-      "explanation": "Explanation in English",
-      "explanation_ko": "한국어 해설"
-    },
-    {
-      "id": 2,
-      "type": "inference",
-      "text": "It can be inferred from the passage that...?",
-      "reference": "See paragraphs 2-3",
-      "choices": ["(A)...","(B)...","(C)...","(D)..."],
-      "answer": 1,
-      "explanation": "...",
-      "explanation_ko": "..."
-    },
-    {
-      "id": 3,
-      "type": "vocabulary",
-      "text": "The word [X] in paragraph 2 is closest in meaning to...?",
-      "reference": "Paragraph 2: '...[X]...'",
-      "choices": ["(A)...","(B)...","(C)...","(D)..."],
-      "answer": 2,
-      "explanation": "...",
-      "explanation_ko": "..."
-    }
-  ]
-}
-Question type distribution for ${qcount} questions:
-- factual: ${Math.ceil(qcount*0.4)} questions (According to the passage...)
-- inference: ${Math.ceil(qcount*0.2)} questions (It can be inferred...)
-- vocabulary: ${Math.floor(qcount*0.2)} questions (The word X is closest in meaning to...)
-- rhetorical: ${Math.floor(qcount*0.2)} questions (Why does the author mention...?)
-Use real TOEFL-level academic language. answer is 0-based index.`;
+Return ONLY a valid JSON object. No markdown, no explanation, just JSON.
+Required fields:
+- title: string (passage title)
+- topic: string
+- wordCount: number (around 420)
+- paragraphs: array of 4 strings, each paragraph 100-120 words, academic style
+- questions: array of exactly ${qcount} objects
+
+Each question object must have:
+- id: number (1 to ${qcount})
+- type: one of "factual", "inference", "vocabulary", "rhetorical"
+- text: the question text string
+- reference: string indicating which paragraph(s) to refer to
+- choices: array of exactly 4 strings (each starting with (A), (B), (C), (D))
+- answer: number 0-3 (0=A, 1=B, 2=C, 3=D)
+- explanation: string explanation in English
+- explanation_ko: string explanation in Korean
+
+Distribute question types: ${Math.ceil(qcount*0.4)} factual, ${Math.ceil(qcount*0.2)} inference, ${Math.floor(qcount*0.2)} vocabulary, ${Math.floor(qcount*0.2)} rhetorical.
+Use TOEFL-level academic vocabulary and style.`;
 
   try{
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:3000,messages:[{role:'user',content:prompt}]})});
     const d=await res.json();
-    currentData=JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+    if(!d.content||!d.content[0]) throw new Error('No response from API');
+    const text=d.content[0].text;
+    const clean=text.replace(/```json/g,'').replace(/```/g,'').trim();
+    const jsonStart=clean.indexOf('{'); const jsonEnd=clean.lastIndexOf('}');
+    if(jsonStart===-1) throw new Error('No JSON object found');
+    currentData=JSON.parse(clean.slice(jsonStart,jsonEnd+1));
     total=currentData.questions.length;
     document.getElementById('loading-overlay').style.display='none';
     renderContent();
@@ -326,7 +301,8 @@ Use real TOEFL-level academic language. answer is 0-based index.`;
     document.getElementById('action-btns').style.display='flex';
   }catch(e){
     document.getElementById('loading-overlay').style.display='none';
-    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}</div>`;
+    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}<br><small style="color:var(--text-light)">${e.message||''}</small></div>`;
+    console.error('Reading generate error:',e);
   }
   isLoading=false; btn.disabled=false;
 }
@@ -422,8 +398,8 @@ async function sendMsg(){
     ?`당신은 TOEFL iBT 읽기 전문 튜터입니다. 현재 지문: "${currentData?.title}". 주제: ${currentData?.topic}. 한국어로 간결하게 답하세요.`
     :`You are a TOEFL iBT Reading expert tutor. Current passage: "${currentData?.title}". Topic: ${currentData?.topic}. Be concise and helpful.`;
   try{
-    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,system:sys,messages:messages.slice(-6)})});
+    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:500,system:sys,messages:messages.slice(-6)})});
     const d=await r.json(); removeTyping(tid);
     const rep=d.content[0].text; messages.push({role:'assistant',content:rep}); addMsg('ai',rep);
   }catch(e){ removeTyping(tid); addMsg('ai','⚠️ Error. Please try again.'); }
