@@ -223,7 +223,7 @@ async function callAPI(prompt, maxTokens){
   const r=await fetch('/api/claude',{
     method:'POST',
     headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
-    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTokens||2000,messages:[{role:'user',content:prompt}]})
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTokens||5000,messages:[{role:'user',content:prompt}]})
   });
   const d=await r.json();
   if(d.error) throw new Error(JSON.stringify(d.error));
@@ -246,12 +246,12 @@ async function generate(){
 Return a JSON object with these fields:
 - title: passage title string
 - topic: topic string
-- paragraphs: array of 4 strings, each 100 to 120 words in academic style
+- paragraphs: array of 4 strings, each 80 to 100 words in academic style
 - questions: array of exactly ${qcount} question objects
 
 Each question object needs: id (1 to ${qcount}), type (one of factual, inference, vocabulary, rhetorical), text (question string), reference (which paragraph), choices (array of 4 strings), answer (integer 0 to 3), explanation (English string), explanation_ko (Korean string)
 
-Mix question types: about ${Math.ceil(qcount*0.4)} factual, ${Math.ceil(qcount*0.2)} inference, ${Math.floor(qcount*0.2)} vocabulary, ${Math.floor(qcount*0.2)} rhetorical.`,3000);
+Mix question types: about ${Math.ceil(qcount*0.4)} factual, ${Math.ceil(qcount*0.2)} inference, ${Math.floor(qcount*0.2)} vocabulary, ${Math.floor(qcount*0.2)} rhetorical.`,qcount<=6?3000:5000);
     total=data.questions.length;
     doneLoading();
     renderPassage();
