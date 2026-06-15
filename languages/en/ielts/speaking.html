@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — IELTS — Speaking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --accent:#7c3aed;--accent-light:#ede9fe;--accent-dark:#4c1d95;
+  --green:#16a34a;--green-light:#dcfce7;--red:#e24b4a;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all .2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all .2s;}
+.lbtn.act{background:var(--accent);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+.hero{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,4vw,28px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+.part-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:4px;margin-bottom:16px;gap:4px;}
+.part-tab{flex:1;padding:10px 6px;border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all .2s;text-align:center;}
+.part-tab.act{background:var(--accent);color:#fff;}
+.info-box{background:var(--accent-light);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:var(--accent);line-height:1.6;}
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:130px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--accent-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+.loading-overlay{padding:48px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:20px;display:none;}
+.loading-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--text-muted);}
+.prompt-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+.prompt-hdr{padding:12px 18px;background:var(--accent-light);border-bottom:0.5px solid var(--border);}
+.prompt-hdr-title{font-size:13px;font-weight:600;color:var(--accent-dark);margin-bottom:3px;}
+.prompt-timer{font-size:11px;color:var(--text-muted);}
+.prompt-body{padding:18px 20px;}
+.prompt-q{font-size:15px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:10px;}
+.cue-card{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid var(--green);border-radius:12px;padding:18px;margin-bottom:12px;}
+.cue-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.cue-main{font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px;line-height:1.5;}
+.cue-points{display:flex;flex-direction:column;gap:5px;}
+.cue-point{font-size:13px;color:var(--text-muted);display:flex;align-items:flex-start;gap:6px;}
+.cue-point::before{content:'•';color:var(--green);flex-shrink:0;}
+.followup-q{font-size:13px;color:var(--text-muted);padding:8px 12px;background:var(--bg);border-radius:8px;margin-bottom:6px;border-left:3px solid var(--accent);}
+.timer-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;text-align:center;}
+.timer-phase{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.timer-num{font-family:'DM Serif Display',serif;font-size:56px;color:var(--accent);line-height:1;margin-bottom:6px;}
+.timer-num.warn{color:var(--red);}
+.timer-sub{font-size:12px;color:var(--text-muted);margin-bottom:10px;}
+.timer-bar{height:6px;background:var(--bg);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--accent-dark),var(--accent));border-radius:10px;transition:width .5s;}
+.timer-fill.warn{background:linear-gradient(90deg,#991b1b,var(--red));}
+.record-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;}
+.rec-btn{width:100%;padding:14px;border-radius:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.rec-btn.idle{background:var(--accent);color:#fff;}
+.rec-btn.recording{background:var(--red);color:#fff;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.transcript-box{background:var(--bg);border-radius:10px;padding:12px;margin-top:12px;min-height:70px;font-size:13px;color:var(--text);line-height:1.7;display:none;border:1px solid var(--border);}
+.submit-btn{width:100%;padding:12px;border-radius:10px;font-size:14px;font-weight:600;background:var(--teal-mid);color:#fff;border:none;cursor:pointer;font-family:inherit;margin-bottom:14px;display:none;}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+.fb-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;display:none;}
+.fb-hdr{padding:12px 16px;background:var(--green-light);border-bottom:0.5px solid var(--border);font-size:13px;font-weight:600;color:var(--green);}
+.score-chips{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;border-bottom:0.5px solid var(--border);}
+.sc-chip{background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center;flex:1;min-width:70px;}
+.sc-chip-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-light);margin-bottom:3px;}
+.sc-chip-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent);}
+.sc-chip-max{font-size:10px;color:var(--text-light);}
+.fb-body{padding:14px 16px;}
+.fb-sec{margin-bottom:12px;}
+.fb-sec:last-child{margin-bottom:0;}
+.fb-sec-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-bottom:5px;}
+.fb-sec-text{font-size:13px;color:var(--text);line-height:1.7;}
+.sample-resp{background:var(--accent-light);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);line-height:1.7;border-left:3px solid var(--accent);}
+.tutor-wrap{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px;display:none;}
+.tutor-hdr{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--accent-light);border-bottom:0.5px solid var(--border);}
+.tutor-av{width:30px;height:30px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.tutor-name{font-size:13px;font-weight:600;color:var(--accent);}
+.tutor-msgs{padding:14px 16px;min-height:70px;max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+.msg{display:flex;gap:8px;align-items:flex-start;}
+.msg.user{flex-direction:row-reverse;}
+.msg-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:2px;}
+.msg-av.ai{background:var(--accent);color:#fff;}
+.msg-av.user{background:var(--navy);color:#fff;}
+.msg-bub{max-width:80%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.6;}
+.msg.ai .msg-bub{background:var(--bg);border-radius:4px 12px 12px 12px;}
+.msg.user .msg-bub{background:var(--navy);color:#fff;border-radius:12px 4px 12px 12px;}
+.typing{display:flex;gap:4px;align-items:center;padding:9px 13px;background:var(--bg);border-radius:4px 12px 12px 12px;width:fit-content;}
+.typing span{width:5px;height:5px;border-radius:50%;background:var(--text-light);animation:bounce 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.quick-wrap{padding:0 16px 10px;display:flex;gap:6px;flex-wrap:wrap;}
+.quick-btn{padding:4px 10px;border-radius:14px;font-size:12px;border:0.5px solid var(--border-md);background:transparent;color:var(--text-muted);cursor:pointer;font-family:inherit;}
+.quick-btn:hover{border-color:var(--accent);color:var(--accent);}
+.tutor-inp-wrap{display:flex;gap:8px;padding:10px 16px;border-top:0.5px solid var(--border);}
+.tutor-inp{flex:1;padding:8px 12px;border:0.5px solid var(--border-md);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg);outline:none;}
+.tutor-inp:focus{border-color:var(--accent);}
+.send-btn{width:34px;height:34px;border-radius:8px;background:var(--accent);border:none;cursor:pointer;color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;}
+.send-btn:disabled{background:var(--border-md);cursor:not-allowed;}
+.act-row{display:none;gap:10px;margin-bottom:20px;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);text-decoration:none;text-align:center;display:block;}
+.act-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/languages/en/index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div><span class="nav-page">🗣 IELTS Speaking</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back">← IELTS</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+<div class="main fade-in">
+  <div class="hero">
+    <div class="hero-tag">🗣 IELTS · SPEAKING</div>
+    <div class="hero-title" data-en="IELTS Speaking Practice" data-ko="IELTS 말하기 연습">IELTS Speaking Practice</div>
+    <div class="hero-desc" data-en="Practice all 3 parts of the IELTS speaking interview with AI feedback." data-ko="AI 피드백으로 IELTS 말하기 인터뷰 3파트를 연습하세요.">4 criteria: Fluency, Lexical Resource, Grammar, Pronunciation.</div>
+    <div class="hero-badges"><span class="hero-badge">Part 1 Interview</span><span class="hero-badge">Part 2 Cue Card</span><span class="hero-badge">Part 3 Discussion</span><span class="hero-badge">🤖 Band Score</span></div>
+  </div>
+  <div class="part-tabs">
+    <button class="part-tab act" onclick="selPart('p1',this)">Part 1<br><small>Interview</small></button>
+    <button class="part-tab" onclick="selPart('p2',this)">Part 2<br><small>Cue Card</small></button>
+    <button class="part-tab" onclick="selPart('p3',this)">Part 3<br><small>Discussion</small></button>
+  </div>
+  <div class="info-box" id="info-box"></div>
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" data-en="Topic" data-ko="주제">Topic</div>
+      <select class="si-select" id="sel-topic">
+        <option value="hometown and family">Hometown & Family</option>
+        <option value="education and study">Education</option>
+        <option value="work and career">Work & Career</option>
+        <option value="travel and holidays">Travel</option>
+        <option value="technology">Technology</option>
+        <option value="environment">Environment</option>
+        <option value="health and sports">Health & Sports</option>
+        <option value="arts and culture">Arts & Culture</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-en="Target Band" data-ko="목표 밴드">Target Band</div>
+      <select class="si-select" id="sel-band">
+        <option value="Band 5-6">Band 5–6</option>
+        <option value="Band 6-7" selected>Band 6–7</option>
+        <option value="Band 7-8">Band 7–8</option>
+        <option value="Band 8-9">Band 8–9</option>
+      </select>
+    </div>
+  </div>
+  <button class="gen-btn" id="gen-btn" onclick="generate()">🗣 <span data-en="Generate Speaking Task" data-ko="말하기 과제 생성">Generate Speaking Task</span></button>
+  <div class="loading-overlay" id="loading-overlay"><div class="loading-spinner"></div><div class="loading-text" data-en="AI is generating your task..." data-ko="AI가 과제를 생성하고 있습니다...">AI is generating your task...</div></div>
+  <div id="content-area"></div>
+  <div class="tutor-wrap" id="tutor-wrap">
+    <div class="tutor-hdr"><div class="tutor-av">🤖</div><div><div class="tutor-name">AI Speaking Coach</div></div></div>
+    <div class="tutor-msgs" id="tutor-msgs"></div>
+    <div class="quick-wrap" id="quick-wrap"></div>
+    <div class="tutor-inp-wrap">
+      <input class="tutor-inp" id="tutor-inp" placeholder="Ask for speaking advice..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" id="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+  <div class="act-row" id="act-row">
+    <button class="act-btn primary" onclick="generate()" data-en="🔄 New Task" data-ko="🔄 새 과제">🔄 New Task</button>
+    <a href="index.html" class="act-btn" data-en="← IELTS Home" data-ko="← IELTS 홈">← IELTS Home</a>
+  </div>
+</div>
+<script>
+const PARTS={
+  p1:{en:'Part 1 — Introduction & Interview',ko:'Part 1 — 소개 & 인터뷰',prep:0,resp:90,
+    tip:{en:'💡 Answer naturally and give extended answers — don\'t just say yes/no. Add a reason or example. 4–5 questions.',ko:'💡 자연스럽게 답하고 이유나 예시를 추가하세요. 단순 yes/no는 피하세요. 4~5 질문.'}},
+  p2:{en:'Part 2 — Long Turn (Cue Card)',ko:'Part 2 — 장문 발화 (큐 카드)',prep:60,resp:120,
+    tip:{en:'💡 Use the 1-minute preparation time to make notes. Speak for 1–2 minutes covering all bullet points on the cue card.',ko:'💡 1분 준비 시간에 메모하세요. 큐카드의 모든 항목을 다루며 1~2분 말하세요.'}},
+  p3:{en:'Part 3 — Two-way Discussion',ko:'Part 3 — 토론',prep:0,resp:180,
+    tip:{en:'💡 Give analytical, abstract answers. Use expressions like "It depends...", "One argument is...", "On the other hand...". 4–6 questions.',ko:'💡 분석적이고 추상적인 답변을 하세요. "It depends...", "One argument is..." 같은 표현을 사용하세요. 4~6 질문.'}}
+};
+let lang='en', part='p1', data=null, isLoading=false, msgs=[];
+let timerInt=null, mediaRec=null, audioChunks=[];
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{const t=l==='ko'?el.dataset.ko:el.dataset.en;if(t)el.innerHTML=t;});
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  renderInfo();
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+function selPart(p,btn){
+  part=p; stopTimer();
+  document.querySelectorAll('.part-tab').forEach(b=>b.classList.remove('act')); btn.classList.add('act');
+  renderInfo(); reset();
+}
+function renderInfo(){
+  const p=PARTS[part];
+  document.getElementById('info-box').innerHTML=`<strong>${lang==='ko'?p.ko:p.en}</strong>${p.prep>0?` · ⏱ ${lang==='ko'?'준비':'Prep'} ${p.prep}s`:''} · ⏱ ${lang==='ko'?'발화':'Speak'} ${p.resp}s<br>${lang==='ko'?p.tip.ko:p.tip.en}`;
+}
+function reset(){
+  stopTimer();
+  if(mediaRec&&mediaRec.state==='recording'){mediaRec.stop();mediaRec.stream?.getTracks().forEach(t=>t.stop());}
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('tutor-wrap').style.display='none';
+  document.getElementById('act-row').style.display='none';
+  data=null; msgs=[];
+}
+function doneLoading(){
+  document.getElementById('loading-overlay').style.display='none';
+  isLoading=false; document.getElementById('gen-btn').disabled=false;
+}
+function showErr(e){
+  doneLoading();
+  document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}<br><small style="color:var(--text-light);margin-top:6px;display:block;">${e.message||''}</small></div>`;
+  console.error(e);
+}
+async function callAPI(prompt,maxTokens){
+  const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:maxTokens||1500,messages:[{role:'user',content:prompt}]})});
+  const d=await r.json();
+  if(d.error) throw new Error(JSON.stringify(d.error));
+  const txt=d.content[0].text;
+  const s=txt.indexOf('{'),e=txt.lastIndexOf('}');
+  if(s===-1) throw new Error('No JSON in response');
+  return JSON.parse(txt.slice(s,e+1));
+}
+
+async function generate(){
+  if(isLoading) return;
+  isLoading=true; reset();
+  document.getElementById('gen-btn').disabled=true;
+  document.getElementById('loading-overlay').style.display='block';
+  const topic=document.getElementById('sel-topic').value;
+  const band=document.getElementById('sel-band').value;
+  try{
+    let prompt='';
+    if(part==='p1'){
+      prompt=`Create an IELTS Speaking Part 1 interview about ${topic}. Target band: ${band}.
+Return a JSON object with: questions (array of 5 strings, natural interview questions about ${topic}), sampleAnswers (array of 5 strings, each a 2-3 sentence Band 7 answer), sampleAnswers_ko (array of 5 Korean strategy tips)`;
+    } else if(part==='p2'){
+      prompt=`Create an IELTS Speaking Part 2 cue card about ${topic}. Target band: ${band}.
+Return a JSON object with: mainPrompt (string, main thing to describe e.g. "Describe a memorable journey you have taken"), bulletPoints (array of 4 strings, sub-points on the cue card), additionalQuestion (string, the follow-up question after the long turn), sampleResponse (string, 150 word Band 7 sample response), sampleResponse_ko (Korean strategy explanation)`;
+    } else {
+      prompt=`Create an IELTS Speaking Part 3 discussion questions about ${topic}. Target band: ${band}.
+Return a JSON object with: questions (array of 5 strings, abstract analytical discussion questions), sampleAnswers (array of 5 strings, each a 3-4 sentence Band 7 analytical answer using discourse markers), sampleAnswers_ko (array of 5 Korean strategy tips)`;
+    }
+    data=await callAPI(prompt,1800);
+    doneLoading(); renderTask(); initTutor();
+    document.getElementById('act-row').style.display='flex';
+  } catch(e){showErr(e);}
+}
+
+function renderTask(){
+  const area=document.getElementById('content-area'); area.innerHTML='';
+  const p=PARTS[part];
+
+  if(part==='p1'||part==='p3'){
+    const qs=data.questions||[];
+    const ans=data.sampleAnswers||[];
+    qs.forEach((q,i)=>{
+      const card=document.createElement('div'); card.className='prompt-card';
+      const hdr=document.createElement('div'); hdr.className='prompt-hdr';
+      hdr.innerHTML=`<div class="prompt-hdr-title">${lang==='ko'?p.ko:p.en} · Q${i+1}</div><div class="prompt-timer">⏱ ${lang==='ko'?'자유롭게 답변하세요':'Answer naturally'}</div>`;
+      const bod=document.createElement('div'); bod.className='prompt-body';
+      bod.innerHTML=`<div class="prompt-q">❓ ${q}</div>`;
+      if(ans[i]){
+        const showBtn=document.createElement('button');
+        showBtn.style.cssText='padding:6px 14px;border-radius:8px;border:0.5px solid var(--accent);background:transparent;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:6px;';
+        showBtn.textContent=lang==='ko'?'예시 답변 보기':'Show Sample Answer';
+        const sampleDiv=document.createElement('div');
+        sampleDiv.style.cssText='display:none;margin-top:10px;';
+        sampleDiv.innerHTML=`<div class="sample-resp">${ans[i]}</div>${(data.sampleAnswers_ko||[])[i]?`<div style="font-size:12px;color:var(--text-muted);margin-top:6px;padding:8px 10px;background:var(--bg);border-radius:6px;">💡 ${data.sampleAnswers_ko[i]}</div>`:''}`;
+        showBtn.onclick=function(){
+          const open=sampleDiv.style.display==='block';
+          sampleDiv.style.display=open?'none':'block';
+          this.textContent=open?(lang==='ko'?'예시 답변 보기':'Show Sample Answer'):(lang==='ko'?'숨기기':'Hide');
+        };
+        bod.append(showBtn,sampleDiv);
+      }
+      card.append(hdr,bod); area.appendChild(card);
+    });
+  } else {
+    // Part 2 cue card
+    const card=document.createElement('div'); card.className='prompt-card';
+    const hdr=document.createElement('div'); hdr.className='prompt-hdr';
+    hdr.innerHTML=`<div class="prompt-hdr-title">${lang==='ko'?p.ko:p.en}</div><div class="prompt-timer">⏱ ${lang==='ko'?'준비 1분':'1 min prep'} → ${lang==='ko'?'발화 1~2분':'1–2 min speak'}</div>`;
+    const bod=document.createElement('div'); bod.className='prompt-body';
+    const cue=document.createElement('div'); cue.className='cue-card';
+    cue.innerHTML=`<div class="cue-title">📋 ${lang==='ko'?'큐 카드':'CUE CARD'}</div>
+      <div class="cue-main">${data.mainPrompt}</div>
+      <div class="cue-points">${(data.bulletPoints||[]).map(b=>`<div class="cue-point">${b}</div>`).join('')}</div>`;
+    if(data.additionalQuestion){
+      cue.innerHTML+=`<div style="margin-top:12px;font-size:12px;color:var(--text-muted);">🔹 ${lang==='ko'?'추가 질문:':'Follow-up:'} <em>${data.additionalQuestion}</em></div>`;
+    }
+    bod.appendChild(cue);
+    if(data.sampleResponse){
+      const showBtn=document.createElement('button');
+      showBtn.style.cssText='padding:6px 14px;border-radius:8px;border:0.5px solid var(--accent);background:transparent;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:10px;';
+      showBtn.textContent=lang==='ko'?'예시 답변 보기':'Show Sample Answer';
+      const sDiv=document.createElement('div'); sDiv.style.display='none';
+      sDiv.innerHTML=`<div class="sample-resp">${data.sampleResponse}</div>${data.sampleResponse_ko?`<div style="font-size:12px;color:var(--text-muted);margin-top:6px;padding:8px 10px;background:var(--bg);border-radius:6px;">💡 ${data.sampleResponse_ko}</div>`:''}`;
+      showBtn.onclick=function(){const open=sDiv.style.display==='block';sDiv.style.display=open?'none':'block';this.textContent=open?(lang==='ko'?'예시 답변 보기':'Show Sample'):(lang==='ko'?'숨기기':'Hide');};
+      bod.append(showBtn,sDiv);
+    }
+    card.append(hdr,bod); area.appendChild(card);
+  }
+
+  // Timer
+  const t=PARTS[part];
+  const tc=document.createElement('div'); tc.className='timer-card';
+  const hasprep=t.prep>0;
+  tc.innerHTML=`<div class="timer-phase" id="timer-phase">${hasprep?(lang==='ko'?'준비 시간':'Preparation Time'):(lang==='ko'?'말하기 준비':'Ready to Speak')}</div>
+    <div class="timer-num" id="timer-num">${hasprep?t.prep:t.resp}</div>
+    <div class="timer-sub" id="timer-sub">${hasprep?(lang==='ko'?'메모를 작성하세요':'Make your notes'):(lang==='ko'?'버튼을 눌러 시작':'Press button to start')} </div>
+    <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+    <button class="gen-btn" style="margin-bottom:0;" id="start-btn" onclick="startTimer()">⏱ ${lang==='ko'?'타이머 시작':'Start Timer'}</button>`;
+  area.appendChild(tc);
+
+  // Record
+  const rc=document.createElement('div'); rc.className='record-card';
+  rc.innerHTML=`<button class="rec-btn idle" id="rec-btn" onclick="toggleRec()">🎙 ${lang==='ko'?'녹음 시작':'Start Recording'}</button>
+    <div class="transcript-box" id="transcript-box" contenteditable="true">${lang==='ko'?'말씀하신 내용을 여기에 입력하세요...':'Type what you said here...'}</div>`;
+  area.appendChild(rc);
+  const sb=document.createElement('button'); sb.className='submit-btn'; sb.id='submit-btn';
+  sb.textContent=`🤖 ${lang==='ko'?'AI 피드백 받기':'Get AI Feedback'}`;
+  sb.onclick=submitSpk; area.appendChild(sb);
+}
+
+function startTimer(){
+  document.getElementById('start-btn').style.display='none';
+  const t=PARTS[part];
+  if(t.prep>0){
+    runTimer(t.prep,'prep',()=>{
+      document.getElementById('timer-phase').textContent=lang==='ko'?'🗣 지금 말하세요!':'🗣 Begin Speaking!';
+      runTimer(t.resp,'resp',()=>{document.getElementById('timer-phase').textContent=lang==='ko'?'⏰ 시간 종료!':'⏰ Time\'s Up!';if(mediaRec&&mediaRec.state==='recording')stopRec();});
+    });
+  } else {
+    runTimer(t.resp,'resp',()=>{document.getElementById('timer-phase').textContent=lang==='ko'?'⏰ 시간 종료!':'⏰ Time\'s Up!';if(mediaRec&&mediaRec.state==='recording')stopRec();});
+  }
+}
+function runTimer(sec,phase,cb){
+  stopTimer(); let rem=sec;
+  const num=document.getElementById('timer-num');
+  const fill=document.getElementById('timer-fill');
+  if(num){num.textContent=rem;num.className='timer-num';}
+  if(fill){fill.style.width='100%';fill.className='timer-fill';}
+  timerInt=setInterval(()=>{
+    rem--;
+    if(num){num.textContent=rem;if(rem<=5){num.classList.add('warn');if(fill)fill.classList.add('warn');}}
+    if(fill)fill.style.width=(rem/sec*100)+'%';
+    if(rem<=0){stopTimer();if(cb)cb();}
+  },1000);
+}
+function stopTimer(){if(timerInt){clearInterval(timerInt);timerInt=null;}}
+
+async function toggleRec(){
+  if(mediaRec&&mediaRec.state==='recording'){stopRec();return;}
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    audioChunks=[];
+    mediaRec=new MediaRecorder(stream);
+    mediaRec.ondataavailable=e=>audioChunks.push(e.data);
+    mediaRec.onstop=()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      const tb=document.getElementById('transcript-box'); if(tb)tb.style.display='block';
+      const sb=document.getElementById('submit-btn'); if(sb)sb.style.display='block';
+    };
+    mediaRec.start();
+    const btn=document.getElementById('rec-btn');
+    btn.className='rec-btn recording'; btn.textContent=`⏹ ${lang==='ko'?'녹음 중지':'Stop Recording'}`;
+    document.getElementById('transcript-box').style.display='none';
+  }catch(e){alert(lang==='ko'?'마이크 접근 권한이 필요합니다.':'Microphone access required.');}
+}
+function stopRec(){
+  if(mediaRec&&mediaRec.state==='recording') mediaRec.stop();
+  const btn=document.getElementById('rec-btn');
+  if(btn){btn.className='rec-btn idle';btn.textContent=`🎙 ${lang==='ko'?'다시 녹음':'Re-record'}`;}
+  const sb=document.getElementById('submit-btn');if(sb)sb.style.display='block';
+  const tb=document.getElementById('transcript-box');if(tb)tb.style.display='block';
+}
+
+async function submitSpk(){
+  const tb=document.getElementById('transcript-box');
+  const transcript=(tb?.innerText||'').trim();
+  const btn=document.getElementById('submit-btn'); btn.disabled=true;
+  btn.textContent=lang==='ko'?'⏳ AI 분석 중...':'⏳ AI analyzing...';
+  const p=PARTS[part];
+  try{
+    const fb=await callAPI(`You are an IELTS Speaking examiner. Score this response.
+Part: ${lang==='ko'?p.ko:p.en}
+Topic: ${document.getElementById('sel-topic').value}
+Student transcript: ${transcript||'(no transcript provided)'}
+
+Return a JSON object with: scores (object with fluency, lexical_resource, grammatical_range, pronunciation each having score (integer 1-9) and comment (string)), overall_band (number with .5 increments), strengths (string), improvements (string), strengths_ko (Korean string), improvements_ko (Korean string), sampleResponse (string, a brief high-band example)`,1200);
+    renderFeedback(fb);
+  }catch(e){
+    btn.disabled=false; btn.textContent=`🤖 ${lang==='ko'?'AI 피드백 받기':'Get AI Feedback'}`;
+    alert(lang==='ko'?'오류가 발생했습니다.':'Error occurred.');
+  }
+}
+
+function renderFeedback(fb){
+  const exist=document.getElementById('fb-card'); if(exist)exist.remove();
+  const fc=document.createElement('div'); fc.className='fb-card'; fc.id='fb-card';
+  const scores=fb.scores||{};
+  const vals=Object.values(scores).map(v=>v.score||0);
+  const avg=vals.length?Math.round(vals.reduce((a,b)=>a+b,0)/vals.length*2)/2:0;
+  fc.innerHTML=`<div class="fb-hdr">🤖 ${lang==='ko'?'AI 채점 완료':'AI Scoring Complete'} · Overall Band ${fb.overall_band||avg}</div>
+    <div class="score-chips">${Object.entries(scores).map(([k,v])=>`<div class="sc-chip"><div class="sc-chip-name">${k.replace(/_/g,' ')}</div><div class="sc-chip-val">${v.score}</div><div class="sc-chip-max">/ 9</div></div>`).join('')}</div>
+    <div class="fb-body">
+      <div class="fb-sec"><div class="fb-sec-title">✅ ${lang==='ko'?'강점':'Strengths'}</div><div class="fb-sec-text">${lang==='ko'?(fb.strengths_ko||fb.strengths):fb.strengths}</div></div>
+      <div class="fb-sec"><div class="fb-sec-title">📈 ${lang==='ko'?'개선점':'Improve'}</div><div class="fb-sec-text">${lang==='ko'?(fb.improvements_ko||fb.improvements):fb.improvements}</div></div>
+      <div class="fb-sec"><div class="fb-sec-title">📝 ${lang==='ko'?'예시 답변':'Sample'}</div><div class="sample-resp">${fb.sampleResponse||''}</div></div>
+    </div>`;
+  fc.style.display='block';
+  document.getElementById('content-area').appendChild(fc);
+  fc.scrollIntoView({behavior:'smooth',block:'start'});
+  const btn=document.getElementById('submit-btn');if(btn){btn.disabled=false;btn.textContent=lang==='ko'?'🔄 다시 제출':'🔄 Resubmit';}
+}
+
+function initTutor(){
+  msgs=[]; document.getElementById('tutor-msgs').innerHTML='';
+  const p=PARTS[part];
+  addMsg('ai',lang==='ko'?`🗣 **${p.ko}** 준비!\n\n${p.tip.ko}`:`🗣 **${p.en}** ready!\n\n${p.tip.en}`);
+  const qs=lang==='ko'?['아이디어 제안','예시 답변','밴드 향상 팁','어휘 도움']:['Give me ideas','Show sample answer','Band improvement tips','Vocabulary help'];
+  document.getElementById('quick-wrap').innerHTML=qs.map(q=>`<button class="quick-btn" onclick="document.getElementById('tutor-inp').value='${q}';sendMsg()">${q}</button>`).join('');
+  document.getElementById('tutor-wrap').style.display='block';
+}
+async function sendMsg(){
+  const inp=document.getElementById('tutor-inp'); const txt=inp.value.trim(); if(!txt) return;
+  inp.value=''; addMsg('user',txt); msgs.push({role:'user',content:txt});
+  document.getElementById('send-btn').disabled=true; const tid=showTyping();
+  try{
+    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:350,system:lang==='ko'?`IELTS 말하기 코치. 파트: ${PARTS[part].ko}. 한국어로 간결하게 답하세요.`:`IELTS Speaking coach. Part: ${PARTS[part].en}. Be concise.`,messages:msgs.slice(-6)})});
+    const d=await r.json(); removeTyping(tid);
+    const rep=d.content[0].text; msgs.push({role:'assistant',content:rep}); addMsg('ai',rep);
+  }catch(e){removeTyping(tid);addMsg('ai','⚠️ Error');}
+  document.getElementById('send-btn').disabled=false;
+}
+function addMsg(role,txt){
+  const w=document.getElementById('tutor-msgs'); const d=document.createElement('div'); d.className='msg '+role;
+  d.innerHTML=`<div class="msg-av ${role}">${role==='ai'?'🤖':'👤'}</div><div class="msg-bub">${txt.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
+  w.appendChild(d); w.scrollTop=w.scrollHeight;
+}
+function showTyping(){
+  const w=document.getElementById('tutor-msgs'); const id='t'+Date.now(); const d=document.createElement('div'); d.className='msg ai'; d.id=id;
+  d.innerHTML=`<div class="msg-av ai">🤖</div><div class="typing"><span></span><span></span><span></span></div>`;
+  w.appendChild(d); w.scrollTop=w.scrollHeight; return id;
+}
+function removeTyping(id){const e=document.getElementById(id);if(e)e.remove();}
+(function(){let s;try{s=localStorage.getItem('lw-lang');}catch(e){}setLang(s||((navigator.language||'').startsWith('ko')?'ko':'en'));renderInfo();})();
+</script>
+</body>
+</html>
