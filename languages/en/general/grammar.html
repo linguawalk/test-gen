@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — General English — Grammar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --green:#16a34a;--green-light:#dcfce7;
+  --red:#e24b4a;--red-light:#fee2e2;
+  --yellow:#f59e0b;--yellow-light:#fef3c7;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--teal-mid);color:#fff;}
+.main{max-width:860px;margin:0 auto;padding:28px 5% 80px;}
+.hero{background:linear-gradient(135deg,#0d3d2d 0%,var(--teal) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+.hero-badge.free{background:rgba(255,255,255,0.25);font-weight:700;}
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:130px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--teal-mid);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--teal);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:14px;font-weight:600;color:var(--text);}
+.card-body{padding:18px;}
+/* Grammar Card */
+.grammar-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:22px;margin-bottom:14px;}
+.gc-rule-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal-mid);margin-bottom:8px;}
+.gc-rule-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);margin-bottom:10px;}
+.gc-explanation{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;padding:14px;background:var(--bg);border-radius:10px;}
+.gc-formula{font-size:13px;font-weight:600;color:var(--navy);background:var(--teal-light);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-family:monospace;}
+.gc-examples-title{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;}
+.gc-example{font-size:13px;color:var(--text);padding:8px 12px;border-left:3px solid var(--teal-mid);margin-bottom:6px;background:var(--bg);border-radius:0 6px 6px 0;}
+.gc-example .correct{color:var(--green);font-weight:600;}
+.gc-example .wrong{color:var(--red);text-decoration:line-through;}
+/* Quiz */
+.quiz-sentence{text-align:center;padding:24px;background:linear-gradient(135deg,#0d3d2d,var(--teal));border-radius:14px;margin-bottom:14px;}
+.qs-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.qs-sentence{font-size:18px;color:#fff;line-height:1.6;}
+.qs-blank{display:inline-block;min-width:80px;border-bottom:2px solid rgba(255,255,255,0.7);color:rgba(255,255,255,0.4);font-style:italic;}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.opt-btn{padding:14px 16px;border-radius:10px;font-size:14px;font-weight:500;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);cursor:pointer;font-family:inherit;transition:all 0.2s;text-align:left;line-height:1.4;}
+.opt-btn:hover:not(:disabled){border-color:var(--teal-mid);background:var(--teal-light);}
+.opt-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green);}
+.opt-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red);}
+.opt-btn:disabled{cursor:default;}
+/* Score */
+.score-bar{display:flex;align-items:center;gap:12px;background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;}
+.score-num{font-family:'DM Serif Display',serif;font-size:24px;color:var(--teal-mid);}
+.score-label{font-size:12px;color:var(--text-muted);}
+.progress-bar{flex:1;height:8px;background:var(--bg);border-radius:10px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-mid));border-radius:10px;transition:width 0.3s;}
+/* Result */
+.result-box{text-align:center;padding:24px;background:var(--white);border:0.5px solid var(--border);border-radius:14px;display:none;}
+.rb-icon{font-size:48px;margin-bottom:12px;}
+.rb-title{font-family:'DM Serif Display',serif;font-size:24px;color:var(--text);margin-bottom:6px;}
+.rb-score{font-size:16px;color:var(--teal-mid);font-weight:600;margin-bottom:16px;}
+.rb-btn{padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;background:var(--teal-mid);color:#fff;border:none;cursor:pointer;font-family:inherit;}
+.mode-tabs{display:flex;gap:0;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px;}
+.mode-tab{flex:1;padding:9px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;}
+.mode-tab.act{background:var(--teal-mid);color:#fff;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" data-en="General · Grammar" data-ko="General · 문법">General · Grammar</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back" data-en="← General" data-ko="← General">← General</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<div class="main">
+  <!-- HERO -->
+  <div class="hero fade-in">
+    <div class="hero-tag">GENERAL ENGLISH</div>
+    <div class="hero-title" data-en="✏️ Grammar" data-ko="✏️ 문법">✏️ Grammar</div>
+    <div class="hero-desc" data-en="Master English grammar from A1 to C2. Study rules with examples, then test yourself with AI-generated quizzes." data-ko="A1~C2 영어 문법을 완벽하게 익히세요. 예문으로 규칙을 학습하고 AI 퀴즈로 실력을 확인합니다.">Master English grammar from A1 to C2. Study rules with examples, then test yourself with AI-generated quizzes.</div>
+    <div class="hero-badges">
+      <span class="hero-badge free">✓ 100% Free</span>
+      <span class="hero-badge">A1 → C2</span>
+      <span class="hero-badge">🤖 AI-Generated</span>
+      <span class="hero-badge">Study + Quiz</span>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="settings-row fade-in">
+    <div class="setting-item">
+      <div class="si-label" data-en="Level" data-ko="레벨">Level</div>
+      <select class="si-select" id="sel-level">
+        <option value="A1">A1 — Beginner</option>
+        <option value="A2">A2 — Elementary</option>
+        <option value="B1" selected>B1 — Intermediate</option>
+        <option value="B2">B2 — Upper-Intermediate</option>
+        <option value="C1">C1 — Advanced</option>
+        <option value="C2">C2 — Mastery</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-en="Topic" data-ko="주제">Topic</div>
+      <select class="si-select" id="sel-topic">
+        <option value="present tenses">Present Tenses</option>
+        <option value="past tenses">Past Tenses</option>
+        <option value="future forms">Future Forms</option>
+        <option value="conditionals">Conditionals</option>
+        <option value="passive voice">Passive Voice</option>
+        <option value="modal verbs">Modal Verbs</option>
+        <option value="articles">Articles (a/an/the)</option>
+        <option value="prepositions">Prepositions</option>
+        <option value="relative clauses">Relative Clauses</option>
+        <option value="reported speech">Reported Speech</option>
+        <option value="comparison">Comparison (adj/adv)</option>
+        <option value="gerunds and infinitives">Gerunds & Infinitives</option>
+        <option value="conjunctions">Conjunctions</option>
+        <option value="word order">Word Order</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-en="Questions" data-ko="문항 수">Questions</div>
+      <select class="si-select" id="sel-count">
+        <option value="5">5 questions</option>
+        <option value="8" selected>8 questions</option>
+        <option value="10">10 questions</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- MODE TABS -->
+  <div class="mode-tabs fade-in">
+    <button class="mode-tab act" onclick="setMode('study',this)" data-en="📖 Study" data-ko="📖 학습">📖 Study</button>
+    <button class="mode-tab" onclick="setMode('quiz',this)" data-en="📝 Quiz" data-ko="📝 퀴즈">📝 Quiz</button>
+  </div>
+
+  <button class="gen-btn fade-in" id="gen-btn" onclick="generate()">
+    🤖 <span data-en="Generate Grammar Lesson" data-ko="문법 레슨 생성">Generate Grammar Lesson</span>
+  </button>
+
+  <!-- SCORE BAR -->
+  <div class="score-bar fade-in" id="score-bar" style="display:none;">
+    <div>
+      <div class="score-num" id="score-num">0 / 0</div>
+      <div class="score-label" data-en="Correct" data-ko="정답">Correct</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div id="card-counter" style="font-size:12px;color:var(--text-light);white-space:nowrap;"></div>
+  </div>
+
+  <!-- CONTENT AREA -->
+  <div id="content-area"></div>
+
+  <!-- RESULT -->
+  <div class="result-box fade-in" id="result-box">
+    <div class="rb-icon" id="rb-icon">🎉</div>
+    <div class="rb-title" id="rb-title">완료!</div>
+    <div class="rb-score" id="rb-score"></div>
+    <button class="rb-btn" onclick="generate()" data-en="🔄 New Set" data-ko="🔄 새 세트">🔄 New Set</button>
+  </div>
+</div>
+
+<script>
+let lang = localStorage.getItem('lw-lang') || (navigator.language.startsWith('ko')?'ko':'en');
+let currentMode = 'study';
+let items = [];
+let currentIdx = 0;
+let score = 0;
+let answered = 0;
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    el.innerHTML = l==='ko'?el.dataset.ko:el.dataset.en;
+  });
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  localStorage.setItem('lw-lang',l);
+}
+setLang(lang);
+
+function setMode(mode, btn){
+  currentMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  items=[];currentIdx=0;score=0;answered=0;
+  // Update button label
+  const genBtn = document.getElementById('gen-btn');
+  if(mode==='study'){
+    genBtn.innerHTML='🤖 <span>'+(lang==='ko'?'문법 레슨 생성':'Generate Grammar Lesson')+'</span>';
+  } else {
+    genBtn.innerHTML='🤖 <span>'+(lang==='ko'?'퀴즈 생성':'Generate Quiz')+'</span>';
+  }
+}
+
+async function generate(){
+  const level = document.getElementById('sel-level').value;
+  const topic = document.getElementById('sel-topic').value;
+  const count = document.getElementById('sel-count').value;
+  const btn = document.getElementById('gen-btn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ <span>'+(lang==='ko'?'생성 중...':'Generating...')+'</span>';
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('result-box').style.display='none';
+  document.getElementById('score-bar').style.display='none';
+  items=[];currentIdx=0;score=0;answered=0;
+
+  let prompt;
+  if(currentMode==='study'){
+    prompt = `Create ${count} grammar rules about "${topic}" for ${level} level English learners.
+Return ONLY valid JSON array, no markdown:
+[
+  {
+    "rule_title": "Simple Present for Habits",
+    "explanation": "We use the simple present to talk about habits, routines, and general truths.",
+    "formula": "Subject + base verb (+ s/es for he/she/it)",
+    "examples": [
+      {"correct": "She works every day.", "wrong": "She work every day."},
+      {"correct": "They play football on Sundays.", "wrong": "They plays football on Sundays."}
+    ],
+    "tip": "Remember to add -s or -es for third person singular (he/she/it).",
+    "tip_ko": "3인칭 단수(he/she/it)에는 동사 뒤에 -s 또는 -es를 붙이는 것을 기억하세요."
+  }
+]
+Make explanations clear for ${level} level. Include 2 examples each with correct and wrong forms.`;
+  } else {
+    prompt = `Create ${count} grammar quiz questions about "${topic}" for ${level} level English learners.
+Return ONLY valid JSON array, no markdown:
+[
+  {
+    "sentence": "She ___ to school every day.",
+    "options": ["go", "goes", "going", "gone"],
+    "answer": "goes",
+    "explanation": "We use 'goes' because the subject is 'she' (third person singular), which requires -s/-es on the verb.",
+    "explanation_ko": "'she'는 3인칭 단수이므로 동사에 -s/-es를 붙여 'goes'를 사용합니다."
+  }
+]
+Make questions appropriate for ${level} level. The blank should be marked as ___ in the sentence.`;
+  }
+
+  try {
+    const res = await fetch('/api/claude', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-5',
+        max_tokens:2000,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const text = data.content[0].text;
+    const clean = text.replace(/```json|```/g,'').trim();
+    items = JSON.parse(clean);
+
+    if(currentMode==='study') renderStudy();
+    else renderQuiz();
+  } catch(e) {
+    document.getElementById('content-area').innerHTML=`<div style="text-align:center;padding:24px;color:var(--red);">❌ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}</div>`;
+  }
+  btn.disabled=false;
+  btn.innerHTML='🔄 <span>'+(lang==='ko'?'새로 생성':'Regenerate')+'</span>';
+}
+
+// ── STUDY MODE ──
+function renderStudy(){
+  const area = document.getElementById('content-area');
+  area.innerHTML = items.map((item, i) => `
+    <div class="grammar-card fade-in" style="animation-delay:${i*0.05}s">
+      <div class="gc-rule-tag">RULE ${i+1} / ${items.length}</div>
+      <div class="gc-rule-title">${item.rule_title}</div>
+      <div class="gc-explanation">${item.explanation}</div>
+      <div class="gc-formula">📐 ${item.formula}</div>
+      <div class="gc-examples-title">${lang==='ko'?'예문':'EXAMPLES'}</div>
+      ${item.examples.map(ex=>`
+        <div class="gc-example">
+          <span class="correct">✓ ${ex.correct}</span><br>
+          <span class="wrong">✗ ${ex.wrong}</span>
+        </div>
+      `).join('')}
+      ${item.tip ? `<div style="margin-top:12px;font-size:12px;color:var(--teal-mid);padding:10px 14px;background:var(--teal-light);border-radius:8px;">
+        💡 ${lang==='ko'?(item.tip_ko||item.tip):item.tip}
+      </div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ── QUIZ MODE ──
+function renderQuiz(){
+  if(items.length) showQuizQuestion(0);
+  document.getElementById('score-bar').style.display='flex';
+  updateQuizScore();
+}
+
+function showQuizQuestion(idx){
+  currentIdx=idx;
+  const q=items[idx];
+  const area=document.getElementById('content-area');
+  area.innerHTML=`
+    <div class="quiz-sentence fade-in">
+      <div class="qs-label">${lang==='ko'?'올바른 답을 고르세요':'Choose the correct answer'} (${idx+1}/${items.length})</div>
+      <div class="qs-sentence">${q.sentence.replace('___','<span class="qs-blank">___</span>')}</div>
+    </div>
+    <div class="options">
+      ${q.options.map((o,i)=>`<button class="opt-btn" onclick="checkAnswer(this,'${o}','${q.answer}',${idx},'${(lang==='ko'?(q.explanation_ko||q.explanation):q.explanation).replace(/'/g,"\\'")}')">
+        ${String.fromCharCode(65+i)}. ${o}
+      </button>`).join('')}
+    </div>`;
+  updateQuizScore();
+}
+
+function checkAnswer(btn, chosen, correct, idx, explanation){
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  const isCorrect = chosen===correct;
+  if(isCorrect){btn.classList.add('correct');score++;}
+  else{
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt-btn').forEach(b=>{
+      if(b.textContent.trim().slice(3)===correct) b.classList.add('correct');
+    });
+  }
+  answered++;
+  updateQuizScore();
+
+  // Show explanation
+  const area = document.getElementById('content-area');
+  const expDiv = document.createElement('div');
+  expDiv.style.cssText='margin-top:12px;padding:14px;background:var(--teal-light);border-radius:10px;font-size:13px;color:var(--navy);line-height:1.6;';
+  expDiv.innerHTML=`<strong>${isCorrect?(lang==='ko'?'정답! ✓':'Correct! ✓'):(lang==='ko'?'오답 ✗':'Wrong ✗')}</strong> — ${explanation}`;
+  area.appendChild(expDiv);
+
+  setTimeout(()=>{
+    if(idx<items.length-1) showQuizQuestion(idx+1);
+    else showFinalResult(score,items.length);
+  },1800);
+}
+
+function updateQuizScore(){
+  const fill=document.getElementById('progress-fill');
+  const num=document.getElementById('score-num');
+  const counter=document.getElementById('card-counter');
+  if(fill) fill.style.width=`${(answered/items.length)*100}%`;
+  if(num) num.textContent=`${score} / ${items.length}`;
+  if(counter) counter.textContent=`${answered} / ${items.length}`;
+}
+
+function showFinalResult(s,t){
+  document.getElementById('content-area').innerHTML='';
+  const pct=Math.round(s/t*100);
+  const box=document.getElementById('result-box');
+  box.style.display='block';
+  document.getElementById('rb-icon').textContent=pct>=80?'🎉':pct>=60?'👍':'💪';
+  document.getElementById('rb-title').textContent=pct>=80?(lang==='ko'?'훌륭해요!':'Excellent!'):(pct>=60?(lang==='ko'?'잘했어요!':'Good job!'):(lang==='ko'?'계속 연습하세요!':'Keep practicing!'));
+  document.getElementById('rb-score').textContent=`${s} / ${t} (${pct}%)`;
+}
+</script>
+</body>
+</html>
