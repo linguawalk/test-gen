@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — TOEFL — Speaking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --accent:#2563eb;--accent-light:#dbeafe;--accent-dark:#1e3a8a;
+  --green:#16a34a;--green-light:#dcfce7;--red:#e24b4a;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;margin-right:6px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--accent);color:#fff;}
+.main{max-width:820px;margin:0 auto;padding:28px 5% 80px;}
+.hero{background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,4vw,28px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+.task-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:4px;margin-bottom:16px;gap:4px;overflow-x:auto;}
+.task-tab{flex:1;padding:10px 6px;border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;white-space:nowrap;}
+.task-tab.act{background:var(--accent);color:#fff;}
+.task-info{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:16px;}
+.ti-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
+.ti-stat{text-align:center;flex-shrink:0;}
+.ti-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent);line-height:1;}
+.ti-key{font-size:10px;color:var(--text-light);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;}
+.ti-divider{width:1px;height:36px;background:var(--border);flex-shrink:0;}
+.ti-desc{font-size:12px;color:var(--text-muted);line-height:1.65;flex:1;min-width:180px;}
+.ti-tip{padding:10px 12px;background:var(--accent-light);border-radius:8px;font-size:12px;color:var(--accent);line-height:1.55;}
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:130px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--accent-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+.loading-overlay{padding:48px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:20px;display:none;}
+.loading-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--text-muted);}
+/* Prompt */
+.prompt-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+.prompt-header{padding:14px 20px;background:var(--accent-light);border-bottom:0.5px solid var(--border);}
+.prompt-header-title{font-size:13px;font-weight:600;color:var(--accent-dark);margin-bottom:4px;}
+.prompt-timer-row{display:flex;gap:16px;font-size:11px;color:var(--text-muted);}
+.prompt-body{padding:20px 24px;}
+.prompt-question{font-size:16px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px;}
+.passage-block{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;border-left:4px solid var(--accent);}
+.passage-block-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.passage-block-text{font-size:13px;color:var(--text);line-height:1.7;}
+/* Timer */
+.timer-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;text-align:center;}
+.timer-phase{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.timer-display{font-family:'DM Serif Display',serif;font-size:56px;color:var(--accent);line-height:1;margin-bottom:8px;}
+.timer-display.warning{color:var(--red);}
+.timer-label{font-size:12px;color:var(--text-muted);}
+.timer-bar{height:6px;background:var(--bg);border-radius:10px;overflow:hidden;margin:12px 0;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--accent-dark),var(--accent));border-radius:10px;transition:width 0.5s;}
+.timer-fill.warning{background:linear-gradient(90deg,#dc2626,var(--red));}
+/* Recording */
+.record-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;}
+.record-btn{width:100%;padding:16px;border-radius:12px;font-size:15px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.record-btn.idle{background:var(--accent);color:#fff;}
+.record-btn.recording{background:var(--red);color:#fff;animation:pulse 1s infinite;}
+.record-btn.done{background:var(--green);color:#fff;}
+.record-btn:disabled{opacity:.5;cursor:not-allowed;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.waveform{display:flex;gap:3px;align-items:center;justify-content:center;height:40px;margin:12px 0;}
+.waveform-bar{width:4px;border-radius:4px;background:var(--accent);transition:height 0.1s;}
+.transcript-area{background:var(--bg);border-radius:10px;padding:14px;margin-top:12px;min-height:80px;font-size:13px;color:var(--text);line-height:1.7;display:none;}
+.submit-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:600;background:var(--teal-mid);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;display:none;}
+.submit-btn:hover{background:var(--teal);}
+/* Feedback */
+.feedback-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;display:none;}
+.feedback-header{padding:14px 18px;background:var(--green-light);border-bottom:0.5px solid var(--border);}
+.feedback-header-title{font-size:13px;font-weight:600;color:var(--green);}
+.score-row{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-bottom:0.5px solid var(--border);}
+.score-chip{background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center;flex:1;min-width:70px;}
+.sc-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-light);margin-bottom:4px;}
+.sc-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent);}
+.sc-max{font-size:10px;color:var(--text-light);}
+.feedback-body{padding:16px 18px;}
+.fb-section{margin-bottom:12px;}
+.fb-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-bottom:5px;}
+.fb-text{font-size:13px;color:var(--text);line-height:1.7;}
+.sample-resp{background:var(--accent-light);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);line-height:1.7;margin-top:6px;border-left:3px solid var(--accent);}
+/* Tutor */
+.tutor-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden;display:none;}
+.tutor-header{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:0.5px solid var(--border);background:var(--accent-light);}
+.tutor-avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.tutor-name{font-size:13px;font-weight:600;color:var(--accent);}
+.tutor-messages{padding:16px 18px;min-height:80px;max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;}
+.msg{display:flex;gap:10px;align-items:flex-start;}
+.msg.user{flex-direction:row-reverse;}
+.msg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:2px;}
+.msg-av.ai{background:var(--accent);color:#fff;}
+.msg-av.user{background:var(--navy);color:#fff;}
+.msg-bub{max-width:78%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6;}
+.msg.ai .msg-bub{background:var(--bg);color:var(--text);border-radius:4px 12px 12px 12px;}
+.msg.user .msg-bub{background:var(--navy);color:#fff;border-radius:12px 4px 12px 12px;}
+.typing{display:flex;gap:4px;align-items:center;padding:10px 14px;background:var(--bg);border-radius:4px 12px 12px 12px;width:fit-content;}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--text-light);animation:bounce 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:0.2s}.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.quick-wrap{padding:0 18px 12px;display:flex;gap:6px;flex-wrap:wrap;}
+.quick-btn{padding:5px 12px;border-radius:16px;font-size:12px;border:0.5px solid var(--border-md);background:transparent;color:var(--text-muted);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.quick-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
+.tutor-input-wrap{display:flex;gap:8px;padding:12px 18px;border-top:0.5px solid var(--border);}
+.tutor-input{flex:1;padding:9px 14px;border:0.5px solid var(--border-md);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;}
+.tutor-input:focus{border-color:var(--accent);}
+.send-btn{width:36px;height:36px;border-radius:8px;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;}
+.send-btn:disabled{background:var(--border-md);cursor:not-allowed;}
+.action-btns{display:none;gap:10px;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;display:block;}
+.act-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.act-btn.primary:hover{background:var(--accent-dark);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/languages/en/index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">🗣 TOEFL Speaking</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back">← TOEFL</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<div class="main fade-in">
+  <div class="hero">
+    <div class="hero-tag">🗣 TOEFL iBT · SPEAKING</div>
+    <div class="hero-title" data-en="TOEFL Speaking Practice" data-ko="TOEFL 말하기 연습">TOEFL Speaking Practice</div>
+    <div class="hero-desc" data-en="Practice all 4 speaking tasks with AI-generated prompts. Record your response and get AI feedback on delivery, language, and content." data-ko="AI가 생성한 프롬프트로 4가지 말하기 과제를 연습하세요. 답변을 녹음하고 전달력, 언어, 내용에 대한 AI 피드백을 받으세요.">Practice all 4 speaking tasks. Record your response and get detailed AI feedback.</div>
+    <div class="hero-badges">
+      <span class="hero-badge">Task 1 · Independent</span>
+      <span class="hero-badge">Task 2-4 · Integrated</span>
+      <span class="hero-badge">🎙 Voice Recording</span>
+      <span class="hero-badge">🤖 AI Feedback</span>
+    </div>
+  </div>
+
+  <div class="task-tabs">
+    <button class="task-tab act" onclick="selectTask('t1',this)">Task 1<br><small>Independent</small></button>
+    <button class="task-tab" onclick="selectTask('t2',this)">Task 2<br><small>Campus</small></button>
+    <button class="task-tab" onclick="selectTask('t3',this)">Task 3<br><small>Academic</small></button>
+    <button class="task-tab" onclick="selectTask('t4',this)">Task 4<br><small>Lecture</small></button>
+  </div>
+
+  <div class="task-info" id="task-info"></div>
+
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" data-en="Topic Area" data-ko="주제">Topic Area</div>
+      <select class="si-select" id="topic-select">
+        <option value="education and learning">Education & Learning</option>
+        <option value="technology and daily life">Technology & Daily Life</option>
+        <option value="environment and nature">Environment & Nature</option>
+        <option value="social relationships">Social Relationships</option>
+        <option value="work and career">Work & Career</option>
+        <option value="health and lifestyle">Health & Lifestyle</option>
+        <option value="science and discovery">Science & Discovery</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-en="Difficulty" data-ko="난이도">Difficulty</div>
+      <select class="si-select" id="diff-select">
+        <option value="Easy">Easy</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Hard">Hard</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn" id="gen-btn" onclick="generateTask()">
+    🗣 <span data-en="Generate Speaking Task" data-ko="말하기 과제 생성">Generate Speaking Task</span>
+  </button>
+
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" data-en="AI is generating your speaking task..." data-ko="AI가 말하기 과제를 생성하고 있습니다...">AI is generating your speaking task...</div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="tutor-section" id="tutor-section">
+    <div class="tutor-header">
+      <div class="tutor-avatar">🤖</div>
+      <div>
+        <div class="tutor-name">AI Speaking Coach</div>
+        <div class="tutor-status" id="tutor-status">Ready to help</div>
+      </div>
+    </div>
+    <div class="tutor-messages" id="tutor-messages"></div>
+    <div class="quick-wrap" id="quick-questions"></div>
+    <div class="tutor-input-wrap">
+      <input type="text" class="tutor-input" id="user-input" placeholder="Ask for speaking advice..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" id="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+
+  <div class="action-btns" id="action-btns">
+    <button class="act-btn primary" onclick="generateTask()" data-en="🔄 New Task" data-ko="🔄 새 과제">🔄 New Task</button>
+    <a href="index.html" class="act-btn" data-en="← TOEFL Home" data-ko="← TOEFL 홈">← TOEFL Home</a>
+  </div>
+</div>
+
+<script>
+const TASKS={
+  t1:{en:'Task 1 — Independent Speaking',ko:'Task 1 — 독립형 말하기',prepSec:15,respSec:45,
+    descEn:'Express and defend your personal opinion on a familiar topic. No reading or listening material provided.',
+    descKo:'친숙한 주제에 대한 개인 의견을 표현하고 뒷받침하세요. 읽기나 듣기 자료가 제공되지 않습니다.',
+    tipEn:'💡 State your opinion clearly in the first sentence. Give 2 reasons with examples. Manage your 45 seconds.',
+    tipKo:'💡 첫 문장에서 의견을 명확히 밝히세요. 예시와 함께 2가지 이유를 제시하고 45초를 잘 활용하세요.'},
+  t2:{en:'Task 2 — Campus Situation',ko:'Task 2 — 캠퍼스 상황',prepSec:30,respSec:60,
+    descEn:'Read a campus announcement, then listen to a conversation about it. Summarize the speaker\'s opinion.',
+    descKo:'캠퍼스 공지를 읽은 후 이에 대한 대화를 들으세요. 화자의 의견을 요약하세요.',
+    tipEn:'💡 Clearly state whether the speaker agrees or disagrees, then explain their 2 main reasons.',
+    tipKo:'💡 화자가 동의하는지 반대하는지 명확히 밝히고, 두 가지 주요 이유를 설명하세요.'},
+  t3:{en:'Task 3 — Academic Reading + Lecture',ko:'Task 3 — 학문적 읽기 + 강의',prepSec:30,respSec:60,
+    descEn:'Read about an academic concept, then listen to a professor illustrate it with an example. Summarize both.',
+    descKo:'학문적 개념에 대해 읽은 후 교수가 예시로 설명하는 강의를 들으세요. 두 내용을 요약하세요.',
+    tipEn:'💡 Define the concept from the reading, then explain the professor\'s specific example that illustrates it.',
+    tipKo:'💡 읽기에서 개념을 정의하고, 교수가 제시한 구체적인 예시를 설명하세요.'},
+  t4:{en:'Task 4 — Academic Lecture',ko:'Task 4 — 학문적 강의',prepSec:20,respSec:60,
+    descEn:'Listen to an academic lecture about a concept. Using examples from the lecture, explain what was discussed.',
+    descKo:'개념에 관한 학문적 강의를 들으세요. 강의의 예시를 사용하여 내용을 설명하세요.',
+    tipEn:'💡 Name the main concept, then explain the 2 examples/points the professor used to illustrate it.',
+    tipKo:'💡 주요 개념을 언급하고, 교수가 설명에 사용한 2가지 예시/요점을 설명하세요.'}
+};
+
+let lang='en', currentTask='t1', currentData=null, isLoading=false, messages=[];
+let mediaRecorder=null, audioChunks=[], recordedBlob=null;
+let timerInterval=null, timerPhase='prep', timerSec=0;
+let waveInterval=null;
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  renderTaskInfo();
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+
+function selectTask(id,btn){
+  currentTask=id;
+  document.querySelectorAll('.task-tab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  renderTaskInfo();
+  resetAll();
+}
+
+function renderTaskInfo(){
+  const t=TASKS[currentTask];
+  document.getElementById('task-info').innerHTML=`
+    <div class="ti-row">
+      <div class="ti-stat"><div class="ti-num">${t.prepSec}s</div><div class="ti-key">${lang==='ko'?'준비':'Prep'}</div></div>
+      <div class="ti-divider"></div>
+      <div class="ti-stat"><div class="ti-num">${t.respSec}s</div><div class="ti-key">${lang==='ko'?'발화':'Response'}</div></div>
+      <div class="ti-divider"></div>
+      <div class="ti-desc">${lang==='ko'?t.descKo:t.descEn}</div>
+    </div>
+    <div class="ti-tip">${lang==='ko'?t.tipKo:t.tipEn}</div>`;
+}
+
+function resetAll(){
+  stopTimer(); stopRecording();
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('tutor-section').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  currentData=null; messages=[];
+}
+
+async function generateTask(){
+  if(isLoading) return;
+  isLoading=true; resetAll();
+  const btn=document.getElementById('gen-btn'); btn.disabled=true;
+  document.getElementById('loading-overlay').style.display='block';
+  const topic=document.getElementById('topic-select').value;
+  const diff=document.getElementById('diff-select').value;
+  const t=TASKS[currentTask];
+
+  let prompt;
+  if(currentTask==='t1'){
+    prompt=`Generate a TOEFL iBT Speaking Task 1 (Independent) on "${topic}". Difficulty: ${diff}.
+Return ONLY valid JSON:
+{"type":"t1","question":"A clear, debatable question about ${topic} asking for a personal preference or opinion (e.g., Do you prefer X or Y? / Some people believe... What is your opinion?)","sampleResponse":"A 45-second high-scoring response (about 90-100 words). State opinion clearly. Give 2 reasons with brief examples.","sampleResponse_ko":"한국어로 위 샘플 응답 해설"}`;
+  } else if(currentTask==='t2'){
+    prompt=`Generate a TOEFL iBT Speaking Task 2 (Campus Situation) on "${topic}". Difficulty: ${diff}.
+Return ONLY valid JSON:
+{"type":"t2","announcementTitle":"Campus announcement title","announcement":"A 2-3 sentence campus announcement about a policy/change","conversationScript":[{"speaker":"Student A","line":"..."},{"speaker":"Student B","line":"..."}],"question":"The man/woman expresses his/her opinion about the announcement. State his/her opinion and explain the reasons he/she gives.","sampleResponse":"60-second high-scoring response (~120 words)","sampleResponse_ko":"한국어 해설"}
+Conversation: 4-6 lines. One student has a clear opinion (agree/disagree) with 2 reasons.`;
+  } else if(currentTask==='t3'){
+    prompt=`Generate a TOEFL iBT Speaking Task 3 (Academic Reading + Lecture) on "${topic}". Difficulty: ${diff}.
+Return ONLY valid JSON:
+{"type":"t3","conceptTitle":"Academic concept name","readingText":"2-3 sentence definition of the concept (academic style)","lectureScript":[{"speaker":"Professor","line":"..."}],"question":"Using the example from the lecture, explain the concept of [X].","sampleResponse":"60-second high-scoring response (~120 words)","sampleResponse_ko":"한국어 해설"}
+Lecture: 4-6 lines. Professor illustrates the concept with a concrete, vivid example.`;
+  } else {
+    prompt=`Generate a TOEFL iBT Speaking Task 4 (Academic Lecture) on "${topic}". Difficulty: ${diff}.
+Return ONLY valid JSON:
+{"type":"t4","conceptTitle":"Academic concept name","lectureScript":[{"speaker":"Professor","line":"..."}],"question":"Using points and examples from the lecture, explain [concept name].","sampleResponse":"60-second high-scoring response (~120 words)","sampleResponse_ko":"한국어 해설"}
+Lecture: 6-8 lines. Professor explains concept with 2 clear examples/sub-points.`;
+  }
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
+    const d=await res.json();
+    currentData=JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+    document.getElementById('loading-overlay').style.display='none';
+    renderTask();
+    initTutor();
+    document.getElementById('action-btns').style.display='flex';
+  }catch(e){
+    document.getElementById('loading-overlay').style.display='none';
+    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}</div>`;
+  }
+  isLoading=false; btn.disabled=false;
+}
+
+function renderTask(){
+  const area=document.getElementById('content-area'); area.innerHTML='';
+  const t=TASKS[currentTask];
+
+  // Prompt card
+  const pc=document.createElement('div'); pc.className='prompt-card';
+  const ph=document.createElement('div'); ph.className='prompt-header';
+  ph.innerHTML=`<div class="prompt-header-title">${lang==='ko'?t.ko:t.en}</div>
+    <div class="prompt-timer-row"><span>⏱ ${lang==='ko'?'준비':'Prep'}: ${t.prepSec}s</span><span>🎙 ${lang==='ko'?'발화':'Speak'}: ${t.respSec}s</span></div>`;
+  const pb=document.createElement('div'); pb.className='prompt-body';
+
+  if(currentTask==='t1'){
+    pb.innerHTML=`<div class="prompt-question">❓ ${currentData.question}</div>`;
+  } else if(currentTask==='t2'){
+    pb.innerHTML=`<div class="passage-block"><div class="passage-block-title">📢 ${currentData.announcementTitle}</div><div class="passage-block-text">${currentData.announcement}</div></div>
+      <div class="passage-block"><div class="passage-block-title">🗣 ${lang==='ko'?'대화 (TTS 재생)':'Conversation (TTS Playback)'}</div>${currentData.conversationScript.map(l=>`<div style="display:flex;gap:8px;margin-bottom:6px;"><strong style="min-width:80px;font-size:12px;color:var(--accent);">${l.speaker}:</strong><span style="font-size:13px;">${l.line}</span></div>`).join('')}</div>
+      <div class="prompt-question">📝 ${currentData.question}</div>`;
+  } else if(currentTask==='t3'){
+    pb.innerHTML=`<div class="passage-block"><div class="passage-block-title">📖 Reading: ${currentData.conceptTitle}</div><div class="passage-block-text">${currentData.readingText}</div></div>
+      <div class="passage-block"><div class="passage-block-title">🎧 ${lang==='ko'?'강의 (TTS 재생)':'Lecture (TTS Playback)'}</div>${currentData.lectureScript.map(l=>`<div style="display:flex;gap:8px;margin-bottom:6px;"><strong style="min-width:80px;font-size:12px;color:var(--accent);">${l.speaker}:</strong><span style="font-size:13px;">${l.line}</span></div>`).join('')}</div>
+      <div class="prompt-question">📝 ${currentData.question}</div>`;
+  } else {
+    pb.innerHTML=`<div class="passage-block"><div class="passage-block-title">🎧 ${lang==='ko'?'강의: ':'Lecture: '}${currentData.conceptTitle}</div>${currentData.lectureScript.map(l=>`<div style="display:flex;gap:8px;margin-bottom:6px;"><strong style="min-width:80px;font-size:12px;color:var(--accent);">${l.speaker}:</strong><span style="font-size:13px;">${l.line}</span></div>`).join('')}</div>
+      <div class="prompt-question">📝 ${currentData.question}</div>`;
+  }
+  pc.append(ph,pb);
+  area.appendChild(pc);
+
+  // Timer + Record
+  const timerCard=document.createElement('div'); timerCard.className='timer-card'; timerCard.id='timer-card';
+  timerCard.innerHTML=`<div class="timer-phase" id="timer-phase">${lang==='ko'?'준비 시간':'Preparation Time'}</div>
+    <div class="timer-display" id="timer-display">${t.prepSec}</div>
+    <div class="timer-label" id="timer-label">${lang==='ko'?'준비하세요 — 발화 전 준비 시간':'Prepare your response'}</div>
+    <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+    <button class="gen-btn" style="margin-bottom:0;" id="start-timer-btn" onclick="startPrepTimer()">${lang==='ko'?'⏱ 타이머 시작':'⏱ Start Timer'}</button>`;
+  area.appendChild(timerCard);
+
+  const recCard=document.createElement('div'); recCard.className='record-card'; recCard.id='record-card';
+  recCard.innerHTML=`<button class="record-btn idle" id="record-btn" onclick="toggleRecord()">🎙 ${lang==='ko'?'녹음 시작':'Start Recording'}</button>
+    <div class="waveform" id="waveform" style="display:none;">${Array(12).fill(0).map((_,i)=>`<div class="waveform-bar" id="wb-${i}" style="height:8px;"></div>`).join('')}</div>
+    <div class="transcript-area" id="transcript-area">${lang==='ko'?'녹음이 완료되면 여기에 텍스트가 표시됩니다...':'Your speech transcript will appear here after recording...'}</div>`;
+  area.appendChild(recCard);
+
+  const subBtn=document.createElement('button'); subBtn.className='submit-btn'; subBtn.id='submit-btn';
+  subBtn.innerHTML=`🤖 ${lang==='ko'?'AI 피드백 받기':'Get AI Feedback'}`;
+  subBtn.addEventListener('click',submitSpeaking);
+  area.appendChild(subBtn);
+}
+
+function startPrepTimer(){
+  const t=TASKS[currentTask];
+  timerPhase='prep'; timerSec=t.prepSec;
+  document.getElementById('start-timer-btn').style.display='none';
+  runTimer(t.prepSec,()=>{
+    document.getElementById('timer-phase').textContent=lang==='ko'?'🎙 지금 말하세요!':'🎙 Begin Speaking Now!';
+    document.getElementById('timer-label').textContent=lang==='ko'?'녹음 버튼을 눌러 시작하세요':'Press Record to start';
+    timerPhase='response';
+    runTimer(t.respSec,()=>{
+      document.getElementById('timer-phase').textContent=lang==='ko'?'⏰ 시간 종료!':'⏰ Time\'s Up!';
+      if(mediaRecorder&&mediaRecorder.state==='recording') stopRecording();
+    });
+  });
+}
+
+function runTimer(sec,onEnd){
+  stopTimer();
+  let remaining=sec;
+  timerSec=sec;
+  const display=document.getElementById('timer-display');
+  const fill=document.getElementById('timer-fill');
+  const phase=document.getElementById('timer-phase');
+  if(display) display.textContent=remaining;
+  if(display) display.className='timer-display';
+  timerInterval=setInterval(()=>{
+    remaining--;
+    if(display){ display.textContent=remaining; display.className='timer-display'+(remaining<=5?' warning':''); }
+    if(fill) fill.style.width=(remaining/sec*100)+'%';
+    if(remaining<=0){ stopTimer(); if(onEnd) onEnd(); }
+  },1000);
+}
+
+function stopTimer(){ if(timerInterval){clearInterval(timerInterval);timerInterval=null;} }
+
+async function toggleRecord(){
+  if(mediaRecorder&&mediaRecorder.state==='recording'){ stopRecording(); return; }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    audioChunks=[]; recordedBlob=null;
+    mediaRecorder=new MediaRecorder(stream);
+    mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+    mediaRecorder.onstop=()=>{ recordedBlob=new Blob(audioChunks,{type:'audio/webm'}); processRecording(); };
+    mediaRecorder.start();
+    const btn=document.getElementById('record-btn');
+    btn.className='record-btn recording';
+    btn.innerHTML='⏹ '+lang==='ko'?'녹음 중지':'Stop Recording';
+    document.getElementById('waveform').style.display='flex';
+    animateWave();
+  }catch(e){
+    alert(lang==='ko'?'마이크 접근 권한이 필요합니다.':'Microphone access is required. Please allow it in your browser settings.');
+  }
+}
+
+function stopRecording(){
+  if(mediaRecorder&&mediaRecorder.state==='recording'){
+    mediaRecorder.stop();
+    mediaRecorder.stream.getTracks().forEach(t=>t.stop());
+  }
+  clearInterval(waveInterval);
+  const btn=document.getElementById('record-btn');
+  if(btn){btn.className='record-btn done';btn.innerHTML='✅ '+(lang==='ko'?'녹음 완료 — 다시 녹음하려면 클릭':'Recording done — click to re-record');}
+  document.getElementById('waveform').style.display='none';
+}
+
+function animateWave(){
+  waveInterval=setInterval(()=>{
+    for(let i=0;i<12;i++){
+      const bar=document.getElementById('wb-'+i); if(!bar) continue;
+      bar.style.height=Math.floor(Math.random()*32+6)+'px';
+    }
+  },100);
+}
+
+async function processRecording(){
+  const ta=document.getElementById('transcript-area');
+  if(ta){ ta.style.display='block'; ta.textContent=lang==='ko'?'🎙 음성을 텍스트로 변환하는 중...':'🎙 Converting speech to text...'; }
+  // Web Speech API로 실시간 인식 (녹음 후 텍스트 표시)
+  // 실제 환경에서는 녹음된 오디오를 STT API로 전송
+  // 여기서는 사용자가 텍스트로 직접 입력하도록 폴백
+  if(ta){ ta.textContent=''; ta.contentEditable='true'; ta.style.minHeight='100px';
+    ta.dataset.placeholder=lang==='ko'?'말씀하신 내용을 여기에 입력해 주세요 (또는 AI 피드백을 위해 아래 버튼 클릭)':'Type what you said here, or click below for AI feedback';
+    ta.innerHTML=`<p style="color:var(--text-light);font-style:italic;">${ta.dataset.placeholder}</p>`; }
+  const subBtn=document.getElementById('submit-btn'); if(subBtn) subBtn.style.display='block';
+}
+
+async function submitSpeaking(){
+  const ta=document.getElementById('transcript-area');
+  const transcript=ta?.innerText?.trim()||'';
+  const t=TASKS[currentTask];
+  const btn=document.getElementById('submit-btn'); btn.disabled=true; btn.textContent=lang==='ko'?'⏳ AI 분석 중...':'⏳ AI analyzing...';
+
+  const fbPrompt=`You are a TOEFL iBT Speaking expert examiner. Evaluate this student's speaking response.
+Task: ${lang==='ko'?t.ko:t.en}
+Question/Prompt: ${currentData?.question||currentData?.conceptTitle||''}
+Student's response (transcript): """${transcript||'(no transcript provided)'}"""
+Target response time: ${t.respSec} seconds
+
+Return ONLY valid JSON:
+{
+  "scores": {
+    "delivery": {"score": 3, "max": 4, "comment": "Feedback on pace, pronunciation, fluency"},
+    "language": {"score": 3, "max": 4, "comment": "Feedback on vocabulary and grammar"},
+    "topic_development": {"score": 3, "max": 4, "comment": "Feedback on content and organization"}
+  },
+  "overall_band": "Fair / Good / Excellent",
+  "strengths": "Specific strengths",
+  "improvements": "Specific, actionable improvements",
+  "strengths_ko": "한국어 강점",
+  "improvements_ko": "한국어 개선점",
+  "sampleResponse": "${currentData?.sampleResponse||'A high-scoring response would...'}"
+}`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:fbPrompt}]})});
+    const d=await res.json();
+    const fb=JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+    renderFeedback(fb);
+  }catch(e){
+    btn.disabled=false; btn.textContent=lang==='ko'?'🤖 AI 피드백 받기':'🤖 Get AI Feedback';
+    alert(lang==='ko'?'오류가 발생했습니다.':'Error. Please try again.');
+  }
+}
+
+function renderFeedback(fb){
+  const existing=document.getElementById('feedback-card'); if(existing) existing.remove();
+  const fc=document.createElement('div'); fc.className='feedback-card'; fc.id='feedback-card';
+  const scores=fb.scores;
+  const total=Object.values(scores).reduce((s,v)=>s+v.score,0);
+  const maxTotal=Object.values(scores).reduce((s,v)=>s+v.max,0);
+  fc.innerHTML=`
+    <div class="feedback-header"><div class="feedback-header-title">🤖 ${lang==='ko'?'AI 채점 완료':'AI Scoring Complete'} · ${fb.overall_band} · ${total}/${maxTotal}</div></div>
+    <div class="score-row">${Object.entries(scores).map(([k,v])=>`<div class="score-chip"><div class="sc-name">${k.replace('_',' ')}</div><div class="sc-val">${v.score}</div><div class="sc-max">/ ${v.max}</div></div>`).join('')}</div>
+    <div class="feedback-body">
+      <div class="fb-section"><div class="fb-section-title">✅ ${lang==='ko'?'강점':'Strengths'}</div><div class="fb-text">${lang==='ko'?(fb.strengths_ko||fb.strengths):fb.strengths}</div></div>
+      <div class="fb-section"><div class="fb-section-title">📈 ${lang==='ko'?'개선점':'Areas to Improve'}</div><div class="fb-text">${lang==='ko'?(fb.improvements_ko||fb.improvements):fb.improvements}</div></div>
+      <div class="fb-section"><div class="fb-section-title">📝 ${lang==='ko'?'고득점 예시 답변':'Sample High-Scoring Response'}</div><div class="sample-resp">${fb.sampleResponse}</div></div>
+    </div>`;
+  fc.style.display='block';
+  document.getElementById('content-area').appendChild(fc);
+  fc.scrollIntoView({behavior:'smooth',block:'start'});
+  const btn=document.getElementById('submit-btn');
+  if(btn){btn.disabled=false; btn.textContent=lang==='ko'?'🔄 다시 제출':'🔄 Resubmit';}
+}
+
+function initTutor(){
+  messages=[]; document.getElementById('tutor-messages').innerHTML='';
+  const t=TASKS[currentTask];
+  addMsg('ai',lang==='ko'
+    ?`안녕하세요! 🗣 **${t.ko}** 준비 완료!\n\n${t.tipKo}\n\n연습 중 도움이 필요하면 언제든 질문하세요!`
+    :`Hi! 🗣 **${t.en}** is ready!\n\n${t.tipEn}\n\nAsk me anything while practicing!`);
+  const qs=lang==='ko'
+    ?['아이디어 제안해줘','고득점 전략','발음 팁','예시 답변 보여줘']
+    :['Give me ideas','High-score strategies','Pronunciation tips','Show sample response'];
+  document.getElementById('quick-questions').innerHTML=qs.map(q=>`<button class="quick-btn" onclick="askQ(this)">${q}</button>`).join('');
+  document.getElementById('tutor-section').style.display='block';
+}
+
+function askQ(btn){ document.getElementById('user-input').value=btn.textContent; sendMsg(); }
+
+async function sendMsg(){
+  const inp=document.getElementById('user-input');
+  const text=inp.value.trim(); if(!text||isLoading) return;
+  inp.value=''; addMsg('user',text); messages.push({role:'user',content:text});
+  document.getElementById('send-btn').disabled=true;
+  const tid=showTyping();
+  const t=TASKS[currentTask];
+  const sys=lang==='ko'
+    ?`당신은 TOEFL iBT 말하기 전문 코치입니다. 현재 과제: ${t.ko}. 준비 시간: ${t.prepSec}초, 발화 시간: ${t.respSec}초. 한국어로 구체적인 조언을 주세요.`
+    :`You are a TOEFL iBT Speaking expert coach. Current task: ${t.en}. Prep: ${t.prepSec}s, Response: ${t.respSec}s. Give specific, actionable advice.`;
+  try{
+    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,system:sys,messages:messages.slice(-6)})});
+    const d=await r.json(); removeTyping(tid);
+    const rep=d.content[0].text; messages.push({role:'assistant',content:rep}); addMsg('ai',rep);
+  }catch(e){ removeTyping(tid); addMsg('ai','⚠️ Error. Please try again.'); }
+  document.getElementById('send-btn').disabled=false;
+}
+
+function addMsg(role,text){
+  const wrap=document.getElementById('tutor-messages');
+  const d=document.createElement('div'); d.className='msg '+role;
+  d.innerHTML=`<div class="msg-av ${role}">${role==='ai'?'🤖':'👤'}</div><div class="msg-bub">${text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
+  wrap.appendChild(d); wrap.scrollTop=wrap.scrollHeight;
+}
+function showTyping(){
+  const wrap=document.getElementById('tutor-messages');
+  const id='t'+Date.now(); const d=document.createElement('div'); d.className='msg ai'; d.id=id;
+  d.innerHTML=`<div class="msg-av ai">🤖</div><div class="typing"><span></span><span></span><span></span></div>`;
+  wrap.appendChild(d); wrap.scrollTop=wrap.scrollHeight; return id;
+}
+function removeTyping(id){ const e=document.getElementById(id); if(e) e.remove(); }
+
+(function(){
+  let saved; try{saved=localStorage.getItem('lw-lang');}catch(e){}
+  setLang(saved||((navigator.language||'').startsWith('ko')?'ko':'en'));
+  renderTaskInfo();
+})();
+</script>
+</body>
+</html>

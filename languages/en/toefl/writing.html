@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — TOEFL — Writing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;--teal-light:#e1f5ee;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --accent:#2563eb;--accent-light:#dbeafe;--accent-dark:#1e3a8a;
+  --green:#16a34a;--green-light:#dcfce7;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;margin-right:6px;transition:all 0.2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.lbtn.act{background:var(--accent);color:#fff;}
+.main{max-width:860px;margin:0 auto;padding:28px 5% 80px;}
+.hero{background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);border-radius:14px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:6px;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,4vw,28px);color:#fff;margin-bottom:6px;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.hero-badges{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border:0.5px solid rgba(255,255,255,0.2);}
+.task-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:4px;margin-bottom:20px;gap:4px;}
+.task-tab{flex:1;padding:12px 8px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all 0.2s;text-align:center;}
+.task-tab.act{background:var(--accent);color:#fff;}
+.task-info{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:16px;}
+.ti-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.ti-desc{font-size:13px;color:var(--text-muted);line-height:1.65;margin-bottom:10px;}
+.ti-criteria{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ti-criterion{background:var(--bg);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--text-muted);}
+.ti-criterion strong{color:var(--accent);display:block;margin-bottom:2px;font-size:11px;}
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:130px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--accent-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+.loading-overlay{padding:48px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:20px;display:none;}
+.loading-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--text-muted);}
+/* Prompt Card */
+.prompt-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+.prompt-header{padding:14px 20px;background:var(--accent-light);border-bottom:0.5px solid var(--border);}
+.prompt-header-title{font-size:13px;font-weight:600;color:var(--accent-dark);margin-bottom:4px;}
+.prompt-timer{font-size:11px;color:var(--text-muted);}
+.prompt-body{padding:20px 24px;}
+/* Reading passage for Task 1 */
+.passage-block{background:var(--bg);border-radius:10px;padding:16px;margin-bottom:14px;border-left:4px solid var(--accent);}
+.passage-block-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.passage-block-text{font-size:13px;color:var(--text);line-height:1.7;}
+/* Discussion thread for Task 2 */
+.discussion-thread{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.post{background:var(--bg);border-radius:10px;padding:14px 16px;}
+.post-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.post-avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700;flex-shrink:0;}
+.post-name{font-size:12px;font-weight:600;color:var(--text);}
+.post-role{font-size:10px;color:var(--text-muted);}
+.post-text{font-size:13px;color:var(--text);line-height:1.65;}
+/* Writing area */
+.writing-area-wrap{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.writing-area-header{padding:12px 16px;background:var(--bg);border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.writing-area-title{font-size:13px;font-weight:600;color:var(--text);}
+.word-count{font-size:12px;color:var(--text-muted);}
+.writing-textarea{width:100%;min-height:220px;padding:16px 20px;border:none;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);outline:none;resize:vertical;line-height:1.7;}
+.writing-textarea::placeholder{color:var(--text-light);}
+.submit-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:600;background:var(--teal-mid);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-bottom:20px;}
+.submit-btn:hover{background:var(--teal);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+/* Feedback */
+.feedback-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;display:none;}
+.feedback-header{padding:14px 18px;background:var(--green-light);border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:10px;}
+.feedback-header-title{font-size:13px;font-weight:600;color:var(--green);}
+.score-chips{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-bottom:0.5px solid var(--border);}
+.score-chip{background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 14px;text-align:center;flex:1;min-width:80px;}
+.sc-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-light);margin-bottom:4px;}
+.sc-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent);}
+.sc-max{font-size:10px;color:var(--text-light);}
+.feedback-body{padding:16px 18px;}
+.fb-section{margin-bottom:14px;}
+.fb-section:last-child{margin-bottom:0;}
+.fb-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-bottom:6px;}
+.fb-text{font-size:13px;color:var(--text);line-height:1.7;}
+.sample-response{background:var(--accent-light);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text);line-height:1.7;margin-top:8px;border-left:3px solid var(--accent);}
+/* Tutor */
+.tutor-section{background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden;display:none;}
+.tutor-header{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:0.5px solid var(--border);background:var(--accent-light);}
+.tutor-avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.tutor-name{font-size:13px;font-weight:600;color:var(--accent);}
+.tutor-messages{padding:16px 18px;min-height:80px;max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;}
+.msg{display:flex;gap:10px;align-items:flex-start;}
+.msg.user{flex-direction:row-reverse;}
+.msg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:2px;}
+.msg-av.ai{background:var(--accent);color:#fff;}
+.msg-av.user{background:var(--navy);color:#fff;}
+.msg-bub{max-width:78%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6;}
+.msg.ai .msg-bub{background:var(--bg);color:var(--text);border-radius:4px 12px 12px 12px;}
+.msg.user .msg-bub{background:var(--navy);color:#fff;border-radius:12px 4px 12px 12px;}
+.typing{display:flex;gap:4px;align-items:center;padding:10px 14px;background:var(--bg);border-radius:4px 12px 12px 12px;width:fit-content;}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--text-light);animation:bounce 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:0.2s}.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.quick-wrap{padding:0 18px 12px;display:flex;gap:6px;flex-wrap:wrap;}
+.quick-btn{padding:5px 12px;border-radius:16px;font-size:12px;border:0.5px solid var(--border-md);background:transparent;color:var(--text-muted);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.quick-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
+.tutor-input-wrap{display:flex;gap:8px;padding:12px 18px;border-top:0.5px solid var(--border);}
+.tutor-input{flex:1;padding:9px 14px;border:0.5px solid var(--border-md);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;}
+.tutor-input:focus{border-color:var(--accent);}
+.send-btn{width:36px;height:36px;border-radius:8px;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;}
+.send-btn:disabled{background:var(--border-md);cursor:not-allowed;}
+.action-btns{display:none;gap:10px;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);transition:all 0.2s;text-decoration:none;text-align:center;display:block;}
+.act-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.act-btn.primary:hover{background:var(--accent-dark);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/languages/en/index.html" class="nav-logo">
+    <div class="nav-lm">LW</div>
+    <span class="nav-lt">LinguaWalk</span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-page">✍️ TOEFL Writing</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back">← TOEFL</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lbtn" onclick="setLang('ko')" id="btn-ko">한국어</button>
+  </div>
+</nav>
+
+<div class="main fade-in">
+  <div class="hero">
+    <div class="hero-tag">✍️ TOEFL iBT · WRITING</div>
+    <div class="hero-title" data-en="TOEFL Writing Practice" data-ko="TOEFL 쓰기 연습">TOEFL Writing Practice</div>
+    <div class="hero-desc" data-en="Practice Integrated and Academic Discussion tasks. Submit your response and get detailed AI feedback on all 4 scoring criteria." data-ko="통합형과 학문적 토론 과제를 연습하세요. 답변을 제출하고 4가지 채점 기준에 대한 AI 피드백을 받으세요.">Practice both tasks and get detailed AI feedback on all 4 scoring criteria.</div>
+    <div class="hero-badges">
+      <span class="hero-badge">Task 1 · Integrated</span>
+      <span class="hero-badge">Task 2 · Academic Discussion</span>
+      <span class="hero-badge">🤖 AI Scoring</span>
+    </div>
+  </div>
+
+  <div class="task-tabs">
+    <button class="task-tab act" onclick="selectTask('integrated',this)">📄 Task 1 · Integrated</button>
+    <button class="task-tab" onclick="selectTask('discussion',this)">💬 Task 2 · Academic Discussion</button>
+  </div>
+
+  <div class="task-info" id="task-info"></div>
+
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" data-en="Topic" data-ko="주제">Topic</div>
+      <select class="si-select" id="topic-select">
+        <option value="technology and society">Technology & Society</option>
+        <option value="environmental policy">Environmental Policy</option>
+        <option value="education systems">Education Systems</option>
+        <option value="health and medicine">Health & Medicine</option>
+        <option value="economics and globalization">Economics & Globalization</option>
+        <option value="urban planning">Urban Planning</option>
+        <option value="psychology and behavior">Psychology & Behavior</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" data-en="Difficulty" data-ko="난이도">Difficulty</div>
+      <select class="si-select" id="diff-select">
+        <option value="Easy">Easy</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Hard">Hard</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn" id="gen-btn" onclick="generatePrompt()">
+    ✍️ <span id="gen-btn-label" data-en="Generate Writing Task" data-ko="쓰기 과제 생성">Generate Writing Task</span>
+  </button>
+
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text">AI is generating your writing task...</div>
+  </div>
+
+  <div id="content-area"></div>
+  <div class="tutor-section" id="tutor-section">
+    <div class="tutor-header">
+      <div class="tutor-avatar">🤖</div>
+      <div>
+        <div class="tutor-name">AI Writing Coach</div>
+        <div class="tutor-status" id="tutor-status">Ready to help</div>
+      </div>
+    </div>
+    <div class="tutor-messages" id="tutor-messages"></div>
+    <div class="quick-wrap" id="quick-questions"></div>
+    <div class="tutor-input-wrap">
+      <input type="text" class="tutor-input" id="user-input" placeholder="Ask for writing help..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" id="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+  <div class="action-btns" id="action-btns">
+    <button class="act-btn primary" onclick="generatePrompt()" data-en="🔄 New Task" data-ko="🔄 새 과제">🔄 New Task</button>
+    <a href="index.html" class="act-btn" data-en="← TOEFL Home" data-ko="← TOEFL 홈">← TOEFL Home</a>
+  </div>
+</div>
+
+<script>
+let lang='en', currentTask='integrated', currentData=null, isLoading=false, messages=[];
+
+const TASK_INFO={
+  integrated:{
+    titleEn:'Task 1 — Integrated Writing',titleKo:'Task 1 — 통합형 쓰기',
+    descEn:'Read an academic passage, then listen to a lecture that contrasts with the reading. Write a response (150–225 words) summarizing the lecture points and how they relate to the reading.',
+    descKo:'학문적 지문을 읽은 후, 지문과 대조되는 강의를 듣습니다. 강의 요점과 지문과의 관계를 요약하는 답변(150~225단어)을 작성하세요.',
+    time:'20 min',criteria:['Content','Organization','Language Use','Lecture-Reading Connection']
+  },
+  discussion:{
+    titleEn:'Task 2 — Academic Discussion',titleKo:'Task 2 — 학문적 토론',
+    descEn:'A professor poses a question to the class. Read two student responses, then add your own contribution (100+ words) to the discussion with a clearly stated opinion and supporting reasons.',
+    descKo:'교수가 수업에 질문을 제시합니다. 두 학생의 답변을 읽고, 명확한 의견과 뒷받침 이유를 포함한 자신의 기여(100단어 이상)를 토론에 추가하세요.',
+    time:'10 min',criteria:['Relevant & Complete','Coherent & Development','Vocabulary & Grammar','Contribution to Discussion']
+  }
+};
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    const t=l==='ko'?el.getAttribute('data-ko'):el.getAttribute('data-en');
+    if(t) el.innerHTML=t;
+  });
+  document.getElementById('btn-en').classList.toggle('act',l==='en');
+  document.getElementById('btn-ko').classList.toggle('act',l==='ko');
+  renderTaskInfo();
+  try{localStorage.setItem('lw-lang',l);}catch(e){}
+}
+
+function selectTask(id,btn){
+  currentTask=id;
+  document.querySelectorAll('.task-tab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  renderTaskInfo();
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('tutor-section').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  currentData=null;
+}
+
+function renderTaskInfo(){
+  const t=TASK_INFO[currentTask];
+  document.getElementById('task-info').innerHTML=`
+    <div class="ti-title">${currentTask==='integrated'?'📄':'💬'} ${lang==='ko'?t.titleKo:t.titleEn} <span style="font-size:11px;color:var(--text-muted);font-weight:400;">⏱ ${t.time}</span></div>
+    <div class="ti-desc">${lang==='ko'?t.descKo:t.descEn}</div>
+    <div class="ti-criteria">${t.criteria.map(c=>`<div class="ti-criterion"><strong>${lang==='ko'?'채점 기준':'Criterion'}</strong>${c}</div>`).join('')}</div>`;
+}
+
+async function generatePrompt(){
+  if(isLoading) return;
+  isLoading=true;
+  document.getElementById('content-area').innerHTML='';
+  document.getElementById('tutor-section').style.display='none';
+  document.getElementById('action-btns').style.display='none';
+  const btn=document.getElementById('gen-btn'); btn.disabled=true;
+  document.getElementById('loading-overlay').style.display='block';
+
+  const topic=document.getElementById('topic-select').value;
+  const diff=document.getElementById('diff-select').value;
+  let prompt;
+
+  if(currentTask==='integrated'){
+    prompt=`Generate a TOEFL iBT Integrated Writing task on "${topic}". Difficulty: ${diff}.
+Return ONLY valid JSON (no markdown):
+{
+  "type": "integrated",
+  "topic": "${topic}",
+  "readingTitle": "Reading passage title",
+  "readingPoints": [
+    "Point 1 from reading (2-3 sentences)",
+    "Point 2 from reading (2-3 sentences)",
+    "Point 3 from reading (2-3 sentences)"
+  ],
+  "lectureIntro": "The professor begins: 'Now, I want to address some of the points made in your reading...'",
+  "lecturePoints": [
+    "Lecture point 1 that counters reading point 1 (2-3 sentences)",
+    "Lecture point 2 that counters reading point 2 (2-3 sentences)",
+    "Lecture point 3 that counters reading point 3 (2-3 sentences)"
+  ],
+  "writingPrompt": "Summarize the points made in the lecture and explain how they cast doubt on the specific points made in the reading passage.",
+  "wordTarget": "150-225 words",
+  "sampleResponse": "A high-scoring sample response (200 words)"
+}`;
+  } else {
+    prompt=`Generate a TOEFL iBT Academic Discussion Writing task on "${topic}". Difficulty: ${diff}.
+Return ONLY valid JSON (no markdown):
+{
+  "type": "discussion",
+  "topic": "${topic}",
+  "professorName": "Dr. [LastName]",
+  "professorQuestion": "The professor's discussion question (2-3 sentences posing a debatable question)",
+  "student1": {"name": "Student Name 1", "response": "Student 1's response (3-4 sentences with a clear position)"},
+  "student2": {"name": "Student Name 2", "response": "Student 2's response (3-4 sentences with a different position)"},
+  "writingPrompt": "Participate in the class discussion. Add your own contribution to the discussion. Express your opinion and support it with reasons.",
+  "wordTarget": "at least 100 words",
+  "sampleResponse": "A high-scoring sample response (120 words)"
+}`;
+  }
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2000,messages:[{role:'user',content:prompt}]})});
+    const d=await res.json();
+    currentData=JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+    document.getElementById('loading-overlay').style.display='none';
+    renderWritingTask();
+    initTutor();
+  }catch(e){
+    document.getElementById('loading-overlay').style.display='none';
+    document.getElementById('content-area').innerHTML=`<div style="padding:32px;text-align:center;color:var(--text-muted)">⚠️ ${lang==='ko'?'생성 실패. 다시 시도해 주세요.':'Generation failed. Please try again.'}</div>`;
+  }
+  isLoading=false; btn.disabled=false;
+}
+
+function renderWritingTask(){
+  const area=document.getElementById('content-area'); area.innerHTML='';
+
+  if(currentTask==='integrated'){
+    // Reading
+    const rc=document.createElement('div'); rc.className='prompt-card';
+    rc.innerHTML=`<div class="prompt-header"><div class="prompt-header-title">📖 Reading Passage — ${currentData.readingTitle}</div><div class="prompt-timer">${lang==='ko'?'읽기 3분 후 강의 시작':'3 min reading, then lecture'}</div></div>
+      <div class="prompt-body">${currentData.readingPoints.map((p,i)=>`<div class="passage-block"><div class="passage-block-title">Point ${i+1}</div><div class="passage-block-text">${p}</div></div>`).join('')}</div>`;
+    area.appendChild(rc);
+    // Lecture
+    const lc=document.createElement('div'); lc.className='prompt-card';
+    lc.innerHTML=`<div class="prompt-header"><div class="prompt-header-title">🎧 Lecture (Professor's Counterarguments)</div><div class="prompt-timer">${lang==='ko'?'실제 시험에서는 음성으로 제공됩니다':'In the real test, this is delivered as audio'}</div></div>
+      <div class="prompt-body"><div class="passage-block" style="margin-bottom:12px;"><div class="passage-block-title">Introduction</div><div class="passage-block-text">${currentData.lectureIntro}</div></div>
+      ${currentData.lecturePoints.map((p,i)=>`<div class="passage-block"><div class="passage-block-title">Counter-Point ${i+1}</div><div class="passage-block-text">${p}</div></div>`).join('')}</div>`;
+    area.appendChild(lc);
+  } else {
+    // Discussion thread
+    const dc=document.createElement('div'); dc.className='prompt-card';
+    dc.innerHTML=`<div class="prompt-header"><div class="prompt-header-title">💬 Class Discussion — ${currentData.topic}</div><div class="prompt-timer">${lang==='ko'?'토론에 참여하세요':'Participate in the discussion'}</div></div>
+      <div class="prompt-body">
+        <div class="discussion-thread">
+          <div class="post"><div class="post-meta"><div class="post-avatar">P</div><div><div class="post-name">${currentData.professorName}</div><div class="post-role">${lang==='ko'?'교수':'Professor'}</div></div></div><div class="post-text">${currentData.professorQuestion}</div></div>
+          <div class="post"><div class="post-meta"><div class="post-avatar" style="background:var(--teal-mid);">${currentData.student1.name[0]}</div><div><div class="post-name">${currentData.student1.name}</div><div class="post-role">${lang==='ko'?'학생':'Student'}</div></div></div><div class="post-text">${currentData.student1.response}</div></div>
+          <div class="post"><div class="post-meta"><div class="post-avatar" style="background:#7c3aed;">${currentData.student2.name[0]}</div><div><div class="post-name">${currentData.student2.name}</div><div class="post-role">${lang==='ko'?'학생':'Student'}</div></div></div><div class="post-text">${currentData.student2.response}</div></div>
+        </div>
+      </div>`;
+    area.appendChild(dc);
+  }
+
+  // Writing prompt
+  const wp=document.createElement('div'); wp.style.cssText='background:var(--accent-light);border-radius:12px;padding:14px 18px;margin-bottom:14px;font-size:13px;color:var(--accent-dark);line-height:1.6;';
+  wp.innerHTML=`<strong>✍️ ${lang==='ko'?'쓰기 과제':'Writing Prompt'}:</strong> ${currentData.writingPrompt}<br><span style="font-size:11px;color:var(--text-muted);margin-top:4px;display:block;">Target: ${currentData.wordTarget}</span>`;
+  area.appendChild(wp);
+
+  // Writing area
+  const wa=document.createElement('div'); wa.className='writing-area-wrap';
+  wa.innerHTML=`<div class="writing-area-header"><div class="writing-area-title">✏️ ${lang==='ko'?'내 답변 작성':'Your Response'}</div><div class="word-count" id="wc-label">0 words</div></div>
+    <textarea class="writing-textarea" id="writing-textarea" placeholder="${lang==='ko'?'여기에 답변을 작성하세요...':'Write your response here...'}" oninput="updateWC()"></textarea>`;
+  area.appendChild(wa);
+
+  const sb=document.createElement('button'); sb.className='submit-btn'; sb.id='submit-btn';
+  sb.innerHTML=`🤖 ${lang==='ko'?'AI 피드백 받기':'Get AI Feedback'}`;
+  sb.addEventListener('click',submitWriting);
+  area.appendChild(sb);
+
+  document.getElementById('feedback-card')?.remove();
+  document.getElementById('action-btns').style.display='flex';
+}
+
+function updateWC(){
+  const ta=document.getElementById('writing-textarea'); if(!ta) return;
+  const wc=ta.value.trim().split(/\s+/).filter(w=>w).length;
+  const el=document.getElementById('wc-label'); if(el) el.textContent=wc+' words';
+}
+
+async function submitWriting(){
+  const ta=document.getElementById('writing-textarea'); if(!ta) return;
+  const text=ta.value.trim();
+  const wc=text.split(/\s+/).filter(w=>w).length;
+  if(wc<20){ alert(lang==='ko'?'최소 20단어 이상 작성해 주세요.':'Please write at least 20 words.'); return; }
+
+  const btn=document.getElementById('submit-btn'); btn.disabled=true;
+  btn.textContent=lang==='ko'?'⏳ AI 채점 중...':'⏳ AI is scoring...';
+
+  const taskDesc=currentTask==='integrated'
+    ?`Task 1 Integrated. Reading: ${currentData.readingTitle}. Lecture countered with ${currentData.lecturePoints.length} points.`
+    :`Task 2 Academic Discussion. Topic: ${currentData.topic}. Professor asked: ${currentData.professorQuestion}`;
+
+  const fbPrompt=`You are a TOEFL iBT Writing expert examiner. Score and provide feedback on this student response.
+
+Task: ${taskDesc}
+Student Response (${wc} words):
+"""
+${text}
+"""
+
+Return ONLY valid JSON (no markdown):
+{
+  "scores": {
+    "content": {"score": 4, "max": 5, "comment": "Specific feedback"},
+    "organization": {"score": 4, "max": 5, "comment": "Specific feedback"},
+    "language": {"score": 3, "max": 5, "comment": "Specific feedback"},
+    "task_achievement": {"score": 4, "max": 5, "comment": "Specific feedback"}
+  },
+  "overall": "Good / Needs Improvement / Excellent",
+  "strengths": "2-3 specific strengths of this response",
+  "improvements": "2-3 specific and actionable suggestions to improve",
+  "strengths_ko": "한국어 강점",
+  "improvements_ko": "한국어 개선점",
+  "sampleResponse": "${currentData.sampleResponse||'A high-scoring response would...'}"
+}`;
+
+  try{
+    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:fbPrompt}]})});
+    const d=await res.json();
+    const fb=JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
+    renderFeedback(fb);
+  }catch(e){
+    btn.disabled=false; btn.innerHTML=`🤖 ${lang==='ko'?'AI 피드백 받기':'Get AI Feedback'}`;
+    alert(lang==='ko'?'오류가 발생했습니다. 다시 시도해 주세요.':'Error. Please try again.');
+  }
+}
+
+function renderFeedback(fb){
+  const existing=document.getElementById('feedback-card'); if(existing) existing.remove();
+  const fc=document.createElement('div'); fc.className='feedback-card'; fc.id='feedback-card';
+
+  const scores=fb.scores;
+  const total=Object.values(scores).reduce((s,v)=>s+v.score,0);
+  const maxTotal=Object.values(scores).reduce((s,v)=>s+v.max,0);
+  const pct=Math.round(total/maxTotal*100);
+
+  fc.innerHTML=`
+    <div class="feedback-header">
+      <div class="tutor-avatar" style="background:var(--green);">✓</div>
+      <div><div class="feedback-header-title">${lang==='ko'?'AI 채점 완료':'AI Scoring Complete'} · ${fb.overall} · ${total}/${maxTotal} (${pct}%)</div></div>
+    </div>
+    <div class="score-chips">
+      ${Object.entries(scores).map(([k,v])=>`<div class="score-chip"><div class="sc-name">${k.replace('_',' ')}</div><div class="sc-val">${v.score}</div><div class="sc-max">/ ${v.max}</div></div>`).join('')}
+    </div>
+    <div class="feedback-body">
+      <div class="fb-section">
+        <div class="fb-section-title">✅ ${lang==='ko'?'강점':'Strengths'}</div>
+        <div class="fb-text">${lang==='ko'?(fb.strengths_ko||fb.strengths):fb.strengths}</div>
+      </div>
+      <div class="fb-section">
+        <div class="fb-section-title">📈 ${lang==='ko'?'개선점':'Areas to Improve'}</div>
+        <div class="fb-text">${lang==='ko'?(fb.improvements_ko||fb.improvements):fb.improvements}</div>
+      </div>
+      <div class="fb-section">
+        <div class="fb-section-title">📝 ${lang==='ko'?'고득점 예시 답변':'High-Scoring Sample Response'}</div>
+        <div class="sample-response">${fb.sampleResponse||currentData.sampleResponse}</div>
+      </div>
+    </div>`;
+  fc.style.display='block';
+
+  const area=document.getElementById('content-area');
+  area.appendChild(fc);
+  fc.scrollIntoView({behavior:'smooth',block:'start'});
+
+  const btn=document.getElementById('submit-btn');
+  if(btn){ btn.disabled=false; btn.innerHTML=`🔄 ${lang==='ko'?'다시 제출':'Resubmit'}`; }
+}
+
+function initTutor(){
+  messages=[]; document.getElementById('tutor-messages').innerHTML='';
+  const t=TASK_INFO[currentTask];
+  addMsg('ai',lang==='ko'
+    ?`안녕하세요! ✍️ **${t.titleKo}** 준비 완료!\n\n💡 팁: ${t.descKo.slice(0,80)}...\n\n작성 중 도움이 필요하면 언제든 질문하세요!`
+    :`Hi! ✍️ **${t.titleEn}** is ready!\n\n💡 Tip: Start with a clear topic sentence, then address each point systematically.\n\nAsk me anything while you write!`);
+  const qs=lang==='ko'
+    ?['작성 팁 알려줘','예시 문장 보여줘','고득점 전략','어휘 도움']
+    :['Writing tips','Show example sentences','High-score strategies','Vocabulary help'];
+  document.getElementById('quick-questions').innerHTML=qs.map(q=>`<button class="quick-btn" onclick="askQ(this)">${q}</button>`).join('');
+  document.getElementById('tutor-section').style.display='block';
+}
+
+function askQ(btn){ document.getElementById('user-input').value=btn.textContent; sendMsg(); }
+
+async function sendMsg(){
+  const inp=document.getElementById('user-input');
+  const text=inp.value.trim(); if(!text||isLoading) return;
+  inp.value=''; addMsg('user',text); messages.push({role:'user',content:text});
+  document.getElementById('send-btn').disabled=true;
+  const tid=showTyping();
+  const sys=lang==='ko'
+    ?`당신은 TOEFL iBT 쓰기 전문 코치입니다. 현재 과제: ${TASK_INFO[currentTask].titleKo}. 주제: ${currentData?.topic}. 한국어로 구체적이고 실용적인 조언을 주세요.`
+    :`You are a TOEFL iBT Writing expert coach. Current task: ${TASK_INFO[currentTask].titleEn}. Topic: ${currentData?.topic}. Give specific, actionable writing advice.`;
+  try{
+    const r=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,system:sys,messages:messages.slice(-6)})});
+    const d=await r.json(); removeTyping(tid);
+    const rep=d.content[0].text; messages.push({role:'assistant',content:rep}); addMsg('ai',rep);
+  }catch(e){ removeTyping(tid); addMsg('ai','⚠️ Error. Please try again.'); }
+  document.getElementById('send-btn').disabled=false;
+}
+
+function addMsg(role,text){
+  const wrap=document.getElementById('tutor-messages');
+  const d=document.createElement('div'); d.className='msg '+role;
+  d.innerHTML=`<div class="msg-av ${role}">${role==='ai'?'🤖':'👤'}</div><div class="msg-bub">${text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
+  wrap.appendChild(d); wrap.scrollTop=wrap.scrollHeight;
+}
+function showTyping(){
+  const wrap=document.getElementById('tutor-messages');
+  const id='t'+Date.now(); const d=document.createElement('div'); d.className='msg ai'; d.id=id;
+  d.innerHTML=`<div class="msg-av ai">🤖</div><div class="typing"><span></span><span></span><span></span></div>`;
+  wrap.appendChild(d); wrap.scrollTop=wrap.scrollHeight; return id;
+}
+function removeTyping(id){ const e=document.getElementById(id); if(e) e.remove(); }
+
+(function(){
+  let saved; try{saved=localStorage.getItem('lw-lang');}catch(e){}
+  setLang(saved||((navigator.language||'').startsWith('ko')?'ko':'en'));
+  renderTaskInfo();
+})();
+</script>
+</body>
+</html>
