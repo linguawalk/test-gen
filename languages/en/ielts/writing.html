@@ -425,6 +425,7 @@ function renderChart(d){
 }
 
 
+function updateWC(){
   const ta=document.getElementById('writing-area'); if(!ta) return;
   const wc=ta.value.trim().split(/\s+/).filter(w=>w).length;
   const el=document.getElementById('wc-label'); if(el) el.textContent=wc+' words';
