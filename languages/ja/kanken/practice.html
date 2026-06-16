@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaWalk — 漢字検定 練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B45;--teal:#2A7F6F;--teal-mid:#1D9E75;
+  --bg:#F8F7F4;--white:#fff;--text:#1C2B45;--text-muted:#5a6a82;--text-light:#94a3b8;
+  --border:rgba(28,43,69,0.1);--border-md:rgba(28,43,69,0.18);
+  --gold:#b45309;--gold-dark:#92400e;--gold-light:#fef3c7;
+  --green:#16a34a;--green-light:#dcfce7;--red:#e24b4a;--red-light:#fee2e2;
+}
+body{font-family:'DM Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{background:rgba(28,43,69,0.97);height:56px;display:flex;align-items:center;padding:0 5%;border-bottom:0.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-lm{width:28px;height:28px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
+.nav-lt{font-size:16px;font-weight:600;color:#fff;}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 12px;}
+.nav-page{font-size:13px;color:rgba(255,255,255,0.6);}
+.nav-space{flex:1;}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;padding:6px 10px;border-radius:7px;transition:all .2s;}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.lang-sw{display:flex;background:rgba(255,255,255,0.08);border-radius:7px;padding:2px;gap:2px;margin-left:8px;}
+.lbtn{padding:4px 10px;border-radius:5px;font-size:11px;font-weight:500;border:none;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:inherit;transition:all .2s;}
+.lbtn.act{background:var(--gold);color:#fff;}
+.main{max-width:760px;margin:0 auto;padding:28px 5% 80px;}
+.hero{background:linear-gradient(135deg,var(--gold-dark),var(--gold));border-radius:14px;padding:22px 26px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-20px;top:-20px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.hero-grade{font-family:'DM Serif Display',serif;font-size:40px;color:#fff;line-height:1;margin-bottom:6px;}
+.hero-name{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:10px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:3px 12px;border-radius:20px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);border:0.5px solid rgba(255,255,255,0.25);}
+/* Type tabs */
+.type-tabs{display:flex;background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:4px;margin-bottom:16px;gap:4px;}
+.type-tab{flex:1;padding:10px 6px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;transition:all .2s;text-align:center;}
+.type-tab.act{background:var(--gold);color:#fff;}
+.info-box{background:var(--gold-light);border-radius:10px;padding:11px 15px;margin-bottom:16px;font-size:12px;color:var(--gold-dark);line-height:1.65;border-left:3px solid var(--gold);}
+.settings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.setting-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:130px;}
+.si-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+.si-select{width:100%;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--text);font-family:inherit;cursor:pointer;outline:none;}
+.gen-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:600;background:var(--gold);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .2s;margin-bottom:20px;}
+.gen-btn:hover{background:var(--gold-dark);}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+.loading-overlay{padding:48px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;margin-bottom:20px;display:none;}
+.loading-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--text-muted);}
+/* Score bar */
+.score-bar{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:14px;display:none;align-items:center;gap:12px;}
+.sb-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--gold);line-height:1;}
+.sb-label{font-size:12px;color:var(--text-muted);}
+.sb-bar{flex:1;height:8px;background:var(--bg);border-radius:10px;overflow:hidden;}
+.sb-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:10px;transition:width .3s;}
+.sb-count{font-size:12px;color:var(--text-light);white-space:nowrap;}
+/* Question card */
+.q-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.q-hdr{padding:12px 18px;background:var(--gold-light);border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.q-hdr-label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gold-dark);}
+.q-num{font-size:11px;color:var(--text-muted);}
+.q-body{padding:20px 22px;}
+/* 漢字 display */
+.kanji-big{font-size:72px;line-height:1.1;color:var(--text);text-align:center;padding:20px 0 14px;font-family:'Noto Sans JP',sans-serif;letter-spacing:4px;}
+.kanji-context{font-size:16px;color:var(--text-muted);text-align:center;margin-bottom:16px;font-family:'Noto Sans JP',sans-serif;line-height:1.7;}
+.kanji-context .highlight{color:var(--gold-dark);font-weight:700;border-bottom:2px solid var(--gold);}
+.reading-hint{font-size:13px;color:var(--text-light);text-align:center;margin-bottom:16px;}
+/* Options */
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0;}
+.opt-btn{padding:14px 10px;border-radius:10px;border:1.5px solid var(--border-md);background:var(--white);cursor:pointer;font-size:15px;color:var(--text);transition:all .2s;text-align:center;font-family:'Noto Sans JP',sans-serif;font-weight:500;}
+.opt-btn:hover:not(:disabled){border-color:var(--gold);background:var(--gold-light);}
+.opt-btn.correct{border-color:var(--green);background:var(--green-light);color:var(--green);font-weight:700;}
+.opt-btn.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.opt-btn:disabled{cursor:default;}
+.q-feedback{margin-top:12px;font-size:13px;padding:10px 14px;border-radius:8px;display:none;line-height:1.6;font-family:'Noto Sans JP',sans-serif;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-light);color:var(--green);}
+.q-feedback.wrong{background:var(--red-light);color:var(--red);}
+/* Result */
+.result-card{background:linear-gradient(135deg,var(--gold-dark),var(--gold));border-radius:14px;padding:28px;text-align:center;margin-bottom:20px;display:none;}
+.rc-grade{font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+.rc-score{font-family:'DM Serif Display',serif;font-size:56px;color:#fff;line-height:1;margin-bottom:6px;}
+.rc-pct{font-size:15px;color:rgba(255,255,255,0.8);margin-bottom:10px;}
+.rc-msg{font-size:14px;color:#fde68a;font-weight:600;}
+/* Tutor */
+.tutor-wrap{background:var(--white);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px;display:none;}
+.tutor-hdr{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--gold-light);border-bottom:0.5px solid var(--border);}
+.tutor-av{width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.tutor-name{font-size:13px;font-weight:600;color:var(--gold-dark);}
+.tutor-msgs{padding:14px 16px;min-height:70px;max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+.msg{display:flex;gap:8px;align-items:flex-start;}
+.msg.user{flex-direction:row-reverse;}
+.msg-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:2px;}
+.msg-av.ai{background:var(--gold);color:#fff;}
+.msg-av.user{background:var(--navy);color:#fff;}
+.msg-bub{max-width:80%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.65;font-family:'Noto Sans JP',sans-serif;}
+.msg.ai .msg-bub{background:var(--bg);border-radius:4px 12px 12px 12px;}
+.msg.user .msg-bub{background:var(--navy);color:#fff;border-radius:12px 4px 12px 12px;}
+.typing{display:flex;gap:4px;align-items:center;padding:9px 13px;background:var(--bg);border-radius:4px 12px 12px 12px;width:fit-content;}
+.typing span{width:5px;height:5px;border-radius:50%;background:var(--text-light);animation:bounce 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.quick-wrap{padding:0 16px 10px;display:flex;gap:6px;flex-wrap:wrap;}
+.quick-btn{padding:4px 10px;border-radius:14px;font-size:12px;border:0.5px solid var(--border-md);background:transparent;color:var(--text-muted);cursor:pointer;font-family:'Noto Sans JP',sans-serif;}
+.quick-btn:hover{border-color:var(--gold);color:var(--gold-dark);}
+.tutor-inp-wrap{display:flex;gap:8px;padding:10px 16px;border-top:0.5px solid var(--border);}
+.tutor-inp{flex:1;padding:8px 12px;border:0.5px solid var(--border-md);border-radius:8px;font-size:13px;font-family:'Noto Sans JP',sans-serif;background:var(--bg);outline:none;}
+.tutor-inp:focus{border-color:var(--gold);}
+.send-btn{width:34px;height:34px;border-radius:8px;background:var(--gold);border:none;cursor:pointer;color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;}
+.send-btn:disabled{background:var(--border-md);cursor:not-allowed;}
+.act-row{display:none;gap:10px;margin-bottom:20px;}
+.act-btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;border:0.5px solid var(--border-md);background:var(--white);color:var(--text);text-decoration:none;text-align:center;display:block;}
+.act-btn.primary{background:var(--gold);color:#fff;border-color:var(--gold);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .3s ease forwards;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/languages/ja/index.html" class="nav-logo"><div class="nav-lm">LW</div><span class="nav-lt">LinguaWalk</span></a>
+  <div class="nav-sep"></div>
+  <span class="nav-page" id="nav-page">漢検 練習</span>
+  <div class="nav-space"></div>
+  <a href="index.html" class="nav-back" id="nav-back">← 漢検</a>
+  <div class="lang-sw">
+    <button class="lbtn act" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lbtn" onclick="setLang('ja')" id="btn-ja">日本語</button>
+  </div>
+</nav>
+
+<div class="main fade-in">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-grade" id="hero-grade">4級</div>
+    <div class="hero-name" id="hero-name"></div>
+    <div class="hero-badges" id="hero-badges"></div>
+  </div>
+
+  <!-- Type tabs -->
+  <div class="type-tabs">
+    <button class="type-tab act" onclick="selType('yomi',this)">読み</button>
+    <button class="type-tab" onclick="selType('kaki',this)">書き</button>
+    <button class="type-tab" onclick="selType('bushu',this)">部首</button>
+    <button class="type-tab" onclick="selType('jukugo',this)">熟語</button>
+  </div>
+
+  <div class="info-box" id="info-box"></div>
+
+  <div class="settings-row">
+    <div class="setting-item">
+      <div class="si-label" id="lbl-qcount">문항 수</div>
+      <select class="si-select" id="sel-count">
+        <option value="5">5問</option>
+        <option value="8" selected>8問</option>
+        <option value="10">10問</option>
+      </select>
+    </div>
+    <div class="setting-item">
+      <div class="si-label" id="lbl-diff">난이도</div>
+      <select class="si-select" id="sel-diff">
+        <option value="基礎">基礎 (기초)</option>
+        <option value="標準" selected>標準 (표준)</option>
+        <option value="応用">応用 (응용)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="gen-btn" id="gen-btn" onclick="generate()">🖊️ <span id="gen-btn-label">문제 생성</span></button>
+  <div class="loading-overlay" id="loading-overlay"><div class="loading-spinner"></div><div class="loading-text" id="loading-text">AI가 문제를 생성하고 있습니다...</div></div>
+
+  <div class="score-bar" id="score-bar">
+    <div><div class="sb-num" id="sb-num">0/0</div><div class="sb-label" id="sb-label">정답</div></div>
+    <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
+    <div class="sb-count" id="sb-count"></div>
+  </div>
+
+  <div id="content-area"></div>
+
+  <div class="result-card" id="result-card">
+    <div class="rc-grade" id="rc-grade"></div>
+    <div class="rc-score" id="rc-score"></div>
+    <div class="rc-pct" id="rc-pct"></div>
+    <div class="rc-msg" id="rc-msg"></div>
+  </div>
+
+  <div class="tutor-wrap" id="tutor-wrap">
+    <div class="tutor-hdr"><div class="tutor-av">🤖</div><div><div class="tutor-name" id="tutor-name">AI 漢検 先生</div></div></div>
+    <div class="tutor-msgs" id="tutor-msgs"></div>
+    <div class="quick-wrap" id="quick-wrap"></div>
+    <div class="tutor-inp-wrap">
+      <input class="tutor-inp" id="tutor-inp" placeholder="질문하세요..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" id="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+
+  <div class="act-row" id="act-row">
+    <button class="act-btn primary" onclick="generate()" id="btn-retry">🔄 새 문제</button>
+    <a href="index.html" class="act-btn" id="btn-home">← 漢検 홈</a>
+  </div>
+</div>
+
+<script>
+const GRADE_INFO = {
+  '10': { ja:'10級', ko:'10급', level:'小学1年', kanji:80,  badge:'入門' },
+  '9':  { ja:'9級',  ko:'9급',  level:'小学2年', kanji:160, badge:'初級' },
+  '8':  { ja:'8級',  ko:'8급',  level:'小学3年', kanji:200, badge:'初級' },
+  '7':  { ja:'7級',  ko:'7급',  level:'小学4年', kanji:202, badge:'初級' },
+  '6':  { ja:'6級',  ko:'6급',  level:'小学5年', kanji:193, badge:'中級' },
+  '5':  { ja:'5級',  ko:'5급',  level:'小学6年', kanji:191, badge:'中級' },
+  '4':  { ja:'4級',  ko:'4급',  level:'中学1年程度', kanji:313, badge:'中級' },
+  '3':  { ja:'3級',  ko:'3급',  level:'中学2-3年程度', kanji:284, badge:'上級' },
+  'j2': { ja:'準2級', ko:'준2급', level:'高校在学程度', kanji:328, badge:'上級' },
+  '2':  { ja:'2級',  ko:'2급',  level:'高校卒業程度', kanji:185, badge:'最上級' },
+  'j1': { ja:'準1級', ko:'준1급', level:'大学・一般程度', kanji:3000, badge:'最上級' },
+  '1':  { ja:'1級',  ko:'1급',  level:'大学・一般（上位）', kanji:6355, badge:'最難関' }
+};
+
+const TYPE_INFO = {
+  yomi:  { ja:'読み',  ko:'읽기 (読み)', desc_ko:'한자의 음독(音読み)·훈독(訓読み)을 히라가나로 답합니다.', desc_ja:'漢字の読みをひらがなで答えます。', icon:'📖' },
+  kaki:  { ja:'書き',  ko:'쓰기 (書き)', desc_ko:'히라가나로 제시된 단어를 한자로 변환합니다.', desc_ja:'ひらがなを漢字に直します。', icon:'✏️' },
+  bushu: { ja:'部首',  ko:'부수 (部首)', desc_ko:'한자의 부수를 선택합니다. 부수는 한자 사전의 기본 분류 단위입니다.', desc_ja:'漢字の部首を選びます。', icon:'🔑' },
+  jukugo:{ ja:'熟語',  ko:'숙어·사자성어 (熟語)', desc_ko:'2~4자 한자 숙어의 의미 또는 빈칸을 완성합니다.', desc_ja:'熟語の意味や読み方を答えます。', icon:'📚' }
+};
+
+let lang = 'ko', grade = '4', qtype = 'yomi';
+let isLoading = false, data = null, msgs = [];
+let correct = 0, answered = 0, total = 0;
+
+// ── 초기화 ────────────────────────────────────────────
+function init() {
+  const params = new URLSearchParams(window.location.search);
+  const g = params.get('grade');
+  if (g && GRADE_INFO[g]) grade = g;
+  let s; try { s = localStorage.getItem('lw-lang-ja'); } catch(e) {}
+  setLang(s || 'ko');
+  updateHero();
+  renderInfo();
+}
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-ko').classList.toggle('act', l === 'ko');
+  document.getElementById('btn-ja').classList.toggle('act', l === 'ja');
+  updateHero();
+  renderInfo();
+  updateLabels();
+  try { localStorage.setItem('lw-lang-ja', l); } catch(e) {}
+}
+
+function updateLabels() {
+  const ko = lang === 'ko';
+  document.getElementById('lbl-qcount').textContent = ko ? '문항 수' : '問題数';
+  document.getElementById('lbl-diff').textContent = ko ? '난이도' : '難易度';
+  document.getElementById('loading-text').textContent = ko ? 'AI가 문제를 생성하고 있습니다...' : 'AIが問題を生成しています...';
+  document.getElementById('sb-label').textContent = ko ? '정답' : '正解';
+  document.getElementById('btn-retry').textContent = ko ? '🔄 새 문제' : '🔄 新しい問題';
+  document.getElementById('btn-home').textContent = ko ? '← 漢検 홈' : '← 漢検ホーム';
+  document.getElementById('nav-back').textContent = ko ? '← 漢検' : '← 漢検';
+  document.getElementById('tutor-inp').placeholder = ko ? '질문하세요...' : '質問してください...';
+  document.getElementById('tutor-name').textContent = ko ? 'AI 漢検 先生' : 'AI漢検先生';
+}
+
+function updateHero() {
+  const G = GRADE_INFO[grade];
+  const ko = lang === 'ko';
+  document.getElementById('nav-page').textContent = `漢検 ${G.ja} 練習`;
+  document.getElementById('hero-grade').textContent = G.ja;
+  document.getElementById('hero-name').textContent = ko ? `${G.ko} · ${G.level} · 対象漢字 ${G.kanji}字` : `${G.level} · 対象漢字 ${G.kanji}字`;
+  document.getElementById('hero-badges').innerHTML = `<span class="hero-badge">${G.badge}</span><span class="hero-badge">🤖 AI 生成</span><span class="hero-badge">한국어 해설</span>`;
+}
+
+function selType(t, btn) {
+  qtype = t;
+  document.querySelectorAll('.type-tab').forEach(b => b.classList.remove('act')); btn.classList.add('act');
+  renderInfo(); reset();
+}
+
+function renderInfo() {
+  const T = TYPE_INFO[qtype];
+  document.getElementById('info-box').textContent = (lang === 'ko' ? T.desc_ko : T.desc_ja);
+  document.getElementById('gen-btn-label').textContent = lang === 'ko'
+    ? `${T.icon} ${T.ko} 문제 생성`
+    : `${T.icon} ${T.ja}の問題を生成`;
+}
+
+// ── 리셋 ──────────────────────────────────────────────
+function reset() {
+  isLoading = false;
+  document.getElementById('loading-overlay').style.display = 'none';
+  document.getElementById('gen-btn').disabled = false;
+  document.getElementById('content-area').innerHTML = '';
+  document.getElementById('score-bar').style.display = 'none';
+  document.getElementById('result-card').style.display = 'none';
+  document.getElementById('tutor-wrap').style.display = 'none';
+  document.getElementById('act-row').style.display = 'none';
+  correct = 0; answered = 0; total = 0; data = null; msgs = [];
+}
+
+function doneLoading() {
+  document.getElementById('loading-overlay').style.display = 'none';
+  isLoading = false; document.getElementById('gen-btn').disabled = false;
+}
+
+function showErr(e) {
+  doneLoading();
+  document.getElementById('content-area').innerHTML = `<div style="padding:32px;text-align:center;background:var(--white);border:0.5px solid var(--border);border-radius:14px;color:var(--text-muted)">⚠️ ${lang === 'ko' ? '생성 실패. 다시 시도해 주세요.' : '生成に失敗しました。再試行してください。'}<br><small style="color:var(--text-light);margin-top:6px;display:block;">${e.message || ''}</small></div>`;
+  console.error(e);
+}
+
+async function callAPI(prompt, maxTokens) {
+  const r = await fetch('/api/claude', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'anthropic-version': '2023-06-01' },
+    body: JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: maxTokens || 3000, messages: [{ role: 'user', content: prompt }] })
+  });
+  const d = await r.json();
+  if (d.error) throw new Error(JSON.stringify(d.error));
+  const txt = d.content[0].text;
+  const s = txt.indexOf('{'), e2 = txt.lastIndexOf('}');
+  if (s === -1) throw new Error('No JSON');
+  return JSON.parse(txt.slice(s, e2 + 1));
+}
+
+// ── 문제 생성 ─────────────────────────────────────────
+async function generate() {
+  if (isLoading) return;
+  reset();
+  isLoading = true;
+  document.getElementById('gen-btn').disabled = true;
+  document.getElementById('loading-overlay').style.display = 'block';
+
+  const G = GRADE_INFO[grade];
+  const T = TYPE_INFO[qtype];
+  const count = parseInt(document.getElementById('sel-count').value);
+  const diff = document.getElementById('sel-diff').value;
+
+  let prompt = '';
+  if (qtype === 'yomi') {
+    prompt = `Generate ${count} Japanese Kanji Kentei (漢字検定) 読み (reading) questions for ${G.ja} (${G.level}). Difficulty: ${diff}.
+Return a JSON object with:
+- questions: array of exactly ${count} objects, each with:
+  - id: number
+  - kanji: the kanji character or word to read (1-4 chars, appropriate for ${G.ja})
+  - sentence: a natural Japanese sentence using the kanji (with the target kanji in context)
+  - targetKanji: the specific kanji/word to read within the sentence
+  - choices: array of exactly 4 hiragana strings (one correct, three plausible wrong answers)
+  - answer: integer 0-3 (index of correct choice)
+  - reading: the correct reading in hiragana
+  - meaning_ko: brief Korean explanation of meaning
+  - explanation_ko: Korean explanation of why this reading is correct
+  - explanation_ja: Japanese explanation`;
+  } else if (qtype === 'kaki') {
+    prompt = `Generate ${count} Japanese Kanji Kentei (漢字検定) 書き (writing) questions for ${G.ja} (${G.level}). Difficulty: ${diff}.
+Return a JSON object with:
+- questions: array of exactly ${count} objects, each with:
+  - id: number
+  - reading: hiragana word to convert to kanji
+  - sentence: natural Japanese sentence with the target word shown in hiragana (underlined in context)
+  - targetReading: the specific hiragana to convert
+  - choices: array of exactly 4 kanji strings (one correct, three plausible wrong answers)
+  - answer: integer 0-3
+  - correctKanji: the correct kanji answer
+  - meaning_ko: Korean meaning of the word
+  - explanation_ko: Korean explanation
+  - explanation_ja: Japanese explanation`;
+  } else if (qtype === 'bushu') {
+    prompt = `Generate ${count} Japanese Kanji Kentei (漢字検定) 部首 (radical) questions for ${G.ja} (${G.level}). Difficulty: ${diff}.
+Return a JSON object with:
+- questions: array of exactly ${count} objects, each with:
+  - id: number
+  - kanji: the kanji character (appropriate for ${G.ja})
+  - questionType: either "identify" (identify the radical) or "group" (find kanji with same radical)
+  - question: the question text in Japanese
+  - choices: array of exactly 4 strings (radicals or kanji)
+  - answer: integer 0-3
+  - correctBushu: the correct radical
+  - bushuName: name of the radical
+  - meaning_ko: Korean explanation of the radical meaning
+  - explanation_ko: Korean explanation
+  - explanation_ja: Japanese explanation`;
+  } else {
+    prompt = `Generate ${count} Japanese Kanji Kentei (漢字検定) 熟語 (compound word) questions for ${G.ja} (${G.level}). Difficulty: ${diff}.
+Return a JSON object with:
+- questions: array of exactly ${count} objects, each with:
+  - id: number
+  - jukugo: the compound kanji word (2-4 characters, appropriate for ${G.ja})
+  - questionType: either "meaning" (choose meaning) or "reading" (choose reading) or "complete" (fill in blank kanji)
+  - question: the question text
+  - choices: array of exactly 4 strings
+  - answer: integer 0-3
+  - reading: correct reading in hiragana
+  - meaning_ja: Japanese meaning
+  - meaning_ko: Korean meaning
+  - explanation_ko: Korean explanation
+  - explanation_ja: Japanese explanation`;
+  }
+
+  try {
+    data = await callAPI(prompt, 3500);
+    total = data.questions.length;
+    doneLoading();
+    renderQuestions();
+    document.getElementById('score-bar').style.display = 'flex';
+    updateScore();
+    initTutor();
+    document.getElementById('act-row').style.display = 'flex';
+  } catch(e) { showErr(e); }
+}
+
+// ── 렌더링 ────────────────────────────────────────────
+function renderQuestions() {
+  const area = document.getElementById('content-area'); area.innerHTML = '';
+  const T = TYPE_INFO[qtype];
+  (data.questions || []).forEach(q => {
+    const card = document.createElement('div'); card.className = 'q-card';
+    const hdr = document.createElement('div'); hdr.className = 'q-hdr';
+    hdr.innerHTML = `<span class="q-hdr-label">${T.icon} ${lang === 'ko' ? T.ko : T.ja}</span><span class="q-num">第${q.id}問 / ${total}問</span>`;
+    const bod = document.createElement('div'); bod.className = 'q-body';
+
+    // 문제 표시 (유형별)
+    if (qtype === 'yomi') {
+      const sent = (q.sentence || '').replace(q.targetKanji || q.kanji, `<span class="highlight">${q.targetKanji || q.kanji}</span>`);
+      bod.innerHTML = `<div class="kanji-context">${sent}</div>
+        <div class="reading-hint">${lang === 'ko' ? '👆 강조된 한자의 읽기를 고르세요' : '👆 強調された漢字の読みを選んでください'}</div>
+        ${q.meaning_ko && lang === 'ko' ? `<div style="font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:14px;">(${q.meaning_ko})</div>` : ''}`;
+    } else if (qtype === 'kaki') {
+      const sent = (q.sentence || '').replace(q.targetReading || q.reading, `<span class="highlight">${q.targetReading || q.reading}</span>`);
+      bod.innerHTML = `<div class="kanji-context">${sent}</div>
+        <div class="reading-hint">${lang === 'ko' ? '👆 강조된 히라가나를 한자로 고르세요' : '👆 強調されたひらがなを漢字に直してください'}</div>
+        ${q.meaning_ko && lang === 'ko' ? `<div style="font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:14px;">(${q.meaning_ko})</div>` : ''}`;
+    } else if (qtype === 'bushu') {
+      bod.innerHTML = `<div class="kanji-big">${q.kanji}</div>
+        <div class="reading-hint">${q.question || (lang === 'ko' ? '이 한자의 부수는 무엇인가요?' : 'この漢字の部首は何ですか？')}</div>`;
+    } else {
+      bod.innerHTML = `<div class="kanji-big">${q.jukugo}</div>
+        <div class="reading-hint">${q.question || ''}</div>
+        ${q.reading ? `<div style="font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:10px;">(${q.reading})</div>` : ''}`;
+    }
+
+    // 선택지
+    const grid = document.createElement('div'); grid.className = 'opts-grid'; grid.id = 'opts-' + q.id;
+    (q.choices || []).forEach((c, i) => {
+      const b = document.createElement('button'); b.className = 'opt-btn';
+      b.textContent = c;
+      b.onclick = () => answerQ(q.id, i, b, q.answer, q);
+      grid.appendChild(b);
+    });
+    bod.appendChild(grid);
+
+    // 피드백
+    const fb = document.createElement('div'); fb.className = 'q-feedback'; fb.id = 'fb-' + q.id;
+    bod.appendChild(fb);
+
+    card.append(hdr, bod); area.appendChild(card);
+  });
+}
+
+function answerQ(qId, idx, btn, answer, q) {
+  const opts = document.getElementById('opts-' + qId)?.querySelectorAll('.opt-btn');
+  if (!opts || opts[0]?.disabled) return;
+  opts.forEach(b => b.disabled = true);
+  opts[answer].classList.add('correct');
+  if (idx !== answer) btn.classList.add('wrong');
+  answered++; if (idx === answer) correct++;
+
+  const fb = document.getElementById('fb-' + qId);
+  if (fb) {
+    const isOk = idx === answer;
+    const expl = lang === 'ko' ? (q.explanation_ko || '') : (q.explanation_ja || '');
+    const correctVal = q.choices[answer] || '';
+    fb.innerHTML = `${isOk ? `✅ ${lang === 'ko' ? '정답!' : '正解！'}` : `❌ ${lang === 'ko' ? `오답. 정답: ${correctVal}` : `不正解。正解: ${correctVal}`}`} ${expl}`;
+    fb.className = 'q-feedback show ' + (isOk ? 'correct' : 'wrong');
+  }
+  updateScore();
+  if (answered >= total) showResult();
+}
+
+function updateScore() {
+  const pct = total ? Math.round(answered / total * 100) : 0;
+  document.getElementById('sb-num').textContent = `${correct}/${total}`;
+  document.getElementById('sb-fill').style.width = (answered / total * 100) + '%';
+  document.getElementById('sb-count').textContent = `${answered} / ${total}`;
+}
+
+function showResult() {
+  const pct = Math.round(correct / total * 100);
+  const rc = document.getElementById('result-card'); rc.style.display = 'block';
+  const G = GRADE_INFO[grade];
+  document.getElementById('rc-grade').textContent = `${G.ja} · ${TYPE_INFO[qtype][lang === 'ko' ? 'ko' : 'ja']}`;
+  document.getElementById('rc-score').textContent = `${correct}/${total}`;
+  document.getElementById('rc-pct').textContent = `${pct}%`;
+  document.getElementById('rc-msg').textContent = pct >= 80
+    ? (lang === 'ko' ? '🎉 합격권! 훌륭합니다!' : '🎉 合格圏！素晴らしい！')
+    : pct >= 60
+    ? (lang === 'ko' ? '👍 좋습니다! 조금 더 연습하세요.' : '👍 良いです！もう少し練習しましょう。')
+    : (lang === 'ko' ? '💪 계속 연습하세요!' : '💪 引き続き練習しましょう！');
+  rc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ── AI 튜터 ──────────────────────────────────────────
+function initTutor() {
+  msgs = []; document.getElementById('tutor-msgs').innerHTML = '';
+  const G = GRADE_INFO[grade];
+  const T = TYPE_INFO[qtype];
+  addMsg('ai', lang === 'ko'
+    ? `안녕하세요! 漢検 ${G.ko} **${T.ko}** 문제가 준비됐어요! 🖊️\n\n모르는 한자나 부수, 어원이 궁금하면 언제든 물어보세요!`
+    : `漢検${G.ja} **${T.ja}**の練習を始めましょう！🖊️\n\n分からない漢字や部首があれば、いつでも聞いてください！`);
+  const qs = lang === 'ko'
+    ? ['이 한자 어원 알려줘', '부수 설명해줘', '외우는 방법', '틀린 문제 해설']
+    : ['この漢字の成り立ち', '部首を説明して', '覚え方を教えて', '間違えた問題を解説'];
+  document.getElementById('quick-wrap').innerHTML = qs.map(q => `<button class="quick-btn" onclick="document.getElementById('tutor-inp').value='${q}';sendMsg()">${q}</button>`).join('');
+  document.getElementById('tutor-wrap').style.display = 'block';
+}
+
+async function sendMsg() {
+  const inp = document.getElementById('tutor-inp'); const txt = inp.value.trim(); if (!txt) return;
+  inp.value = ''; addMsg('user', txt); msgs.push({ role: 'user', content: txt });
+  document.getElementById('send-btn').disabled = true; const tid = showTyping();
+  const G = GRADE_INFO[grade]; const T = TYPE_INFO[qtype];
+  try {
+    const r = await fetch('/api/claude', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: 400,
+        system: lang === 'ko'
+          ? `漢字検定 ${G.ko} ${T.ko} 전문 튜터. 한국어로 친절하고 간결하게 답하세요. 한자 설명 시 음독·훈독, 부수, 어원을 포함하세요.`
+          : `漢字検定${G.ja} ${T.ja}の専門チューター。日本語で丁寧かつ簡潔に答えてください。`,
+        messages: msgs.slice(-6) })
+    });
+    const d = await r.json(); removeTyping(tid);
+    const rep = d.content[0].text; msgs.push({ role: 'assistant', content: rep }); addMsg('ai', rep);
+  } catch(e) { removeTyping(tid); addMsg('ai', '⚠️ Error'); }
+  document.getElementById('send-btn').disabled = false;
+}
+
+function addMsg(role, txt) {
+  const w = document.getElementById('tutor-msgs'); const d = document.createElement('div'); d.className = 'msg ' + role;
+  d.innerHTML = `<div class="msg-av ${role}">${role === 'ai' ? '🤖' : '👤'}</div><div class="msg-bub">${txt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</div>`;
+  w.appendChild(d); w.scrollTop = w.scrollHeight;
+}
+function showTyping() {
+  const w = document.getElementById('tutor-msgs'); const id = 't' + Date.now(); const d = document.createElement('div'); d.className = 'msg ai'; d.id = id;
+  d.innerHTML = `<div class="msg-av ai">🤖</div><div class="typing"><span></span><span></span><span></span></div>`;
+  w.appendChild(d); w.scrollTop = w.scrollHeight; return id;
+}
+function removeTyping(id) { const e = document.getElementById(id); if (e) e.remove(); }
+
+init();
+</script>
+</body>
+</html>
